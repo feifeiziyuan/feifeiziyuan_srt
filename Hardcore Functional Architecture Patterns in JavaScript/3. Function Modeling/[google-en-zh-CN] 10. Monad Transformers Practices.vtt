@@ -1,0 +1,471 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.232
+让我们来完成这些练习。
+Let's go through these exercises.
+
+2
+00:00:02.232 --> 00:00:05.677
+我们将讨论免费的 monads、镜头和使用任何东西构建应用程序
+And we'll talk about free monads, lenses and getting to app building with whatever
+
+3
+00:00:05.677 --> 00:00:07.730
+时间我们已经离开了我们可以构建的几个应用程序。
+time we have left for a couple of apps we can build.
+
+4
+00:00:08.810 --> 00:00:13.300
+所以我只是要快点完成这个但绝对阻止我
+So I'm just gonna go through this a little quickly but definitely stop me and
+
+5
+00:00:13.300 --> 00:00:14.760
+我会在我们走的时候回答任何问题。
+I'll answer any questions as we go.
+
+6
+00:00:16.500 --> 00:00:18.990
+所以我们用函数要么问。
+So we use function either ask.
+
+7
+00:00:18.990 --> 00:00:20.270
+由于我们在函数类型中，
+Since we're in the function type,
+
+8
+00:00:20.270 --> 00:00:25.060
+我们有一个我们之前看到的 ask 方法来获得这个配置。
+we have a ask method we saw earlier to get at this configuration.
+
+9
+00:00:25.060 --> 00:00:28.000
+然后返回端口，好吗？
+And then return the port, okay?
+
+10
+00:00:28.000 --> 00:00:34.310
+所以我会说 function 或者.ask，这是一个实际的函数类型。
+So I'll say function either.ask, and that is an actual function type.
+
+11
+00:00:34.310 --> 00:00:40.111
+所以现在我可以映射它并进入配置，进入 config.port。
+So now I can map over that and get to the config, get to config.port.
+
+12
+00:00:41.230 --> 00:00:45.180
+它有效，很酷。
+And it works, cool.
+
+13
+00:00:45.180 --> 00:00:48.704
+不太难，但我只是凭空拉出配置。
+Not too hard, but I just pull the config out of thin air.
+
+14
+00:00:48.704 --> 00:00:50.147
+它很甜。
+It's pretty sweet.
+
+15
+00:00:50.147 --> 00:00:54.282
+让我们更进一步。
+Let's take it a little further.
+
+16
+00:00:54.282 --> 00:00:59.730
+现在它说，使用示例一获取端口并连接到数据库。
+Now it says, use example one to get the port and connect to the db.
+
+17
+00:00:59.730 --> 00:01:03.770
+然后我们会发现这个想法是什么。
+And then we're gonna find whatever this idea is.
+
+18
+00:01:03.770 --> 00:01:08.850
+所以，就在这里使用示例一，调用它，它会给我
+So, just use example one here, call that, it'll give me
+
+19
+00:01:08.850 --> 00:01:14.355
+获取的端口 - 所以这当然不是端口号。
+the port to get the- so this, of course is not the port number.
+
+20
+00:01:14.355 --> 00:01:17.873
+我当然不应该说，但这仍然在一个函数中，对吧？
+I shouldn't say of course, but this is still inside a function either, right?
+
+21
+00:01:17.873 --> 00:01:22.900
+我们只是映射了它并更改了里面的值来保存端口。
+We just mapped it and changed the value inside to hold the port.
+
+22
+00:01:22.900 --> 00:01:24.720
+所以我们有一个函数要么持有一个端口。
+So we have a function either holding a port.
+
+23
+00:01:26.010 --> 00:01:29.269
+所以我们调用它来映射它以获取端口。
+So we call that to map over that to get the port.
+
+24
+00:01:29.269 --> 00:01:33.760
+整洁，然后从那里开始，我们必须做什么？
+Neat, and then from there, what do we have to do?
+
+25
+00:01:35.467 --> 00:01:41.823
+我们想连接到数据库，所以我们连接到数据库，它需要一个端口。
+We want to connect to the db, so we have connect to db, that takes a port.
+
+26
+00:01:41.823 --> 00:01:44.500
+然后这让我回归。
+And then that returns me in either.
+
+27
+00:01:47.320 --> 00:01:52.480
+的fakeDb 或离开未能连接。
+Of the fakeDb or left to failed to connect.
+
+28
+00:01:53.680 --> 00:02:00.327
+我也有一个函数，我试图映射它并返回一个。
+I have a function either, and I'm trying to map over that and return an either.
+
+29
+00:02:00.327 --> 00:02:03.092
+那么我也有一个功能。
+So then I'll have a function either either.
+
+30
+00:02:03.092 --> 00:02:07.620
+所以我们不想那样做，我们想要锁链然后我们想要举起，
+So we don't wanna do that, we wanna chain and then we wanna lift,
+
+31
+00:02:10.374 --> 00:02:16.680
+这要么进入功能要么，看看是否正常？
+This either into the function either, see if that's going all right?
+
+32
+00:02:16.680 --> 00:02:19.520
+最后一件事是找到 id。
+And the last thing is find the id.
+
+33
+00:02:19.520 --> 00:02:25.112
+我们有 id，我们有一个 fakeDb。
+We have the id, we have a fakeDb.
+
+34
+00:02:25.112 --> 00:02:28.596
+现在我们有了它，我们应该有一个 db.
+Now that we have that, we should have a db.
+
+35
+00:02:28.596 --> 00:02:34.108
+然后，我们想找到 db.find(id)。
+And then, we wanna find db.find(id).
+
+36
+00:02:34.108 --> 00:02:35.653
+糟糕，它还有另一个。
+Crap, it's got another either.
+
+37
+00:02:35.653 --> 00:02:39.402
+[笑] 链条的一部分。
+[LAUGH] Part of the chain.
+
+38
+00:02:39.402 --> 00:02:42.005
+我们将不得不举起。
+And we'll have to lift.
+
+39
+00:02:42.005 --> 00:02:43.709
+让我们看看是否做到了。
+Let's see if that did it.
+
+40
+00:02:43.709 --> 00:02:45.744
+嘿，那过去了。
+Hey, that passed.
+
+41
+00:02:45.744 --> 00:02:49.340
+人们是否明白为什么我不喜欢 monad 变压器？
+Are people seeing why I don't like monad transformers?
+
+42
+00:02:49.340 --> 00:02:52.777
+[笑] 但它们无处不在
+[LAUGH] But they're everywhere and
+
+43
+00:02:52.777 --> 00:02:57.050
+他们——也许他们更有意义。
+they're- perhaps they make more sense.
+
+44
+00:02:57.050 --> 00:03:04.034
+我可能会根据这些东西做出不公平的判断。
+I might be making an unfair judgement based on this stuff is fine.
+
+45
+00:03:04.034 --> 00:03:07.344
+基于 Javascript 因素的不公平判断。
+Unfair judgement based on factor in Javascript.
+
+46
+00:03:07.344 --> 00:03:11.633
+我们没有很多类型帮助之类的东西，
+And we don't have a lot of type help and stuff like that,
+
+47
+00:03:11.633 --> 00:03:15.211
+但它们在任何语言中都非常痛苦。
+but they're pretty painful in any language.
+
+48
+00:03:15.211 --> 00:03:18.744
+练习二。
+Exercise two.
+
+49
+00:03:18.744 --> 00:03:20.376
+让我们进入ReaderTask，有趣。
+Let's go into ReaderTask, fun.
+
+50
+00:03:20.376 --> 00:03:22.875
+我们有一个函数，持有一个任务。
+We have a function, holding a task.
+
+51
+00:03:22.875 --> 00:03:25.840
+我只是在这里称它为读者，因为这通常就是你所说的函数。
+I just called it reader here because that's usually what you call function.
+
+52
+00:03:27.875 --> 00:03:35.573
+我们将再次请求获取 postUrl 的服务器。
+And we're gonna ask again to get the server for the postUrl.
+
+53
+00:03:35.573 --> 00:03:39.618
+并从 ReaderTask 获取服务器变量。
+And get the server variable from ReaderTask.
+
+54
+00:03:39.618 --> 00:03:41.263
+男孩，这里到底发生了什么？
+Boy, what's even happening here?
+
+55
+00:03:41.263 --> 00:03:44.680
+[笑] 真的让我们为成功做好了准备。
+[LAUGH] Really sets us up for success y'all.
+
+56
+00:03:44.680 --> 00:03:47.883
+所以看起来服务器没有定义。
+So it looks like server is not defined.
+
+57
+00:03:47.883 --> 00:03:51.020
+我们需要得到服务器。
+We need to get the server.
+
+58
+00:03:51.020 --> 00:03:56.512
+所以我调用 ReaderTask.ask，我们将链接它以获取服务器。
+So I call ReaderTask.ask, and we'll chain over that to get the server.
+
+59
+00:03:58.564 --> 00:04:00.840
+我可以映射。
+And I could have mapped.
+
+60
+00:04:00.840 --> 00:04:04.870
+但我马上就知道里面的这个东西，
+But I know right off the bat that this thing inside,
+
+61
+00:04:04.870 --> 00:04:08.840
+它正在取物，这将是一项任务。
+it's doing a fetch, it's gonna be a task.
+
+62
+00:04:08.840 --> 00:04:13.031
+所以我可能只需要遍历 ReaderTask 来提升这个东西。
+So I'll probably have to just loop through ReaderTask that lift this thing.
+
+63
+00:04:13.031 --> 00:04:13.787
+那样有用吗？
+Does that work?
+
+64
+00:04:13.787 --> 00:04:18.493
+就是这样，很酷，所以，这有点 - 我们正在谈论
+There it is, cool, so, that is a little bit of a- we're talking
+
+65
+00:04:18.493 --> 00:04:21.747
+关于从 reader monad 中获取内容，
+about getting stuff out of the reader monad,
+
+66
+00:04:21.747 --> 00:04:25.959
+我们试图把东西放进去，但我们保持肤浅。
+we're trying to put stuff in and we're staying shallow.
+
+67
+00:04:25.959 --> 00:04:31.120
+所以这里没有我们在这里看到的那么糟糕。
+So it's not as bad here as what we saw over here.
+
+68
+00:04:31.120 --> 00:04:35.037
+但我只是想对使用这些东西有一点感觉。
+But I just wanna get a little bit of a feel to use these things.
+
+69
+00:04:35.037 --> 00:04:39.980
+因此，当我们非常严格时，我们可以使用它作为构建应用程序的工具——
+And so we can use this as a tool to build apps when we have very rigid-
+
+70
+00:04:39.980 --> 00:04:43.158
+还有一个，看看那个[笑]。
+there's another one, look at that [LAUGH].
+
+71
+00:04:43.158 --> 00:04:44.495
+好像已经过去了。
+Looks like it's already passing.
+
+72
+00:04:46.344 --> 00:04:52.390
+为了节省时间，我不想这样做，我只是跳过了这个。
+In the interest of time, I don't wanna do this, I just skipped this one.
+
+73
+00:04:52.390 --> 00:04:55.060
+我可以稍后发布答案。
+I could post the answer later.
+
+74
+00:04:55.060 --> 00:04:59.200
+但这试图解释的是我们一起做了什么。
+But what this is trying to explain is what we did together.
+
+75
+00:04:59.200 --> 00:05:01.620
+它有这些帖子，然后我们折叠。
+It's got these either posts, then we're folding.
+
+76
+00:05:01.620 --> 00:05:06.876
+我们更愿意做的是使用 Api2，它返回一个 TaskEither 和
+And what we'd rather do is use Api2, which returns us a TaskEither and
+
+77
+00:05:06.876 --> 00:05:09.864
+它只会清理整个事情。
+it would just clean this whole thing up.
+
+78
+00:05:09.864 --> 00:05:13.261
+所以它显示了它们真正闪耀的地方。
+So it shows where they actually shine.
+
+79
+00:05:13.261 --> 00:05:14.834
+让我们做吧，为什么不呢？
+Let's do it, why not?
+
+80
+00:05:14.834 --> 00:05:17.540
+[笑]你拉了我的腿。
+[LAUGH] You pulled my leg.
+
+81
+00:05:17.540 --> 00:05:18.960
+所以在这里我们只是得到了这个帖子。
+So here we just get the post.
+
+82
+00:05:18.960 --> 00:05:22.375
+等等，在这种情况下，那个点刺有意义吗[笑]？
+Wait, does that dot sting make sense [LAUGH] in this context?
+
+83
+00:05:22.375 --> 00:05:27.566
+[笑]让我拉我的手臂。
+[LAUGH] Made me pull my arm.
+
+84
+00:05:27.566 --> 00:05:35.140
+我们有 Api2 get post。
+And we have Api2 get post.
+
+85
+00:05:35.140 --> 00:05:37.530
+然后我们得到一个帖子。
+And then we get a post out.
+
+86
+00:05:37.530 --> 00:05:43.562
+而不是所有这些，我们可以只获取帖子标题并完成它。
+Instead of all this, we could just get the post title and be done with it.
+
+87
+00:05:43.562 --> 00:05:45.212
+那样有用吗？
+Does that work?
+
+88
+00:05:45.212 --> 00:05:46.677
+它有效，很酷。
+It works, cool.
+
+89
+00:05:46.677 --> 00:05:51.856
+所以你可以看到 Api2 更好，因为当我映射和链接时，我得到了帖子或
+So you can see Api2 is much nicer because as I map and chain, I get at the post or
+
+90
+00:05:51.856 --> 00:05:56.830
+无论它持有什么，而不是介于两者之间的中间类型。
+whatever it's holding, not the intermediate types in between.
+
+91
+00:05:56.830 --> 00:06:00.320
+如果你确实有一个类型，比如数据库的东西
+And if you do have a type, like a database thing and
+
+92
+00:06:00.320 --> 00:06:04.930
+你做一个任务，他们确实有一个地方，他们不是那么糟糕。
+you make a TaskEither, they do have a place where they're not so bad.
+
+93
+00:06:04.930 --> 00:06:07.630
+真的是当你开始有四五种类型时，你会返回不同的
+It's really when you start to have four or five types, you're returning different
+
+94
+00:06:07.630 --> 00:06:09.830
+类型，您必须将它们放在正确的插槽中等等。
+types and you have to put them in the right slots and so on.

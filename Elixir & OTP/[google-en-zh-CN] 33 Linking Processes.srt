@@ -1,0 +1,1765 @@
+1
+00:00:00,400 --> 00:00:01,800
+我们目前有三个
+we currently have three
+
+2
+00:00:01,900 --> 00:00:03,066
+服务器进程
+server processes
+
+3
+00:00:03,066 --> 00:00:05,966
+应该连续运行并且不会错过任何一个节拍
+that should run continuously and never miss a beat
+
+4
+00:00:06,066 --> 00:00:08,366
+但事情并不总是按计划进行
+but things don't always go according to plan
+
+5
+00:00:08,800 --> 00:00:10,200
+是的，一个进程可能会崩溃
+yeah a process can crash
+
+6
+00:00:10,200 --> 00:00:12,233
+当它发生时，我们需要采取行动
+and when it does we need to take action
+
+7
+00:00:12,333 --> 00:00:14,333
+所以我们的应用程序不会错过任何一个节拍
+so our application doesn't miss a beat
+
+8
+00:00:14,600 --> 00:00:16,466
+现在为这种容错设计
+now designing for this sort of fault tolerance
+
+9
+00:00:16,466 --> 00:00:17,900
+听起来很艰巨
+sounds like a tall order
+
+10
+00:00:18,000 --> 00:00:21,133
+但它已融入 erlangvm 和 otp 库
+but it's baked into the erlangvm and the otp libraries
+
+11
+00:00:21,966 --> 00:00:25,666
+这是我们的三个服务器进程 http server
+here are our three server processes http server
+
+12
+00:00:25,666 --> 00:00:27,633
+质押服务器和传感器服务器
+pledge server and sensor server
+
+13
+00:00:27,966 --> 00:00:31,200
+我们如何才能使这些流程能够适应故障
+how can we make these processes resilient to failures
+
+14
+00:00:31,433 --> 00:00:33,433
+好吧，我们想把一些东西到位
+well we want to put in place something
+
+15
+00:00:33,433 --> 00:00:35,266
+这将启动每个过程
+that will start each process
+
+16
+00:00:35,266 --> 00:00:37,833
+持续监控该过程
+continuously monitor that process
+
+17
+00:00:37,866 --> 00:00:40,633
+然后如果它检测到进程崩溃了
+and then if it detects that the process crashed
+
+18
+00:00:40,766 --> 00:00:42,400
+在它的位置开始一个新的过程
+start a new process in its place
+
+19
+00:00:42,933 --> 00:00:44,300
+那么我们将如何做到这一点
+so how are we going to do that
+
+20
+00:00:44,666 --> 00:00:47,366
+在质押服务器和传感器服务器的情况下
+well in the case of pledge server and sensor server
+
+21
+00:00:47,466 --> 00:00:50,400
+这些进程是 gen server 进程
+these processes are gen server processes
+
+22
+00:00:50,433 --> 00:00:53,166
+并且 otp 包括主管行为
+and otp includes a supervisor behavior
+
+23
+00:00:53,200 --> 00:00:55,433
+我们将在下一个模块中使用
+that we'll use in the next module to start
+
+24
+00:00:55,533 --> 00:00:58,700
+根据需要监控和启动新流程
+monitor and start new processes as necessary
+
+25
+00:00:58,966 --> 00:01:02,900
+但 tp 服务器进程不是 gen 服务器进程
+but the htp server process isn't a gen server process
+
+26
+00:01:02,900 --> 00:01:04,933
+这是一个常规的长生不老药过程
+it's a regular elixir process that
+
+27
+00:01:04,933 --> 00:01:07,300
+不遵循 otp 约定
+doesn't follow the otp conventions
+
+28
+00:01:07,366 --> 00:01:07,833
+并作为
+and as
+
+29
+00:01:07,833 --> 00:01:10,833
+这样我们就不能使用内置的主管行为
+such we can't use the built in supervisor behavior
+
+30
+00:01:11,066 --> 00:01:14,233
+相反，我们将编写一个简单的生成服务器进程，因为
+instead we'll write a simple gen server process because
+
+31
+00:01:14,266 --> 00:01:16,633
+正如我们将看到的，我们希望它很长
+as we'll see we want it to be a long
+
+32
+00:01:16,633 --> 00:01:20,233
+处理消息和存储状态的运行进程
+running process that handles messages and store state
+
+33
+00:01:20,533 --> 00:01:22,200
+我们将命名一个kickstarter
+and we'll name a kickstarter
+
+34
+00:01:22,200 --> 00:01:24,833
+考虑启动摩托车而不是
+think of kickstarting a motorcycle instead of the
+
+35
+00:01:24,833 --> 00:01:26,566
+热门融资平台
+popular funding platform
+
+36
+00:01:26,766 --> 00:01:29,266
+此过程将启动 http 服务器
+this process will start the http server
+
+37
+00:01:29,266 --> 00:01:31,866
+处理然后使用称为链接的东西
+process and then use something called a link
+
+38
+00:01:31,866 --> 00:01:34,133
+检测该进程何时崩溃
+to detect when that process crashes
+
+39
+00:01:34,166 --> 00:01:35,966
+所以它可以开始一个新的进程
+so it can start a new process
+
+40
+00:01:36,066 --> 00:01:39,266
+了解链接过程是
+and learning about linking processes is fundamental to
+
+41
+00:01:39,300 --> 00:01:42,266
+了解 otp 主管行为的工作原理
+understanding how the otp supervisor behavior works
+
+42
+00:01:42,266 --> 00:01:43,066
+在引擎盖下
+under the hood
+
+43
+00:01:43,766 --> 00:01:46,266
+好的，让我们创建 kickstarter 模块
+all right so let's create the kickstarter module
+
+44
+00:01:48,300 --> 00:01:49,733
+kickstarter dx
+kickstarter dx
+
+45
+00:01:52,466 --> 00:01:54,266
+这可能是服务启动器
+this could be serve kickstarter
+
+46
+00:01:54,700 --> 00:01:56,200
+然后我们希望这是一个生成服务器
+and then we want this to be a gen server
+
+47
+00:01:56,200 --> 00:01:58,233
+所以我们要说使用 gen server
+so we're going to say use gen server
+
+48
+00:01:58,700 --> 00:02:00,466
+然后就像我们的其他一代服务器一样
+and then just like our other gen servers
+
+49
+00:02:00,466 --> 00:02:02,466
+我们将编写一个启动包装函数
+we'll write a start wrapper function
+
+50
+00:02:03,433 --> 00:02:05,566
+我们先说 ioputas
+and we'll just start off by saying ioputas
+
+51
+00:02:06,200 --> 00:02:07,300
+启动kickstarter
+starting the kickstarter
+
+52
+00:02:10,066 --> 00:02:12,533
+然后它需要调用 gen server start
+and then it needs to call gen server start
+
+53
+00:02:13,400 --> 00:02:15,866
+实际启动 gen 服务器进程
+to actually start up the gen server process
+
+54
+00:02:16,200 --> 00:02:17,366
+然后这个模块
+and then this module
+
+55
+00:02:17,366 --> 00:02:19,600
+kickstarter 将成为回调模块
+kickstarter is going to be the callback module
+
+56
+00:02:19,733 --> 00:02:21,700
+所以我们将它设置为回调模块
+so we'll set that as the callback module
+
+57
+00:02:21,766 --> 00:02:23,066
+然后我们没有任何状态
+and then we don't have any state
+
+58
+00:02:23,100 --> 00:02:25,633
+所以我们只使用原子 ok 作为状态
+so we'll just use the atom ok for the state
+
+59
+00:02:25,966 --> 00:02:28,400
+然后我们也想注册这个进程
+and then we also want to register this process
+
+60
+00:02:28,666 --> 00:02:30,333
+在一个名字下，名字是
+under a name and the name is
+
+61
+00:02:30,333 --> 00:02:31,900
+实际上只是模块的名称
+actually just going to be the name of the module
+
+62
+00:02:31,900 --> 00:02:32,933
+所以我们将再次使用它
+so we'll use this again
+
+63
+00:02:33,400 --> 00:02:35,066
+所以这个过程的名字就是
+so the name of the process is just going to be
+
+64
+00:02:35,133 --> 00:02:36,400
+调查启动器
+survey kickstarter
+
+65
+00:02:36,966 --> 00:02:38,566
+kickstarter 进程何时开始
+when the kickstarter process starts
+
+66
+00:02:38,566 --> 00:02:42,300
+我们还想启动一个http服务器进程
+we also want to start an http server process
+
+67
+00:02:42,333 --> 00:02:44,533
+我们将其称为 Web 服务器进程
+we'll refer to this as the web server process
+
+68
+00:02:44,533 --> 00:02:47,933
+从现在开始，我们将在 nit 回调函数中执行此操作
+from now on we'll do that in the nit callback function
+
+69
+00:02:48,566 --> 00:02:51,266
+并且因为我们在 genserver start 中使用了 adam ok
+and because we use the adam ok in genserver start
+
+70
+00:02:51,566 --> 00:02:54,200
+好吧，它也需要在那里好，我们
+well it needs to take ok right there too and we
+
+71
+00:02:54,200 --> 00:02:54,333
+知道
+know
+
+72
+00:02:54,333 --> 00:02:56,833
+这将由 genserver 自动调用
+this is going to be automatically invoked by genserver
+
+73
+00:02:56,833 --> 00:02:59,066
+开始，因为我们在这里通过
+start and because we pass ok right here
+
+74
+00:02:59,300 --> 00:02:59,466
+好
+well
+
+75
+00:02:59,466 --> 00:03:02,033
+这就是为什么我们在这里需要 ok 以便模式匹配
+that's why we need ok here so that a pattern matches
+
+76
+00:03:02,033 --> 00:03:03,500
+它运行这个功能
+and it runs this function
+
+77
+00:03:03,833 --> 00:03:04,933
+然后我们就打印出来
+then we'll just print out
+
+78
+00:03:05,733 --> 00:03:07,833
+启动hdp服务器
+starting the hdp server
+
+79
+00:03:09,000 --> 00:03:10,900
+然后启动它，我们将使用 spawn
+and then to start it up we're going to use spawn
+
+80
+00:03:11,600 --> 00:03:13,433
+服务 hdp 服务器
+serve hdp server
+
+81
+00:03:13,633 --> 00:03:14,733
+功能是开始
+the function is start
+
+82
+00:03:14,833 --> 00:03:17,433
+然后我们想将端口 4000 传递给它
+and then we want to pass it the port 4000
+
+83
+00:03:17,433 --> 00:03:19,033
+就像我们做过很多次一样
+just like we've done many times
+
+84
+00:03:19,100 --> 00:03:20,800
+然后我们将捕获服务器 pid
+and then we'll capture the server pid
+
+85
+00:03:21,100 --> 00:03:21,900
+另一方面
+on the other side
+
+86
+00:03:22,900 --> 00:03:25,533
+哎呀，这实际上需要是 4000 而不是 400
+oops this actually needs to be 4000 instead of 400
+
+87
+00:03:25,866 --> 00:03:26,700
+好吧，让我们
+all right and let's
+
+88
+00:03:26,700 --> 00:03:29,166
+还要在别名下注册 Web 服务器进程
+also register the web server process under an alia
+
+89
+00:03:29,200 --> 00:03:31,300
+所以很容易证明崩溃它
+so it's easy to demonstrate crashing it
+
+90
+00:03:31,300 --> 00:03:32,966
+我们只会说进程注册
+we'll just say process register
+
+91
+00:03:34,633 --> 00:03:35,533
+服务器 pid
+the server pid
+
+92
+00:03:36,266 --> 00:03:38,800
+我们将在 score server 下将其命名为 http
+and we'll just name it http under score server
+
+93
+00:03:39,466 --> 00:03:41,200
+那么我们需要确保返回一个元组
+then we need to make sure to return a tuple
+
+94
+00:03:41,233 --> 00:03:42,000
+与国家
+with the state
+
+95
+00:03:42,033 --> 00:03:43,133
+作为服务器 pid
+being the server pid
+
+96
+00:03:43,133 --> 00:03:44,166
+所以会没事的
+so it'll be okay
+
+97
+00:03:44,166 --> 00:03:45,566
+然后状态就是
+and then the state is just
+
+98
+00:03:45,900 --> 00:03:46,733
+该服务器引脚
+that server pin
+
+99
+00:03:47,266 --> 00:03:49,066
+所以让我们把它拿走，在我里面快速旋转一下
+so let's take this away and give it a quick whirl in I
+
+100
+00:03:49,066 --> 00:03:49,866
+耶克斯
+yex
+
+101
+00:03:52,366 --> 00:03:55,600
+所以要启动kickstarter，我们使用调查kickstarter
+so to start the kickstarter we use survey kickstarter
+
+102
+00:03:57,166 --> 00:03:59,033
+dot start 那是我们的包装函数
+dot start that's our wrapper function
+
+103
+00:03:59,133 --> 00:04:02,033
+这将返回两次拉动 ok
+and this is going to return a two pull with ok
+
+104
+00:04:02,166 --> 00:04:04,166
+还有坑我叫它kick pid
+and the pit I'm going to call it the kick pid
+
+105
+00:04:05,666 --> 00:04:06,033
+记住
+remember
+
+106
+00:04:06,033 --> 00:04:08,200
+start 正在调用 gen server start 和 gen server start
+start is calling gen server start and gen server start
+
+107
+00:04:08,266 --> 00:04:09,700
+总是返回一个元组
+always returns a tuple
+
+108
+00:04:09,766 --> 00:04:10,966
+好的，然后是一些坑
+ok and then some pit
+
+109
+00:04:10,966 --> 00:04:12,833
+所以我们在左侧进行模式匹配
+so we're pattern matching that on the left hand side
+
+110
+00:04:13,766 --> 00:04:16,600
+很酷，我们看到这两个 kickstarter 过程
+cool we see that both the kickstarter process
+
+111
+00:04:16,600 --> 00:04:18,966
+并且网络服务器进程开始了
+and the web server process got started
+
+112
+00:04:19,333 --> 00:04:22,000
+现在如果 Web 服务器进程崩溃会发生什么
+now what happens if the web server process crashes
+
+113
+00:04:22,000 --> 00:04:22,800
+由于某些原因
+for some reason
+
+114
+00:04:23,166 --> 00:04:24,533
+我们可以将其设置为崩溃
+we could set it up to crash by
+
+115
+00:04:24,533 --> 00:04:26,266
+在代码中引发异常
+raising an exception in the code
+
+116
+00:04:26,266 --> 00:04:27,933
+而不是更改代码
+but rather than changing the code
+
+117
+00:04:28,100 --> 00:04:30,900
+我们可以通过发送一个
+we can cause the process to crash by sending it an
+
+118
+00:04:30,900 --> 00:04:31,833
+退出信号
+exit signal
+
+119
+00:04:32,066 --> 00:04:34,666
+所以首先我们需要找到那个网络服务器进程
+so first we need to find that web server process
+
+120
+00:04:34,733 --> 00:04:36,066
+我们想掌握 pid
+we want to get a hold of the pid
+
+121
+00:04:36,800 --> 00:04:40,400
+因为我们注册了一个别名，所以我们可以使用 process
+because we registered an alias we can use process
+
+122
+00:04:40,400 --> 00:04:41,700
+有一个功能在哪里
+there's a where is function
+
+123
+00:04:41,700 --> 00:04:43,233
+然后我们把它的名字传给它
+and then we pass it the name
+
+124
+00:04:43,233 --> 00:04:44,000
+过程的
+of the process
+
+125
+00:04:44,000 --> 00:04:44,833
+我们注册了
+we registered
+
+126
+00:04:44,900 --> 00:04:46,000
+http服务器
+http server
+
+127
+00:04:46,600 --> 00:04:48,900
+好了，我们已经将 pid 存储在服务器 pid 中
+there we go we've got the pids stored in server pid
+
+128
+00:04:49,233 --> 00:04:51,600
+然后让它崩溃，我们可以使用 process 模块
+and then to crash it we can use the process module
+
+129
+00:04:51,600 --> 00:04:53,900
+再次有一个名为 exit 的函数
+again there's a function called exit
+
+130
+00:04:53,900 --> 00:04:55,200
+我们给它服务器 pid
+we give it the server pid
+
+131
+00:04:55,666 --> 00:04:56,800
+然后我们给它理由
+and then we give it the reason
+
+132
+00:04:57,033 --> 00:04:57,800
+它应该退出
+that it should exit
+
+133
+00:04:57,800 --> 00:04:59,633
+我只是要使用 atom caboom
+and I'm just going to use the atom caboom
+
+134
+00:05:00,433 --> 00:05:02,166
+好吧，现在让我们看看它是否还活着
+all right now let's see if that's still alive
+
+135
+00:05:04,733 --> 00:05:07,033
+不，网络服务器不再存在
+nope the web server isn't alive anymore
+
+136
+00:05:07,466 --> 00:05:09,366
+但是kickstarter流程呢
+but what about the kickstarter process
+
+137
+00:05:09,600 --> 00:05:11,300
+如果我们在这里传入 kickpid
+if we pass in kickpid here
+
+138
+00:05:12,066 --> 00:05:13,200
+好吧，它返回true
+well it returns true
+
+139
+00:05:13,200 --> 00:05:15,333
+所以kickstarter进程仍然存在
+so the kickstarter process is still alive
+
+140
+00:05:15,666 --> 00:05:17,166
+反之亦然
+the reverse is also true
+
+141
+00:05:17,166 --> 00:05:19,600
+如果我们要让 kickstarter 进程崩溃
+if we were to crash the kickstarter process
+
+142
+00:05:19,600 --> 00:05:22,133
+它不会影响 Web 服务器进程
+it wouldn't affect the web server process
+
+143
+00:05:22,233 --> 00:05:25,633
+谁默认两个进程是独立运行的
+who by default both processes run in isolation
+
+144
+00:05:25,866 --> 00:05:28,833
+但我们需要一种方法让 kickstarter 检测到
+but we need a way for kickstarter to detect
+
+145
+00:05:28,833 --> 00:05:31,133
+当 Web 服务器进程崩溃时
+when the web server process crashes
+
+146
+00:05:31,833 --> 00:05:34,600
+好的，那么一个进程将如何监视另一个进程
+okay so how is one process going to monitor the other
+
+147
+00:05:34,900 --> 00:05:36,633
+好吧，我们可以将它们联系在一起
+well we can link them together
+
+148
+00:05:36,900 --> 00:05:38,233
+我们在这里的 nit 函数中
+we're in the nit function here
+
+149
+00:05:38,233 --> 00:05:41,033
+我们已经产生了 hdp 服务器进程
+and we've spawned the hdp server process
+
+150
+00:05:41,066 --> 00:05:44,233
+然后我们可以说流程链接
+then right after that we can say process link
+
+151
+00:05:45,000 --> 00:05:45,800
+服务器坑
+server pit
+
+152
+00:05:46,433 --> 00:05:48,766
+因为我们正在调用过程链接
+and because we're calling process link
+
+153
+00:05:48,766 --> 00:05:50,933
+从 kickstarter 流程中
+from within the kickstarter process
+
+154
+00:05:51,233 --> 00:05:52,866
+因为它在这里被初始化
+because it's getting initialized here
+
+155
+00:05:53,166 --> 00:05:55,600
+然后该kickstarter流程现在已链接
+then that kickstarter process is now linked
+
+156
+00:05:55,600 --> 00:05:57,133
+到 web 服务器进程
+to the web server process
+
+157
+00:05:57,133 --> 00:05:59,866
+就是服务器pid对应的进程
+that's the process corresponding to server pid
+
+158
+00:06:00,200 --> 00:06:02,900
+让我们在新的 iex 会话中给这个另一个世界
+let's give this another world in a new iex session
+
+159
+00:06:02,900 --> 00:06:04,733
+这样我们就不用担心清理
+that way we don't have to worry about cleaning up
+
+160
+00:06:04,733 --> 00:06:06,100
+注册进程
+registered processes
+
+161
+00:06:06,600 --> 00:06:08,933
+所以首先我们需要启动kickstarter进程
+so first we need to fire up the kickstarter process
+
+162
+00:06:09,500 --> 00:06:12,066
+然后我们需要找到我们的http服务器进程
+then we need to find our http server process
+
+163
+00:06:12,666 --> 00:06:14,033
+当我们启动kickstarter时
+and when we started up the kickstarter
+
+164
+00:06:14,033 --> 00:06:15,433
+调用了 nit 函数
+the nit function was called
+
+165
+00:06:15,533 --> 00:06:17,733
+所以现在这两个过程应该联系起来
+so now these two processes should be linked
+
+166
+00:06:17,733 --> 00:06:20,100
+我们可以通过使用 process 模块找到
+we can find out by using the process module
+
+167
+00:06:20,200 --> 00:06:23,066
+info 函数会给它 kickpid
+the info function will give it the kickpid
+
+168
+00:06:23,900 --> 00:06:25,566
+然后我们会问它你的链接是什么
+and then we'll ask it what are your links
+
+169
+00:06:26,766 --> 00:06:29,366
+好吧，它与流程一六十六有关
+well it's linked to process one sixty six
+
+170
+00:06:29,366 --> 00:06:31,466
+这是我们的hdp服务器进程
+which is our hdp server process
+
+171
+00:06:31,766 --> 00:06:32,933
+那么反过来呢
+so what about the reverse
+
+172
+00:06:32,933 --> 00:06:34,866
+服务器进程链接到什么
+what is the server process link to
+
+173
+00:06:37,666 --> 00:06:39,800
+好吧，它与 pid 1 65 相关联
+well it's linked to pid one sixty five
+
+174
+00:06:40,033 --> 00:06:41,533
+这是我们的启动程序
+which is our kickstarter process
+
+175
+00:06:41,533 --> 00:06:42,966
+我们看到它是什么时候开始的
+we see when it got started up there
+
+176
+00:06:43,100 --> 00:06:44,933
+这是它的 pid 1 65
+that's the pid of it one sixty five
+
+177
+00:06:45,566 --> 00:06:47,300
+现在您还看到它链接到一个端口
+now you also see that it's linked to a port
+
+178
+00:06:47,533 --> 00:06:48,800
+港口只是一种方式
+a port is just a way
+
+179
+00:06:48,900 --> 00:06:51,566
+让 Elixir 与外部程序通信
+for elixir to communicate with external programs
+
+180
+00:06:51,566 --> 00:06:53,766
+与流程的链接没有任何关系
+doesn't have anything to do with linking of processes
+
+181
+00:06:53,766 --> 00:06:57,233
+这里的关键是这两个处理器是链接的
+here the key thing is these two processors are linked
+
+182
+00:06:57,233 --> 00:06:58,200
+通过定向
+by directionally
+
+183
+00:06:58,366 --> 00:07:01,833
+所以 kickstarter pid 引用 hdp 服务器 pid
+so the kickstarter pid references the hdp server pid
+
+184
+00:07:02,133 --> 00:07:03,633
+和 hdp 服务器 pid
+and the hdp server pid
+
+185
+00:07:03,666 --> 00:07:06,233
+与 kickstarter 流程相关联
+is linked to the kickstarter process
+
+186
+00:07:06,666 --> 00:07:08,466
+所以现在让我们让 Web 服务器进程崩溃
+so now let's crash the web server process
+
+187
+00:07:08,466 --> 00:07:09,533
+就像我们以前一样
+just like we did before
+
+188
+00:07:09,533 --> 00:07:11,800
+通过向它发送退出信号 caboom
+by sending it the exit signal caboom
+
+189
+00:07:12,666 --> 00:07:16,233
+所以它死了但是我们的kickstarter过程会发生什么
+so it dies but what happens to our kickstarter process
+
+190
+00:07:16,866 --> 00:07:20,166
+嗯，这次也崩溃了
+ah well this time it also crashed
+
+191
+00:07:20,500 --> 00:07:22,400
+所以这就是幕后发生的事情
+so here's what happened behind the scenes
+
+192
+00:07:22,466 --> 00:07:26,800
+我们向 hdp 服务器进程发送了退出信号
+we sent an exit signal to the hdp server process
+
+193
+00:07:27,066 --> 00:07:28,700
+导致它终止
+that caused it to terminate
+
+194
+00:07:28,900 --> 00:07:30,066
+然后通知了
+it then notified the
+
+195
+00:07:30,066 --> 00:07:32,766
+通过发送相同的链接来链接kickstarter流程
+linked kickstarter process by sending it the same
+
+196
+00:07:32,900 --> 00:07:34,133
+退出信号和
+exit signal and
+
+197
+00:07:34,133 --> 00:07:36,966
+因为退出信号表示进程退出
+because the exit signal indicates the process exited
+
+198
+00:07:36,966 --> 00:07:37,966
+异常
+abnormally
+
+199
+00:07:38,133 --> 00:07:40,766
+然后链接的kickstarter进程也崩溃了
+then the linked kickstarter process crashed as well
+
+200
+00:07:41,333 --> 00:07:44,100
+因此，当我们将两个进程联系起来时，它们的命运是紧密相连的
+so when we link two processes their fates are tied
+
+201
+00:07:44,100 --> 00:07:46,866
+一起当一个崩溃另一个崩溃
+together when one crashes the other one crashes
+
+202
+00:07:47,100 --> 00:07:49,333
+但这并不是我们想要的
+but that's not exactly what we want
+
+203
+00:07:49,733 --> 00:07:52,600
+我们不希望 kickstarter 进程崩溃
+we don't want the kickstarter process to crash
+
+204
+00:07:52,600 --> 00:07:54,733
+如果 Web 服务器进程崩溃
+if the web server process crashes
+
+205
+00:07:54,933 --> 00:07:57,066
+kickstarter 需要继续运行
+the kickstarter needs to continue running
+
+206
+00:07:57,066 --> 00:07:59,266
+所以它可以重新启动网络服务器
+so it can restart the web server
+
+207
+00:07:59,366 --> 00:08:02,400
+这实际上意味着启动一个新的 Web 服务器进程
+which really means starting a new web server process
+
+208
+00:08:02,600 --> 00:08:05,266
+没有办法真正重启一个死进程
+there's no way to actually restart a dead process
+
+209
+00:08:05,266 --> 00:08:07,466
+我们只想开始一个新的进程
+we just want to start a new process
+
+210
+00:08:08,033 --> 00:08:08,566
+要做到这一点
+to do that
+
+211
+00:08:08,566 --> 00:08:11,733
+kickstarter 进程需要捕获退出信号
+the kickstarter process needs to trap exit signals
+
+212
+00:08:11,800 --> 00:08:14,233
+我们将在 nit 函数的第一步中进行
+and we'll do it in the first step of the nit function
+
+213
+00:08:14,300 --> 00:08:15,500
+我们使用过程
+we use process
+
+214
+00:08:15,566 --> 00:08:17,000
+有一个函数叫做 flag
+there's a function called flag
+
+215
+00:08:17,633 --> 00:08:19,600
+标志是陷阱出口
+the flag is trap exit
+
+216
+00:08:19,833 --> 00:08:21,466
+然后我们只想传入 true
+and then we just want to pass in true
+
+217
+00:08:21,933 --> 00:08:23,833
+现在得到的任何退出信号
+now any exit signals that get
+
+218
+00:08:23,833 --> 00:08:26,933
+从链接的 Web 服务器进程传播不会
+propagated from the linked web server process won't
+
+219
+00:08:26,933 --> 00:08:29,066
+导致 kickstarter 进程崩溃
+cause the kickstarter process to crash
+
+220
+00:08:29,566 --> 00:08:33,000
+所以让我们看看我们的陷阱在新的 iex 会话中捕获了什么
+so let's see what our trap catches in a new iex session
+
+221
+00:08:34,600 --> 00:08:36,266
+启动 kickstarter 进程
+fire up the kickstarter process
+
+222
+00:08:36,866 --> 00:08:38,500
+找到网络服务器进程
+find the web server process
+
+223
+00:08:39,833 --> 00:08:42,100
+然后我们需要 caboom 网络服务器进程
+then we need to caboom the web server process
+
+224
+00:08:43,033 --> 00:08:45,166
+哦，这次我们收到一条错误消息
+ooh this time we get an error message
+
+225
+00:08:45,166 --> 00:08:46,800
+现在我们将在一分钟内回到那个
+now we'll come back to that in a minute
+
+226
+00:08:47,133 --> 00:08:49,300
+但是我们的kickstarter过程发生了什么
+but what happened to our kickstarter process
+
+227
+00:08:50,400 --> 00:08:51,566
+好吧，它还活着
+well it's still alive
+
+228
+00:08:52,100 --> 00:08:54,233
+所以即使这两个过程是联系在一起的
+so even though both processes are linked
+
+229
+00:08:54,233 --> 00:08:56,500
+kickstarter 进程没有崩溃
+the kickstarter process didn't crash
+
+230
+00:08:56,600 --> 00:08:58,266
+这正是我们想要的
+that's exactly what we wanted
+
+231
+00:08:58,866 --> 00:09:01,500
+现在回到错误消息，它是纯金
+now back to the error message and it's pure gold
+
+232
+00:09:01,666 --> 00:09:04,566
+据说kickstarter进程收到了
+it's saying that the kickstarter process received an
+
+233
+00:09:04,566 --> 00:09:06,100
+意外消息
+unexpected message
+
+234
+00:09:06,433 --> 00:09:07,600
+这是消息
+and here's the message
+
+235
+00:09:08,000 --> 00:09:10,333
+所以kickstarter捕获了退出信号
+so kickstarter trapped the exit signal
+
+236
+00:09:10,400 --> 00:09:12,666
+网络服务器崩溃时发送的
+sent by the web server when it crashed
+
+237
+00:09:12,733 --> 00:09:15,333
+并将退出信号转换为消息
+and converted the exit signal to a message
+
+238
+00:09:15,700 --> 00:09:17,066
+我们看到原子退出
+we see the atom exit
+
+239
+00:09:17,066 --> 00:09:19,033
+然后这里的第二个元素是pid
+and then the second element here is the pid
+
+240
+00:09:19,100 --> 00:09:22,133
+这是导致崩溃的进程一六十六
+this is the process that crashed one sixty six
+
+241
+00:09:22,133 --> 00:09:23,833
+这是我们的网络服务器进程
+which is our web server process
+
+242
+00:09:24,000 --> 00:09:25,133
+然后是第三个元素
+and then the third element
+
+243
+00:09:25,133 --> 00:09:26,500
+只是它崩溃的原因
+is just the reason it crashed
+
+244
+00:09:26,500 --> 00:09:28,233
+好吧，这就是原子驾驶舱
+well it's that atom caboom
+
+245
+00:09:28,600 --> 00:09:30,366
+因为这只是一个简单的信息
+and because this is just a plain message
+
+246
+00:09:30,366 --> 00:09:32,266
+这不是电话或演员表
+it's not a call or a cast
+
+247
+00:09:32,266 --> 00:09:34,533
+然后 gen server 期望它被处理
+then gen server expects it to be handled
+
+248
+00:09:34,533 --> 00:09:36,300
+在句柄信息回调中
+in a handle info callback
+
+249
+00:09:36,433 --> 00:09:39,833
+这就是为什么我们在
+which is why we see received unexpected message in
+
+250
+00:09:40,000 --> 00:09:43,466
+它试图调用句柄信息的句柄信息
+handle info it's trying to invoke handle info
+
+251
+00:09:43,633 --> 00:09:46,300
+带有与此模式匹配的消息
+with a message that matches this pattern
+
+252
+00:09:47,300 --> 00:09:49,800
+所以在我们的 kickstarter 模块中，我们只需要一个句柄信息
+so in our kickstarter module we just need a handle info
+
+253
+00:09:49,833 --> 00:09:51,866
+与此消息匹配的回调
+callback that matches this message
+
+254
+00:09:51,933 --> 00:09:53,500
+并重新启动 Web 服务器
+and restarts the web server
+
+255
+00:09:55,466 --> 00:09:56,266
+处理信息
+handle info
+
+256
+00:09:57,733 --> 00:09:58,000
+接着
+and then
+
+257
+00:09:58,000 --> 00:10:00,166
+我复制了 ix 中的消息，所以我可以
+I copied the message that was in ix so I can just
+
+258
+00:10:00,166 --> 00:10:01,233
+粘贴到这里
+paste it in right here
+
+259
+00:10:01,633 --> 00:10:02,733
+然后我就改变它
+and then I'll just change it
+
+260
+00:10:02,733 --> 00:10:03,833
+所以这将是
+so this is going to be
+
+261
+00:10:03,833 --> 00:10:06,000
+终止进程的pid
+the pid of the terminated process
+
+262
+00:10:06,133 --> 00:10:06,666
+我们不需要那个
+we don't need that
+
+263
+00:10:06,666 --> 00:10:07,700
+所以我要使用下划线
+so I'm going to use an underscore
+
+264
+00:10:07,700 --> 00:10:08,766
+所以我们不会收到警告
+so we don't get a warning
+
+265
+00:10:08,866 --> 00:10:10,500
+这将是原因
+and this is going to be the reason
+
+266
+00:10:11,033 --> 00:10:12,633
+然后因为这个句柄信息
+and then because of this handle info
+
+267
+00:10:12,800 --> 00:10:14,933
+第二个参数永远是状态
+the second argument is always going to be the state
+
+268
+00:10:14,933 --> 00:10:15,933
+我们也不会使用它
+and we're not going to use it either
+
+269
+00:10:15,933 --> 00:10:17,600
+所以我将在那里使用下划线状态
+so I'm going to use underscore state there
+
+270
+00:10:18,333 --> 00:10:20,000
+然后我们将从打印开始
+and then we'll start by just printing off
+
+271
+00:10:21,200 --> 00:10:23,066
+http 服务器已退出
+http server exited
+
+272
+00:10:23,433 --> 00:10:26,700
+然后在 printheses 中将检查原因
+and then in printheses will just inspect the reason
+
+273
+00:10:28,400 --> 00:10:31,066
+你可能想永久记录这个空气
+you likely want to permanently log this air
+
+274
+00:10:31,066 --> 00:10:33,500
+所以你有取证来帮助诊断问题
+so you have forensics to help diagnose the problem
+
+275
+00:10:33,966 --> 00:10:35,566
+我们现在只打印出来
+we're just going to print it out for now
+
+276
+00:10:36,133 --> 00:10:37,866
+所以不管退出原因
+so regardless of the exit reason
+
+277
+00:10:38,100 --> 00:10:41,033
+我们要启动一个新的 hdp 服务器进程
+we want to start a new hdp server process
+
+278
+00:10:41,133 --> 00:10:43,133
+所以我们只需从针织品中复制这些线条
+so we'll just copy these lines from a knit
+
+279
+00:10:43,133 --> 00:10:45,100
+现在我们稍后会清理它
+right now we'll clean this up a little bit later
+
+280
+00:10:45,800 --> 00:10:48,300
+我们就下来这里，我会把它们粘贴进去
+we'll just come down here and I'll just paste those in
+
+281
+00:10:48,766 --> 00:10:50,466
+然后我们只需要确保返回
+and then we just need to make sure to return
+
+282
+00:10:50,466 --> 00:10:52,066
+预期的元组
+the expected tuple
+
+283
+00:10:52,500 --> 00:10:54,700
+由于这是句柄信息，因此需要
+and since this is handle info it needs to be
+
+284
+00:10:55,466 --> 00:10:56,266
+无回复
+no reply
+
+285
+00:10:56,966 --> 00:10:59,266
+然后是即将成为的状态
+and then the state which is just going to be the
+
+286
+00:10:59,266 --> 00:11:00,333
+新服务器坑
+new server pit
+
+287
+00:11:00,766 --> 00:11:01,333
+因为记得
+because remember
+
+288
+00:11:01,366 --> 00:11:04,333
+我们在那里启动了一个新的 hdb 服务器进程
+we started a new hdb server process right there
+
+289
+00:11:04,466 --> 00:11:05,866
+将其分配给服务器 pid
+assigned it to server pid
+
+290
+00:11:06,000 --> 00:11:08,433
+所以新的状态将是那个服务器坑
+so the new state is going to be that server pit
+
+291
+00:11:10,200 --> 00:11:11,333
+我们将在一个新的
+we'll try this in a new
+
+292
+00:11:11,333 --> 00:11:13,666
+iex 会议，我们应该免费回家
+iex session and we should be home free
+
+293
+00:11:14,700 --> 00:11:15,933
+启动 kickstarter
+start up the kickstarter
+
+294
+00:11:16,800 --> 00:11:18,300
+找到我们的 hdp 服务器
+find our hdp server
+
+295
+00:11:18,900 --> 00:11:21,000
+驾驶它和完美
+caboom it and perfect
+
+296
+00:11:21,000 --> 00:11:24,233
+我们看到我们启动了一个新的 Web 服务器进程
+we see that we started a new web server process
+
+297
+00:11:24,700 --> 00:11:27,800
+现在如果我们去找那个新的网络服务器进程
+and now if we go find that new web server process
+
+298
+00:11:27,900 --> 00:11:29,233
+然后我们再次驾驶它
+and we caboom it again
+
+299
+00:11:29,433 --> 00:11:30,400
+好吧实际上不再
+well actually not again
+
+300
+00:11:30,400 --> 00:11:32,166
+这完全是一个不同的过程
+this is a different process entirely
+
+301
+00:11:34,366 --> 00:11:36,700
+好吧，我们看到我们每次都会得到一个新的 pid
+well we see we're getting a new pid every time
+
+302
+00:11:36,866 --> 00:11:38,533
+这是 pid 1 七十三
+this is pid one seventy three
+
+303
+00:11:38,966 --> 00:11:42,133
+在它之前一次 70 和在那之前
+before it once once 70 and before that
+
+304
+00:11:42,166 --> 00:11:44,366
+让我们看看是一六十六
+let's see it was one sixty six
+
+305
+00:11:44,733 --> 00:11:46,000
+这正是我们想要的
+that's just what we want
+
+306
+00:11:46,300 --> 00:11:48,333
+所以每次我们的网络服务器死掉
+so every time our web server dies
+
+307
+00:11:48,466 --> 00:11:50,633
+kickstarter 启动一个新进程
+kickstarter starts a new process
+
+308
+00:11:51,200 --> 00:11:53,733
+现在，如果我们回顾一下我们的代码，我们有四个
+now if we look back at our code we have four
+
+309
+00:11:53,800 --> 00:11:55,266
+此处重复的行
+lines duplicated here
+
+310
+00:11:55,533 --> 00:11:56,766
+这是一个理想
+which is an ideal
+
+311
+00:11:57,033 --> 00:12:00,466
+所以让我们将它们重构为一个启动服务器函数
+so let's refactor these into a start server function
+
+312
+00:12:00,800 --> 00:12:02,833
+我将这些复制出来然后在下面
+I'll just copy these out and then down below
+
+313
+00:12:02,833 --> 00:12:04,600
+在这里我们将定义这个新函数
+here we'll define that new function
+
+314
+00:12:05,600 --> 00:12:08,033
+启动服务器，我将它们粘贴到
+start server and I'll just paste those in
+
+315
+00:12:08,500 --> 00:12:10,133
+然后我们只需要记住返回
+and then we just need to remember to return
+
+316
+00:12:10,300 --> 00:12:12,533
+服务器 pid 作为最后一行
+the server pid as the last line there
+
+317
+00:12:13,033 --> 00:12:14,833
+如果您愿意，您可以将其设为私有功能
+and you could make this a private function if you want
+
+318
+00:12:14,833 --> 00:12:16,066
+只用defp
+just use defp
+
+319
+00:12:16,400 --> 00:12:18,833
+然后我们只需要在这里使用那个函数
+and then we just need to use that function up here
+
+320
+00:12:18,933 --> 00:12:21,700
+所以在针织中我们可以去掉这一切
+so in a knit we can remove all this
+
+321
+00:12:22,533 --> 00:12:24,100
+只需调用启动服务器
+and just call start server
+
+322
+00:12:25,533 --> 00:12:28,600
+我会用我们可以做的同样的方式复制它
+I'll copy that in the same way we can do that right
+
+323
+00:12:29,233 --> 00:12:30,033
+这里
+here
+
+324
+00:12:30,533 --> 00:12:32,500
+实际上没有人我们也可以删除这个pudex
+no one actually we can remove this pudex too
+
+325
+00:12:33,500 --> 00:12:35,433
+所以现在这两个功能很好很整洁
+so now these two functions are nice and tidy
+
+326
+00:12:36,000 --> 00:12:36,566
+现在你注意到了
+now you notice
+
+327
+00:12:36,566 --> 00:12:38,133
+下面我们叫 spawn
+down here we're calling spawn
+
+328
+00:12:38,133 --> 00:12:40,500
+然后我们立即转身打电话
+and then we're turning around immediately and calling
+
+329
+00:12:40,500 --> 00:12:41,666
+现在链接
+link now
+
+330
+00:12:41,666 --> 00:12:43,266
+你经常需要一个 spawner 进程和
+you often want a spawner process and
+
+331
+00:12:43,266 --> 00:12:44,633
+将其链接到调用进程
+link it to the calling process
+
+332
+00:12:44,633 --> 00:12:45,966
+所以有一个捷径
+so there's a shortcut for this
+
+333
+00:12:46,200 --> 00:12:47,466
+而不是调用 spawn
+rather than calling spawn
+
+334
+00:12:47,466 --> 00:12:49,733
+然后链接为两个单独的步骤
+and then link as two separate steps
+
+335
+00:12:49,800 --> 00:12:52,366
+您可以改为调用 spawn 链接函数
+you can instead call the spawn link function
+
+336
+00:12:52,533 --> 00:12:53,866
+所以你只说spawn
+so you just say spawn
+
+337
+00:12:54,466 --> 00:12:57,266
+像这样的链接，然后你可以摆脱那条线
+link like that and then you can get rid of that line
+
+338
+00:12:58,133 --> 00:12:59,433
+这具有相同的效果
+this has the same effect
+
+339
+00:12:59,433 --> 00:13:01,033
+但它更方便，而且
+but it's more convenient and
+
+340
+00:13:01,100 --> 00:13:02,400
+也更健壮
+also more robust
+
+341
+00:13:02,433 --> 00:13:06,133
+因为生成和链接发生在一个原子操作中
+as the spawn and link happen in one atomic operation
+
+342
+00:13:06,233 --> 00:13:08,466
+避免任何潜在的竞争条件
+to avoid any potential race conditions
+
+343
+00:13:08,900 --> 00:13:10,466
+现在可以进行快速的健全性检查
+okay now for a quick sanity check
+
+344
+00:13:13,033 --> 00:13:14,266
+我们开始我们的kickstarter
+we start our kickstarter
+
+345
+00:13:14,933 --> 00:13:16,300
+获取我们的 http 服务器
+get our http server
+
+346
+00:13:17,066 --> 00:13:18,400
+最后一次崩溃
+crash at one last time
+
+347
+00:13:18,966 --> 00:13:20,766
+哦，看起来它重新启动了
+oh and it looks like it gets restarted
+
+348
+00:13:20,766 --> 00:13:22,566
+所以我们的重构并没有破坏任何东西
+so our refactoring didn't break anything
+
+349
+00:13:23,066 --> 00:13:25,500
+所以现在如果我们的网络服务器进程崩溃了
+so now if our web server process crashes
+
+350
+00:13:25,533 --> 00:13:27,100
+我们会自动给它一脚
+we automatically give it a kick
+
+351
+00:13:27,100 --> 00:13:29,900
+所以希望我们不会错过对我们网站的任何请求
+so hopefully we don't miss any requests to our site
+
+352
+00:13:30,133 --> 00:13:30,866
+接下来
+next up
+
+353
+00:13:30,866 --> 00:13:33,633
+我们将为我们的承诺和传感器服务器做同样的事情
+we'll do the same for our pledge and sensor servers
+

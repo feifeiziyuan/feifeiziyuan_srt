@@ -1,0 +1,1675 @@
+1
+00:00:00,633 --> 00:00:01,533
+假设我是网络
+let's say I'm the web
+
+2
+00:00:01,533 --> 00:00:03,366
+我们在上一节中编写的服务器
+server we wrote in the previous section
+
+3
+00:00:03,466 --> 00:00:04,600
+我是浏览器
+and I'm a browser
+
+4
+00:00:04,900 --> 00:00:06,833
+假设我向您发送请求
+and let's say I send you a request
+
+5
+00:00:07,433 --> 00:00:08,833
+好吧，我处理请求
+well I handle the request
+
+6
+00:00:09,166 --> 00:00:10,333
+发回响应
+send back a response
+
+7
+00:00:10,700 --> 00:00:11,733
+这很好用
+and that works pretty good
+
+8
+00:00:11,733 --> 00:00:13,733
+如果我们只是偶尔收到请求
+if we only get requests once in a while
+
+9
+00:00:13,866 --> 00:00:16,933
+但假设我们同时收到五个请求
+but let's say we get five requests at the same time
+
+10
+00:00:17,400 --> 00:00:20,200
+好吧，现在我一次只能处理一个请求
+well right now I can only handle one request at a time
+
+11
+00:00:20,466 --> 00:00:21,700
+所以我拿第一个
+so I take the first one
+
+12
+00:00:22,166 --> 00:00:24,066
+发回回复 谢谢
+send back a response thank you
+
+13
+00:00:24,666 --> 00:00:25,666
+拿第二个
+take the second one
+
+14
+00:00:25,966 --> 00:00:27,400
+发回其响应
+send back its response
+
+15
+00:00:28,266 --> 00:00:30,433
+但是当我收到第 5 个请求时
+but by the time I get to this 5th request
+
+16
+00:00:30,500 --> 00:00:30,666
+好
+well
+
+17
+00:00:30,666 --> 00:00:32,933
+它可能已经排了很长时间的队
+it's potentially been waiting in line for a long time
+
+18
+00:00:33,400 --> 00:00:36,500
+我们得到的请求越多，这条线就越长
+and the more requests we get the longer the line grows
+
+19
+00:00:37,266 --> 00:00:38,766
+这是我们服务器的瓶颈
+here's that bottleneck in our server
+
+20
+00:00:38,766 --> 00:00:41,833
+在 hdp 的异常循环函数中的位置
+where in the except loop function of the hdp
+
+21
+00:00:41,833 --> 00:00:44,166
+服务器文件，你会记得这个
+server file and as you'll recall this
+
+22
+00:00:44,166 --> 00:00:46,533
+除了这里的函数是一个阻塞调用
+except function here is a blocking call
+
+23
+00:00:46,533 --> 00:00:48,233
+它暂停执行
+it suspends execution
+
+24
+00:00:48,533 --> 00:00:51,633
+在此侦听套接字上等待客户端连接
+waiting for a client connection on this listen socket
+
+25
+00:00:51,766 --> 00:00:53,366
+当它接受新连接时
+and when it accepts a new connection
+
+26
+00:00:53,366 --> 00:00:55,500
+然后客户端套接字将在这里绑定
+then the client socket is going to get bound here
+
+27
+00:00:55,833 --> 00:00:57,333
+然后我们把它交给这个
+and then we hand that off to this
+
+28
+00:00:57,333 --> 00:00:58,533
+在这里提供功能
+serve function right here
+
+29
+00:00:58,533 --> 00:01:00,266
+这将是关于
+which is going to go about the process of
+
+30
+00:01:00,466 --> 00:01:03,400
+实际处理请求并返回响应
+actually handling the request and returning a response
+
+31
+00:01:03,633 --> 00:01:06,500
+所以我们必须等待这个服务函数返回
+so we have to wait for this serve function to return
+
+32
+00:01:07,000 --> 00:01:09,633
+在我们可以再次调用 except 循环之前
+before we can recurs calling except loop again
+
+33
+00:01:09,800 --> 00:01:11,633
+这使我们回到这条线
+which takes us back up to this line
+
+34
+00:01:11,733 --> 00:01:13,366
+等待下一个客户端连接
+waiting for the next client connection
+
+35
+00:01:13,666 --> 00:01:16,400
+所以让我们用一个请求来模拟这个问题
+so let's simulate this problem with a request
+
+36
+00:01:16,400 --> 00:01:19,666
+这需要相对较长的时间来处理
+that takes a relatively long time to handle
+
+37
+00:01:19,900 --> 00:01:22,433
+是的，我们将在此处的处理程序模块中完成此操作
+yeah we'll do that over in the handler module here
+
+38
+00:01:22,666 --> 00:01:24,966
+我将在这里粘贴一条新路线
+I'm going to paste in a new route up here
+
+39
+00:01:25,533 --> 00:01:27,466
+并且该路线称为休眠
+and the route is called hibernate
+
+40
+00:01:27,733 --> 00:01:29,200
+因为这就是熊所做的
+because that's what bears do
+
+41
+00:01:29,366 --> 00:01:32,233
+所以我们要在休眠斜杠上进行模式匹配
+so we're going to pattern match on hibernate slash
+
+42
+00:01:32,366 --> 00:01:32,700
+接着
+and then
+
+43
+00:01:32,700 --> 00:01:34,400
+我们想休眠一段时间
+we want to hibernate for a certain amount of time
+
+44
+00:01:34,400 --> 00:01:36,266
+所以我们要绑定变量时间
+so we're going to bind the variable time
+
+45
+00:01:36,533 --> 00:01:39,733
+到该网址中休眠后的任何数字
+to whatever number comes after hibernate in that url
+
+46
+00:01:40,000 --> 00:01:41,300
+现在这将是一个字符串
+now that's going to be a string
+
+47
+00:01:41,300 --> 00:01:42,433
+所以我们要花时间
+so we're going to take the time
+
+48
+00:01:42,500 --> 00:01:43,633
+然后我们要管它
+and then we're going to pipe it
+
+49
+00:01:43,633 --> 00:01:45,966
+将字符串转换为整数以将其转换为整数
+into string to integer to convert it to an integer
+
+50
+00:01:46,200 --> 00:01:47,933
+然后我们想睡那段时间
+and then we want to sleep for that amount of time
+
+51
+00:01:48,333 --> 00:01:50,233
+而earling有一个模块叫做
+while earling has a module called
+
+52
+00:01:50,233 --> 00:01:51,666
+我们在那里调用的计时器
+timer which we're calling right there
+
+53
+00:01:51,666 --> 00:01:53,300
+它有一个叫做睡眠的功能
+it has a function called sleep
+
+54
+00:01:53,433 --> 00:01:55,833
+需要多少毫秒才能休眠
+that takes the number of milliseconds to sleep
+
+55
+00:01:55,833 --> 00:01:57,000
+所以我们只是要插管
+so we're just going to pipe in
+
+56
+00:01:57,300 --> 00:01:59,200
+那个时候进入睡眠功能
+that time into the sleep function
+
+57
+00:01:59,533 --> 00:02:01,233
+我们学会了如何使用耳环
+and we learned how to use an earling
+
+58
+00:02:01,233 --> 00:02:02,966
+上一节中的库
+library in the previous section
+
+59
+00:02:03,533 --> 00:02:04,466
+然后我们就回去
+then we're just going to return
+
+60
+00:02:04,466 --> 00:02:06,566
+状态码为 200 的响应
+a response with the status code of 200
+
+61
+00:02:06,566 --> 00:02:07,233
+和尸体
+and the bodies
+
+62
+00:02:07,233 --> 00:02:08,033
+只是想说
+just going to say
+
+63
+00:02:08,100 --> 00:02:09,133
+嘿我醒了
+hey I'm awake
+
+64
+00:02:09,566 --> 00:02:10,900
+现在稍微简化一下输出
+now to simplify the output a bit
+
+65
+00:02:10,900 --> 00:02:12,333
+我要评论这个
+I'm going to comment out this
+
+66
+00:02:12,433 --> 00:02:14,500
+在我们的管道中记录插件
+log plugin up here in our pipeline
+
+67
+00:02:14,833 --> 00:02:16,700
+然后让我们继续启动我们的服务器
+and then let's go ahead and fire up our server
+
+68
+00:02:17,100 --> 00:02:19,200
+我们做ix mix
+we do ix mix
+
+69
+00:02:20,100 --> 00:02:22,466
+我们会说服务 hdp 服务器
+we're going to say serve hdp server
+
+70
+00:02:23,133 --> 00:02:25,700
+开始，我们将再次在端口 4000 上启动它
+start and we're going to start it on port 4000 again
+
+71
+00:02:26,433 --> 00:02:27,866
+好的，我们的服务器正在运行
+okay we've got our server running
+
+72
+00:02:28,166 --> 00:02:29,700
+现在让我们尝试向它发送请求
+now let's try sending it a request
+
+73
+00:02:30,100 --> 00:02:31,233
+所以回到这个
+so back in this
+
+74
+00:02:31,233 --> 00:02:33,433
+终端会话就在这里，我将再次使用 curl
+terminal session right here I'm going to use curl again
+
+75
+00:02:33,566 --> 00:02:37,700
+我要向 4000 api 斜线熊发送请求
+I'm going to send a request to 4000 api slash bears
+
+76
+00:02:38,633 --> 00:02:41,366
+所以你注意到我们几乎立即得到回复
+so you notice we get back a response almost immediately
+
+77
+00:02:41,566 --> 00:02:42,666
+服务器是
+and the server is
+
+78
+00:02:42,666 --> 00:02:45,466
+现在等待接受下一个客户端连接
+now waiting to accept the next client connection
+
+79
+00:02:46,033 --> 00:02:48,166
+所以现在在这个窗口中让我们发送一个请求
+so now down in this window let's send a request
+
+80
+00:02:48,266 --> 00:02:50,833
+休眠所以我们要休眠 10,000
+to hibernate so we're going to hibernate for 10,000
+
+81
+00:02:50,833 --> 00:02:52,133
+那是[&#39;十&#39;，&#39;千&#39;]毫秒
+that's ['ten', 'thousand']millisecond
+
+82
+00:02:52,133 --> 00:02:53,966
+这将是 10 秒
+that's going to be 10 seconds
+
+83
+00:02:54,366 --> 00:02:55,866
+好的，它正在冬眠
+all right and it's hibernating
+
+84
+00:02:55,866 --> 00:02:58,300
+现在如果我们尝试运行 api 熊请求
+now if we try to run the api bears request
+
+85
+00:02:58,666 --> 00:03:00,733
+好吧，我们没有立即得到回应
+well we don't get an immediate response
+
+86
+00:03:01,333 --> 00:03:02,200
+这个挂了
+this one's hung up
+
+87
+00:03:02,200 --> 00:03:04,500
+仍在做它的工作，而这个正在等待它
+still doing its work and this one's waiting for it
+
+88
+00:03:04,500 --> 00:03:06,600
+一旦我们从中醒来
+and as soon as we get back awake from that
+
+89
+00:03:06,600 --> 00:03:07,733
+长时间运行的请求
+long running request
+
+90
+00:03:08,100 --> 00:03:11,433
+那么我们也得到了我们的 api 熊的响应
+well then we also get the response for our api bears
+
+91
+00:03:11,900 --> 00:03:14,933
+所以它不会处理 api 请求，直到
+so it doesn't handle the api request until
+
+92
+00:03:15,200 --> 00:03:17,466
+在休眠请求完成后
+after the hibernate request has finished
+
+93
+00:03:17,733 --> 00:03:18,366
+是的，没错
+yeah that's right
+
+94
+00:03:18,366 --> 00:03:20,166
+事实上，如果我们向上滚动，我们可以看到
+in fact we can see that if we scroll up
+
+95
+00:03:20,166 --> 00:03:21,733
+在服务器输出中
+in the server output up here
+
+96
+00:03:23,833 --> 00:03:26,066
+所以正在等待接受客户端连接
+so is waiting to accept a client connection
+
+97
+00:03:26,166 --> 00:03:29,200
+我们发送了一个休眠 10,000 的请求
+we sent in a request for hibernate 10,000
+
+98
+00:03:29,466 --> 00:03:30,700
+它收到了那个请求
+it received that request
+
+99
+00:03:31,300 --> 00:03:32,966
+然后它发回响应
+then it sent the response back
+
+100
+00:03:33,300 --> 00:03:34,433
+说它醒了
+saying it was awake
+
+101
+00:03:34,700 --> 00:03:35,966
+然后它又回到等待
+then it went back to waiting
+
+102
+00:03:35,966 --> 00:03:37,366
+用于下一个客户端连接
+for the next client connection
+
+103
+00:03:37,633 --> 00:03:39,900
+该连接被接受，这就是
+that connection was accepted and that was the
+
+104
+00:03:40,033 --> 00:03:41,633
+api 承载请求
+api bears request
+
+105
+00:03:42,066 --> 00:03:43,033
+然后它继续
+and then it went ahead
+
+106
+00:03:43,033 --> 00:03:44,633
+并为此发回响应
+and sent the response back for that
+
+107
+00:03:45,366 --> 00:03:46,933
+所以如果我们回顾一下我们的代码
+so if we look back at the code in our
+
+108
+00:03:46,933 --> 00:03:49,466
+此处的服务器，除了此处的行
+server at this except line right here
+
+109
+00:03:49,866 --> 00:03:52,066
+如果客户端尝试连接到服务器
+if a client tries to connect to the server
+
+110
+00:03:52,066 --> 00:03:54,733
+当它忙于处理一个长时间运行的请求时
+while it's busy handling a long running request
+
+111
+00:03:54,733 --> 00:03:56,533
+这将在服务中处理
+which is going to get handled in serve
+
+112
+00:03:56,900 --> 00:03:58,700
+然后连接请求被放置
+then the connection request gets put
+
+113
+00:03:58,700 --> 00:04:00,466
+在所谓的积压 q
+in what's called a backlog q
+
+114
+00:04:00,700 --> 00:04:01,066
+并告诉
+and tell
+
+115
+00:04:01,066 --> 00:04:03,400
+服务器完成处理当前请求
+the server finishes handling the current request
+
+116
+00:04:04,033 --> 00:04:05,766
+只有这样它才能循环回来
+only then can it loop back
+
+117
+00:04:05,766 --> 00:04:08,266
+最多接受挂起的客户端连接
+up to accept the pending client connection
+
+118
+00:04:08,733 --> 00:04:12,066
+因为我们一次只能接受一个连接
+and because we can only accept one connection at a time
+
+119
+00:04:12,333 --> 00:04:16,766
+api 请求在 backlog 中停留了 10 秒
+the api request sat in the backlog for 10 seconds
+
+120
+00:04:16,866 --> 00:04:19,033
+如果积压已满
+and if the backlog fills up
+
+121
+00:04:19,233 --> 00:04:22,400
+默认情况下它最多只能容纳五个连接
+by default it can only hold up to five connections
+
+122
+00:04:22,533 --> 00:04:24,766
+然后拒绝任何新连接
+then any new connections are rejected
+
+123
+00:04:24,866 --> 00:04:26,100
+这不好
+and this isn't good
+
+124
+00:04:26,633 --> 00:04:29,033
+我们需要修改服务器来处理
+we need to modify the server to handle
+
+125
+00:04:29,033 --> 00:04:31,133
+多个请求同时进行
+multiple requests concurrently
+
+126
+00:04:31,233 --> 00:04:33,266
+这样请求就不会延迟
+so that requests don't get delayed
+
+127
+00:04:33,900 --> 00:04:36,233
+我们还有另一个问题需要解决
+we also have another problem we need to address
+
+128
+00:04:36,600 --> 00:04:38,600
+假设一个异常被引发，而
+let's say an exception gets raised while
+
+129
+00:04:38,600 --> 00:04:39,733
+处理请求
+handling a request
+
+130
+00:04:40,000 --> 00:04:41,833
+好吧，我们将用一条新路线来模拟它
+well we'll simulate that with a new route
+
+131
+00:04:41,833 --> 00:04:44,100
+我将把它粘贴到我们的休眠路线上方
+and I'll just paste it in above our hibernate route
+
+132
+00:04:44,100 --> 00:04:45,266
+在处理程序中
+here in the handler
+
+133
+00:04:45,566 --> 00:04:48,233
+这个请求的路径只是斜线kaboom
+and the path to this request is just slash kaboom
+
+134
+00:04:48,233 --> 00:04:49,600
+然后我们使用
+and then we use the
+
+135
+00:04:49,666 --> 00:04:51,200
+光线在这里起作用
+rays function here
+
+136
+00:04:51,333 --> 00:04:53,600
+使用字符串 cab 引发异常
+to raise an exception with the string cab
+
+137
+00:04:54,066 --> 00:04:55,766
+现在你可以防御性地添加
+now you could defensively add
+
+138
+00:04:55,766 --> 00:04:58,566
+一些捕获此异常的异常处理
+some exception handling that catches this exception
+
+139
+00:04:58,566 --> 00:05:00,600
+并返回 500 响应
+and returns of 500 response
+
+140
+00:05:00,600 --> 00:05:02,533
+但我们现在就这样吧
+but let's just go with this for now
+
+141
+00:05:02,900 --> 00:05:04,666
+是的，我会把它保存起来，然后回到这里
+yeah I'll save that away and then back over here
+
+142
+00:05:04,700 --> 00:05:06,200
+我需要重启服务器
+I need to restart the server
+
+143
+00:05:09,100 --> 00:05:11,200
+现在如果我们发送可以请求会发生什么
+now what happens if we send that can request
+
+144
+00:05:11,200 --> 00:05:12,200
+所以我会下来
+so I'll come down here
+
+145
+00:05:14,600 --> 00:05:16,100
+虽然我们在这里看到运行时错误
+while we see the runtime error up here
+
+146
+00:05:16,100 --> 00:05:17,866
+在服务器日志驾驶室中
+in the server log cab
+
+147
+00:05:18,266 --> 00:05:20,966
+你注意到我们回到了 ix session 终端
+and you notice we're back at an ix session terminal
+
+148
+00:05:21,266 --> 00:05:22,700
+所以发送那个请求
+so sending in that request
+
+149
+00:05:22,766 --> 00:05:25,133
+它关闭了整个网络服务器
+it brought down the entire web server
+
+150
+00:05:25,266 --> 00:05:27,200
+如果我们来到这里并尝试运行请求
+if we come here and we try to run a request
+
+151
+00:05:27,200 --> 00:05:28,500
+对于 api 熊
+for api bears
+
+152
+00:05:28,666 --> 00:05:29,900
+好吧，它只是挂起
+well it just hangs
+
+153
+00:05:30,066 --> 00:05:32,366
+很明显我们的服务器不是很容错
+so clearly our server isn't very fault tolerant
+
+154
+00:05:32,366 --> 00:05:36,000
+仅处理一个请求的异常或任何故障
+an exception or any failure handling just one request
+
+155
+00:05:36,366 --> 00:05:39,666
+使整个服务器陷入困境并影响所有人
+makes the entire server go poof and impacts all
+
+156
+00:05:39,666 --> 00:05:40,533
+其他要求
+other requests
+
+157
+00:05:41,233 --> 00:05:44,400
+所以我们需要一种方法来同时运行每个请求
+so we need a way to run each request concurrently and
+
+158
+00:05:44,433 --> 00:05:46,200
+保持每个请求隔离
+keep each request isolated
+
+159
+00:05:46,466 --> 00:05:47,666
+听起来有点棘手
+that sounds kind of tricky
+
+160
+00:05:47,666 --> 00:05:48,266
+但实际上
+but it's actually
+
+161
+00:05:48,266 --> 00:05:50,733
+使用长生不老药过程相当简单
+fairly straightforward using elixir processes
+
+162
+00:05:50,733 --> 00:05:53,400
+事实上，这就是长生不老药真正闪耀的地方
+in fact this is where elixir really shines
+
+163
+00:05:53,866 --> 00:05:55,133
+在接受循环函数中
+in the accept loop function
+
+164
+00:05:55,133 --> 00:05:57,600
+我们有这个我们称之为接受的顺序代码
+we have this sequential code we call accept
+
+165
+00:05:57,933 --> 00:06:00,133
+然后我们调用 serve 并等待它返回
+and then we call serve and wait for it to return
+
+166
+00:06:00,133 --> 00:06:01,466
+然后我们再次调用接受循环
+and then we call accept loop again
+
+167
+00:06:01,466 --> 00:06:02,700
+回避备份
+which recuses back up
+
+168
+00:06:02,766 --> 00:06:03,966
+我们只是通过这里
+and we just go through here
+
+169
+00:06:04,100 --> 00:06:06,000
+运行这些功能的锁定步骤
+lock step running these functions
+
+170
+00:06:06,266 --> 00:06:07,966
+但我们想运行这个函数
+but we want to run this function
+
+171
+00:06:07,966 --> 00:06:11,100
+这里的服务功能是一个单独的过程
+this serve function right here is a separate process
+
+172
+00:06:11,133 --> 00:06:13,800
+异步而不是顺序
+asynchronously rather than sequentially
+
+173
+00:06:13,900 --> 00:06:14,700
+那就对了
+that's right
+
+174
+00:06:14,700 --> 00:06:18,066
+这样我们就可以接受任何新的客户端连接
+that way we can accept any new client connections
+
+175
+00:06:18,066 --> 00:06:20,566
+其他请求同时
+other requests while at the same time
+
+176
+00:06:20,700 --> 00:06:22,500
+处理当前请求
+handling the current request
+
+177
+00:06:22,833 --> 00:06:25,933
+换句话说，我们可以同时处理请求
+in other words we can handle requests concurrently
+
+178
+00:06:26,433 --> 00:06:28,800
+那么我们如何将代码作为一个单独的进程运行
+so how do we run code as a separate process
+
+179
+00:06:28,966 --> 00:06:30,766
+好吧，我们使用 spawn 功能
+well we use the spawn function
+
+180
+00:06:30,966 --> 00:06:33,000
+并且有两种方法可以调用 spawn 函数
+and there are two ways to call the spawn function
+
+181
+00:06:33,166 --> 00:06:35,833
+使用匿名函数和命名函数
+with an anonymous function and with a named function
+
+182
+00:06:36,033 --> 00:06:38,000
+让我们从一个匿名函数开始
+let's just start with an anonymous function
+
+183
+00:06:38,300 --> 00:06:40,500
+我们会在我们的性爱会议上做这件事
+and we'll do that over in our sex session
+
+184
+00:06:40,666 --> 00:06:42,900
+所以 spawn 是在上校模块中定义的
+so spawn is defined in the colonel module
+
+185
+00:06:42,900 --> 00:06:45,000
+所以它会自动导入
+so it's automatically imported
+
+186
+00:06:45,100 --> 00:06:47,400
+这意味着我们可以像这样调用 spawn
+which means we can just call spawn like that
+
+187
+00:06:47,566 --> 00:06:49,066
+然后它需要一个匿名函数
+and then it takes an anonymous function
+
+188
+00:06:49,066 --> 00:06:50,000
+所以我们将使用 fn
+so we'll use fn
+
+189
+00:06:50,533 --> 00:06:51,600
+然后在那个函数里面
+and then inside of that function
+
+190
+00:06:51,600 --> 00:06:53,866
+我们只是要打印出你好
+we're just going to print out howdy
+
+191
+00:06:55,033 --> 00:06:56,100
+如果我点击返回
+and if I hit return
+
+192
+00:06:56,600 --> 00:06:58,433
+当它运行这段代码时
+while it ran this chunk of code
+
+193
+00:06:58,433 --> 00:07:01,033
+io 将我们置于单独的进程中
+io put us howdy in a separate process
+
+194
+00:07:01,033 --> 00:07:02,400
+我们看到它打印出来了
+and we see that it printed out
+
+195
+00:07:02,400 --> 00:07:04,400
+你好回到这里的性爱会议
+howdy back here in sex session
+
+196
+00:07:04,633 --> 00:07:07,066
+我们也得到了一个叫做 pid 的东西
+and we also got this thing called a pid
+
+197
+00:07:07,066 --> 00:07:09,300
+由 spawn 函数返回的
+that was returned by the spawn function
+
+198
+00:07:09,600 --> 00:07:11,833
+并且 pid 是唯一标识符
+and the pid is a unique identifier
+
+199
+00:07:11,833 --> 00:07:13,366
+运行的进程
+of the process that ran
+
+200
+00:07:13,366 --> 00:07:16,400
+在这种情况下，它被处理了 166
+in this case it was processed one sixty six
+
+201
+00:07:16,600 --> 00:07:18,533
+现在你的会有所不同，因为好吧
+now yours is going to be different because well
+
+202
+00:07:18,533 --> 00:07:20,066
+这是一个不同的过程
+it's a different process
+
+203
+00:07:20,400 --> 00:07:22,833
+现在让我们看一下这个的慢动作回放
+now let's look at a slow motion replay of this
+
+204
+00:07:23,633 --> 00:07:24,400
+是的，让我们再做一次
+yeah let's do it again
+
+205
+00:07:24,433 --> 00:07:26,166
+这次我想做一些改变
+this time I want to make a couple changes
+
+206
+00:07:26,166 --> 00:07:27,466
+我想捕获pid
+I want to capture the pid
+
+207
+00:07:27,466 --> 00:07:28,266
+所以我们要绑定
+so we're going to bind
+
+208
+00:07:28,266 --> 00:07:30,766
+pid 到左侧的 pid 变量
+the pid to the pid variable on the left hand side
+
+209
+00:07:31,300 --> 00:07:31,966
+然后在里面
+and then inside
+
+210
+00:07:31,966 --> 00:07:33,200
+在打印你好之前在这里
+here before printing howdy
+
+211
+00:07:33,233 --> 00:07:35,033
+我想睡5秒
+I want to sleep for 5 seconds
+
+212
+00:07:35,033 --> 00:07:37,533
+所以我要调用那个定时器模块睡眠函数
+so I'm going to call that timer module sleep function
+
+213
+00:07:37,533 --> 00:07:38,333
+再次
+again
+
+214
+00:07:38,600 --> 00:07:39,500
+5000
+5000
+
+215
+00:07:39,700 --> 00:07:42,233
+然后将多个表达式放在同一行
+and then to put multiple expressions on the same line
+
+216
+00:07:42,233 --> 00:07:44,000
+我将在此处使用分号
+I'm going to use a semicolon right there
+
+217
+00:07:44,100 --> 00:07:45,166
+这样我就不必做
+that way I don't have to do
+
+218
+00:07:45,333 --> 00:07:47,633
+六个内的多行表达式
+multiline expressions inside six
+
+219
+00:07:47,633 --> 00:07:49,066
+所以我们要睡5秒
+so we're going to sleep for 5 seconds
+
+220
+00:07:49,066 --> 00:07:50,300
+然后打印出你好
+and then print out howdy
+
+221
+00:07:50,566 --> 00:07:51,800
+如果我们点击返回
+and if we hit return
+
+222
+00:07:52,000 --> 00:07:55,500
+当我们立即得到 pid 时，它是 pid 170
+while we immediately get the pid back it's pid 170
+
+223
+00:07:55,566 --> 00:07:57,733
+然后这个过程正在进行中
+and then the process is working on
+
+224
+00:07:57,900 --> 00:08:00,600
+这个匿名函数，所以它睡了 5 秒
+this anonymous function so it slept for 5 seconds
+
+225
+00:08:00,733 --> 00:08:02,633
+然后当它完成时它打印出你好
+and then when it was done it printed howdy
+
+226
+00:08:02,733 --> 00:08:04,033
+我们在这里看到了
+and we see that right here
+
+227
+00:08:04,566 --> 00:08:05,400
+所以让我们再试一次
+so let's try that again
+
+228
+00:08:05,400 --> 00:08:08,033
+这次我要改成10秒
+this time I'm going to change it to 10 seconds
+
+229
+00:08:08,800 --> 00:08:09,966
+然后我们可以检查它是否正在运行
+and then we can check that it's running
+
+230
+00:08:09,966 --> 00:08:12,700
+Elixir 中有一个流程模块，并且有一个 live
+there's a process module in elixir and there's a live
+
+231
+00:08:12,700 --> 00:08:13,600
+问号功能
+question mark function
+
+232
+00:08:13,600 --> 00:08:15,233
+我们可以调用并传递 pid
+we can call and pass it the pid
+
+233
+00:08:15,466 --> 00:08:17,233
+它还活着
+it's alive still alive
+
+234
+00:08:17,633 --> 00:08:18,433
+还活着
+still alive
+
+235
+00:08:19,366 --> 00:08:22,233
+哎呀，现在我们回来了，你好，它还活着吗
+oop now we get back howdy so is it alive
+
+236
+00:08:22,433 --> 00:08:24,133
+不，现在进程已经死了
+no now the process has died
+
+237
+00:08:24,200 --> 00:08:26,633
+它打印出了你好，它不再活着
+it printed out howdy and it's no longer alive
+
+238
+00:08:27,033 --> 00:08:28,400
+运行匿名函数后
+after running the anonymous function
+
+239
+00:08:28,400 --> 00:08:30,066
+生成过程已退出
+the spawn process exited
+
+240
+00:08:30,533 --> 00:08:32,766
+稍后我们将看到如何使用 pid
+a bit later we'll see how to use the pid
+
+241
+00:08:32,766 --> 00:08:35,833
+作为向进程发送消息的地址
+as an address to send messages to a process
+
+242
+00:08:35,833 --> 00:08:38,900
+但是现在让我们回到我们最初的问题
+but for now let's go back to our original problem
+
+243
+00:08:39,633 --> 00:08:41,400
+是的，您可能会看到它的发展方向
+yeah you probably see where this is heading
+
+244
+00:08:41,400 --> 00:08:43,533
+我们说我们想运行这个服务功能
+we said we wanted to run this serve function
+
+245
+00:08:43,533 --> 00:08:44,933
+在一个单独的过程中
+in a separate process
+
+246
+00:08:44,933 --> 00:08:46,266
+现在我们知道该怎么做
+and now we know how to do that
+
+247
+00:08:46,366 --> 00:08:48,033
+我们只是要产生一个进程
+we're just going to spawn a process
+
+248
+00:08:48,900 --> 00:08:50,533
+我们将放置一个匿名函数
+we're going to put an anonymous function
+
+249
+00:08:51,366 --> 00:08:52,766
+就这样调用服务
+call serve just like that
+
+250
+00:08:53,566 --> 00:08:54,866
+在这种情况下，我们不需要 pid
+and in this case we don't need the pid
+
+251
+00:08:54,866 --> 00:08:56,833
+所以我不会在左侧绑定它
+so I'm not going to bind to it on the left hand side
+
+252
+00:08:57,333 --> 00:09:00,300
+所以现在一旦我们在这里接受了客户端连接
+so now once we've accepted a client connection here
+
+253
+00:09:00,700 --> 00:09:02,400
+我们只是要产生一个新的过程
+we're just going to spawn a new process to
+
+254
+00:09:02,400 --> 00:09:03,366
+处理请求
+handle the request
+
+255
+00:09:03,633 --> 00:09:04,966
+这意味着我们要撤退
+which means we're going to drop back
+
+256
+00:09:04,966 --> 00:09:06,133
+进入这个接受循环
+into this accept loop
+
+257
+00:09:06,133 --> 00:09:07,933
+很快，因为这将运行
+pretty quickly because this is going to run
+
+258
+00:09:07,933 --> 00:09:09,566
+在后台异步
+asynchronously in the background
+
+259
+00:09:09,933 --> 00:09:11,566
+事实上，因为它在后台运行
+in fact since it's running in the background
+
+260
+00:09:11,566 --> 00:09:13,000
+我要添加一些输出
+I'm going to add some output
+
+261
+00:09:13,000 --> 00:09:14,366
+在这里服务
+down here and serve
+
+262
+00:09:14,533 --> 00:09:15,366
+因为这会得到
+because this is going to get
+
+263
+00:09:15,366 --> 00:09:16,933
+在那个单独的进程中运行
+run in that separate process
+
+264
+00:09:16,933 --> 00:09:18,866
+我们只想看看 pid 是什么
+and we just want to see what pid is
+
+265
+00:09:18,933 --> 00:09:20,300
+实际上做所有这些工作
+actually doing all this work
+
+266
+00:09:20,466 --> 00:09:21,766
+所以我要使用它
+so I'm going to use it
+
+267
+00:09:22,366 --> 00:09:24,900
+我想打印过程的坑
+and I want to print the pit of the process
+
+268
+00:09:24,900 --> 00:09:26,100
+正在运行此功能
+that's running this function
+
+269
+00:09:26,100 --> 00:09:28,066
+你可以这样做的方法是调用 self
+and the way you can do that is call self
+
+270
+00:09:28,333 --> 00:09:31,133
+即返回当前进程的坑
+that returns the pit of the current process
+
+271
+00:09:31,166 --> 00:09:32,766
+然后我需要对它进行插值
+and then I'm going to need to interpolate it
+
+272
+00:09:34,533 --> 00:09:37,666
+像那样和我们要显示的pid结构
+like that and the pid structure we want to display
+
+273
+00:09:37,700 --> 00:09:39,500
+只是以某种容易看到的方式
+just in some way that's easy to see
+
+274
+00:09:39,533 --> 00:09:41,133
+所以我要使用检查
+and so I'm going to use inspect
+
+275
+00:09:42,100 --> 00:09:43,500
+所以我们要检查 pid
+so we're going to inspect the pid
+
+276
+00:09:43,533 --> 00:09:46,100
+这将基本上给我们我们在 ix 中看到的内容
+that's going to give us basically what we saw in ix
+
+277
+00:09:46,200 --> 00:09:47,300
+然后我只想说
+and then I'm just going to say
+
+278
+00:09:48,766 --> 00:09:49,600
+正在努力
+working on it
+
+279
+00:09:50,366 --> 00:09:51,766
+现在一旦我们产生了这个
+now once we've spawned this
+
+280
+00:09:51,766 --> 00:09:53,700
+过程将完全靠自己
+process it's going to be all on its own
+
+281
+00:09:53,700 --> 00:09:56,533
+我们基本上可以忘记生成过程
+we can essentially forget about the spawn process
+
+282
+00:09:56,800 --> 00:10:00,000
+因为它可以访问这个客户端套接字
+because it has access to this client socket
+
+283
+00:10:00,100 --> 00:10:00,766
+它通过它
+through which it
+
+284
+00:10:00,766 --> 00:10:03,533
+将 hdp 响应发送回浏览器
+sends the hdp response back to the browser
+
+285
+00:10:03,633 --> 00:10:05,000
+一旦得到回应
+and once the response has been
+
+286
+00:10:05,000 --> 00:10:07,033
+在进程即将退出时发送
+sent while the process is going to exit
+
+287
+00:10:07,333 --> 00:10:09,166
+那么当我们产生一个进程时会发生什么
+so what happens when we spawn a process that
+
+288
+00:10:09,166 --> 00:10:10,300
+不使用套接字
+doesn't use a socket
+
+289
+00:10:10,300 --> 00:10:12,300
+这是一个更常见的情况
+which is a more common scenario
+
+290
+00:10:12,500 --> 00:10:14,166
+好吧，我们将在下一节中讨论
+well we'll look at that in the next section
+
+291
+00:10:14,666 --> 00:10:16,766
+现在让我们重新开始
+for now let's just get a clean slate
+
+292
+00:10:16,766 --> 00:10:19,200
+通过重新启动它和服务器
+by restarting it and the server
+
+293
+00:10:20,933 --> 00:10:23,033
+现在让我们再次尝试该休眠请求
+now let's try that hibernate request again
+
+294
+00:10:23,300 --> 00:10:24,933
+我们将休眠 10 秒
+we'll hibernate for 10 seconds
+
+295
+00:10:25,566 --> 00:10:26,533
+如果我们在这里抬头
+if we look up here
+
+296
+00:10:27,033 --> 00:10:29,833
+我们看到我们接受客户端连接
+we see we accept a client connection
+
+297
+00:10:29,833 --> 00:10:31,733
+但它几乎立刻又回来了
+but it almost immediately comes back
+
+298
+00:10:31,733 --> 00:10:34,000
+并开始等待下一个客户端连接
+and starts waiting for the next client connection
+
+299
+00:10:34,233 --> 00:10:36,400
+即使这个休眠请求仍在运行
+even though this hibernate request is still running
+
+300
+00:10:37,066 --> 00:10:39,033
+所以现在让我们再次发送休眠请求
+so now let's send the hibernate request again
+
+301
+00:10:39,566 --> 00:10:40,000
+和
+and
+
+302
+00:10:40,000 --> 00:10:42,300
+在一个单独的窗口中，我们将发送我们的 api 请求
+in a separate window we'll send a request for our api
+
+303
+00:10:42,533 --> 00:10:43,100
+你看
+and you see
+
+304
+00:10:43,100 --> 00:10:45,566
+我们的 api 立即得到回复
+we get a response back immediately for our api
+
+305
+00:10:46,100 --> 00:10:48,866
+在我们的休眠请求完成之前
+before our hibernate request even finishes
+
+306
+00:10:49,200 --> 00:10:50,933
+那是因为 api 请求
+and that's because the api request
+
+307
+00:10:50,933 --> 00:10:52,200
+被单独处理
+was handled in a separate
+
+308
+00:10:52,200 --> 00:10:53,466
+并发进程
+concurrent process
+
+309
+00:10:53,866 --> 00:10:56,300
+所以现在发送我们的出租车请求
+so sending our cab request now
+
+310
+00:10:56,500 --> 00:11:00,166
+不应影响服务器或任何其他请求
+shouldn't affect the server or any other requests
+
+311
+00:11:01,933 --> 00:11:03,266
+是的，在服务器窗口中
+yeah up in the server window
+
+312
+00:11:03,266 --> 00:11:04,966
+我们看到引发了异常
+we see that the exception got raised
+
+313
+00:11:04,966 --> 00:11:06,233
+出租车就在这里
+here's cab right here
+
+314
+00:11:06,533 --> 00:11:09,466
+但是您注意到我们没有返回到税务会话提示
+but you notice we don't return to an tax session prompt
+
+315
+00:11:09,533 --> 00:11:11,233
+因为服务器不受影响
+because the server isn't affected
+
+316
+00:11:11,266 --> 00:11:14,100
+它仍在运行，实际上它仍在响应
+it's still running and in fact it's still responsive
+
+317
+00:11:14,266 --> 00:11:17,033
+我们可以发送请求，所以我要发送一个
+we can send requests in so I'm going to send one in for
+
+318
+00:11:17,333 --> 00:11:18,333
+只是熊
+just bears
+
+319
+00:11:19,100 --> 00:11:21,433
+正确的得到了那个请求并得到了回复
+right got that request and got a response right back
+
+320
+00:11:21,433 --> 00:11:22,900
+或 api 熊
+or api bears
+
+321
+00:11:23,100 --> 00:11:25,800
+服务器仍在响应其他请求
+the server still responding to other requests
+
+322
+00:11:26,166 --> 00:11:27,500
+如果我们在服务器中向上滚动
+and if we scroll up in the server
+
+323
+00:11:27,500 --> 00:11:28,333
+我们应该看到
+we should see the
+
+324
+00:11:28,333 --> 00:11:31,266
+处理这些请求的进程的投标
+bids of the processes that handled those requests
+
+325
+00:11:31,833 --> 00:11:34,833
+所以这里进程 170 正在处理它
+so here process 170 was working on it
+
+326
+00:11:37,633 --> 00:11:40,033
+这里进程一六十九正在处理它
+here process one sixty nine was working on it
+
+327
+00:11:40,033 --> 00:11:41,133
+我想你明白了
+and I think you get the point
+
+328
+00:11:41,433 --> 00:11:44,133
+每个请求都由不同的进程处理
+each request was handled by a different process
+
+329
+00:11:44,633 --> 00:11:45,833
+这很酷
+this is pretty cool
+
+330
+00:11:46,166 --> 00:11:48,333
+每个客户端连接都有自己的
+every client connection gets its own
+
+331
+00:11:48,333 --> 00:11:51,633
+隔离一个请求失败的过程
+process isolating the failure of one request
+
+332
+00:11:51,633 --> 00:11:53,033
+从另一个是的
+from another yeah
+
+333
+00:11:53,033 --> 00:11:55,966
+只需将一些现有代码包装在 spawn 中
+simply by wrapping some existing code in a spawn
+
+334
+00:11:55,966 --> 00:11:58,900
+运行我们的网络服务器现在更容错
+function our web servers now more fault tolerate
+
+335
+00:11:58,933 --> 00:12:01,833
+并且可以同时处理多个请求
+and can handle multiple requests concurrently
+

@@ -1,0 +1,1435 @@
+1
+00:00:00,233 --> 00:00:01,566
+就像我们的应用程序现在一样
+as our app stands now
+
+2
+00:00:01,566 --> 00:00:04,000
+当我们收到斜线熊的请求时
+when we get a request for slash bears
+
+3
+00:00:04,000 --> 00:00:05,900
+我们用这个简单的字符串响应
+we respond with this simple string
+
+4
+00:00:06,066 --> 00:00:08,033
+但这是一个网络服务器
+but this being a web server in all
+
+5
+00:00:08,033 --> 00:00:10,400
+我们真的应该用一些 html 来回应
+we really should respond with some html
+
+6
+00:00:10,866 --> 00:00:11,600
+是的，我们会这样做
+yeah and we'll do that
+
+7
+00:00:11,600 --> 00:00:12,166
+通过使用
+by using
+
+8
+00:00:12,166 --> 00:00:14,466
+e中的一些转换函数
+some of the transformation functions that are in the e
+
+9
+00:00:14,466 --> 00:00:15,400
+新模块
+new module
+
+10
+00:00:15,700 --> 00:00:17,966
+但让我们从组织我们的代码开始
+but let's start off by organizing our code to look
+
+11
+00:00:17,966 --> 00:00:21,066
+更像是一个遵循 nvc 模式的 web 框架
+more like a web framework that follows the nvc pattern
+
+12
+00:00:21,066 --> 00:00:22,566
+例如 Phoenix 或 rails
+such as Phoenix or rails
+
+13
+00:00:23,466 --> 00:00:24,933
+通常在 Web 框架中
+typically in a web framework
+
+14
+00:00:24,933 --> 00:00:27,300
+路线将简单地调度或
+the routes would simply dispatch or
+
+15
+00:00:27,466 --> 00:00:29,066
+委托给控制器
+delegate to a controller
+
+16
+00:00:29,466 --> 00:00:30,266
+是的，我们可以做到
+yeah we can do that
+
+17
+00:00:30,266 --> 00:00:32,500
+我们将在这里定义一个新的控制器
+we'll define a new controller over here
+
+18
+00:00:32,866 --> 00:00:35,800
+新文件，我们将其称为裸控制器
+new file and we're going to call it bare controller
+
+19
+00:00:38,466 --> 00:00:39,666
+我们将设置模块
+we'll set up the module
+
+20
+00:00:40,133 --> 00:00:42,533
+这将是调查裸控制器
+it's going to be survey bare controller
+
+21
+00:00:42,966 --> 00:00:43,700
+把它存起来
+save that away
+
+22
+00:00:43,700 --> 00:00:44,866
+然后我们将使用它
+and then we're going to use that back
+
+23
+00:00:44,866 --> 00:00:46,300
+在我们的处理程序模块中
+over in our handler module
+
+24
+00:00:46,600 --> 00:00:49,766
+所以在处理程序的顶部，我将把它命名为
+so at the top of a handler I'm going to alias that in
+
+25
+00:00:53,533 --> 00:00:55,100
+然后我们想在
+and then we want to use that in the
+
+26
+00:00:55,100 --> 00:00:56,466
+熊路线就在这里
+bears route right here
+
+27
+00:00:57,800 --> 00:00:59,266
+所以我要把这条线删掉
+so I'm just going to cut this line out
+
+28
+00:00:59,600 --> 00:01:01,700
+相反，我们将调用熊控制器
+and instead we'll call bear controller
+
+29
+00:01:01,966 --> 00:01:03,633
+我们假设我们会有一个
+and we'll assume we're going to have a
+
+30
+00:01:03,633 --> 00:01:05,200
+称为索引的函数
+function called index
+
+31
+00:01:05,300 --> 00:01:07,866
+然后我们将传入那个 co 和 v 地图
+and then we're going to pass in that co and v map
+
+32
+00:01:08,033 --> 00:01:08,600
+那样
+that way
+
+33
+00:01:08,600 --> 00:01:11,266
+该函数可以更新它并返回一个新副本
+the function can update it and return a new copy
+
+34
+00:01:11,700 --> 00:01:12,366
+所以然后回来
+so then back
+
+35
+00:01:12,366 --> 00:01:15,300
+在我们的裸控制器中，我们只需要找到索引
+over in our bare controller we just need to find index
+
+36
+00:01:17,900 --> 00:01:19,033
+它需要 co 和 v
+it takes co and v
+
+37
+00:01:19,033 --> 00:01:21,300
+我要粘贴我从
+and I'm going to paste in what I cut out from the
+
+38
+00:01:21,300 --> 00:01:23,933
+其他文件我们想做类似的事情
+other file we want to do a similar thing
+
+39
+00:01:23,933 --> 00:01:25,666
+对于裸斜线一条路线
+for the bare slash one route
+
+40
+00:01:25,666 --> 00:01:28,600
+我们想把它委托给一个显示功能
+we want to delegate it to a show function
+
+41
+00:01:29,000 --> 00:01:30,533
+是的，所以我会把它从这里剪掉
+yeah so I'll cut this out of here
+
+42
+00:01:31,133 --> 00:01:32,833
+这将是裸控制器
+this is going to be bare controller
+
+43
+00:01:33,166 --> 00:01:33,966
+点显示
+dot show
+
+44
+00:01:34,600 --> 00:01:35,900
+我们会通过它的婊子
+we'll pass it cunt
+
+45
+00:01:35,966 --> 00:01:37,600
+它也需要那个 id
+and it's also going to need that id
+
+46
+00:01:37,600 --> 00:01:39,566
+所以我们将它作为第二个参数传递
+so we'll pass it as the second parameter
+
+47
+00:01:39,966 --> 00:01:41,333
+然后在控制器中
+then over in the controller
+
+48
+00:01:41,666 --> 00:01:42,533
+我们会安排表演
+we'll set up show
+
+49
+00:01:44,600 --> 00:01:46,866
+在 id 中看到一个 v，我将其粘贴到
+see one v in the id and I'll paste that in
+
+50
+00:01:47,400 --> 00:01:48,300
+所以这会起作用
+so this will work
+
+51
+00:01:48,333 --> 00:01:49,533
+但还有另一种方法可以做到
+but there's another way to do it
+
+52
+00:01:49,533 --> 00:01:52,233
+而不是像这样传递一个id
+as opposed to passing in an id like this
+
+53
+00:01:52,433 --> 00:01:54,533
+如果我们想打包那个 id 怎么办
+what if we wanted to package up that id
+
+54
+00:01:54,733 --> 00:01:57,433
+与其他参数，因为 id 真的只是
+with the other parameters because id's really just a
+
+55
+00:01:57,433 --> 00:01:58,633
+请求参数
+request parameter
+
+56
+00:01:58,800 --> 00:02:00,466
+所以我们要做的是合并它
+so what we want to do is merge it
+
+57
+00:02:00,533 --> 00:02:02,333
+进入现有参数
+into the existing parameters
+
+58
+00:02:02,600 --> 00:02:05,700
+你会记得那些在 co 和 v paras
+and you'll remember that those are in co and v paras
+
+59
+00:02:05,866 --> 00:02:07,000
+所以让我们这样做
+so let's do it this way
+
+60
+00:02:07,466 --> 00:02:10,100
+参数等于地图放
+param's equals map put
+
+61
+00:02:10,266 --> 00:02:13,600
+我们将采用 co 和 v paras 并添加它
+we'll take co and v paras and we'll add to it
+
+62
+00:02:13,666 --> 00:02:14,966
+一个名为 id 的键
+a key called id
+
+63
+00:02:15,033 --> 00:02:16,300
+和 id 值
+and the id value
+
+64
+00:02:16,300 --> 00:02:18,500
+然后我们会转身把它作为第二个传递
+and then we'll turn around and pass that as the second
+
+65
+00:02:18,500 --> 00:02:20,766
+我们的 show 函数的参数
+parameter to our show function
+
+66
+00:02:21,233 --> 00:02:23,600
+如果我们在节目中这样做
+and if we do that back over here in show
+
+67
+00:02:23,733 --> 00:02:26,166
+然后不是拿 id 这将是一张地图
+then instead of taking id this is going to be a map
+
+68
+00:02:26,400 --> 00:02:27,833
+我们可以对其进行模式匹配
+and we can just pattern match on it
+
+69
+00:02:28,966 --> 00:02:31,533
+所以我们想像这样提取 id 的值
+so we want to extract the value of the id like that
+
+70
+00:02:31,933 --> 00:02:33,533
+然后我们在这里引用 id
+and then we reference id right here
+
+71
+00:02:33,866 --> 00:02:35,533
+所以这也可以
+so this will work just as well
+
+72
+00:02:35,600 --> 00:02:37,566
+只是给了我们更多的灵活性
+just gives us a little bit more flexibility
+
+73
+00:02:37,600 --> 00:02:39,733
+我们可以拿整个婴儿车地图
+we can take the entire prams map
+
+74
+00:02:39,766 --> 00:02:41,066
+然后做一些模式匹配
+and then do some pattern matching
+
+75
+00:02:41,066 --> 00:02:42,266
+弄清楚里面有什么
+figure out what's inside of there
+
+76
+00:02:42,566 --> 00:02:43,800
+你可以想象可能有
+you can imagine that there might be
+
+77
+00:02:43,800 --> 00:02:46,800
+其他参数正在进一步设置管道
+other parameters being set further up the pipeline
+
+78
+00:02:46,933 --> 00:02:49,466
+所以这只是为动作提供了所有参数
+so this just gives the action all the parameters
+
+79
+00:02:49,466 --> 00:02:51,266
+它可以弄清楚如何处理这些
+and it can figure out what to do with those
+
+80
+00:02:52,166 --> 00:02:53,466
+所以我们还有一个要走
+so we have one more to go
+
+81
+00:02:53,766 --> 00:02:57,500
+对于我们要委托给创建的发布路线
+for the post route we want to delegate to a create
+
+82
+00:02:57,566 --> 00:02:58,366
+功能
+function
+
+83
+00:02:59,133 --> 00:03:00,700
+这将是裸控制器
+this would be bare controller
+
+84
+00:03:01,566 --> 00:03:02,366
+创建
+create
+
+85
+00:03:03,166 --> 00:03:04,266
+通过它 co 和 v
+pass it co and v
+
+86
+00:03:04,533 --> 00:03:06,633
+它需要发布的参数
+and it's going to need the posted parameters
+
+87
+00:03:06,633 --> 00:03:07,633
+所以我们要通过
+so we're going to pass
+
+88
+00:03:07,633 --> 00:03:09,466
+co 和 v 段
+co and v paras
+
+89
+00:03:09,833 --> 00:03:11,166
+记住那些张贴的参数
+remember those posted parameters
+
+90
+00:03:11,166 --> 00:03:13,966
+被解析出来，我们把它们放在 co 和 v 参数中
+get parsed out and we put them in co and v params
+
+91
+00:03:13,966 --> 00:03:15,400
+我们在课程的早些时候做了一点
+which we did a bit earlier in the course
+
+92
+00:03:16,133 --> 00:03:17,366
+然后在控制器中
+then over in the controller
+
+93
+00:03:19,266 --> 00:03:20,100
+我们将定义创建
+we'll define create
+
+94
+00:03:20,500 --> 00:03:23,266
+带上ceo和v，还带上paras
+take ceo and v and also takes paras
+
+95
+00:03:23,966 --> 00:03:25,133
+我会把它粘贴进去
+and I'll just paste that in
+
+96
+00:03:25,733 --> 00:03:27,866
+现在因为这里的参数名称是 para
+now because the name of the argument here is para
+
+97
+00:03:27,866 --> 00:03:29,866
+我们不必参考封面段落
+we don't have to reference cover paras
+
+98
+00:03:29,866 --> 00:03:31,666
+它只是 param 的类型
+it's just going to be param's type
+
+99
+00:03:31,900 --> 00:03:32,833
+然后在这里
+and then over here
+
+100
+00:03:33,900 --> 00:03:35,133
+我们有熊的名字
+we've got the name of the bear
+
+101
+00:03:35,133 --> 00:03:37,233
+它只是参数
+it's just going to be params
+
+102
+00:03:38,733 --> 00:03:40,100
+现在更进一步
+now to take this one step further
+
+103
+00:03:40,100 --> 00:03:41,900
+我们知道我们可以对此进行模式匹配
+we know that we can pattern match on this
+
+104
+00:03:41,900 --> 00:03:42,966
+所以我们可以这样做
+so we could do it this way
+
+105
+00:03:45,300 --> 00:03:46,166
+提取名称
+extract the name
+
+106
+00:03:48,500 --> 00:03:49,733
+提取类型
+extract the type
+
+107
+00:03:50,100 --> 00:03:50,766
+如果我们想
+and if we wanted to
+
+108
+00:03:50,766 --> 00:03:51,966
+我们可以将其设置为
+we could set this equal to
+
+109
+00:03:51,966 --> 00:03:53,700
+如果我们想要访问它
+para if we wanted access to that
+
+110
+00:03:53,800 --> 00:03:57,500
+但是现在在这里我们有绑定到的类型
+but now down here we have type that's bound to the
+
+111
+00:03:57,500 --> 00:03:59,166
+部分类型和
+type that was in parts and
+
+112
+00:03:59,600 --> 00:04:00,400
+我们有名字
+we have the name
+
+113
+00:04:02,566 --> 00:04:03,433
+我们把它存起来
+we save that away
+
+114
+00:04:04,333 --> 00:04:06,933
+如果我们重新编译所有内容，则返回 ix
+and back over an ix if we recompile everything
+
+115
+00:04:08,400 --> 00:04:09,766
+好吧，看起来一切仍然有效
+well it looks like everything still worked
+
+116
+00:04:09,766 --> 00:04:12,033
+我们只是从路由函数中移动了一些代码
+we just moved some code from the route functions
+
+117
+00:04:12,333 --> 00:04:13,900
+进入我们的控制器功能
+into our controller functions
+
+118
+00:04:14,800 --> 00:04:18,700
+现在我们的资源或我们的熊只是名字
+right now our resources or our bears are just names
+
+119
+00:04:18,733 --> 00:04:20,366
+但资源通常有
+but resources typically have
+
+120
+00:04:20,433 --> 00:04:21,633
+其他属性
+other attributes
+
+121
+00:04:21,633 --> 00:04:22,566
+我们知道
+and we know
+
+122
+00:04:22,566 --> 00:04:26,100
+如何为具有多个属性的实体建模
+how to model entities that have multiple attributes
+
+123
+00:04:26,100 --> 00:04:28,966
+我们定义一个具有特定字段的结构
+we define a structure with specific fields
+
+124
+00:04:29,266 --> 00:04:31,366
+所以让我们定义一个熊结构
+so let's define a bear structure
+
+125
+00:04:32,266 --> 00:04:34,266
+我们将它放在一个名为 Bear 的文件中
+we'll put it in a file called bear
+
+126
+00:04:34,266 --> 00:04:36,800
+ex 查找模块
+ex to find the module
+
+127
+00:04:37,933 --> 00:04:38,866
+调查熊
+survey bear
+
+128
+00:04:39,433 --> 00:04:41,300
+然后在里面我们将定义我们的结构
+then inside of there we'll define our structure
+
+129
+00:04:41,900 --> 00:04:45,400
+我们的熊将有一个 id 初始值为 nil
+and our bears will have an id initial value will be nil
+
+130
+00:04:45,566 --> 00:04:46,400
+他们会有名字
+they'll have a name
+
+131
+00:04:46,433 --> 00:04:48,266
+这将默认为空字符串
+which will default to an empty string
+
+132
+00:04:48,466 --> 00:04:50,566
+他们还将有一个类型，它将是一个空字符串
+they'll also have a type which will be an empty string
+
+133
+00:04:50,900 --> 00:04:53,000
+然后我们会在那里放一个冬眠标志
+and then we'll put a hibernating flag on there
+
+134
+00:04:53,100 --> 00:04:55,000
+指示熊是否在冬眠
+to indicate whether the bear is hibernating or not
+
+135
+00:04:55,066 --> 00:04:56,466
+我们将默认为 false
+and we'll default that to false
+
+136
+00:04:56,966 --> 00:04:59,033
+那么我们只需要创建一些实例
+then we just need to create some instances of
+
+137
+00:04:59,033 --> 00:05:00,200
+这个裸露的结构
+this bare structure
+
+138
+00:05:00,200 --> 00:05:01,800
+所以我们应该在哪里做
+so where should we do that
+
+139
+00:05:02,433 --> 00:05:04,833
+好吧，我们可以在索引函数中做到这一点
+well we could do that in the index function
+
+140
+00:05:04,833 --> 00:05:06,333
+但这是另一个想法
+but here's another idea
+
+141
+00:05:06,833 --> 00:05:08,600
+让我们创建一个新模块
+let's create a new module
+
+142
+00:05:08,600 --> 00:05:11,133
+为获取提供了一些抽象
+that provides some abstraction for fetching
+
+143
+00:05:11,133 --> 00:05:12,866
+我们的任何野生资源
+any of our wild resources
+
+144
+00:05:13,333 --> 00:05:15,300
+让我们称新模块为野物
+let's call the new module wild things
+
+145
+00:05:15,966 --> 00:05:19,200
+当然我会把它放在文件wild things dot中
+sure I'll put it in the file wild things dot
+
+146
+00:05:22,833 --> 00:05:24,366
+这是非常疯狂的事情
+it's very wild things
+
+147
+00:05:24,900 --> 00:05:26,333
+然后我们将使用我们的熊
+and then we're going to be using our bear
+
+148
+00:05:26,333 --> 00:05:27,233
+击中这里
+struck inside of here
+
+149
+00:05:27,233 --> 00:05:28,366
+所以我要化名
+so I'm going to alias
+
+150
+00:05:28,433 --> 00:05:29,366
+调查熊
+survey bear
+
+151
+00:05:30,633 --> 00:05:31,733
+然后我们想要运行
+and then we want to function
+
+152
+00:05:31,733 --> 00:05:32,733
+返回一个
+that returns a
+
+153
+00:05:32,733 --> 00:05:34,166
+示例熊列表
+list of example bears
+
+154
+00:05:34,166 --> 00:05:35,300
+我有一个排队的
+and I have one of those queued up
+
+155
+00:05:35,300 --> 00:05:36,700
+我就贴在这里
+I'll just paste it in right here
+
+156
+00:05:37,300 --> 00:05:40,733
+所以它只是一个包含严格实例的列表
+so it's just a list that contains bear strict instances
+
+157
+00:05:40,733 --> 00:05:42,033
+注意我们已经通过了
+notice we've got one through
+
+158
+00:05:42,033 --> 00:05:43,466
+锡在这里用不同的名字
+tin here with different names
+
+159
+00:05:43,466 --> 00:05:44,266
+不同的类型和
+different types and
+
+160
+00:05:44,433 --> 00:05:45,633
+其中一些正在冬眠
+some of them are hibernating
+
+161
+00:05:45,866 --> 00:05:47,633
+你可以在笔记中找到这些例子
+and you can pick up these examples in the note
+
+162
+00:05:47,633 --> 00:05:48,900
+所以你不必输入所有这些
+so you don't have to type all this in
+
+163
+00:05:49,400 --> 00:05:50,200
+所以我们会把它保存起来
+so we'll save that away
+
+164
+00:05:50,200 --> 00:05:52,200
+我们想在我们的熊控制器中使用它
+we want to use that over in our bear controller
+
+165
+00:05:52,200 --> 00:05:54,766
+所以我将首先将其别名
+so I'm going to start by just aliasing that in
+
+166
+00:05:54,900 --> 00:05:56,966
+别名调查野物
+alias survey wild things
+
+167
+00:05:57,700 --> 00:05:59,333
+然后我们想把熊的名单记下来
+and then we want to get our list of bears down
+
+168
+00:05:59,333 --> 00:06:00,766
+关于索引函数
+on the index function
+
+169
+00:06:00,933 --> 00:06:02,133
+所以我们要说熊
+so we're going to say bears
+
+170
+00:06:03,233 --> 00:06:05,266
+野生动物清单熊
+wild things list bears
+
+171
+00:06:06,133 --> 00:06:07,733
+然后我们要做的下一件事
+and then the next thing we want to do
+
+172
+00:06:07,733 --> 00:06:09,900
+是转换熊的名单
+is transform the list of bears
+
+173
+00:06:09,900 --> 00:06:11,266
+现在有熊结构
+there are bear structures right now
+
+174
+00:06:11,333 --> 00:06:14,600
+我们想将它们转换成一个 html 列表
+we want to transform them into an html list
+
+175
+00:06:16,333 --> 00:06:17,466
+所以我们要返回的
+so what we're going to return
+
+176
+00:06:17,466 --> 00:06:19,666
+在响应正文中不会是逗号
+in the response body isn't going to be a comma
+
+177
+00:06:19,666 --> 00:06:21,766
+熊名字的分隔字符串
+separated string of bear names
+
+178
+00:06:21,766 --> 00:06:24,700
+相反，它将是一个 html ul
+instead it's going to be an html ul
+
+179
+00:06:26,366 --> 00:06:28,666
+在里面我们会有一个 li
+and inside of that we'll have an li
+
+180
+00:06:29,000 --> 00:06:30,600
+对于每只熊，我们将拥有
+for each of the bears so we'll have
+
+181
+00:06:30,733 --> 00:06:32,700
+这里有一个熊的名字，它的类型
+a bear name here and it's type
+
+182
+00:06:32,800 --> 00:06:33,600
+我们会有
+and we'll have
+
+183
+00:06:33,633 --> 00:06:35,500
+但是我们有很多熊
+however many of those we have bears
+
+184
+00:06:36,166 --> 00:06:38,700
+那么我们将如何转换这个 struts 列表
+so how are we going to transform this list of struts
+
+185
+00:06:38,933 --> 00:06:40,500
+进入这个 html
+into this html
+
+186
+00:06:40,933 --> 00:06:41,666
+好吧，新的
+well the e new
+
+187
+00:06:41,666 --> 00:06:42,866
+模块包括一堆
+module includes a bunch of
+
+188
+00:06:42,866 --> 00:06:44,166
+您可能会使用的功能
+functions that you've likely
+
+189
+00:06:44,166 --> 00:06:46,133
+用于其他编程语言
+used in other programming languages
+
+190
+00:06:46,133 --> 00:06:47,533
+用于处理列表
+for working with lists
+
+191
+00:06:47,866 --> 00:06:50,133
+所以在我的前任让我们看看恩对我们有什么好处
+so over an I ex let's see what e n has for us
+
+192
+00:06:50,133 --> 00:06:53,166
+我将使用他的新点我只是要点击标签
+I'll use h e new dot I'm just going to hit tab
+
+193
+00:06:53,666 --> 00:06:55,933
+好吧，它有一堆熟悉的功能
+well it has a bunch of familiar functions
+
+194
+00:06:55,933 --> 00:06:57,200
+所以如果我在这里向上滚动
+so if I just scroll up here
+
+195
+00:06:58,333 --> 00:06:59,766
+你会注意到它有每个
+you'll notice it has each
+
+196
+00:07:00,266 --> 00:07:03,000
+它有过滤器它有地图
+it has filter it has map
+
+197
+00:07:04,600 --> 00:07:06,033
+我们有减少
+we've got reduce
+
+198
+00:07:06,566 --> 00:07:07,400
+并拒绝
+and reject
+
+199
+00:07:08,233 --> 00:07:10,033
+它有各种各样的功能
+it has all sorts of functions
+
+200
+00:07:10,033 --> 00:07:11,333
+但我们想做的是
+but what we want to do is
+
+201
+00:07:11,333 --> 00:07:16,100
+将字符串列表转换为 html 项列表
+transform a list of strings to a list of html items
+
+202
+00:07:16,100 --> 00:07:18,300
+这是地图功能的工作
+and that's a job for the map function
+
+203
+00:07:19,100 --> 00:07:20,933
+是的，让我们看看文档
+yeah let's look at the documentation for that
+
+204
+00:07:21,833 --> 00:07:23,600
+也是有能力的地图
+it's map with an ability too
+
+205
+00:07:24,166 --> 00:07:27,133
+所以它所做的是转换这个给定的列表
+so what it does is that transforms this given list
+
+206
+00:07:27,233 --> 00:07:28,400
+进入新列表
+into a new list
+
+207
+00:07:28,700 --> 00:07:29,966
+通过应用这个
+by applying this
+
+208
+00:07:30,100 --> 00:07:31,666
+第二个功能
+function which is the second
+
+209
+00:07:31,666 --> 00:07:33,266
+映射函数的参数
+parameter to the map function
+
+210
+00:07:33,700 --> 00:07:36,533
+第二个参数是一个匿名函数
+and this 2nd parameter is an anonymous function
+
+211
+00:07:36,800 --> 00:07:39,633
+匿名函数用这个 fn 分隔
+anonymous functions are delimited with this fn
+
+212
+00:07:39,966 --> 00:07:40,766
+然后一个
+and then a
+
+213
+00:07:40,800 --> 00:07:43,733
+在这种情况下，参数列表只有一个称为 x
+list of parameters in this case just one called x
+
+214
+00:07:43,966 --> 00:07:45,166
+然后它有这个箭头
+then it has this arrow
+
+215
+00:07:45,400 --> 00:07:46,800
+然后这是函数的主体
+and then this is the body of the function
+
+216
+00:07:46,800 --> 00:07:48,700
+它只需要 x 并将其乘以 2
+it just takes x and multiplies it by two
+
+217
+00:07:48,933 --> 00:07:49,900
+然后就结束了
+and then there's an end
+
+218
+00:07:50,466 --> 00:07:52,500
+所以它应用了这个功能
+so it applies this function
+
+219
+00:07:52,933 --> 00:07:54,966
+给定列表中的每个元素
+to each element in the given list
+
+220
+00:07:55,433 --> 00:07:57,600
+把双数还给我们
+giving us back the double numbers
+
+221
+00:07:57,933 --> 00:07:59,433
+所以让我们把它从这里复制出来
+so let's just copy this out of here
+
+222
+00:08:00,800 --> 00:08:01,533
+我们将它粘贴到
+and we'll paste it in
+
+223
+00:08:01,533 --> 00:08:03,166
+我要将函数体更改为
+I'm going to change the function body to
+
+224
+00:08:03,166 --> 00:08:04,466
+实际上是数字的三倍
+actually triple the numbers
+
+225
+00:08:04,800 --> 00:08:07,400
+我们得到一个三元数的列表
+and we get back a list of the triple numbers
+
+226
+00:08:07,800 --> 00:08:08,800
+现在匿名函数
+now anonymous functions
+
+227
+00:08:08,800 --> 00:08:10,566
+是长生不老药中的一流价值
+are first class values in elixir
+
+228
+00:08:10,566 --> 00:08:12,566
+所以我们可以将它们绑定到变量
+so we can bind them to variables
+
+229
+00:08:12,666 --> 00:08:15,166
+假设我们想将它绑定到变量三元组
+let's say we wanted to bind it to variable triple
+
+230
+00:08:16,200 --> 00:08:17,400
+我可以把这个拿在这里
+I can just take this here
+
+231
+00:08:19,733 --> 00:08:20,833
+并像这样粘贴
+and paste it like that
+
+232
+00:08:21,433 --> 00:08:23,600
+现在我们有一个名为 Triple 的函数
+and now we have a function called triple
+
+233
+00:08:23,733 --> 00:08:25,066
+并调用该函数
+and to call the function
+
+234
+00:08:25,300 --> 00:08:26,300
+我们说三重
+we say triple
+
+235
+00:08:26,700 --> 00:08:27,800
+然后给一个点
+and then give a dot
+
+236
+00:08:27,833 --> 00:08:29,866
+和括号，然后传入参数
+and parentheses and then pass in the argument
+
+237
+00:08:29,866 --> 00:08:31,033
+在这种情况下 10
+in this case 10
+
+238
+00:08:31,133 --> 00:08:33,000
+我们回到三倍值 30
+and we get back to triple value 30
+
+239
+00:08:33,533 --> 00:08:35,533
+现在重要的是要注意这个点
+now it's important to note that this dot
+
+240
+00:08:35,733 --> 00:08:38,233
+在可变三元组和假肢之间
+between the variable triple and the prostheses
+
+241
+00:08:38,233 --> 00:08:40,833
+需要调用匿名函数
+is required to invoke an anonymous function
+
+242
+00:08:41,000 --> 00:08:43,766
+它将它与调用名称函数区分开来
+it differentiates it from calling a name function
+
+243
+00:08:43,900 --> 00:08:45,933
+可能在模块内的其他地方
+which could be somewhere else inside of a module
+
+244
+00:08:46,366 --> 00:08:49,300
+因为匿名函数是一等值，我们可以
+since anonymous functions are first class values we can
+
+245
+00:08:49,466 --> 00:08:51,100
+也将它们作为参数传递
+also pass them as arguments
+
+246
+00:08:51,100 --> 00:08:52,700
+到地图等其他功能
+to other functions such as map
+
+247
+00:08:52,700 --> 00:08:53,700
+所以如果我们拿地图
+so if we take map
+
+248
+00:08:55,266 --> 00:08:56,600
+给它一个 1 2 3 的列表
+give it a list of 1 2 3
+
+249
+00:08:57,433 --> 00:08:59,300
+然后而不是倾斜匿名函数
+then instead of inclining the anonymous function
+
+250
+00:08:59,300 --> 00:09:00,466
+我们可以给它三倍
+we could just give it triple
+
+251
+00:09:01,033 --> 00:09:01,966
+我们得到同样的东西
+and we get the same thing
+
+252
+00:09:02,533 --> 00:09:04,933
+所以我们可以像我们一样内联函数
+so we can either inline the function like we did
+
+253
+00:09:04,966 --> 00:09:05,733
+第一次
+the first time
+
+254
+00:09:05,733 --> 00:09:07,533
+或者我们可以将它分配给一个变量
+or we can assign it to a variable
+
+255
+00:09:07,666 --> 00:09:09,966
+然后将该函数作为参数传递
+and then pass that function as an argument
+
+256
+00:09:10,666 --> 00:09:12,300
+所以让我们再看几个
+so let's peek at a few more
+
+257
+00:09:12,300 --> 00:09:15,366
+将函数作为参数的函数
+en functions that take a function as an argument
+
+258
+00:09:15,866 --> 00:09:18,066
+确定其中一个熟悉的人都想成为他们
+sure one of the familiar wants to be em each
+
+259
+00:09:18,700 --> 00:09:20,133
+它需要一个列表和一个函数
+it takes a list and a function
+
+260
+00:09:20,133 --> 00:09:21,600
+然后它调用该函数
+and then it calls that function
+
+261
+00:09:21,600 --> 00:09:23,433
+对于列表中的每个元素
+for each of the elements in the list
+
+262
+00:09:24,100 --> 00:09:25,533
+还有鸸鹋发现
+there's also emu find
+
+263
+00:09:26,400 --> 00:09:28,000
+它需要一个函数中的列表
+it takes a list in a function
+
+264
+00:09:28,500 --> 00:09:30,533
+返回一个真值
+that returns a truth value
+
+265
+00:09:30,533 --> 00:09:32,666
+或者你可能认为这是一个谓词函数
+or you might consider this a predicate function
+
+266
+00:09:32,966 --> 00:09:35,000
+以及列表中的第一项
+and the first item in the list for which
+
+267
+00:09:35,000 --> 00:09:37,000
+该函数返回一个真值
+that function returns a truth value
+
+268
+00:09:37,133 --> 00:09:38,033
+好吧，它被退回了
+well it's returned
+
+269
+00:09:38,633 --> 00:09:40,533
+还有酶过滤器
+there's also enzyme filter
+
+270
+00:09:41,566 --> 00:09:43,633
+在这种情况下，它运行函数
+in this case it runs the function
+
+271
+00:09:43,900 --> 00:09:45,666
+在每个元素上找出哪个
+on each of the elements to figure out which
+
+272
+00:09:45,666 --> 00:09:47,966
+保留的，以便过滤 1 2 3
+ones to keep so it filtered 1 2 3
+
+273
+00:09:48,200 --> 00:09:51,100
+它正在寻找所有的偶数，它返回了两个
+it was looking for all the evens and it returned two
+
+274
+00:09:51,900 --> 00:09:54,300
+最后是鸸鹋减少
+and then finally there's emu reduce
+
+275
+00:09:55,100 --> 00:09:56,166
+这个很有趣
+and this one's kind of interesting
+
+276
+00:09:56,166 --> 00:09:57,433
+因为它需要一个列表
+because it takes a list
+
+277
+00:09:57,433 --> 00:09:59,433
+然后它取一个初始值
+and then it takes an initial value
+
+278
+00:09:59,866 --> 00:10:01,366
+然后是这里的第三个参数
+and then the third argument here
+
+279
+00:10:01,366 --> 00:10:02,800
+是一个匿名函数
+is an anonymous function
+
+280
+00:10:02,866 --> 00:10:05,700
+但请注意这个匿名函数有两个参数
+but notice this anonymous function takes two arguments
+
+281
+00:10:05,733 --> 00:10:07,000
+x 和一个累加器
+x and an accumulator
+
+282
+00:10:07,166 --> 00:10:09,433
+并且你可能在其他语言中使用过 reduce
+and you've probably used reduced in other languages
+
+283
+00:10:09,500 --> 00:10:12,633
+它所做的是将这个列表减少到一个值
+what it does is reduces this list down to a value
+
+284
+00:10:12,633 --> 00:10:15,333
+在这种情况下，它是 6，它是这样做的
+in this case it's six and it's doing that by
+
+285
+00:10:15,533 --> 00:10:17,333
+添加每个元素
+adding each element
+
+286
+00:10:17,333 --> 00:10:20,133
+每次通过这个循环到这个累加器
+to this accumulator each time through this loop
+
+287
+00:10:20,500 --> 00:10:23,233
+所以这个例子只是对数字列表求和
+so this example just sums the list of numbers
+

@@ -1,0 +1,696 @@
+WEBVTT
+
+1
+00:00:00.290 --> 00:00:03.650
+好的，现在我们来到了 CLI 博客，这是我们的第一个应用程序。
+Okay, so we're at the CLI Blog, our first app.
+
+2
+00:00:03.650 --> 00:00:04.920
+这是一个有曲折的博客。
+It's a blog with a twist.
+
+3
+00:00:04.920 --> 00:00:05.975
+这是一个 CLI 博客。
+It's a CLI Blog.
+
+4
+00:00:05.975 --> 00:00:10.479
+[笑] 所以，这是你最喜欢的，它是一个图表。
+[LAUGH] So, it's your favorite, it's a graph.
+
+5
+00:00:10.479 --> 00:00:14.185
+[笑] 所以我们有一个，这些就是我们要做的，
+[LAUGH] So we have a, these are what we're gonna do,
+
+6
+00:00:14.185 --> 00:00:17.300
+这有点像交互地图。
+it's kinda like the map of interactions.
+
+7
+00:00:17.300 --> 00:00:19.850
+我们有一个起点和
+We have a starting point and
+
+8
+00:00:19.850 --> 00:00:22.880
+我们将看看是否有任何作者可以直接进入菜单。
+we're gonna see if we have any authors we can go straight to menu.
+
+9
+00:00:22.880 --> 00:00:27.620
+如果我们没有任何作者，我们将转到底部的创建作者。
+If we don't have any authors, we go to Create Author down at the bottom here.
+
+10
+00:00:27.620 --> 00:00:30.660
+创建作者后，我们返回菜单。
+And after we create the author, we go back to menu.
+
+11
+00:00:30.660 --> 00:00:34.810
+从菜单我们可以看到所有的帖子，去看看最新的帖子。
+From menu we can see all the posts, go see the latest posts.
+
+12
+00:00:34.810 --> 00:00:36.710
+去创造更多的作者。
+Go create more authors.
+
+13
+00:00:36.710 --> 00:00:38.950
+我们可以去写，但写不会回到菜单。
+We can go Write, but Write doesn't go back to menu.
+
+14
+00:00:38.950 --> 00:00:41.660
+写完后会更新到最新，因为你刚刚写了它，
+Write goes up to the latest after its done cuz you just wrote it,
+
+15
+00:00:41.660 --> 00:00:42.643
+你想在这里看到它。
+you wanna see it here.
+
+16
+00:00:42.643 --> 00:00:48.340
+所以这就是我们正在做的事情的地图，世界地图。
+So this is kind of the map, world map of what we're doing.
+
+17
+00:00:48.340 --> 00:00:49.480
+我们会看到我们能走多远。
+We'll see how far we get.
+
+18
+00:00:49.480 --> 00:00:54.270
+我真的只关心架构决策和
+I really just care about working on the architectural decisions and
+
+19
+00:00:54.270 --> 00:00:57.260
+以实用的方式制作这个应用程序。
+making this app in a functional way.
+
+20
+00:00:57.260 --> 00:01:01.540
+比我更喜欢完成所有的小螺母和螺栓来完成这项工作。
+More so than I do like completing all the little nuts and bolts to make this work.
+
+21
+00:01:01.540 --> 00:01:04.240
+那么让我们看看我们可以在分配的时间内做些什么。
+So let's see what we can do in the time allotted.
+
+22
+00:01:06.520 --> 00:01:07.470
+回到我们的 VS 代码。
+Get back to our VS code.
+
+23
+00:01:07.470 --> 00:01:11.290
+我们将从这里的这个小设置开始。
+We're gonna start with this little setup here.
+
+24
+00:01:11.290 --> 00:01:14.570
+我们有问答界面。
+We have a question and answer interface.
+
+25
+00:01:14.570 --> 00:01:20.037
+它的工作原理是这样的，我们可以调用 getInput。
+And it works like so, we can call getInput.
+
+26
+00:01:20.037 --> 00:01:23.700
+所以，然后，我可以映射它，然后
+So, and then, I can map over that and
+
+27
+00:01:23.700 --> 00:01:28.560
+就像，无论 xx 到大写是什么。
+be like, whatever x x to UpperCase it's.
+
+28
+00:01:28.560 --> 00:01:33.690
+所以我们现在只是在处理一个任务，但是
+And so we're just dealing inside a task now but
+
+29
+00:01:33.690 --> 00:01:39.340
+这是我对这个问题的回答，对。
+this is my answer to that question, right.
+
+30
+00:01:39.340 --> 00:01:44.220
+所以，这将在控制台中提出问题，然后我会得到我的答案。
+So, this will pose the question in the console and then I'll get my answer back.
+
+31
+00:01:44.220 --> 00:01:44.950
+让我们运行它。
+Let's just run that.
+
+32
+00:01:44.950 --> 00:01:49.790
+只要确保它有效console.error console.log。
+Just make sure it works console.error console.log.
+
+33
+00:01:49.790 --> 00:01:50.290
+我们运行它。
+We run it.
+
+34
+00:01:52.130 --> 00:01:55.130
+仍然试图摆脱那些弹出窗口，无法做到。
+Still try to get rid of those pop ups, cannot do it.
+
+35
+00:01:55.130 --> 00:01:56.820
+感谢 VS 代码，好的。
+Thanks VS code, all right.
+
+36
+00:01:56.820 --> 00:01:57.760
+大概是我的错
+It's probably my fault.
+
+37
+00:01:57.760 --> 00:01:59.530
+我敢肯定，这不是他们的错。
+It's not their fault I'm sure.
+
+38
+00:01:59.530 --> 00:02:07.030
+所以转到博客索引，然后像现在一样设置，你去吧。
+So go to blog index and so set like now, there you go.
+
+39
+00:02:07.030 --> 00:02:08.620
+酷，有应用程序。
+Cool, there's the app.
+
+40
+00:02:08.620 --> 00:02:09.580
+我们完成了。
+We're done.
+
+41
+00:02:09.580 --> 00:02:10.620
+感受那份幸运。
+Feel that luck.
+
+42
+00:02:10.620 --> 00:02:11.420
+所以这很整洁。
+So this is neat.
+
+43
+00:02:11.420 --> 00:02:17.080
+这只是与我们刚刚在任务中抓住它的界面重新对齐一起出现的。
+This kinda just comes with the interface realign we just grabbed it in the task.
+
+44
+00:02:18.690 --> 00:02:23.880
+所以我想开始做的是回顾那个
+So what I want to start by doing is looking back at that
+
+45
+00:02:23.880 --> 00:02:28.330
+我们有一张世界地图，我想勾勒出其中的一些功能，然后
+kinda world map we have, I'd like to just sketch out some of these functions and
+
+46
+00:02:28.330 --> 00:02:31.780
+有点看看这些函数的类型是什么。
+kinda see what the type of these functions are.
+
+47
+00:02:31.780 --> 00:02:36.780
+而要做到这一点，我只需要写一些粗略的一厢情愿的代码。
+And to do so, I just have to write some rough like wishful thinking code.
+
+48
+00:02:36.780 --> 00:02:38.740
+所以我不会去实施一切。
+So I'm not gonna go implement everything.
+
+49
+00:02:38.740 --> 00:02:41.560
+我只是会有点松散地写东西
+I'm just gonna kinda loosely write stuff and
+
+50
+00:02:41.560 --> 00:02:45.330
+然后看看我们可能需要什么作为函数模型。
+then see what we might need as a function model.
+
+51
+00:02:45.330 --> 00:02:46.790
+所以从开始。
+So start with Start.
+
+52
+00:02:46.790 --> 00:02:49.790
+这是开始 [笑] 发挥作用的好地方。
+It's a good place to start [LAUGH] to function.
+
+53
+00:02:49.790 --> 00:02:56.526
+我想我们会，首先，我们要检查一下是否有任何作者，对吗？
+I guess we'll, first, we're gonna check to see if there's any authors, right?
+
+54
+00:02:56.526 --> 00:03:01.250
+所以我们能做的是，我相信我们会带来一个小阵列
+So what we can do is, I believe we're gonna bring in a little array
+
+55
+00:03:01.250 --> 00:03:06.290
+我想我以前准备的基于数据库。
+based database that I think I've previously prepared.
+
+56
+00:03:08.110 --> 00:03:11.590
+看看这是不是在这里，它在lib中，好吧。
+See if this is here, it's in lib, okay.
+
+57
+00:03:14.010 --> 00:03:16.405
+所以我们有这个小数据库。
+So we have this little database.
+
+58
+00:03:16.405 --> 00:03:21.669
+其实我去看看它导出的Dbx，
+Actually, let me go take a look at Dbx it exports,
+
+59
+00:03:21.669 --> 00:03:25.010
+保存查找所有和商店。
+save find all and the store.
+
+60
+00:03:25.010 --> 00:03:30.700
+好的，很酷，这只是我们正在处理包含在任务中的数组。
+Okay, cool and this just we're working with arrays wrapped in a task.
+
+61
+00:03:30.700 --> 00:03:34.394
+我是，如果我们有时间，我会进入策略模式或
+I was, if we had time I would have gone into the strategy pattern or
+
+62
+00:03:34.394 --> 00:03:38.236
+这里有一些东西，但我们在，它真的既不在这里也不在那里。
+something in here but we are, it's really neither here nor there.
+
+63
+00:03:38.236 --> 00:03:42.130
+所以我们已经保存了所有，这就是我们真正需要的。
+So we have save all and that's all we really need.
+
+64
+00:03:42.130 --> 00:03:44.890
+也许我们可以使用 find ，但要专注于此。
+We could use find maybe, but focus on that.
+
+65
+00:03:46.090 --> 00:03:50.750
+所以它的工作方式是我想我们会说我们必须给它一个表名。
+So the way this works is I guess we'll say all we have to give it a table name.
+
+66
+00:03:50.750 --> 00:03:54.640
+所以让我们像作者表一样给它，只是作者。
+So let's give it like author table, just authors.
+
+67
+00:03:56.990 --> 00:03:58.176
+所以给它表名。
+So give it the table name.
+
+68
+00:03:58.176 --> 00:04:03.209
+然后那会，我可以改变那个和
+And then that will, I can change over that and
+
+69
+00:04:03.209 --> 00:04:06.780
+得到，所以这是一个任务。
+get, so this is a task.
+
+70
+00:04:06.780 --> 00:04:10.220
+实际上，现在只需映射它并获取作者。
+Actually just map over it right now and get the authors.
+
+71
+00:04:10.220 --> 00:04:15.170
+我们会说如果我们有作者，我们会
+And we'll say if we have authors, we're gonna
+
+72
+00:04:16.250 --> 00:04:22.140
+否则进入菜单，我们要去创建作者。
+go into the menu otherwise, we're gonna go to Create Author.
+
+73
+00:04:22.140 --> 00:04:25.130
+好吧，再一次，这些都没有实现。
+All right now, again, none of this is implemented.
+
+74
+00:04:25.130 --> 00:04:30.890
+看起来这是另一个函数，对该函数的一些映射和
+It looks like this is another function, some mapping over this function and
+
+75
+00:04:30.890 --> 00:04:33.060
+返回另一个函数，这有点奇怪。
+returning another function, that's a little weird.
+
+76
+00:04:33.060 --> 00:04:37.280
+我们只需要密切关注这一点。
+We'll have to just keep an eye on that.
+
+77
+00:04:37.280 --> 00:04:39.487
+那么 CreateAuthor 是什么样子的呢？
+So what does CreateAuthor look like?
+
+78
+00:04:41.628 --> 00:04:45.261
+让我们通过这三个功能
+And let's just get through these maybe three functions and
+
+79
+00:04:45.261 --> 00:04:48.350
+然后我们会看看我们在处理什么。
+then we'll kinda see what we're dealing with.
+
+80
+00:04:48.350 --> 00:04:50.850
+随着我们制作更多的功能，我们可能不得不回来重构，
+And as we make more functions, we might have to come back and refactor,
+
+81
+00:04:50.850 --> 00:04:52.240
+走着瞧吧。
+see what happens.
+
+82
+00:04:52.240 --> 00:04:54.670
+但是 CreateAuthor，把它画出来。
+But CreateAuthor, sketch that out.
+
+83
+00:04:54.670 --> 00:04:56.080
+好吧，那会是什么样子？
+All right, what would that look like?
+
+84
+00:04:56.080 --> 00:05:02.060
+好吧，我们会问，我们会得到输入 On，比如说，name。
+Well, we'll ask, we'll get the input On, let's say, name.
+
+85
+00:05:02.060 --> 00:05:06.800
+然后当我们得到输入时，我们得到，
+And then when we get the input back, we get,
+
+86
+00:05:06.800 --> 00:05:09.860
+我一直直接使用链条，但我不确定我是否需要链条。
+I keep going straight to chain, but I'm not really sure if I need the chain yet.
+
+87
+00:05:09.860 --> 00:05:11.470
+所以我们得到了作者姓名。
+So we get back the author name.
+
+88
+00:05:11.470 --> 00:05:17.300
+让我们继续制作一个带名字的小作者类型。
+Let's go ahead and make a little author type that takes a name.
+
+89
+00:05:17.300 --> 00:05:21.120
+有趣的是，这真的没什么。
+And the interesting thing about that is it's really nothing.
+
+90
+00:05:21.120 --> 00:05:24.430
+它只是要选择一个名字，把它打成一个类型。
+It's just going to pick a name, slap it in a type.
+
+91
+00:05:24.430 --> 00:05:29.340
+我喜欢这样做的原因
+And the reason I like to do this, in a more typed
+
+92
+00:05:29.340 --> 00:05:33.315
+正式语言，或者如果我们有一堂课或其他任何我们想要的东西，
+formal language ,or if we had a class or whatever else we would,
+
+93
+00:05:33.315 --> 00:05:38.190
+它保持您定义的数据类型，以便
+it keeps your data types defined so that
+
+94
+00:05:38.190 --> 00:05:42.370
+您不仅可以随心所欲地在整个应用程序中创建数据类型。
+you're not just willy nilly creating data types all throughout your app as you go.
+
+95
+00:05:42.370 --> 00:05:44.640
+就像这个乘客构造函数一样，
+And so like this passenger constructor,
+
+96
+00:05:44.640 --> 00:05:46.890
+即使它除了放入一个对象之外并没有真正做任何事情。
+even though it's not really doing anything besides putting in an object.
+
+97
+00:05:48.640 --> 00:05:50.750
+然后我们将继续进行映射。
+Then we'll go ahead and map over that.
+
+98
+00:05:50.750 --> 00:05:54.030
+所以我们有一个作者，我们该怎么办？
+So we have an author and what do we do with that?
+
+99
+00:05:54.030 --> 00:05:58.140
+我想现在我们已经创建了一个作者，我们可能必须将它保存在数据库中。
+I guess now that we've created an author, we probably have to save it in the DB.
+
+100
+00:05:58.140 --> 00:06:00.380
+好的，这将是一个链条。
+Okay, so that'll be a chain.
+
+101
+00:06:00.380 --> 00:06:03.190
+或者不，让我们只是，那里有一张地图。
+Or no, let's just, that's a map there.
+
+102
+00:06:03.190 --> 00:06:04.400
+这是链条，是的。
+And this is chain, yeah.
+
+103
+00:06:05.555 --> 00:06:09.055
+所以将它保存在数据库中，再次保存在作者表中。
+So save this in the DB, again in the author table.
+
+104
+00:06:11.015 --> 00:06:17.061
+所以保存在这里，我们将保存作者，然后最后我们必须将其映射到，
+So save here, we're gonna save the author and then finally we have to map that into,
+
+105
+00:06:17.061 --> 00:06:21.318
+我们真的不在乎我们拯救了作者，只要它，
+we don't really care that we saved the author as long as it,
+
+106
+00:06:21.318 --> 00:06:25.340
+我想这会拒绝任务，如果它不保存。
+I imagine this will reject the task if it doesn't save.
+
+107
+00:06:25.340 --> 00:06:29.865
+我们可以通过多种方式改造数据库，我们可以有一个任务
+We could remodel the database in a number of ways, we could have a task either right
+
+108
+00:06:29.865 --> 00:06:33.867
+数据库连接可能是任务失败的原因，然后它仍然有
+where the DB connection might be why the task fails, and then it still has
+
+109
+00:06:33.867 --> 00:06:38.230
+如果没有保存作者，则是一个成功的任务，其中包含错误。
+a successful task with an error inside it if it didn't save the author.
+
+110
+00:06:38.230 --> 00:06:39.760
+做一些验证，
+Do some validations,
+
+111
+00:06:39.760 --> 00:06:43.530
+也许我们将使用我们的验证库与作者合作。
+perhaps we will use our validation library to work with the author.
+
+112
+00:06:43.530 --> 00:06:46.550
+但现在我只想说什么。
+But right now I'm just going to say whatever.
+
+113
+00:06:46.550 --> 00:06:47.996
+让我们勾勒出这些。
+Let's just sketch these out.
+
+114
+00:06:47.996 --> 00:06:51.912
+我会说菜单是我们要去的地方，对吧。
+I'm gonna say menu is where we'll go from there, right.
+
+115
+00:06:51.912 --> 00:06:55.230
+我们有一个作者，现在我们要去菜单。
+We have an author and now we're going to menu.
+
+116
+00:06:55.230 --> 00:06:58.760
+如果我们回顾一下我们的小地图，每次我们创建一个作者，
+And if we look back at our little map, every time we create an author,
+
+117
+00:06:58.760 --> 00:06:59.980
+我回到菜单。
+I go back to menu.
+
+118
+00:06:59.980 --> 00:07:04.770
+没有其他地方可去，所以我就直接去那里。
+There's nowhere else to go, so I'm just going to go right there.
+
+119
+00:07:04.770 --> 00:07:08.796
+最后一个，让我们继续写菜单，这是一个有趣的。
+Last one, let's go ahead and write menu, it's a fun one.
+
+120
+00:07:08.796 --> 00:07:17.750
+菜单，让我们看看，你今天想去哪里？
+Menu, Let's see, where do you want to go today?
+
+121
+00:07:18.860 --> 00:07:20.214
+微信？ 1991年？
+MSN? 1991?
+
+122
+00:07:21.860 --> 00:07:27.655
+我们会，也许私人提供一个提示，我们想要像创建作者一样，
+And we'll, maybe private provide a hint, do we want to do like create author,
+
+123
+00:07:27.655 --> 00:07:33.310
+写，都是她最新的。
+write, all her latest.
+
+124
+00:07:33.310 --> 00:07:39.460
+好吧，很酷，因为有一些关于我们实际上可以做什么的提示，并且
+All right, cool, because there's some some hints at what we can actually do and
+
+125
+00:07:39.460 --> 00:07:44.800
+我想，一旦我们得到输入，我们就得到了路线。
+once we get that input, we get the route, I suppose.
+
+126
+00:07:44.800 --> 00:07:48.550
+我们需要一个小路由器，所以我们要做一个路由器，我们将传入路由。
+We'll need a little router, so we'll do a router, we'll pass in the route.
+
+127
+00:07:49.730 --> 00:07:54.770
+那将是，看看这个，我们只是传递这些延续，
+And that will be, look at this, we're just passing these continuations along,
+
+128
+00:07:54.770 --> 00:07:56.270
+现在我看到了，对吧？
+now that I see it, right?
+
+129
+00:07:57.590 --> 00:08:01.900
+所以，一旦我把路由器传出去，让我们继续写一个小路由器，
+So, once I'm passing the router out, let's go ahead and write a little router,
+
+130
+00:08:01.900 --> 00:08:06.220
+然后我们将完成我们的小草图，让我们把它放在这里。
+and then we'll finish our little sketch, let's put this down here.
+
+131
+00:08:06.220 --> 00:08:10.690
+其中一件事是我们正在定义这些功能和
+And one of the things about this is we're defining these functions and
+
+132
+00:08:10.690 --> 00:08:16.200
+如果我在定义这些函数之前提到它们，JavaScript 不会喜欢它。
+JavaScript will not like it if I mention this functions before they're defined.
+
+133
+00:08:16.200 --> 00:08:19.380
+但是因为它们在这里的函数内部，所以他们不在乎。
+But since they're inside functions here, they don't care of that.
+
+134
+00:08:19.380 --> 00:08:21.920
+我可以在那里打电话给路由器，但是
+I can call router within there but
+
+135
+00:08:21.920 --> 00:08:24.700
+我必须在这里写下路由器，开始，菜单。
+I have to write the router down here, Start, Menu.
+
+136
+00:08:24.700 --> 00:08:27.630
+好吧，我们不想让人们回到起点，所以
+Well, we don't want to let people go back to the start, so
+
+137
+00:08:27.630 --> 00:08:28.626
+这甚至是不可能的。
+that's not even a possibility.
+
+138
+00:08:28.626 --> 00:08:33.408
+在菜单中，createAuthor，我们可以添加更多。
+In Menu, createAuthor and we can add more.
+
+139
+00:08:33.408 --> 00:08:37.911
+好吧，美好的时光。
+All right, good times.

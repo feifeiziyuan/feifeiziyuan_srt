@@ -1,0 +1,865 @@
+1
+00:00:00,600 --> 00:00:02,700
+我们目前有我们所有的功能要查找
+we currently have all of our functions to find
+
+2
+00:00:02,700 --> 00:00:03,900
+在单个模块中
+in a single module
+
+3
+00:00:03,900 --> 00:00:04,200
+和
+and
+
+4
+00:00:04,200 --> 00:00:06,600
+我们已经相当自律地分组在一起
+we've been fairly disciplined about grouping together
+
+5
+00:00:06,600 --> 00:00:08,533
+有类似问题的函数
+functions that have similar concerns
+
+6
+00:00:08,700 --> 00:00:10,066
+但我们从经验中知道
+but we know from experience
+
+7
+00:00:10,300 --> 00:00:11,033
+拥有它们
+that having them all
+
+8
+00:00:11,033 --> 00:00:14,133
+在一个模块中会变得有点不守规矩
+in one module is going to become a bit unruly
+
+9
+00:00:14,366 --> 00:00:17,400
+是的，在这个模块中已经有点疯狂了
+yeah it's getting a bit wild already in this one module
+
+10
+00:00:17,400 --> 00:00:19,633
+但我们通常从一个模块中的所有内容开始
+but we generally start with everything in one module
+
+11
+00:00:19,633 --> 00:00:22,233
+然后一旦我们看到类似功能的集群
+and then once we see clusters of similar functions
+
+12
+00:00:22,300 --> 00:00:22,466
+好
+well
+
+13
+00:00:22,466 --> 00:00:25,266
+然后我们将它们组织在一个正确命名的模块中
+then we'll organize those in a properly named module
+
+14
+00:00:25,333 --> 00:00:27,033
+所以让我们做一些功能争论
+so let's do some function wrangling
+
+15
+00:00:27,866 --> 00:00:28,600
+在我们的管道中
+in our pipeline
+
+16
+00:00:28,600 --> 00:00:30,333
+我们有一些我们插入的功能
+we have some functions that we plug in
+
+17
+00:00:30,333 --> 00:00:32,600
+映射某些请求和响应，然后
+to map certain requests and responses and then
+
+18
+00:00:32,600 --> 00:00:34,900
+以各种方式修改对话
+modify the conversation in various ways
+
+19
+00:00:35,066 --> 00:00:39,366
+所以例如我们有重写路径日志然后跟踪
+so for example we have rewrite path log and then track
+
+20
+00:00:39,900 --> 00:00:41,333
+我们想把它们放在一个新模块中
+we want to put those in a new module
+
+21
+00:00:41,366 --> 00:00:43,533
+所以我只是要删掉那些的定义
+so I'm just going to cut out the definitions of those
+
+22
+00:00:43,566 --> 00:00:44,466
+功能就在这里
+functions right here
+
+23
+00:00:45,000 --> 00:00:47,333
+然后在顶部我要定义一个新模块
+and then at the top I'm going to define a new module
+
+24
+00:00:47,866 --> 00:00:48,466
+命名是
+naming is
+
+25
+00:00:48,466 --> 00:00:50,800
+始终是创建新模块最困难的部分
+always the hardest part of creating a new module
+
+26
+00:00:51,066 --> 00:00:52,933
+让我们称之为插件
+let's just call this plugins
+
+27
+00:00:53,233 --> 00:00:55,400
+这将是服务插件
+it's going to be service plugins
+
+28
+00:00:55,700 --> 00:00:58,266
+一个elixir文件可以定义多个模块
+and a single elixir file can define multiple module
+
+29
+00:00:58,266 --> 00:00:59,900
+所以我们只是要把这些模块放在同一个
+so we're just going to put these modules in the same
+
+30
+00:00:59,900 --> 00:01:03,766
+文件现在不要让这个点字符把你扔到这里
+file now don't let this dot character throw you here
+
+31
+00:01:03,800 --> 00:01:06,866
+当我第一次看到这样的模块命名方案时
+when I first saw this module naming scheme like this
+
+32
+00:01:06,866 --> 00:01:10,233
+我认为它暗示了一些等级关系
+I assumed it implied some hierarchical relationship
+
+33
+00:01:10,400 --> 00:01:13,033
+在调查模块和插件模块之间
+between the survey module and the plugins module
+
+34
+00:01:13,133 --> 00:01:16,200
+但实际上并没有隐含的关系
+but in fact there is no implied relationship
+
+35
+00:01:16,233 --> 00:01:17,666
+所有模块均已定义
+all modules are defined
+
+36
+00:01:17,666 --> 00:01:18,600
+在顶层
+at the top level
+
+37
+00:01:18,833 --> 00:01:21,866
+使用点只是给我们一个简单方便的方法
+using dots just gives us a simple convenient way
+
+38
+00:01:22,000 --> 00:01:23,400
+表达一个名字空间
+to express a name space
+
+39
+00:01:23,966 --> 00:01:26,400
+现在我的复制粘贴缓冲区中有这些功能
+now I've got those functions in my copy paste buffer
+
+40
+00:01:26,400 --> 00:01:27,200
+所以我要
+so I'm just going to
+
+41
+00:01:27,200 --> 00:01:29,100
+像这样粘贴模块内部
+paste those inside of the module like that
+
+42
+00:01:29,666 --> 00:01:30,600
+然后我们可以关闭
+and then we can close
+
+43
+00:01:30,600 --> 00:01:31,566
+这是崇高的
+this up in sublime
+
+44
+00:01:31,566 --> 00:01:33,100
+只是给我们多一点空间
+just to give us a little bit more room
+
+45
+00:01:33,433 --> 00:01:35,433
+我说模块充当名称
+I said that the module acts as a name
+
+46
+00:01:35,433 --> 00:01:37,266
+空间调用函数
+space so to call the functions
+
+47
+00:01:37,266 --> 00:01:39,166
+我们需要使用模块名称
+we need to use the module name
+
+48
+00:01:39,166 --> 00:01:42,400
+所以当我们调用重写路径时，我们不得不说调查
+so when we call rewrite path we have to say survey
+
+49
+00:01:42,733 --> 00:01:45,033
+插件重写路径
+plugins rewrite path
+
+50
+00:01:45,466 --> 00:01:47,633
+调用 log 之前的方法相同
+the same way before calling log
+
+51
+00:01:47,733 --> 00:01:49,833
+我们必须在它前面加上模块名称
+we have to prefix it with the module name
+
+52
+00:01:50,500 --> 00:01:52,000
+和轨道一样的东西
+and the same thing for track
+
+53
+00:01:52,266 --> 00:01:53,366
+如果我们把它保存起来
+if we save this away
+
+54
+00:01:54,000 --> 00:01:55,733
+看起来我们没有破坏任何东西
+and it looks like we haven't broken anything
+
+55
+00:01:56,166 --> 00:01:58,833
+用模块名称作为函数名称的前缀是
+prefixing the function names with the module names is
+
+56
+00:01:58,833 --> 00:02:00,533
+然而明确的
+explicit however
+
+57
+00:02:00,633 --> 00:02:02,433
+模块名称可能会变得相当长
+module names can get fairly long
+
+58
+00:02:02,566 --> 00:02:05,400
+而且之前输入模块的名称很繁琐
+and it's tedious to type the name of the module before
+
+59
+00:02:05,566 --> 00:02:06,533
+每个函数名
+every function name
+
+60
+00:02:06,866 --> 00:02:09,700
+幸运的是，有几个选项可以解决这个问题
+thankfully there's a couple options to deal with this
+
+61
+00:02:10,133 --> 00:02:12,733
+一种方法是导入模块
+one approach is to import the module
+
+62
+00:02:13,100 --> 00:02:15,700
+要做到这一点，我们只是在函数之上
+to do that we just go up above the function
+
+63
+00:02:15,700 --> 00:02:18,600
+在模块的顶层，我们说导入
+at the top level of the module and we say import
+
+64
+00:02:19,300 --> 00:02:21,000
+调查插件
+survey plugins
+
+65
+00:02:21,433 --> 00:02:23,700
+这将导入这些功能
+and that's going to import those functions
+
+66
+00:02:23,766 --> 00:02:25,066
+进入当前名称空间
+into the current name space
+
+67
+00:02:25,066 --> 00:02:26,666
+调查处理程序名称空间
+the survey handler name space
+
+68
+00:02:26,866 --> 00:02:28,466
+所以现在我们可以摆脱
+so now we can get rid of
+
+69
+00:02:28,500 --> 00:02:31,400
+所有这些功能的这个前缀在这里
+this prefix on all these functions here
+
+70
+00:02:32,900 --> 00:02:35,100
+如果我们把它保存好，那也应该有用
+if we save that away well that should work too
+
+71
+00:02:35,533 --> 00:02:39,233
+但是以这种方式导入函数有点随意
+however importing functions this way is a bit cavalier
+
+72
+00:02:39,300 --> 00:02:41,533
+因为它导入了所有功能
+because it imports all the functions
+
+73
+00:02:41,533 --> 00:02:43,433
+这可能会导致歧义
+which can lead to ambiguity
+
+74
+00:02:43,666 --> 00:02:45,166
+现在在这种情况下这没什么大不了的
+now it's not a big deal in this case
+
+75
+00:02:45,166 --> 00:02:47,566
+因为我们只处理少数几个函数
+because we're only dealing with a handful of functions
+
+76
+00:02:47,666 --> 00:02:50,200
+但不是导入整个模块
+but instead of importing the entire module
+
+77
+00:02:50,200 --> 00:02:51,900
+我们可以更有选择性
+we could be more selective and
+
+78
+00:02:52,000 --> 00:02:54,066
+只导入我们需要的功能
+only import the functions we need
+
+79
+00:02:54,333 --> 00:02:57,066
+我们只使用选项来做到这一点
+and we do that by using the option only
+
+80
+00:02:57,400 --> 00:02:59,300
+然后我们给它一个列表，我们可以说
+and then we give it a list and we can say
+
+81
+00:02:59,366 --> 00:03:01,000
+好的，我们想要重写
+okay we want the rewrite
+
+82
+00:03:01,333 --> 00:03:03,900
+接受一个参数的路径函数
+path function that takes one argument
+
+83
+00:03:04,200 --> 00:03:06,866
+我们还想要接受一个参数的 log 函数
+we also want the log function that takes one argument
+
+84
+00:03:06,933 --> 00:03:09,066
+以及带有一个参数的 track 函数
+and the track function that takes one argument
+
+85
+00:03:09,400 --> 00:03:12,033
+这样做只会让它更明确
+and doing it this way just makes it more explicit
+
+86
+00:03:12,133 --> 00:03:13,833
+定义这些功能的地方
+where those functions are defined
+
+87
+00:03:14,266 --> 00:03:15,533
+注意这里的数字
+note here that the number
+
+88
+00:03:15,566 --> 00:03:17,100
+是函数
+is the functions airily
+
+89
+00:03:17,100 --> 00:03:19,100
+或它需要的参数数量
+or the number of arguments it takes
+
+90
+00:03:19,100 --> 00:03:21,800
+这不是具有该名称的函数的数量
+it's not the number of functions with that name
+
+91
+00:03:22,033 --> 00:03:25,166
+所以这会导入我们所有的五个函数
+so this imports all five of our functions
+
+92
+00:03:25,466 --> 00:03:26,400
+我们把它存起来
+we save that away
+
+93
+00:03:27,100 --> 00:03:28,366
+很好，它也很好用
+well it works just as well
+
+94
+00:03:29,166 --> 00:03:31,366
+现在我们开始说我们不想要我们所有的
+now we started by saying we didn't want all of our
+
+95
+00:03:31,366 --> 00:03:33,100
+一个模块中的功能
+functions in one module
+
+96
+00:03:33,100 --> 00:03:34,166
+并且以同样的方式
+and in the same way
+
+97
+00:03:34,233 --> 00:03:36,833
+我们不希望我们所有的模块都在一个文件中
+we don't want all of our modules in one file
+
+98
+00:03:37,000 --> 00:03:39,033
+事实证明这非常容易做到
+and it turns out it's super easy to do
+
+99
+00:03:39,433 --> 00:03:41,900
+所以让我们删掉插件模块
+so let's cut the plugins module
+
+100
+00:03:42,866 --> 00:03:45,200
+我们会把它放在一个单独的文件中
+and we'll put it in a separate file
+
+101
+00:03:45,733 --> 00:03:47,700
+我要在这里打开侧边栏
+I'm going to open up the sidebar here
+
+102
+00:03:47,733 --> 00:03:50,133
+在我们的 lib 调查目录中
+and in our lib survey directory
+
+103
+00:03:50,133 --> 00:03:53,533
+我们将创建一个新文件，我们将其称为插件
+we'll just create a new file and we'll call it plugins
+
+104
+00:03:53,566 --> 00:03:54,366
+前任
+ex
+
+105
+00:03:55,833 --> 00:03:57,633
+然后我将粘贴到该模块中
+and then I'll just paste in that module
+
+106
+00:03:58,000 --> 00:03:59,966
+现在如果我们把它存起来，我也
+now if we save that away and I also
+
+107
+00:03:59,966 --> 00:04:01,700
+保存处理程序前
+save handler ex
+
+108
+00:04:02,100 --> 00:04:04,066
+我尝试以崇高的方式运行它
+and I try to run this in sublime
+
+109
+00:04:04,200 --> 00:04:05,600
+我们从哪里得到这个空气模块
+where we get this air module
+
+110
+00:04:05,600 --> 00:04:07,800
+服务插件未加载并且
+service plugins is not loaded and
+
+111
+00:04:07,833 --> 00:04:08,700
+找不到
+could not be found
+
+112
+00:04:09,133 --> 00:04:09,833
+以同样的方式
+in the same way
+
+113
+00:04:09,833 --> 00:04:11,800
+如果我们在顶层的命令行上结束
+if we're over on a command line in our top level
+
+114
+00:04:11,800 --> 00:04:12,533
+调查目录
+survey directory
+
+115
+00:04:12,533 --> 00:04:15,000
+我们尝试在我们的处理程序上运行 elixir 命令
+and we try to run the elixir command on our handler
+
+116
+00:04:15,000 --> 00:04:18,866
+ex 文件很好，我们得到了同样的错误，它找不到
+ex file well we get this same error it can't find
+
+117
+00:04:19,166 --> 00:04:20,333
+调查插件
+survey plugins
+
+118
+00:04:20,533 --> 00:04:22,766
+那是因为在任何一种情况下它都没有
+and that's because in either case it doesn't have
+
+119
+00:04:22,766 --> 00:04:24,166
+代码路径设置
+the code path setup
+
+120
+00:04:24,166 --> 00:04:25,333
+对于混合项目
+for a mixed project
+
+121
+00:04:25,833 --> 00:04:28,700
+所以此时我们需要将它作为一个混合应用程序运行
+so at this point we need to run it as a mix application
+
+122
+00:04:28,700 --> 00:04:30,600
+为此，我们将启动修复
+and to do that we're going to fire up fix
+
+123
+00:04:30,600 --> 00:04:31,700
+但我们会这样做
+but we're going to do it
+
+124
+00:04:31,700 --> 00:04:33,600
+在我们的应用程序中
+in the context of our application
+
+125
+00:04:33,833 --> 00:04:37,866
+通过使用性破折号大写 s 和混合
+by using sex dash capital s and mix
+
+126
+00:04:38,900 --> 00:04:39,633
+然后它继续
+and then it went ahead
+
+127
+00:04:39,633 --> 00:04:42,200
+并编译并加载了我们项目中的所有模块
+and compiled and loaded all the modules in our project
+
+128
+00:04:42,200 --> 00:04:45,333
+然后它解释模块之外的任何代码
+and then it interpreted any code outside of a module
+
+129
+00:04:45,500 --> 00:04:47,866
+所以我们看到了和以前一样的输出
+so we see the same output we used to see
+
+130
+00:04:48,166 --> 00:04:49,966
+在崇高的构建窗口中
+in the sublime build window
+
+131
+00:04:50,066 --> 00:04:51,766
+它只是打印出结果
+it's just printing out the results of
+
+132
+00:04:51,766 --> 00:04:53,566
+通过我们的处理程序运行我们的请求
+running our request through our handler
+
+133
+00:04:54,166 --> 00:04:55,633
+如果我们想重新编译并
+and if we want to recompile and
+
+134
+00:04:55,666 --> 00:04:57,000
+重新加载调查模块
+reload the survey module
+
+135
+00:04:57,000 --> 00:04:59,166
+好吧，我们总是可以使用 r 辅助函数
+well we can always use the r helper functions
+
+136
+00:04:59,166 --> 00:04:59,966
+我们只说r
+we just say r
+
+137
+00:05:00,466 --> 00:05:01,700
+服务处理程序
+servi handler
+
+138
+00:05:03,166 --> 00:05:05,466
+所以它重新编译了模块并重新加载了它
+so it recompiled the module and reloaded it
+
+139
+00:05:05,466 --> 00:05:05,733
+和
+and
+
+140
+00:05:05,733 --> 00:05:07,966
+还解释了模块之外的代码
+also interpreted the code that's outside of the module
+
+141
+00:05:08,133 --> 00:05:10,633
+所以这是我们运行处理程序模块的一种方式
+so this is a way for us to run our handler module
+
+142
+00:05:11,433 --> 00:05:12,433
+当我们在做的时候
+while we're at it
+
+143
+00:05:12,466 --> 00:05:15,466
+解析功能确实有宾至如归的感觉
+the parse function does a necessarily feel at home
+
+144
+00:05:15,466 --> 00:05:17,200
+生活在处理程序模块中
+living in the handler module
+
+145
+00:05:17,366 --> 00:05:19,300
+所以让我们来看看 parse 函数
+so let's take the parse function
+
+146
+00:05:19,433 --> 00:05:22,466
+我们将创建一个新的解析器 ex 文件
+and we'll create a new parser ex file
+
+147
+00:05:25,066 --> 00:05:28,800
+然后我们将定义一个模块调查解析器
+and then we'll define a module survey parser
+
+148
+00:05:29,933 --> 00:05:32,100
+我们将把我们的 parse 函数粘贴进去
+and we'll paste our parse function into it
+
+149
+00:05:32,500 --> 00:05:35,500
+然后回到我们的处理程序中，我们需要导入它
+then back in our handler we need to import that
+
+150
+00:05:35,500 --> 00:05:37,166
+所以在这里我们需要导入它
+so up here we need to import it
+
+151
+00:05:37,166 --> 00:05:39,000
+就像我们对插件所做的那样
+just like we did with plugins
+
+152
+00:05:39,066 --> 00:05:40,100
+我要说进口
+I'm going to say import
+
+153
+00:05:40,866 --> 00:05:42,466
+见解析器
+see parser
+
+154
+00:05:43,733 --> 00:05:45,433
+它只有一个功能
+and it only has one function
+
+155
+00:05:45,733 --> 00:05:47,866
+它被称为解析，能力为一
+it's called parse with an ability of one
+
+156
+00:05:48,500 --> 00:05:49,300
+现在回到九点多
+now back over nine
+
+157
+00:05:49,300 --> 00:05:51,966
+例如，如果我们尝试像以前那样重新编译处理程序模块
+ex if we try to recompile our handler module as we did
+
+158
+00:05:51,966 --> 00:05:54,766
+在我们得到这个熟悉的错误模块之前
+before while we get this familiar error module
+
+159
+00:05:54,766 --> 00:05:57,300
+服务解析器未加载且找不到
+service parser is not loaded and could not be found
+
+160
+00:05:57,666 --> 00:05:59,766
+因为它不知道解析器模块
+because it doesn't know about the parser module
+
+161
+00:06:00,300 --> 00:06:03,100
+所以此时我们可以重新启动性爱会话
+so at this point we can either restart the sex session
+
+162
+00:06:03,100 --> 00:06:05,133
+或者我们可以重新编译整个应用程序
+or we can recompile the entire application
+
+163
+00:06:05,133 --> 00:06:06,166
+使用重新编译
+using recompile
+
+164
+00:06:06,166 --> 00:06:07,233
+这是一个辅助功能
+that's a helper function
+
+165
+00:06:07,433 --> 00:06:09,233
+它不需要任何论据，但是
+it doesn't take any arguments but
+
+166
+00:06:09,333 --> 00:06:10,666
+你需要使用括号
+you need to use parentheses
+
+167
+00:06:10,666 --> 00:06:11,966
+否则你会在那里收到警告
+otherwise you'll get a warning there
+
+168
+00:06:12,600 --> 00:06:14,966
+它重新编译应用程序，我们得到
+and it recompile the application and we get the
+
+169
+00:06:14,966 --> 00:06:16,733
+我们的处理程序熟悉的输出
+familiar output from our handler
+
+170
+00:06:17,300 --> 00:06:18,500
+接下来我们将定义
+coming up we'll define
+
+171
+00:06:18,500 --> 00:06:21,500
+另一个恰好是长生不老药结构的模块
+another module that happens to be an elixir structure
+
+172
+00:06:21,500 --> 00:06:24,100
+并使用另一种技术来引用模块
+and use another technique to reference modules
+
+173
+00:06:24,300 --> 00:06:25,133
+别名
+the alias
+

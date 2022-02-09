@@ -1,0 +1,1185 @@
+1
+00:00:00,466 --> 00:00:02,600
+所以我们已经看到了一个 gen server 的例子
+so we've seen one example of a gen server
+
+2
+00:00:02,600 --> 00:00:03,933
+我们现在想向您展示一个
+we'd like to now show you a
+
+3
+00:00:03,933 --> 00:00:05,966
+运行中的 gen 服务器的不同示例
+different example of a gen server in action
+
+4
+00:00:06,200 --> 00:00:07,066
+特别是
+in particular
+
+5
+00:00:07,066 --> 00:00:10,200
+我们可以使用 nit 和处理信息回调函数
+we can use the nit and handle info callback functions
+
+6
+00:00:10,200 --> 00:00:12,533
+便于安排定期工作
+to make it easy to schedule periodic work
+
+7
+00:00:13,533 --> 00:00:16,633
+记得前段时间我们研究了传感器的路线
+remember a while back we worked on a sensor's route
+
+8
+00:00:16,666 --> 00:00:19,133
+现在该路由a同步获得三个
+now that route a synchronously gets three
+
+9
+00:00:19,133 --> 00:00:20,633
+快照图像
+snapshot images
+
+10
+00:00:20,666 --> 00:00:23,533
+和bigfoot当前的gps位置
+and bigfoot's current gps location
+
+11
+00:00:24,000 --> 00:00:27,233
+即使api同时请求一个
+and even though the api request one concurrently
+
+12
+00:00:27,233 --> 00:00:29,633
+这样我们就可以在一秒钟内得到所有的结果
+so that we get all the results in just one second
+
+13
+00:00:29,933 --> 00:00:33,366
+这个传感器数据并不会经常改变
+this sensor data it doesn't really change very often
+
+14
+00:00:33,633 --> 00:00:36,666
+所以我们打这些api没有意义
+so there's no sense in us hitting these apis
+
+15
+00:00:36,666 --> 00:00:39,866
+每次我们想要获取传感器请求时
+every time we want to get a request for sensors
+
+16
+00:00:40,033 --> 00:00:40,766
+反而
+instead
+
+17
+00:00:40,766 --> 00:00:43,833
+我们想兑现结果并刷新现金
+we want to cash the results and refresh the cash
+
+18
+00:00:43,833 --> 00:00:44,633
+每隔一小时
+every hour
+
+19
+00:00:44,766 --> 00:00:48,066
+所以要做到这一点，我们将需要另一个 gen 服务器
+so to do that we're going to need another gen server
+
+20
+00:00:48,266 --> 00:00:50,566
+所以我们已经开始写了
+so we've gone ahead and started to write
+
+21
+00:00:50,566 --> 00:00:51,800
+传感器服务器
+a sensor server
+
+22
+00:00:52,300 --> 00:00:53,333
+让我们来看看
+let's walk through it
+
+23
+00:00:53,366 --> 00:00:54,300
+这是一个世代服务器
+it's a gen server
+
+24
+00:00:54,300 --> 00:00:56,133
+我们在那里有 use gen server 行
+we have the use gen server line right there
+
+25
+00:00:56,166 --> 00:00:58,366
+然后就我们的客户端界面而言，我们有一个
+and then in terms of our client interface we've got a
+
+26
+00:00:58,466 --> 00:01:00,833
+刚刚启动 gen 服务器的 start 函数
+start function that just starts the gen server
+
+27
+00:01:01,000 --> 00:01:02,066
+我们给它起了个名字
+and we gave it a name
+
+28
+00:01:02,066 --> 00:01:03,766
+就像我们对其他一代服务器所做的那样
+just like we did with our other gen server
+
+29
+00:01:04,000 --> 00:01:05,933
+这个名字是传感器服务器
+this one's name is sensor server
+
+30
+00:01:06,366 --> 00:01:08,600
+我们不是有获取传感器数据的功能吗
+didn't we have a get sensor data function
+
+31
+00:01:08,600 --> 00:01:11,000
+那是一个电话，因为一个电话信息
+that is a call since a call message
+
+32
+00:01:11,033 --> 00:01:13,433
+它将传感器数据传送到服务器
+it's get sensor data over to the server
+
+33
+00:01:13,900 --> 00:01:16,500
+然后就我们的服务器回调而言，我们有我们的
+then in terms of our server callbacks we have our
+
+34
+00:01:16,500 --> 00:01:17,166
+尼特函数
+nit function
+
+35
+00:01:17,166 --> 00:01:19,466
+请记住，它会被自动调用
+remember that gets called automatically by the
+
+36
+00:01:19,466 --> 00:01:20,300
+启动功能
+start function
+
+37
+00:01:20,533 --> 00:01:21,433
+现在开始功能
+now the start function
+
+38
+00:01:21,433 --> 00:01:23,533
+它的第二个参数是这个空地图
+its 2nd argument is this empty map
+
+39
+00:01:23,733 --> 00:01:25,833
+但我们只是忽略它作为状态的一部分
+but we just ignore that as part of the state
+
+40
+00:01:25,900 --> 00:01:27,466
+因为我们想要做的
+because what we want to do instead
+
+41
+00:01:27,633 --> 00:01:30,400
+运行任务以获取传感器数据
+is run the tasks to get the sensor data
+
+42
+00:01:30,400 --> 00:01:32,033
+并让它成为我们的初始状态
+and have that be our initial state
+
+43
+00:01:32,033 --> 00:01:33,700
+从针织物返回
+that gets returned from a knit
+
+44
+00:01:34,133 --> 00:01:35,533
+所以当这个过程开始时
+so when the process starts
+
+45
+00:01:35,533 --> 00:01:38,466
+它立即运行任务以获取此数据
+it immediately runs the tasks to get this data
+
+46
+00:01:39,033 --> 00:01:40,500
+那么这里的这个函数是做什么的
+so what does this function here do
+
+47
+00:01:41,200 --> 00:01:44,100
+好吧，这正是我们在处理程序中所拥有的
+well it's just what we had in our handler
+
+48
+00:01:44,200 --> 00:01:46,666
+它运行任务以获取偏执者的位置
+it runs the task to get bigots location
+
+49
+00:01:46,800 --> 00:01:49,333
+以及获取快照图像的任务
+and the task to get the snapshot images
+
+50
+00:01:49,366 --> 00:01:50,800
+然后它返回一个地图
+and then it returns a map
+
+51
+00:01:50,833 --> 00:01:52,066
+我们这次使用地图
+we use the map this time
+
+52
+00:01:52,400 --> 00:01:54,800
+快照的键有一个快照列表
+the key of snapshots has a list of snapshots
+
+53
+00:01:54,800 --> 00:01:56,133
+位置键有
+a key of location has
+
+54
+00:01:56,400 --> 00:01:57,533
+偏执狂的位置
+bigots location
+
+55
+00:01:57,900 --> 00:02:00,400
+然后那个返回映射成为我们的初始状态
+and then that return map becomes our initial state
+
+56
+00:02:00,400 --> 00:02:02,000
+我们从针织品中返回
+which we return from a knit
+
+57
+00:02:02,500 --> 00:02:03,300
+然后有一个把手
+then there's a handle
+
+58
+00:02:03,300 --> 00:02:05,166
+调用处理获取的函数子句
+call function clause that handles to get
+
+59
+00:02:05,166 --> 00:02:06,300
+传感器数据消息
+sensor data message
+
+60
+00:02:06,466 --> 00:02:08,333
+它只是回复状态
+and it just replies with the state
+
+61
+00:02:08,333 --> 00:02:09,866
+这就是我们发回给客户的内容
+that's what we send back to the client
+
+62
+00:02:09,966 --> 00:02:11,666
+然后是我们想要重现的状态
+and then the state we want to recurs with
+
+63
+00:02:11,666 --> 00:02:12,733
+是同一个状态
+is that same state
+
+64
+00:02:13,400 --> 00:02:15,166
+结果已经兑现
+and the results are already in the cash
+
+65
+00:02:15,200 --> 00:02:17,200
+所以当客户端调用获取传感器数据时
+so when the client calls get sensor data
+
+66
+00:02:17,300 --> 00:02:18,900
+它只是直接来自现金
+it just comes straight out of the cash
+
+67
+00:02:19,466 --> 00:02:21,300
+让我们快速旋转一下
+let's give it a quick spin and ex
+
+68
+00:02:25,633 --> 00:02:27,300
+启动我们的传感器服务器
+fire up our sensor server
+
+69
+00:02:31,933 --> 00:02:32,733
+好吧，我们看到了
+all right we see that
+
+70
+00:02:32,733 --> 00:02:34,666
+它正在运行任务以获取传感器数据
+it's running the task to get the sensor data
+
+71
+00:02:34,666 --> 00:02:36,266
+所以我们的现金都被加热了
+so our cash is all warmed up
+
+72
+00:02:36,766 --> 00:02:38,300
+现在如果我们打电话给服务
+now if we call service
+
+73
+00:02:39,166 --> 00:02:40,200
+传感器服务器
+sensor server
+
+74
+00:02:42,066 --> 00:02:43,600
+获取传感器数据
+get sensor data
+
+75
+00:02:44,900 --> 00:02:46,166
+好吧，它立即返回
+well it returns immediately
+
+76
+00:02:46,166 --> 00:02:47,133
+与位置
+with the location
+
+77
+00:02:47,133 --> 00:02:49,100
+以及已经在现金中的快照
+and the snapshots that are already in the cash
+
+78
+00:02:49,700 --> 00:02:51,800
+现在您可能会注意到我们的快照图像
+now you might notice that our snapshot image
+
+79
+00:02:51,800 --> 00:02:53,466
+文件名有点不同
+file names are a little different
+
+80
+00:02:53,933 --> 00:02:55,200
+我们改变了视频
+we've changed the video
+
+81
+00:02:55,200 --> 00:02:57,966
+cam 分配随机数到每个的末尾
+cam to assign random numbers to the end of each
+
+82
+00:02:57,966 --> 00:02:58,966
+文件名而已
+file name just
+
+83
+00:02:58,966 --> 00:03:01,700
+所以我们可以展示即将到来的兑现行为
+so we can demonstrate the upcoming cashing behavior
+
+84
+00:03:02,433 --> 00:03:04,700
+我们在视频摄像头模块中完成了这项工作
+we did that over in the video cam module
+
+85
+00:03:04,766 --> 00:03:07,033
+你注意到我们只是添加了一个破折号然后我们使用
+you notice we just added a dash and then we use
+
+86
+00:03:07,033 --> 00:03:09,333
+再次统一函数
+that rand uniform function again
+
+87
+00:03:09,500 --> 00:03:11,666
+获取 1 到 1000 之间的随机数
+to get a random number between one and 1000
+
+88
+00:03:12,366 --> 00:03:15,066
+所以现在我们知道这是可行的，我们可以改变
+so now that we know that this works we can change
+
+89
+00:03:15,266 --> 00:03:17,133
+我们在处理程序中的传感器行
+our sensor row in handler
+
+90
+00:03:17,166 --> 00:03:19,466
+ex 实际使用我们的 gen 服务器
+ex to actually use our gen server
+
+91
+00:03:19,833 --> 00:03:21,400
+是的，我们现在可以摆脱这一切
+yeah we can get rid of all this now
+
+92
+00:03:21,400 --> 00:03:22,733
+因为那在我们的 gen 服务器中
+because that's in our gen server
+
+93
+00:03:23,500 --> 00:03:25,033
+我们只会说传感器数据
+and we'll just say sensor data
+
+94
+00:03:25,466 --> 00:03:28,766
+等于传感器服务器
+equals sensor server
+
+95
+00:03:29,766 --> 00:03:30,800
+获取传感器数据
+get sensor data
+
+96
+00:03:32,666 --> 00:03:34,066
+然后我们将检查它
+and then we'll just inspect it
+
+97
+00:03:34,466 --> 00:03:36,133
+使其成为响应主体
+to make it the response body
+
+98
+00:03:40,000 --> 00:03:42,566
+这就是我们的传感器服务器当前的工作方式
+so here's how our sensor server currently works
+
+99
+00:03:42,566 --> 00:03:44,300
+当调用 start 函数时
+when the start function is invoked
+
+100
+00:03:44,300 --> 00:03:46,433
+它回调 nit 函数
+it calls back to the nit function
+
+101
+00:03:46,566 --> 00:03:49,566
+从外部 API 获取传感器数据
+which fetches the sensor data from external apis
+
+102
+00:03:49,566 --> 00:03:51,833
+并将数据缓存为进程资产
+and caches the data as the process estate
+
+103
+00:03:52,366 --> 00:03:55,300
+然后当客户端调用获取传感器数据函数时
+then when a client invokes the get sensor data function
+
+104
+00:03:55,400 --> 00:03:58,433
+它只是返回现金中的任何数据
+it simply returns whatever data is in the cash
+
+105
+00:03:58,700 --> 00:03:59,900
+虽然在幕后
+behind the scenes though
+
+106
+00:04:00,166 --> 00:04:02,766
+每小时我们希望现金刷新一次
+every hour we want the cash to refresh with
+
+107
+00:04:02,766 --> 00:04:03,933
+新的传感器数据
+new sensor data
+
+108
+00:04:04,333 --> 00:04:07,333
+但是传感器服务器如何知道刷新其现金
+but how will the sensor server know to refresh its cash
+
+109
+00:04:07,533 --> 00:04:10,100
+进程知道做某事的唯一方法
+well the only way a process knows to do something
+
+110
+00:04:10,166 --> 00:04:11,833
+是通过接收消息
+is by receiving a message
+
+111
+00:04:12,200 --> 00:04:13,600
+所以我们将拥有传感器服务器
+so we'll have the sensor server
+
+112
+00:04:13,600 --> 00:04:15,866
+向自己发送一条刷新的消息
+send a refreshed message to itself
+
+113
+00:04:16,166 --> 00:04:18,333
+每小时这里是它的工作方式
+every hour here's how it will work
+
+114
+00:04:18,766 --> 00:04:21,166
+nit 回调函数会做两件事
+the nit callback function will do two things
+
+115
+00:04:21,633 --> 00:04:22,433
+获取和
+fetch and
+
+116
+00:04:22,433 --> 00:04:26,000
+从外部 api 兑现初始传感器数据
+cash the initial sensor data from the external apis
+
+117
+00:04:26,133 --> 00:04:28,966
+然后安排一条刷新消息到
+and then schedule a refresh message to
+
+118
+00:04:29,400 --> 00:04:32,066
+传感器服务器 未来 60 分钟
+sensor server 60min in the future
+
+119
+00:04:32,633 --> 00:04:35,300
+一小时后，该消息被发送
+an hour later that message is then sent
+
+120
+00:04:35,800 --> 00:04:38,566
+它由句柄信息回调函数处理
+it's handled by the handle info callback function
+
+121
+00:04:38,566 --> 00:04:40,100
+并且现金已更新
+and the cash is updated
+
+122
+00:04:40,466 --> 00:04:41,766
+但一个小时后
+but an hour from now
+
+123
+00:04:41,866 --> 00:04:44,600
+服务器如何知道再次刷新其现金
+how does the server know to refresh its cash again
+
+124
+00:04:44,900 --> 00:04:49,033
+好吧，每次处理信息处理刷新消息
+well every time handle info handles the refresh message
+
+125
+00:04:49,200 --> 00:04:52,300
+它将安排下一个要发送的刷新消息
+it will schedule the next refresh message to be sent
+
+126
+00:04:52,300 --> 00:04:53,866
+未来 60 分钟
+60min in the future
+
+127
+00:04:54,233 --> 00:04:55,100
+并以这种方式
+and in this way
+
+128
+00:04:55,100 --> 00:04:58,066
+刷新消息被发送到传感器服务器
+a refresh message is sent to the sensor server
+
+129
+00:04:58,400 --> 00:05:01,700
+现在每小时刷新一次现金是
+every hour now refreshing the cash every hour is
+
+130
+00:05:01,700 --> 00:05:02,733
+如果这合理
+reasonable if this
+
+131
+00:05:02,733 --> 00:05:04,633
+在生产环境中运行
+were running in a production environment
+
+132
+00:05:04,800 --> 00:05:07,100
+但我们认为你不想等那么久
+but we don't think you want to wait around that long
+
+133
+00:05:07,100 --> 00:05:08,233
+看到它在行动
+to see it in action
+
+134
+00:05:08,400 --> 00:05:11,466
+所以我们在这个模块中实际上只需要 5 秒
+so we'll actually make it only 5 seconds in this module
+
+135
+00:05:12,166 --> 00:05:13,466
+在 nit 回调函数中
+in the nit callback function
+
+136
+00:05:13,466 --> 00:05:14,533
+让我们安排第一个
+let's schedule the first
+
+137
+00:05:14,533 --> 00:05:17,000
+刷新要发送的消息，我们会做对的
+refresh message to be sent and we'll do it right
+
+138
+00:05:17,000 --> 00:05:18,433
+在我们有了初始状态之后
+after we have our initial state
+
+139
+00:05:18,700 --> 00:05:20,233
+我们将使用一个新功能
+and we're going to use a new function
+
+140
+00:05:20,233 --> 00:05:23,133
+它在流程模块中，并且调用了该函数
+it's in the process module and the function is called
+
+141
+00:05:23,233 --> 00:05:25,166
+发送后啊哈
+send after aha
+
+142
+00:05:25,766 --> 00:05:27,200
+它需要三个参数
+and it takes three arguments
+
+143
+00:05:27,200 --> 00:05:28,333
+第一个是
+the first one is the
+
+144
+00:05:28,333 --> 00:05:30,366
+我们要将消息发送到的 pid
+pid that we want to send the message to
+
+145
+00:05:30,633 --> 00:05:31,966
+在这种情况下将是我们自己
+in this case is going to be ourself
+
+146
+00:05:31,966 --> 00:05:33,300
+所以我们只需要调用 self
+so we're just going to call self
+
+147
+00:05:33,500 --> 00:05:34,166
+然后消息
+then the message
+
+148
+00:05:34,166 --> 00:05:35,566
+将要刷新
+is going to be refresh
+
+149
+00:05:36,300 --> 00:05:38,433
+然后第三个参数是我们要等待多长时间
+and then the third argument is how long we want to wait
+
+150
+00:05:38,433 --> 00:05:39,566
+直到我们发送该消息
+until we send that message
+
+151
+00:05:39,600 --> 00:05:42,133
+这是一个以毫秒为单位的时间
+and it's a time expressed in milliseconds
+
+152
+00:05:42,133 --> 00:05:44,600
+但不是做数学来达到 5 秒
+but rather than doing the math to get to 5 seconds
+
+153
+00:05:44,600 --> 00:05:46,900
+我将使用早期计时器模块
+I'm going to use the early timer module
+
+154
+00:05:47,400 --> 00:05:47,900
+还有一个
+and there's a
+
+155
+00:05:47,900 --> 00:05:50,033
+名为 seconds 的函数，我们只传递它 5
+function called seconds and we just pass it five
+
+156
+00:05:50,200 --> 00:05:51,233
+然后那会让我们回来
+and then that'll give us back
+
+157
+00:05:51,266 --> 00:05:52,566
+毫秒数
+the number of milliseconds
+
+158
+00:05:53,000 --> 00:05:54,900
+所以发送后功能将发送
+so the send after function is going to send
+
+159
+00:05:54,900 --> 00:05:56,966
+这个消息给这个进程
+this message to this process
+
+160
+00:05:56,966 --> 00:05:58,533
+在这个小毫秒之后
+after this mini milliseconds
+
+161
+00:05:59,200 --> 00:06:02,633
+现在这条消息是原始消息或普通消息
+now this message is a raw or plain message
+
+162
+00:06:02,633 --> 00:06:05,133
+这既不是电话也不是演员
+it's neither a call or a cast
+
+163
+00:06:05,200 --> 00:06:05,833
+并记住
+and remember
+
+164
+00:06:05,833 --> 00:06:08,966
+所有未使用 call 或 cast 发送的消息
+all messages that aren't sent using call or cast
+
+165
+00:06:09,000 --> 00:06:10,666
+会被把手捡起来
+are going to be picked up by the handle
+
+166
+00:06:10,666 --> 00:06:12,033
+信息回调函数
+info callback function
+
+167
+00:06:12,433 --> 00:06:13,933
+所以我们需要定义其中之一
+so we need to define one of those
+
+168
+00:06:14,033 --> 00:06:15,166
+我就在这里做
+I'll just do it right here
+
+169
+00:06:15,600 --> 00:06:16,666
+这是句柄信息
+it's handle info
+
+170
+00:06:18,033 --> 00:06:19,433
+消息正在刷新
+the message is refresh
+
+171
+00:06:20,233 --> 00:06:21,933
+然后第二个参数总是状态
+and then the second argument is always the state
+
+172
+00:06:21,933 --> 00:06:22,866
+我们不会使用
+which we're not going to use
+
+173
+00:06:22,866 --> 00:06:24,200
+所以我会在那里使用下划线
+so I'll use an underscore there
+
+174
+00:06:24,266 --> 00:06:25,833
+然后我将开始打印
+and then I'm just going to start by printing out
+
+175
+00:06:26,833 --> 00:06:27,633
+清爽
+refreshing
+
+176
+00:06:28,933 --> 00:06:29,800
+现金
+the cash
+
+177
+00:06:30,866 --> 00:06:32,200
+然后刷新现金
+and then to refresh the cash
+
+178
+00:06:32,200 --> 00:06:33,866
+我们需要运行那个函数
+we need to run that function
+
+179
+00:06:34,066 --> 00:06:36,133
+运行任务获取中心数据
+run task to get center data
+
+180
+00:06:36,266 --> 00:06:38,433
+然后我们将其分配给新状态
+and then we'll just assign that to new state
+
+181
+00:06:39,166 --> 00:06:40,333
+那将是我们的新现金
+that'll be our new cash
+
+182
+00:06:40,333 --> 00:06:41,900
+然后我们将其作为元组返回
+and then we return that as a tuple
+
+183
+00:06:42,166 --> 00:06:42,966
+无回复
+no reply
+
+184
+00:06:43,866 --> 00:06:44,666
+新状态
+new state
+
+185
+00:06:45,566 --> 00:06:47,033
+好的，这样可以处理消息
+okay so that handles the message
+
+186
+00:06:47,033 --> 00:06:49,200
+现在我们的邮箱是空的
+and now our mailbox would be empty
+
+187
+00:06:49,733 --> 00:06:53,133
+那么服务器如何知道刷新其现金
+so then how will the server know to refresh its cash in
+
+188
+00:06:53,133 --> 00:06:54,333
+下一个小时
+the next hour
+
+189
+00:06:54,733 --> 00:06:56,400
+刷新现金后
+well after refreshing the cash
+
+190
+00:06:56,400 --> 00:06:59,066
+我们需要安排下一条刷新消息
+we need to schedule the next refresh message
+
+191
+00:06:59,666 --> 00:07:00,633
+是的，我只是要抓住这个
+yeah I'm just going to grab this
+
+192
+00:07:00,633 --> 00:07:02,300
+因为我们需要做同样的事情
+because we're going to need to do the same thing
+
+193
+00:07:02,700 --> 00:07:04,433
+然后我们就把它放在这里
+and then we're just going to put it right here
+
+194
+00:07:04,500 --> 00:07:05,900
+在我们计算出新的状态之后
+after we calculate the new state
+
+195
+00:07:06,233 --> 00:07:08,266
+虽然我们要安排下一条刷新消息
+while we're going to schedule the next refresh message
+
+196
+00:07:08,266 --> 00:07:10,300
+未来5秒
+for 5 seconds in the future
+
+197
+00:07:10,900 --> 00:07:12,200
+现在我只是把它复制下来
+now I just copied that down
+
+198
+00:07:12,300 --> 00:07:13,733
+所以我们这里有一些重复
+so we've got some duplication here
+
+199
+00:07:13,733 --> 00:07:16,266
+让我们在这里编写一个快速函数来清理它
+let's clean it up by writing a quick function here
+
+200
+00:07:16,400 --> 00:07:18,000
+它只是一个私人功能
+it'll just be a private function
+
+201
+00:07:18,400 --> 00:07:20,666
+我们称之为计划刷新
+and we'll call it schedule refresh
+
+202
+00:07:22,000 --> 00:07:23,566
+然后我们把它放在里面
+and then we'll just put this inside of there
+
+203
+00:07:28,133 --> 00:07:30,733
+然后在这条线上我们可以调用 schedule refresh
+and then on this line we can call schedule refresh
+
+204
+00:07:31,533 --> 00:07:32,700
+和这里一样
+and the same up here
+
+205
+00:07:36,100 --> 00:07:37,600
+然后让它更容易改变
+and then to make it easier to change
+
+206
+00:07:37,600 --> 00:07:38,833
+实际间隔
+the actual interval
+
+207
+00:07:39,033 --> 00:07:40,533
+我们可以把这个时间
+we could put this time
+
+208
+00:07:40,733 --> 00:07:43,333
+在模块属性中，让我们继续执行此操作
+in a module attribute so let's go ahead and do that
+
+209
+00:07:43,333 --> 00:07:46,766
+我将在刷新间隔调用模块属性
+I'll call the module attribute at refresh interval
+
+210
+00:07:49,333 --> 00:07:50,866
+然后在这里的顶部
+and then up at the top here
+
+211
+00:07:51,800 --> 00:07:54,566
+我们将其定义为刷新间隔
+we'll just define it as at refresh interval
+
+212
+00:07:56,500 --> 00:07:58,366
+然后在我们的例子中是 5 秒
+and then it'll be 5 seconds in our case
+
+213
+00:07:58,366 --> 00:08:00,400
+但如果你在生产中，你会使用一些东西
+but if you were in production you would use something
+
+214
+00:08:00,400 --> 00:08:01,666
+像计时器点
+like timer dot
+
+215
+00:08:02,133 --> 00:08:02,933
+分钟
+minutes
+
+216
+00:08:03,566 --> 00:08:04,366
+60
+60
+
+217
+00:08:05,100 --> 00:08:07,900
+好的，让我们在新的修复会话中试一试
+okay let's give this a spin in a new fix session
+
+218
+00:08:08,300 --> 00:08:09,900
+我们启动我们的传感器服务器
+we start up our sensor server
+
+219
+00:08:15,933 --> 00:08:17,900
+5秒后我们看到它是
+and after 5 seconds we see that it's
+
+220
+00:08:17,900 --> 00:08:19,200
+刷新现金和
+refreshing the cash and
+
+221
+00:08:19,200 --> 00:08:21,133
+运行任务以获取传感器数据
+running the task to get the sensor data
+
+222
+00:08:21,733 --> 00:08:24,266
+哦，又过了 5 秒，它又出现了，所以
+oh there it went again after another 5 seconds so
+
+223
+00:08:24,600 --> 00:08:26,800
+每 5 秒刷新一次现金
+every 5 seconds it's refreshing the cash
+
+224
+00:08:27,666 --> 00:08:29,700
+所以现在让我们继续获取传感器 dana
+so now let's go ahead and get the sensor dana
+
+225
+00:08:30,500 --> 00:08:31,600
+好吧，它会返回
+well it returns it back
+
+226
+00:08:32,066 --> 00:08:34,533
+注意这里我们有快照三三十一
+notice here that we've got snapshot three thirty one
+
+227
+00:08:35,100 --> 00:08:36,166
+在后台
+and in the background
+
+228
+00:08:36,166 --> 00:08:38,233
+它仍然每 5 秒刷新一次现金
+it's still refreshing the cash every 5 seconds
+
+229
+00:08:38,233 --> 00:08:39,166
+所以如果我们再次得到它
+so if we get it again
+
+230
+00:08:39,700 --> 00:08:41,633
+现在改成四八十四
+now this is changed to four eighty four
+
+231
+00:08:42,333 --> 00:08:43,133
+等等
+and so on
+
+232
+00:08:43,833 --> 00:08:44,600
+所以在幕后
+so behind the scenes
+
+233
+00:08:44,600 --> 00:08:45,366
+服务器还在
+the server still
+
+234
+00:08:45,366 --> 00:08:47,966
+负责定期更新现金
+takes care of updating the cash on a periodic interval
+
+235
+00:08:48,333 --> 00:08:50,066
+我们希望这能让你思考
+we hope this gets you thinking about
+
+236
+00:08:50,066 --> 00:08:52,333
+生成服务器的其他有趣用例
+other interesting use cases for a gen server
+
+237
+00:08:52,333 --> 00:08:54,133
+不仅仅是简单地存储状态
+beyond just simply storing state
+

@@ -1,0 +1,586 @@
+WEBVTT
+
+1
+00:00:00.030 --> 00:00:03.120
+在我们继续进行函数建模之前，让我们再做一件事。
+Let's do one more thing before we move on from function modelling.
+
+2
+00:00:04.320 --> 00:00:06.710
+我们这里有一个减速器。
+We have here a reducer.
+
+3
+00:00:06.710 --> 00:00:13.665
+我定义了 contramap，在它进入之前我们用 f 击中 x。
+And I defined contramap where we hit the x with the f before it goes in.
+
+4
+00:00:13.665 --> 00:00:15.192
+我们有一个连接。
+And we have a concat.
+
+5
+00:00:15.192 --> 00:00:17.030
+这个有点意思
+This one's kinda interesting.
+
+6
+00:00:17.030 --> 00:00:23.355
+这说，好吧，我有另一个减速器，对，我有我的减速器。
+This says, well, I have another reducer, right, and I have my reducer.
+
+7
+00:00:23.355 --> 00:00:26.784
+我要做的是运行我的累加器 X 和
+And what I'm gonna do is I'm gonna run my accumulator an X and
+
+8
+00:00:26.784 --> 00:00:28.610
+换个新的蓄能器吧？
+get a new accumulator, right?
+
+9
+00:00:28.610 --> 00:00:33.630
+这就是它返回给我的东西，它可以是下一个减速器的累加器。
+That's what this returns me, which can be the accumulator of the next reducer.
+
+10
+00:00:33.630 --> 00:00:37.540
+所以通过运行我的减速器，使用相同的累加器，
+So by running my reducer, with that same accumulator in value,
+
+11
+00:00:37.540 --> 00:00:41.150
+我得到一个新的累加器，它被传递给下一个。
+I get a new accumulator which gets passed to the next one.
+
+12
+00:00:41.150 --> 00:00:44.971
+所以它更像是一个组合。
+So it is much more like a composition.
+
+13
+00:00:44.971 --> 00:00:51.609
+如果我们深入一点，让我先展示一下，
+And if we dig in a little bit deeper, let me first show how this,
+
+14
+00:00:51.609 --> 00:00:55.510
+我想在这里设置一下。
+I wanna set this up for a second here.
+
+15
+00:00:55.510 --> 00:00:59.220
+所以我有点像 Redux c 风格的应用程序。
+So I'm kind of modeling a little like Redux c style app.
+
+16
+00:00:59.220 --> 00:01:04.630
+你不需要知道 Redux 是什么，但它是一个常见的架构，并且
+You don't need to know what Redux is, but it is a common architecture, and
+
+17
+00:01:04.630 --> 00:01:07.630
+所以我只想稍微浏览一下。
+so I just wanna like walk through this for a second.
+
+18
+00:01:08.810 --> 00:01:14.493
+所以我们有一个登录减速器，所以我们的累加器状态，我们的值有效载荷。
+So we have a login reducer, so our accumulator state, our values payload.
+
+19
+00:01:14.493 --> 00:01:19.035
+我们是说，如果我们有电子邮件，我们会尝试登录。
+And we're saying, if we have an email, we'll try to login.
+
+20
+00:01:19.035 --> 00:01:23.570
+我将检查 admin 和 123 的凭据并说，登录是否正确。
+I'll check the credentials for admin and 123 and said, logged in is true or not.
+
+21
+00:01:23.570 --> 00:01:26.530
+否则我们只会返回状态，因为他们总是必须返回一个累加器。
+Otherwise we'll just return state back cuz they always have to return an accumulator.
+
+22
+00:01:28.360 --> 00:01:30.630
+如果您有偏好，则设置偏好，
+Set preferences will just if you've got preferences,
+
+23
+00:01:30.630 --> 00:01:32.970
+我们实际上会设置它们，否则返回状态。
+we'll actually set them otherwise return state.
+
+24
+00:01:32.970 --> 00:01:35.190
+好的，很酷，所以我们有两个减速器。
+Okay, cool, so we have two reducers.
+
+25
+00:01:35.190 --> 00:01:35.820
+现在我们要做的是
+Now we're gonna do,
+
+26
+00:01:35.820 --> 00:01:41.570
+我是不是要把它们放在 reducer 类型的官方函数建模 reducer 中。
+is I'm gonna throw them in reducer kind of official function modelling reducers.
+
+27
+00:01:41.570 --> 00:01:44.685
+所以我可以把它们结合起来。
+So I can combine them.
+
+28
+00:01:44.685 --> 00:01:49.403
+然后，我将运行 login: false、preferences 和
+And then, I'm gonna run the loggedIn: false, preferences, and
+
+29
+00:01:49.403 --> 00:01:53.610
+你有我的用户名和密码是正确的。
+you've got my username and password are correct.
+
+30
+00:01:53.610 --> 00:01:58.170
+如果我运行它，只需保存并运行它。
+If I run that, just save this and run it.
+
+31
+00:01:58.170 --> 00:02:00.998
+我真的登录了，它正在准备中，太好了。
+I get logged in true, and it's at the preps, great.
+
+32
+00:02:00.998 --> 00:02:05.726
+如果我把名字弄乱了，就不会登录，而假的，
+If I mess up the name, doesn't get logged in, while false,
+
+33
+00:02:05.726 --> 00:02:08.616
+很酷，所以这是这里的首选项。
+cool, so it's the prefs over here.
+
+34
+00:02:08.616 --> 00:02:11.738
+好了，大家开心就好。
+All right, everybody's happy.
+
+35
+00:02:11.738 --> 00:02:13.240
+现在，我可以在这里玩转这些类型。
+Now, I can play around with the types here.
+
+36
+00:02:13.240 --> 00:02:18.381
+这有点深入到我们开始的原因
+And this is kinda getting down to the meat of why we're starting
+
+37
+00:02:18.381 --> 00:02:22.844
+建模函数是，这里我们有一个累加器和
+to model functions is, here we have an accumulator and
+
+38
+00:02:22.844 --> 00:02:26.349
+一个 a 并且我们返回一个累加器，对吗？
+an a and we return an accumulator, right?
+
+39
+00:02:26.349 --> 00:02:33.260
+我们知道，如果我们在这里翻转类型，那是相同的功能，对吧？
+And we know that if we flip the types here, that's the same function, right?
+
+40
+00:02:33.260 --> 00:02:39.469
+如果我预先拥有这两个，我可以将它们翻转过来，功能相同。
+If I have both of these up front, I could just flip them around, same function.
+
+41
+00:02:39.469 --> 00:02:43.346
+如果我一次给它一个会怎样？
+What happens if I give it one at a time?
+
+42
+00:02:43.346 --> 00:02:50.130
+我可以提供一个同构证明，说明我可以对一个函数进行柯里化和取消柯里化。
+I can provide an isomorphism proof that says, I can curry and uncurry a function.
+
+43
+00:02:50.130 --> 00:02:53.980
+所以我可以轻松地一次接受一个论点。
+So I can easily take one argument at a time.
+
+44
+00:02:55.040 --> 00:02:56.100
+现在发生了什么？
+And now what's happening?
+
+45
+00:02:56.100 --> 00:02:56.987
+这是什么？
+What it is?
+
+46
+00:02:56.987 --> 00:02:58.170
+那是内吗？
+Is that endo?
+
+47
+00:02:58.170 --> 00:02:59.436
+什么是end呢？
+What's endo right there?
+
+48
+00:02:59.436 --> 00:03:02.350
+好吧，如果我们把 A 变成end呢？
+Okay, what if we turned A into endo?
+
+49
+00:03:03.490 --> 00:03:06.437
+好吧，它变得有趣了。
+Okay, it's getting interesting.
+
+50
+00:03:06.437 --> 00:03:11.262
+如果，这只是一个函数，对吗？
+And what if, and this is just a function, right?
+
+51
+00:03:11.262 --> 00:03:15.810
+我想结合这些功能。
+I want to combine these functions.
+
+52
+00:03:15.810 --> 00:03:17.630
+所以我会把它放到一个函数中。
+So I'll put that into a function.
+
+53
+00:03:17.630 --> 00:03:21.470
+现在代替减速器，我只是浏览了我玩过的类型
+Now instead of a reducer, I just walked through the types I played around with
+
+54
+00:03:21.470 --> 00:03:24.090
+等价的类型，我已经结束了这种类型。
+equivalent types, and I've ended up at this type.
+
+55
+00:03:25.580 --> 00:03:26.531
+那是一种乐趣。
+That's kind of fun.
+
+56
+00:03:26.531 --> 00:03:30.652
+[笑] 让我们看看，我知道它是等价的。
+[LAUGH] Let's see, and I know it's equivalent.
+
+57
+00:03:30.652 --> 00:03:36.008
+这是一个更深入的主题，我不会深入探讨。
+This is a deeper subject that I'm not gonna go too deep into.
+
+58
+00:03:36.008 --> 00:03:40.823
+但是看着玩弄参数类型，移动它们，携带，
+But looking at playing around with argument types, moving them around, carry,
+
+59
+00:03:40.823 --> 00:03:46.200
+不携带，打包东西，有点引导你进入其中的一些解决方案。
+uncarrying, packaging things up, kind of leads you into some of these solutions.
+
+60
+00:03:46.200 --> 00:03:49.543
+你可以说我有自己的功能，我会建模，它会很棒。
+Where you can say I have my own function, I'm gonna model it, it's gonna be great.
+
+61
+00:03:49.543 --> 00:03:51.524
+你写了所有这些代码，你就像，等等，
+And you write all this code and you're like, wait,
+
+62
+00:03:51.524 --> 00:03:53.270
+那只是等价于其他类型。
+that's just equivalent to this other type.
+
+63
+00:03:53.270 --> 00:03:56.570
+[笑] 但我只是玩弄了一些争论。
+[LAUGH] But I just played around with the arguments a little bit.
+
+64
+00:03:56.570 --> 00:03:59.322
+所以很多这几乎总是为了
+So a lot of this is almost always kind of done for
+
+65
+00:03:59.322 --> 00:04:01.803
+你如果你调查类型。
+you if you kind of investigate the types.
+
+66
+00:04:01.803 --> 00:04:04.763
+但是让我们继续，让我们继续这个，我们已经有了一个函数并且
+But let's go ahead, let's go right this, we already have a function and
+
+67
+00:04:04.763 --> 00:04:05.400
+内定义。
+endo defined.
+
+68
+00:04:06.720 --> 00:04:10.717
+所以，而不是说，我有一个登录和
+So instead of saying, I have a login and
+
+69
+00:04:10.717 --> 00:04:14.846
+我要把它和这件事联系起来。
+I'm gonna concat that with this thing.
+
+70
+00:04:14.846 --> 00:04:20.872
+我要在这里做这个，我们会说登录功能。
+I'm gonna do this right here, we'll say of a function of login.
+
+71
+00:04:20.872 --> 00:04:24.090
+我们可以使用 set prefs 函数来连接它。
+We can concat that with a function of set prefs.
+
+72
+00:04:24.090 --> 00:04:28.710
+我们刚刚说，我们要一个一个地翻转这些，对吗？
+And we just said, we're gonna flip these around take one at a time, right?
+
+73
+00:04:28.710 --> 00:04:35.401
+所以让我们做那个状态，有效载荷和状态。
+So let's do that state, payload and state.
+
+74
+00:04:35.401 --> 00:04:38.030
+现在当然，我们想把它放到endo中。
+Now of course, we wanna put this into endo.
+
+75
+00:04:39.910 --> 00:04:43.351
+正如我们所说，这样做。
+And do that, as we said.
+
+76
+00:04:43.351 --> 00:04:48.850
+实际上，这是一种奇怪的 API。
+And actually, this is kind of a weird API.
+
+77
+00:04:48.850 --> 00:04:52.730
+为什么不，我只是把它映射到一个内端，或者抱歉，
+Why don't, I just map this an endo, or sorry,
+
+78
+00:04:52.730 --> 00:04:57.106
+您可以将功能映射到endo，这可以工作。
+you can map the function into endo, that could work.
+
+79
+00:04:57.106 --> 00:04:59.372
+在我尝试之前，让我看看我是否可以先让它工作。
+Let me see if I can get this to work first before I try that.
+
+80
+00:04:59.372 --> 00:05:04.050
+[笑] 但这个想法是我可以把它推到这里或者
+[LAUGH] But the the idea is I can kind of push this out over here or
+
+81
+00:05:04.050 --> 00:05:05.970
+将它嵌入我的函数定义本身。
+embed it in my function definition itself.
+
+82
+00:05:05.970 --> 00:05:08.560
+如果我愿意，我可以在此处放置一个函数。
+I could have put a function right here if I wanted to.
+
+83
+00:05:08.560 --> 00:05:11.964
+这些是关于我的 API 的决定，我是否想尝试提升
+These are decisions about my API, whether I wanna try to lift
+
+84
+00:05:11.964 --> 00:05:15.635
+所有这些事情都变成了正确的类型，有点在背景中或
+all these things into the right type, kind of in the background or
+
+85
+00:05:15.635 --> 00:05:18.930
+如果我想公开，那就是你如何制作这些功能。
+if I wanna expose, that's how you make these functions.
+
+86
+00:05:19.960 --> 00:05:23.101
+好的，那么现在我该如何处理？
+Okay, so now how do I work with this?
+
+87
+00:05:23.101 --> 00:05:32.290
+好吧，现在状态并没有立即赋予它，而有效载荷却可以。
+Well, now state doesn't get given to it right off the bat, and a payload does.
+
+88
+00:05:32.290 --> 00:05:35.950
+这会返回给我一个 End，然后我将使用 state 运行它。
+And that returns me an endo and then I'll run that with state.
+
+89
+00:05:35.950 --> 00:05:43.010
+所以我们把这两个分开了，如果我弄错了密码，它仍然有效。
+So we've separated these two, and still works, if I get the password wrong.
+
+90
+00:05:43.010 --> 00:05:45.465
+注销假，我。
+Logged out false, me.
+
+91
+00:05:45.465 --> 00:05:50.658
+让我们看看我能不能把这个拉下来，放到这里的内窥镜里。
+Let's see if I can pull this one off and put it into an endo here.
+
+92
+00:05:50.658 --> 00:05:53.230
+我不想花太多时间在这上面。
+I don't wanna spend too much time on this.
+
+93
+00:05:53.230 --> 00:06:00.823
+所以我只是想告诉你，这是非常有趣的东西。
+So I just wanted to kinda show you, this is pretty interesting stuff.
+
+94
+00:06:00.823 --> 00:06:03.358
+那么，这是工作吗？
+So, is this work?
+
+95
+00:06:03.358 --> 00:06:09.379
+是的，它有效，您更改注销的 false。
+Yeah, it works, you change the logged out false.
+
+96
+00:06:09.379 --> 00:06:13.822
+很酷，所以在我的减速器组合功能中，
+Cool, so in my reducer combination function,
+
+97
+00:06:13.822 --> 00:06:19.152
+我实际上已经映射了函数的输出并且
+I have actually mapped over the output of the function and
+
+98
+00:06:19.152 --> 00:06:26.162
+把它放在一个内，现在我的函数定义 API 和以前一样。
+put it in an endo, and now my function definition API's the same as it was.
+
+99
+00:06:26.162 --> 00:06:33.176
+但我能够改变它的工作方式。
+But I was able to change how this works.
+
+100
+00:06:33.176 --> 00:06:37.301
+另一件非常有趣的事情是，如果我在这里不需要状态，
+Another thing that's really interesting is if I don't need state here,
+
+101
+00:06:37.301 --> 00:06:40.703
+我们将在当天晚些时候看到这一点，但我们可以考虑到这一点。
+we'll see this later on the day, but we can factor this out.
+
+102
+00:06:40.703 --> 00:06:45.465
+真的，真的在我们解决我们可以解决的功能时玩弄类型
+And really, really play around with the types as we solve the functions we can
+
+103
+00:06:45.465 --> 00:06:49.213
+有点像神奇地凭空出现新的论点。
+kind of like magically appear new arguments out of nowhere.
+
+104
+00:06:49.213 --> 00:06:51.660
+所以我们也可以使用它。
+So we can use that as well.
+
+105
+00:06:51.660 --> 00:06:58.550
+建模函数有很多很多结果，很多可能性。
+Modeling functions has many, many outcomes, many possibilities.
+
+106
+00:06:58.550 --> 00:07:03.770
+然后有一堆等效的方法来建模函数。
+Then there's a bunch of equivalent ways to model a function.
+
+107
+00:07:03.770 --> 00:07:06.949
+所以通过玩弄参数类型。
+So by playing around with argument types.
+
+108
+00:07:08.710 --> 00:07:13.184
+我们可以发现对相同功能进行建模的等效方法。
+We can discover equivalent ways to model the same function.
+
+109
+00:07:13.184 --> 00:07:18.039
+所以这些函数等价，函数建模等价 [笑] 我不
+So these function equivalences, function modeling equivalences [LAUGH] I don't
+
+110
+00:07:18.039 --> 00:07:20.440
+知道，我认为这很酷。
+know, and I think that's pretty cool.
+
+111
+00:07:21.660 --> 00:07:25.911
+我认为这很酷的原因之一是，当我们这样做时
+One of the reasons I think that's pretty cool is that, when we did
+
+112
+00:07:25.911 --> 00:07:30.723
+我们有这些减速器，我们可以做像 contramap 之类的东西。
+the reducer we had these, we can do stuff like contramap and everything.
+
+113
+00:07:30.723 --> 00:07:34.863
+当我们开始移动这些类型并改变事物时，
+And when we're starting to move these types around and change things,
+
+114
+00:07:34.863 --> 00:07:38.452
+就像也许函数没有 contramap 而我想要那样
+like maybe function doesn't have contramap and I want that so
+
+115
+00:07:38.452 --> 00:07:41.505
+我可以以不同的方式对其进行建模以获得它等等。
+I can model it at a different way to get that and so on.
+
+116
+00:07:41.505 --> 00:07:44.818
+从这里回来有点难减少很容易种
+It's kinda hard to get from here back to reduce was easy to kind
+
+117
+00:07:44.818 --> 00:07:48.270
+按照这个到那里，有点难走另一条路。
+of follow this to there, a little bit harder to go the other way.

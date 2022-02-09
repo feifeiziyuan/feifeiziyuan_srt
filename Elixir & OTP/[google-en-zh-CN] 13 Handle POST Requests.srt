@@ -1,0 +1,1430 @@
+1
+00:00:00,466 --> 00:00:02,333
+让我们看看另一种请求
+let's look at a different kind of request
+
+2
+00:00:02,333 --> 00:00:04,533
+创建新事物的帖子请求
+a post request for creating new things
+
+3
+00:00:04,600 --> 00:00:07,233
+也许是新熊或任何其他新资源
+maybe new bears or any other new resource
+
+4
+00:00:07,300 --> 00:00:08,533
+现在处理一个发布请求
+now to handle a post request
+
+5
+00:00:08,533 --> 00:00:10,566
+我们必须考虑请求标头
+we have to take into account the request headers
+
+6
+00:00:10,800 --> 00:00:12,566
+以及发布的参数
+as well as the posted parameters
+
+7
+00:00:12,566 --> 00:00:15,433
+事实证明这是一个很好的遍历示例
+and this turns out to be a neat example of traversing
+
+8
+00:00:15,533 --> 00:00:16,900
+和处理清单
+and processing lists
+
+9
+00:00:17,100 --> 00:00:18,833
+我们将看到一种新型的模式匹配
+we'll see a new type of pattern match and
+
+10
+00:00:18,966 --> 00:00:20,066
+甚至有点递归
+even a bit of recursion
+
+11
+00:00:20,233 --> 00:00:21,033
+最后
+and in the end
+
+12
+00:00:21,100 --> 00:00:23,266
+你将能够做出正面和反面
+you'll be able to make heads and tails of it
+
+13
+00:00:24,100 --> 00:00:26,066
+我们已经让发布请求升温了
+we already have the post request heat up down
+
+14
+00:00:26,100 --> 00:00:27,266
+在处理程序中
+here in handler
+
+15
+00:00:27,433 --> 00:00:28,966
+所以方法是post
+so the method is post
+
+16
+00:00:28,966 --> 00:00:31,033
+然后我们只是发布斜线熊
+and then we're just posting the slash bears
+
+17
+00:00:31,166 --> 00:00:32,466
+当表格发布时
+and when the form is posted
+
+18
+00:00:32,500 --> 00:00:36,200
+表单内容在 post 请求正文中编码
+the form content is encoded in the post request body
+
+19
+00:00:36,200 --> 00:00:37,033
+这是最后一个
+which is this last
+
+20
+00:00:37,033 --> 00:00:37,833
+就在这里线
+line right here
+
+21
+00:00:38,133 --> 00:00:40,533
+你会看到它只是一组名称值对
+and you see that it's just a set of name value pairs
+
+22
+00:00:40,533 --> 00:00:42,533
+用 &amp; 号分隔
+separated by an ampersand
+
+23
+00:00:42,700 --> 00:00:45,133
+然后将名称与值分开
+and then the names are separated from the values by
+
+24
+00:00:45,133 --> 00:00:46,100
+等号
+an equal sign
+
+25
+00:00:46,533 --> 00:00:48,566
+我们有一个路由功能的起点
+and we have a starting point for the route function
+
+26
+00:00:48,600 --> 00:00:49,466
+已经定义
+already defined
+
+27
+00:00:49,500 --> 00:00:51,133
+因为这里没有什么新东西要学
+since there's nothing new to learn here
+
+28
+00:00:52,100 --> 00:00:53,533
+我已经粘贴了最后一个
+and I've pasted the last
+
+29
+00:00:53,633 --> 00:00:56,266
+请求的行在这里作为评论
+line of the request up here as a comment
+
+30
+00:00:56,266 --> 00:00:57,800
+只是为了让我们记住它的样子
+just so we remember what it looks like
+
+31
+00:00:58,100 --> 00:01:01,800
+我们的目标是解析请求的最后一行
+our goal here is to parse the last line of the request
+
+32
+00:01:02,066 --> 00:01:04,366
+进入一个看起来像这样的参数地图
+into a param's map that looks like this
+
+33
+00:01:05,000 --> 00:01:05,866
+是的，我们只有
+yeah we'll just have
+
+34
+00:01:06,100 --> 00:01:08,233
+键与此处的键匹配
+the keys match up with the keys here
+
+35
+00:01:08,233 --> 00:01:10,066
+并且值与值匹配
+and the values match up with the values
+
+36
+00:01:10,166 --> 00:01:11,300
+所以这只是一张地图
+so this is just a map
+
+37
+00:01:11,300 --> 00:01:14,266
+表示这个 post prim 字符串
+that represents this post prim string
+
+38
+00:01:14,800 --> 00:01:17,333
+然后我们可以访问地图中的值
+we can then access the values in the map
+
+39
+00:01:17,333 --> 00:01:19,000
+并在响应正文中使用它们
+and use them in the response body
+
+40
+00:01:19,000 --> 00:01:20,433
+发音像
+to pronounce something like
+
+41
+00:01:20,766 --> 00:01:23,266
+创建了一个无论熊的类型是什么
+created a whatever the bear type is
+
+42
+00:01:23,633 --> 00:01:25,200
+以熊的名字命名
+named the bear's name
+
+43
+00:01:26,666 --> 00:01:27,533
+显然这
+obviously this
+
+44
+00:01:27,533 --> 00:01:30,000
+有效，因为 para 现在是硬涂层
+works because the para are hard coated for now
+
+45
+00:01:30,000 --> 00:01:32,000
+所以我们需要让它动态化
+so we're going to need to make it dynamic
+
+46
+00:01:32,266 --> 00:01:34,266
+现在我们知道这实际上并没有创建
+now we know this doesn't actually create
+
+47
+00:01:34,266 --> 00:01:35,633
+数据库中的熊
+a bear in the database
+
+48
+00:01:35,633 --> 00:01:37,366
+我们明白了，你可以
+we get it you could
+
+49
+00:01:37,366 --> 00:01:38,533
+实际上做任何你想做的事
+actually do whatever you want
+
+50
+00:01:38,533 --> 00:01:39,766
+此时有一只熊
+with a bear at this point
+
+51
+00:01:39,800 --> 00:01:42,266
+但这现在超出了我们的范围
+but that's sort of outside of our scope right now
+
+52
+00:01:42,300 --> 00:01:44,100
+我们将保持专注
+we're going to stay focused instead
+
+53
+00:01:44,133 --> 00:01:47,300
+关于我们的网络服务器一般如何处理发布请求
+on how our web server handles post request in general
+
+54
+00:01:47,666 --> 00:01:48,466
+所以让我们回顾一下
+so let's look back
+
+55
+00:01:48,466 --> 00:01:49,933
+结束了我们如何解析请求
+over at how we're parsing the request
+
+56
+00:01:50,066 --> 00:01:51,266
+在解析器中结束
+over in parser
+
+57
+00:01:51,266 --> 00:01:52,966
+我们这里有解析函数
+we have the parse function here
+
+58
+00:01:53,366 --> 00:01:54,566
+我们正在接受请求
+and we're taking the request
+
+59
+00:01:54,566 --> 00:01:56,600
+我们正在拆分请求行
+and we're splitting the request lines
+
+60
+00:01:56,600 --> 00:01:58,200
+然后我们只是解析第一个
+and then we're just parsing the first
+
+61
+00:01:58,200 --> 00:01:59,900
+请求行
+line which is the request line
+
+62
+00:02:00,200 --> 00:02:02,066
+好吧，让我们再看看我们的 post 请求
+well let's look at our post request again
+
+63
+00:02:02,100 --> 00:02:03,000
+在处理程序结束
+over in handler
+
+64
+00:02:03,166 --> 00:02:04,900
+好吧，这里是请求行
+well here's the request line right here
+
+65
+00:02:04,900 --> 00:02:06,866
+我们在我们的部分函数中解析它
+which we're parsing at our parts function
+
+66
+00:02:06,900 --> 00:02:09,866
+但我们还需要解析请求的最后一行
+but we also need to parse the last line of the request
+
+67
+00:02:09,933 --> 00:02:11,900
+这是请求正文
+this is the request body
+
+68
+00:02:12,100 --> 00:02:14,033
+这样我们就可以创建该参数的地图
+so that we can create that param's map
+
+69
+00:02:14,433 --> 00:02:16,100
+所以这样做的一种方法是
+so one way to do this would be to
+
+70
+00:02:16,100 --> 00:02:18,133
+在行中拆分请求
+split the request in the lines
+
+71
+00:02:18,166 --> 00:02:20,066
+然后最后使用列表
+and then use list at last
+
+72
+00:02:20,300 --> 00:02:22,566
+得到最后一行的身体
+to get that last line the body
+
+73
+00:02:22,866 --> 00:02:24,033
+但提前考虑
+but thinking ahead
+
+74
+00:02:24,033 --> 00:02:26,733
+我们最终想要重组请求
+we ultimately want to restructure the request
+
+75
+00:02:26,766 --> 00:02:28,300
+分成我们可以工作的三个部分
+into three parts that we can work
+
+76
+00:02:28,300 --> 00:02:31,266
+请求行是一个字符串
+with the request line which is a string
+
+77
+00:02:31,766 --> 00:02:34,600
+身体是一串para
+the body which is a string of para
+
+78
+00:02:34,700 --> 00:02:36,300
+然后是标题行
+and then the header lines
+
+79
+00:02:36,300 --> 00:02:38,133
+因为这里的内容类型
+because this content type here
+
+80
+00:02:38,300 --> 00:02:39,100
+会影响
+will impact
+
+81
+00:02:39,100 --> 00:02:42,533
+我们如何最终在下一个模块中分割 para
+how we ultimately parts the para in the next module
+
+82
+00:02:42,800 --> 00:02:45,266
+所以我们将首先拆分前两个
+so we'll start by splitting the top two
+
+83
+00:02:45,266 --> 00:02:47,366
+参数字符串中的部分
+parts from the param string
+
+84
+00:02:47,533 --> 00:02:50,700
+这很容易做到，因为有两个连续的
+and that's easy to do because there's two consecutive
+
+85
+00:02:51,200 --> 00:02:54,000
+在这里和这里结束字符
+end characters right here and here
+
+86
+00:02:54,566 --> 00:02:56,733
+所以回去吧，让我们继续做吧
+so back over and parer let's go ahead and do that
+
+87
+00:02:56,733 --> 00:02:58,500
+我们将使用字符串拆分
+we'll use string split
+
+88
+00:02:58,733 --> 00:03:00,133
+我们将接受整个请求
+we're going to take the whole request
+
+89
+00:03:00,133 --> 00:03:01,333
+我们要把它分开
+and we're going to split it
+
+90
+00:03:01,500 --> 00:03:02,733
+在双新线上
+on a double new line
+
+91
+00:03:02,966 --> 00:03:04,166
+这将返回一个
+and that's going to return a
+
+92
+00:03:04,166 --> 00:03:07,100
+包含两个元素的列表，以便我们可以对其进行模式匹配
+list with two elements so we can pattern match on it
+
+93
+00:03:07,200 --> 00:03:09,700
+第一个元素是标题中的请求行
+the first element is the request line in the headers
+
+94
+00:03:09,700 --> 00:03:12,466
+我将把它放入一个名为 top 的变量中
+which I'm just going to put in a variable called top
+
+95
+00:03:12,666 --> 00:03:13,533
+然后
+and then the
+
+96
+00:03:13,700 --> 00:03:15,566
+第二个元素将是我们的 prem 字符串
+second element is going to be our prem string
+
+97
+00:03:15,566 --> 00:03:17,300
+这是请求的最后一行
+that's the last line of the request
+
+98
+00:03:18,500 --> 00:03:20,266
+所以现在我们有了舞会字符串
+so now we have the prom string
+
+99
+00:03:20,333 --> 00:03:22,000
+这就是我们的目标
+which is what we were aiming for
+
+100
+00:03:22,233 --> 00:03:25,600
+但是我们丢失了我们的请求行，而我们可以取回它
+but we lost our request line while we can get it back
+
+101
+00:03:25,933 --> 00:03:28,966
+通过拆分顶部而不是请求
+by splitting top rather than request
+
+102
+00:03:29,500 --> 00:03:31,300
+是的，在这里我们将只使用顶部
+yeah right here we'll just use top
+
+103
+00:03:31,700 --> 00:03:33,666
+然后我们要把它分成几行
+and then we're going to split it into its lines
+
+104
+00:03:33,666 --> 00:03:34,533
+这将是请求
+that's going to be the request
+
+105
+00:03:34,533 --> 00:03:35,500
+行和标题行
+lines and the header lines
+
+106
+00:03:35,500 --> 00:03:37,133
+但我们只关心第一个
+but we only care about the first one
+
+107
+00:03:37,366 --> 00:03:39,766
+我们拆分它以获得各个部分
+and we split it to get the individual parts
+
+108
+00:03:39,766 --> 00:03:41,466
+方法路径和
+the method the path and
+
+109
+00:03:41,700 --> 00:03:43,166
+我们不关心的协议
+the protocol which we don't care about
+
+110
+00:03:43,666 --> 00:03:44,700
+如果我们把它保存起来
+if we save that away
+
+111
+00:03:46,300 --> 00:03:47,100
+我们运行它
+and we run it
+
+112
+00:03:47,300 --> 00:03:49,366
+它仍然有效，所以我们没有破坏任何东西
+and it still works so we haven't broken anything
+
+113
+00:03:49,700 --> 00:03:50,633
+但这就是问题所在
+but here's the problem
+
+114
+00:03:50,800 --> 00:03:52,366
+回看帖子请求
+looking back at the post request
+
+115
+00:03:52,566 --> 00:03:54,266
+我们知道我们正在解析这一行
+we know we're parsing this line
+
+116
+00:03:54,566 --> 00:03:56,700
+但我们需要这些剩余的行
+but we need these remaining lines
+
+117
+00:03:56,700 --> 00:03:59,633
+标题行在他们自己的列表中
+the header lines to be in a list of their own
+
+118
+00:04:00,000 --> 00:04:02,733
+这样我们就可以处理三个不同的部分
+so that we have three distinct parts to work with
+
+119
+00:04:03,166 --> 00:04:04,066
+事实证明
+and it turns out
+
+120
+00:04:04,066 --> 00:04:06,900
+我们可以编写一个模式来匹配请求行
+we can write a pattern to match a request line
+
+121
+00:04:07,033 --> 00:04:09,533
+后跟任意数量的标题行
+followed by any number of header lines
+
+122
+00:04:09,866 --> 00:04:11,200
+展示我们将如何做到这一点
+to demonstrate how we're going to do that
+
+123
+00:04:11,233 --> 00:04:13,766
+让我们来玩一个简单的六位数的列表
+let's play around with a simple list of numbers in six
+
+124
+00:04:13,933 --> 00:04:16,366
+现在我们知道我们可以匹配和破坏列表
+now we know that we can match and destruct the list
+
+125
+00:04:16,366 --> 00:04:18,800
+通过在左侧放置一个图案
+by putting a pattern on the left hand side
+
+126
+00:04:19,166 --> 00:04:20,766
+所以如果麻木在右手边
+so if numbs is on the right hand side
+
+127
+00:04:21,366 --> 00:04:22,866
+我们的模式看起来像这样
+our pattern is going to look like this
+
+128
+00:04:22,866 --> 00:04:26,500
+假设我们想在变量 ABCD 中捕获这些
+let's say we want to capture these in variables ABCD
+
+129
+00:04:26,666 --> 00:04:27,466
+和 e
+and e
+
+130
+00:04:27,933 --> 00:04:30,900
+那么 a 的值是一个值 b 将是两个
+well the value of a is one value b is going to be two
+
+131
+00:04:31,066 --> 00:04:33,400
+一直到 e 的值为 5
+all the way through to e which has a value of five
+
+132
+00:04:33,900 --> 00:04:35,433
+但假设我们想要第一个
+but suppose we want the first
+
+133
+00:04:35,500 --> 00:04:37,366
+列表的元素是一个值
+element of the list to be a value
+
+134
+00:04:37,533 --> 00:04:40,366
+然后剩下的元素是一个列表
+and then the remaining elements to be a list
+
+135
+00:04:40,733 --> 00:04:42,600
+一个列表有一个头和一个尾
+well a list has a head and a tail
+
+136
+00:04:42,600 --> 00:04:44,733
+我们可以通过模式匹配提取
+which we can extract through pattern matching
+
+137
+00:04:44,800 --> 00:04:46,766
+使用称为 cons 运算符的东西
+using something called the cons operator
+
+138
+00:04:46,933 --> 00:04:50,033
+看起来像这样，这是图案头竖条
+it looks like this here's the pattern head vertical bar
+
+139
+00:04:50,200 --> 00:04:50,833
+尾巴
+tail
+
+140
+00:04:50,833 --> 00:04:53,333
+然后右边我们有我们的数字列表
+and then the right hand side we have our numbers list
+
+141
+00:04:53,866 --> 00:04:56,266
+现在如果我们看一下 head 的值，它是一个
+now if we look at the value of head it's one the
+
+142
+00:04:56,266 --> 00:04:58,533
+tail 的值是一个列表
+value of tail is a list
+
+143
+00:04:58,700 --> 00:05:00,266
+值为 2 到 5
+with the values two through five
+
+144
+00:05:01,100 --> 00:05:04,466
+那么接下来如果尾部是一个列表本身
+so what follows then that if the tail is a list itself
+
+145
+00:05:04,666 --> 00:05:06,700
+然后它也有头和尾
+then it has a head and a tail as well
+
+146
+00:05:06,966 --> 00:05:08,966
+这意味着我们可以使用相同的模式匹配
+which means we can use the same pattern match
+
+147
+00:05:08,966 --> 00:05:10,166
+所以如果我回到这里
+so if I just go back up here
+
+148
+00:05:10,500 --> 00:05:12,366
+把尾巴放在右手边
+and put tail on the right hand side
+
+149
+00:05:12,966 --> 00:05:14,900
+那么现在 head 的值是两个
+well now the value of head is two
+
+150
+00:05:15,266 --> 00:05:18,166
+tail 的值是一个列表三四和五
+the value of tail is a list three four and five
+
+151
+00:05:18,566 --> 00:05:20,566
+命名头发没有魔法
+there's no magic to the naming hair
+
+152
+00:05:20,566 --> 00:05:24,033
+事实上 head 和 tail 通常缩写为 h 和 t
+in fact head and tail are often abbreviated as h and t
+
+153
+00:05:24,033 --> 00:05:27,400
+分别是 cons 运算符竖线
+respectively the cons operator the vertical bar
+
+154
+00:05:27,400 --> 00:05:29,433
+这是特制的酱汁
+here it's the special sauce
+
+155
+00:05:29,900 --> 00:05:32,233
+所以让我们继续遍历这个列表
+so let's go ahead and continue traversing the list this
+
+156
+00:05:32,233 --> 00:05:33,033
+大大地
+way
+
+157
+00:05:33,866 --> 00:05:35,400
+现在 head 的值为 3
+now the value of head is three
+
+158
+00:05:36,466 --> 00:05:37,600
+尾巴是四五
+tail is four and five
+
+159
+00:05:39,200 --> 00:05:40,166
+现在领导四个
+now heads four
+
+160
+00:05:41,233 --> 00:05:43,966
+而tail是单个元素列表五
+and tail is a single element list five
+
+161
+00:05:44,366 --> 00:05:45,966
+现在这就是事情变得有趣的地方
+now here's where things get interesting
+
+162
+00:05:47,800 --> 00:05:49,566
+现在头部是值 5
+now the head is the value five
+
+163
+00:05:50,200 --> 00:05:52,666
+并且尾部是一个空列表
+and the tail is an empty list
+
+164
+00:05:52,833 --> 00:05:56,133
+所以任何列表的最后一个元素的尾部是
+so the tail of the final element of any list is
+
+165
+00:05:56,266 --> 00:05:57,433
+总是一个空列表
+always an empty list
+
+166
+00:05:57,866 --> 00:05:59,333
+所以现在如果我们这样做会发生什么
+so now what happens if we do this
+
+167
+00:06:00,166 --> 00:06:02,566
+好吧，那是不匹配的，因为尾巴
+well that's not going to match because tail
+
+168
+00:06:02,766 --> 00:06:03,966
+是一个空列表
+is an empty list
+
+169
+00:06:04,033 --> 00:06:06,633
+这与头部和尾部不匹配
+and that doesn't match a head and a tail
+
+170
+00:06:07,066 --> 00:06:09,033
+所以列表要么是空的
+so a list is either empty
+
+171
+00:06:09,233 --> 00:06:11,400
+或者它由头和尾组成
+or it consists of a head and a tail
+
+172
+00:06:11,633 --> 00:06:15,766
+而尾部本身就是一个可以为空的列表
+and the tail is itself a list which could be empty
+
+173
+00:06:16,066 --> 00:06:19,266
+我们已经看到了如何递归地遍历一个列表
+and we've seen how we can traverse a list recursively
+
+174
+00:06:19,366 --> 00:06:20,933
+现在我们将回到这个递归
+now we'll come back to this recursive
+
+175
+00:06:20,933 --> 00:06:22,233
+稍后再分开
+part a little bit later
+
+176
+00:06:22,766 --> 00:06:24,433
+回到我们的帖子请求
+coming back to our post request
+
+177
+00:06:24,600 --> 00:06:25,066
+目前
+for now
+
+178
+00:06:25,066 --> 00:06:27,700
+我们想写一个模式来给我们这个请求
+we want to write a pattern that gives us this request
+
+179
+00:06:27,700 --> 00:06:31,100
+行，然后将这些标题行作为列表提供给我们
+line and then gives us these header lines as a list
+
+180
+00:06:31,333 --> 00:06:32,733
+所以这将是头
+so this is going to be the head
+
+181
+00:06:32,933 --> 00:06:34,566
+这将是尾巴
+and this is going to be the tail
+
+182
+00:06:34,900 --> 00:06:36,500
+所以让我们回到我们的解析器
+so let's go back over to our parser
+
+183
+00:06:36,933 --> 00:06:39,466
+所以请记住，标题中的请求行在
+so remember that the request line in the headers are in
+
+184
+00:06:39,466 --> 00:06:40,266
+最佳
+top
+
+185
+00:06:40,666 --> 00:06:42,033
+所以一旦我们有顶部
+so once we have the top
+
+186
+00:06:42,400 --> 00:06:43,566
+我们要把它分开
+we're going to split it
+
+187
+00:06:45,166 --> 00:06:46,366
+刚刚上线
+just on new lines
+
+188
+00:06:46,466 --> 00:06:47,800
+现在这将返回一个列表
+now that's going to return a list
+
+189
+00:06:47,800 --> 00:06:49,533
+所以我们想要在这里进行模式匹配
+so we want a pattern match over here
+
+190
+00:06:49,866 --> 00:06:51,466
+这给了我们头部和尾部
+that gives us the head and the tail
+
+191
+00:06:51,633 --> 00:06:53,866
+好吧，头部是请求行
+well the head is the request line
+
+192
+00:06:53,966 --> 00:06:55,800
+所以我们将放入一个可变的请求行
+so we'll put in a variable request line
+
+193
+00:06:56,033 --> 00:06:57,166
+使用我们的竖线
+use our vertical bar
+
+194
+00:06:57,400 --> 00:07:00,133
+然后是我们想要的标题行的尾部
+and then the tail we want header lines
+
+195
+00:07:00,400 --> 00:07:03,033
+然后我们可以改变我们解析请求行的方式
+then we can change how we parse the request line
+
+196
+00:07:03,066 --> 00:07:04,466
+分为三个部分
+into its three parts
+
+197
+00:07:04,700 --> 00:07:06,266
+而不是这样做
+instead of doing it this way
+
+198
+00:07:06,266 --> 00:07:08,200
+我们可以稍微简化一下
+we can simplify this quite a bit
+
+199
+00:07:08,433 --> 00:07:11,966
+我们只是在请求行上说字符串拆分
+we just say string split on the request line
+
+200
+00:07:12,733 --> 00:07:14,366
+我们用空格分开
+and we split that by a space
+
+201
+00:07:14,366 --> 00:07:16,466
+获取该请求行的三个部分
+to get the three parts of that request line
+
+202
+00:07:16,833 --> 00:07:17,633
+把它存起来
+save that away
+
+203
+00:07:18,133 --> 00:07:20,866
+现在回到 ix 如果我们重新编译它
+now back over an ix if we recompile that
+
+204
+00:07:21,533 --> 00:07:23,300
+好吧，看起来我们没有破坏任何东西
+well it looks like we haven't broken anything
+
+205
+00:07:23,700 --> 00:07:26,833
+但我们有一个好处是请求破坏
+but we have the bonus of having the request destruct
+
+206
+00:07:26,900 --> 00:07:27,966
+分为三个部分
+into three parts
+
+207
+00:07:28,400 --> 00:07:31,066
+所以现在我们需要解析参数字符串
+so now we need to parse the param string
+
+208
+00:07:31,333 --> 00:07:35,066
+所以我们动态地得到熊的名字和类型
+so we get the name and the type of the bear dynamically
+
+209
+00:07:35,366 --> 00:07:36,800
+好吧，没有必要重新发明轮子
+well there's no need to reinvent the wheel
+
+210
+00:07:36,800 --> 00:07:37,333
+这里
+here
+
+211
+00:07:37,333 --> 00:07:40,300
+elixir 具有解码此查询字符串的功能
+elixir has a function for decoding this query string
+
+212
+00:07:40,433 --> 00:07:42,200
+在 uri 模块中
+in the uri module
+
+213
+00:07:42,333 --> 00:07:44,800
+有一个叫做解码查询的函数
+there's a function called decode query
+
+214
+00:07:45,500 --> 00:07:47,166
+然后我在这里得到了查询字符串
+and then I've got the query string right here
+
+215
+00:07:47,666 --> 00:07:49,200
+这是我们请求的最后一行
+that's the last line of our request
+
+216
+00:07:49,766 --> 00:07:51,400
+这个功能的好处是
+and what's great about this function is
+
+217
+00:07:51,400 --> 00:07:52,533
+它返回一张地图
+it returns a map
+
+218
+00:07:52,633 --> 00:07:54,033
+键和值在哪里
+where the keys and the values
+
+219
+00:07:54,033 --> 00:07:55,833
+与查询字符串中的内容相同
+are the same thing that are in the query string
+
+220
+00:07:56,133 --> 00:07:58,100
+现在您可能很想将
+now you might be tempted to convert the
+
+221
+00:07:58,100 --> 00:07:59,866
+字符串中的键
+keys from strings
+
+222
+00:07:59,900 --> 00:08:01,366
+对原子和
+to atoms and
+
+223
+00:08:01,366 --> 00:08:04,033
+使用原子作为键通常是一个不错的主意
+using atoms as keys is generally a pretty good idea
+
+224
+00:08:04,366 --> 00:08:06,633
+但是在这种情况下很危险
+however in this case it's dangerous
+
+225
+00:08:06,633 --> 00:08:07,166
+因为这些
+because these
+
+226
+00:08:07,166 --> 00:08:09,733
+字符串来自我们的应用程序之外
+strings are coming from outside of our application
+
+227
+00:08:09,800 --> 00:08:12,433
+而且由于原子不是在长生不老药中收集的垃圾
+and since atoms aren't garbage collected in elixir
+
+228
+00:08:12,533 --> 00:08:14,200
+如果我们将它们转换为原子
+if we convert them to atoms
+
+229
+00:08:14,200 --> 00:08:15,600
+好吧，我们可能会耗尽内存
+well we can run out of memory
+
+230
+00:08:16,300 --> 00:08:17,833
+现在回到我们的解析器
+now back over in our parser
+
+231
+00:08:17,933 --> 00:08:19,433
+我们可以定义一个函数
+we can define a function
+
+232
+00:08:19,533 --> 00:08:22,166
+这将解码这个参数字符串
+that will decode this param string
+
+233
+00:08:22,466 --> 00:08:23,800
+只是把它放在这里
+just going to put it right down here
+
+234
+00:08:25,933 --> 00:08:28,166
+我称它为 parse para
+and I'll call it parse para
+
+235
+00:08:28,500 --> 00:08:30,233
+这将包含我们的参数字符串
+that's going to take in our param string
+
+236
+00:08:31,700 --> 00:08:33,466
+我将在这里使用管道
+and I'm just going to use a pipeline here
+
+237
+00:08:33,833 --> 00:08:36,000
+该参数字符串的末尾有一个新行
+there's a new line at the end of that param string
+
+238
+00:08:36,000 --> 00:08:37,000
+所以我想把它剪掉
+so I want to trim that off
+
+239
+00:08:37,000 --> 00:08:38,766
+我将使用字符串修剪来做到这一点
+I'll use string trim to do that
+
+240
+00:08:39,200 --> 00:08:42,566
+然后我们可以使用我们在 ix uri 中使用的那个函数
+and then we can use that function we used in ix uri
+
+241
+00:08:42,833 --> 00:08:44,466
+解码查询
+decode query
+
+242
+00:08:44,733 --> 00:08:48,133
+请记住，这将返回 para 的地图
+and remember this is going to return a map of the para
+
+243
+00:08:48,133 --> 00:08:49,533
+然后在pars
+and then up here in pars
+
+244
+00:08:49,533 --> 00:08:50,533
+我们将调用该函数
+we'll call that function
+
+245
+00:08:50,533 --> 00:08:52,200
+我们将把结果分配给
+and we're going to assign the result to
+
+246
+00:08:52,200 --> 00:08:54,133
+一个名为 paras 的变量
+a variable called paras
+
+247
+00:08:54,766 --> 00:08:56,333
+只是会被解析 para
+just going to be parsed para
+
+248
+00:08:57,666 --> 00:08:59,433
+并传入那个婴儿车字符串
+and passing in that pram string
+
+249
+00:08:59,733 --> 00:09:02,400
+那么一旦我们有了婴儿车，我们就想要婴儿车地图
+then once we have the prams we want the prams map
+
+250
+00:09:02,400 --> 00:09:04,166
+成为谈话的一部分
+to be part of the conversation
+
+251
+00:09:04,566 --> 00:09:07,100
+所以我们将在这里添加一种感觉
+so we'll just add a feel down here prams
+
+252
+00:09:07,300 --> 00:09:08,833
+并将其设置为该变量
+and set it to that variable
+
+253
+00:09:09,333 --> 00:09:10,833
+所以让我们把它存起来试试看
+so let's save that away and give it a try
+
+254
+00:09:11,200 --> 00:09:12,900
+我们将重新编译我们的应用程序
+we'll recompile our application
+
+255
+00:09:13,800 --> 00:09:15,433
+哦，我们收到了一条空中信息
+ooh and we get an air message
+
+256
+00:09:15,833 --> 00:09:19,633
+据说在调查中没有找到关键参数
+it's saying the key paras was not found in survey
+
+257
+00:09:19,700 --> 00:09:21,700
+com 记住为
+com which remembers a s
+
+258
+00:09:21,933 --> 00:09:24,166
+当一个计划一起出现时，你不只是喜欢它吗
+don't you just love it when a plan comes together
+
+259
+00:09:24,700 --> 00:09:26,366
+是的，我们建立了这个结构来获得
+yeah we set up this structure to get
+
+260
+00:09:26,366 --> 00:09:28,566
+类型安全，这正是它给我们的
+type safety and that's exactly what it gave us
+
+261
+00:09:28,933 --> 00:09:31,300
+我们需要在被击中添加一个字段
+we need to add a field to the struck
+
+262
+00:09:31,633 --> 00:09:33,500
+所以我要把这些放在不同的行上
+so I'm going to put these on separate lines
+
+263
+00:09:35,533 --> 00:09:37,500
+然后我们将添加字段 paras
+and then we'll add the field paras
+
+264
+00:09:37,933 --> 00:09:40,100
+我们将默认它只是一个空地图
+and we're going to default it just to an empty map
+
+265
+00:09:40,500 --> 00:09:41,900
+现在让我们看看如果我们保存它会发生什么
+now let's see what happens if we save that
+
+266
+00:09:41,900 --> 00:09:42,933
+重新编译
+away in recompile
+
+267
+00:09:43,500 --> 00:09:45,233
+所以事实证明我们得到了另一个错误
+so it turns out we get another error
+
+268
+00:09:45,233 --> 00:09:46,733
+但这与我们的代码无关
+but it doesn't have to do with our code
+
+269
+00:09:46,733 --> 00:09:48,800
+看起来重新编译只是没有接受更改
+it looks like recompile just didn't pick up the change
+
+270
+00:09:49,333 --> 00:09:52,100
+所以我重新启动了 ix，现在一切都在运行
+so I restarted ix and everything's now running
+
+271
+00:09:52,866 --> 00:09:55,866
+我们看到我们的记录器输出中有婴儿车
+and we see that we have the prams in our logger output
+
+272
+00:09:56,300 --> 00:09:57,600
+所以现在我们只需要使用这些
+so now we just need to use these
+
+273
+00:09:57,600 --> 00:09:59,466
+我们的路线功能中的婴儿车
+prams in our route function
+
+274
+00:09:59,866 --> 00:10:01,833
+回到我们的处理程序模块
+that's back over in our handler module
+
+275
+00:10:01,933 --> 00:10:03,966
+我们这里有这款硬涂层婴儿车
+and we have this hard coated prams right here
+
+276
+00:10:04,166 --> 00:10:05,500
+好吧，我们不再需要那个了
+well we don't need that anymore
+
+277
+00:10:05,766 --> 00:10:07,333
+相反，我们可以使用
+instead we can just use
+
+278
+00:10:07,600 --> 00:10:08,333
+来
+come
+
+279
+00:10:08,333 --> 00:10:10,666
+点参数，因为这是我们添加的新字段
+dot params because that's the new field that we added
+
+280
+00:10:10,900 --> 00:10:12,100
+同样的事情就在这里
+and the same thing right here
+
+281
+00:10:13,933 --> 00:10:14,800
+把它存起来
+save that away
+
+282
+00:10:15,433 --> 00:10:16,966
+现在如果我们重新编译它
+and now if we recompile this
+
+283
+00:10:17,400 --> 00:10:20,300
+果然我们得到了一只名叫球的棕熊
+well sure enough we get created a brown bear named ball
+
+284
+00:10:20,600 --> 00:10:22,966
+所以我们的 para 不再是硬涂层
+so our para are no longer hard coated
+
+285
+00:10:23,166 --> 00:10:26,100
+但是我们这样做的方式有点冒昧
+but the way we did this it's a bit presumptuous
+
+286
+00:10:26,266 --> 00:10:28,066
+我们将在下一节中了解原因
+and we'll see why in the next section
+

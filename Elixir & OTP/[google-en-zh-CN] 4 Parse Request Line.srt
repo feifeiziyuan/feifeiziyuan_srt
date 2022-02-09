@@ -1,0 +1,1535 @@
+1
+00:00:00,233 --> 00:00:02,533
+现在你会记得我们的请求字符串有
+now as you'll recall our request string has
+
+2
+00:00:02,533 --> 00:00:05,833
+多行，我们需要解析第一行
+multiple lines and we need to parse that first line
+
+3
+00:00:05,833 --> 00:00:07,200
+所以我们知道如何回应
+so we know how to respond
+
+4
+00:00:07,433 --> 00:00:07,866
+那就对了
+that's right
+
+5
+00:00:07,900 --> 00:00:10,533
+我们需要解析请求字符串来创建地图
+we need to parse the request string to create a map
+
+6
+00:00:10,566 --> 00:00:11,533
+看起来像这样
+that looks like this
+
+7
+00:00:12,033 --> 00:00:14,100
+现在一个长生不老药地图从这个%开始
+now an elixir map starts with this %
+
+8
+00:00:14,100 --> 00:00:15,433
+然后我们在这里有一个花括号
+and then we have a curly brace here
+
+9
+00:00:15,433 --> 00:00:16,666
+最后是一个花括号
+and a curly brace at the end
+
+10
+00:00:16,933 --> 00:00:19,666
+然后在这里我们有键值对
+and then inside of here we have key value pairs
+
+11
+00:00:19,733 --> 00:00:21,100
+在这种情况下，关键在哪里
+where the keys in this case are
+
+12
+00:00:21,100 --> 00:00:23,600
+长生不老药原子就像红宝石符号
+elixir atoms which are like ruby symbols
+
+13
+00:00:23,866 --> 00:00:25,900
+又是一个常量，名字就是它的值
+again it's a constant whose name is its value
+
+14
+00:00:25,900 --> 00:00:27,266
+所以我们有了关键方法
+so we've got the key method
+
+15
+00:00:27,566 --> 00:00:30,333
+并且值获取路径是狂野的东西
+and the values get path is wild things
+
+16
+00:00:30,866 --> 00:00:32,633
+显然我们想要
+and obviously we want to
+
+17
+00:00:32,666 --> 00:00:35,033
+在这里和这里替换这些硬编码值
+replace these hard coded values here and here
+
+18
+00:00:35,366 --> 00:00:37,766
+与此请求字符串中的任何内容
+with whatever is in this request string
+
+19
+00:00:38,066 --> 00:00:40,400
+所以让我们点燃性爱，让我们玩吧
+so let's fire up sex and let's play
+
+20
+00:00:40,400 --> 00:00:42,633
+围绕如何解析请求字符串
+around with how to parse the request string
+
+21
+00:00:43,000 --> 00:00:44,233
+好吧 性爱
+alright sex
+
+22
+00:00:45,066 --> 00:00:46,666
+然后我将粘贴我们的请求字符串
+and then I'm going to paste in our request string
+
+23
+00:00:46,666 --> 00:00:47,600
+这是一个这里的码头
+which is a here dock
+
+24
+00:00:47,633 --> 00:00:48,833
+这样我们就有了
+just so we have that available
+
+25
+00:00:49,200 --> 00:00:50,833
+所以要解析这个字符串，我们将使用
+so to parse this string we're going to use a
+
+26
+00:00:50,833 --> 00:00:51,733
+字符串函数
+string function
+
+27
+00:00:51,733 --> 00:00:53,300
+你可以使用方便的 h
+and you can use the handy h
+
+28
+00:00:53,300 --> 00:00:55,233
+ix 内部的函数以获得一些帮助
+function inside of ix to get some help
+
+29
+00:00:55,500 --> 00:00:57,900
+我们可以说字符串点是模块的名称
+we can say string dot that's the name of the module
+
+30
+00:00:57,933 --> 00:00:59,233
+那么如果你只是点击标签
+then if you just hit tab
+
+31
+00:00:59,566 --> 00:01:02,100
+它使用自动完成向我们展示所有功能
+it uses auto completion to show us all the functions
+
+32
+00:01:02,100 --> 00:01:02,866
+我们可以打电话
+we can call
+
+33
+00:01:02,866 --> 00:01:05,433
+并注意有三个拆分功能
+and notice that there are three split functions
+
+34
+00:01:05,433 --> 00:01:09,200
+分裂一分裂二分裂分裂三
+split one split split two and split split three
+
+35
+00:01:09,600 --> 00:01:11,400
+这里的数字表示有多少
+the number here indicates how many
+
+36
+00:01:11,400 --> 00:01:13,400
+函数期望的参数
+arguments the function expects
+
+37
+00:01:13,400 --> 00:01:16,266
+它通常被称为函数
+it's often referred to as the functions airily
+
+38
+00:01:16,666 --> 00:01:17,966
+所以一个模块可以定义
+so a module can define
+
+39
+00:01:17,966 --> 00:01:19,666
+多个同名函数
+multiple functions with the same name
+
+40
+00:01:19,733 --> 00:01:21,200
+和不同的能力
+and a different ability
+
+41
+00:01:21,200 --> 00:01:22,800
+然后函数是唯一的
+and then the function is uniquely
+
+42
+00:01:22,800 --> 00:01:24,633
+由其包含模块标识
+identified by its containing module
+
+43
+00:01:24,633 --> 00:01:26,100
+在这种情况下，字符串模块
+in this case the string module
+
+44
+00:01:26,166 --> 00:01:27,800
+它的名字和迭代
+its name and iterate
+
+45
+00:01:27,833 --> 00:01:30,200
+在这种情况下，我们将使用拆分两个
+in this case we're going to use split two
+
+46
+00:01:30,666 --> 00:01:31,800
+那么如果我完成
+so then if I just complete
+
+47
+00:01:31,800 --> 00:01:34,566
+这与拆分和命中返回很好
+this with split and hit return well
+
+48
+00:01:34,566 --> 00:01:35,633
+它给了我们一点帮助
+it gives us a little bit of help
+
+49
+00:01:35,633 --> 00:01:37,633
+关于如何调用 split 有一些例子
+about how to call split with some examples there
+
+50
+00:01:38,233 --> 00:01:39,566
+所以 split 返回一个列表
+so split returns a list
+
+51
+00:01:39,566 --> 00:01:41,633
+我将在一个名为 lines 的变量中捕获它
+which I'm going to capture in a variable called lines
+
+52
+00:01:41,633 --> 00:01:43,233
+我们将调用字符串拆分
+we're going to call string split
+
+53
+00:01:43,833 --> 00:01:44,966
+我有要求
+I have the request
+
+54
+00:01:45,166 --> 00:01:46,333
+这是它的第一个论点
+that's the first argument to it
+
+55
+00:01:46,333 --> 00:01:47,366
+然后我们将其拆分
+and then we're going to split it
+
+56
+00:01:47,600 --> 00:01:48,800
+在新线上
+on a new line
+
+57
+00:01:49,300 --> 00:01:49,533
+因为
+because
+
+58
+00:01:49,533 --> 00:01:51,733
+记住我们想要的多行请求
+remember a request of multiple lines that we want each
+
+59
+00:01:51,733 --> 00:01:53,200
+行成为该列表中的一个元素
+line to be an element in that list
+
+60
+00:01:53,200 --> 00:01:54,900
+那只会以这种方式将其拆分为新行
+that will just split it on new lines that way
+
+61
+00:01:55,333 --> 00:01:57,466
+这给了我们所有行的列表
+and that gives us back a list of all the lines
+
+62
+00:01:57,766 --> 00:02:00,133
+那么如果我们想要第一行，我们可以使用
+then if we wanted the first line we could use
+
+63
+00:02:00,633 --> 00:02:03,266
+list 模块有一个名为 first 的函数
+the list module has a function called first
+
+64
+00:02:03,500 --> 00:02:05,333
+并将其传递到列表中
+and pass it in a list
+
+65
+00:02:05,500 --> 00:02:06,966
+那只会给我们第一行
+and that will just give us the first line
+
+66
+00:02:06,966 --> 00:02:08,766
+这是我们感兴趣的请求行
+it's the request line that we're interested in
+
+67
+00:02:09,266 --> 00:02:11,833
+所以另一种方法是使用管道
+so another way to do this will be using a pipe
+
+68
+00:02:11,966 --> 00:02:13,966
+所以我们留在第一行等于请求
+so we stay first line equals request
+
+69
+00:02:14,733 --> 00:02:17,900
+管它进入字符串拆分
+pipe that into string split
+
+70
+00:02:18,733 --> 00:02:20,400
+现在第一个参数是请求
+now the first argument to that is the request
+
+71
+00:02:20,400 --> 00:02:22,633
+第二个论点是要拆分的内容
+the second argument is what to split on
+
+72
+00:02:22,633 --> 00:02:24,533
+好吧，第一个论点将被输入
+well the first argument is going to be piped in
+
+73
+00:02:24,533 --> 00:02:25,233
+从左边
+from the left
+
+74
+00:02:25,233 --> 00:02:26,700
+所以我们只需要指定
+so we just have to specify the
+
+75
+00:02:26,933 --> 00:02:27,900
+第二个论点
+second argument
+
+76
+00:02:28,233 --> 00:02:29,900
+这将返回一个列表
+that's going to return a list
+
+77
+00:02:29,900 --> 00:02:31,833
+所以我们可以进一步管道
+and so we can pipe that further
+
+78
+00:02:32,000 --> 00:02:32,800
+进入
+into
+
+79
+00:02:33,333 --> 00:02:34,200
+首先列出
+list first
+
+80
+00:02:34,833 --> 00:02:35,633
+我们得到同样的东西
+we get the same thing
+
+81
+00:02:36,200 --> 00:02:38,000
+所以让我们继续复制这一行
+so let's just go ahead and copy this line at well
+
+82
+00:02:38,000 --> 00:02:39,700
+将其粘贴到我们的解析函数中
+paste it into our parse function
+
+83
+00:02:40,500 --> 00:02:43,166
+我会粘贴它来代替我们在那里做的事情
+and I'll just paste it to replace our to do there
+
+84
+00:02:43,500 --> 00:02:45,033
+所以现在我们有了第一个
+so now that we have the first
+
+85
+00:02:45,166 --> 00:02:47,366
+线我们现在需要拆分它
+line we now need to split it
+
+86
+00:02:47,833 --> 00:02:49,266
+分成自己的部分
+into its own parts
+
+87
+00:02:49,666 --> 00:02:50,700
+我只是要清理这个
+I'm just going to clean this up
+
+88
+00:02:50,800 --> 00:02:51,966
+我们有第一行
+and we have our first line
+
+89
+00:02:51,966 --> 00:02:53,700
+记住已经存储了
+remember that's already been stored
+
+90
+00:02:54,000 --> 00:02:55,933
+现在我们只想拆分第一行
+and now we just want to split this first line
+
+91
+00:02:55,966 --> 00:02:57,366
+分为这三个不同的部分
+into these three different parts
+
+92
+00:02:57,366 --> 00:03:01,066
+所以我们要说部分等于字符串拆分
+so we're going to say parts equals string split
+
+93
+00:03:01,600 --> 00:03:02,733
+我们将采取第一行
+we'll take the first line
+
+94
+00:03:02,966 --> 00:03:05,766
+在这种情况下，我们将根据空格对其进行拆分
+in this case we'll split it based on a space
+
+95
+00:03:06,133 --> 00:03:08,000
+我们得到一个包含三个元素的列表
+and we get back a list of three elements with
+
+96
+00:03:08,000 --> 00:03:09,100
+这些部分中的每一个
+each of those parts
+
+97
+00:03:09,266 --> 00:03:11,333
+但我们只对路径中的方法感兴趣
+but we're only interested in the method in the path
+
+98
+00:03:11,333 --> 00:03:12,533
+不是真正的协议
+not really the protocol
+
+99
+00:03:12,533 --> 00:03:14,600
+所以解决这些问题的一种方法是使用 e new
+so one way to get at these would be to use the e new
+
+100
+00:03:14,600 --> 00:03:16,333
+内置在 elixir 中的模块
+module that's built into elixir
+
+101
+00:03:16,500 --> 00:03:17,800
+并且有一个应用程序功能
+and there's an app function
+
+102
+00:03:17,966 --> 00:03:20,166
+在这种情况下，您给它一个列表，然后
+you give it a list in this case parts and then
+
+103
+00:03:20,166 --> 00:03:21,533
+你想要的东西的索引
+the index of the thing you want
+
+104
+00:03:21,533 --> 00:03:24,566
+所以索引零会给我们get方法
+so index zero would give us the method which is get
+
+105
+00:03:24,566 --> 00:03:25,600
+和索引一
+and index one
+
+106
+00:03:25,600 --> 00:03:26,900
+会给我们路径
+would give us the path
+
+107
+00:03:27,800 --> 00:03:30,066
+现在可以了，但它不是惯用的
+now that works but it's not idiomatic
+
+108
+00:03:30,066 --> 00:03:32,566
+Elixir 代码模式匹配为我们提供了更多
+elixir code pattern matching gives us a more
+
+109
+00:03:32,566 --> 00:03:35,500
+优雅而强大的方式来做同样的事情
+elegant and powerful way to do the same thing
+
+110
+00:03:35,800 --> 00:03:38,366
+模式匹配对你如何
+and pattern matching is a huge influence on how you
+
+111
+00:03:38,366 --> 00:03:39,533
+设计灵药代码
+design elixir code
+
+112
+00:03:39,766 --> 00:03:40,666
+这也是一个重要的
+it's also an important
+
+113
+00:03:40,666 --> 00:03:43,066
+如果您从 oo 过渡，则不同
+difference if you're transitioning from oo
+
+114
+00:03:43,066 --> 00:03:44,500
+到函数式编程
+to functional programming
+
+115
+00:03:44,600 --> 00:03:45,433
+所以让我们看看
+so let's look at
+
+116
+00:03:45,433 --> 00:03:48,100
+一些性模式匹配的例子
+some examples of pattern matching in sex
+
+117
+00:03:48,700 --> 00:03:51,166
+所以这里有一些熟悉的东西让我们说一个等于一个
+so here's something familiar let's say a equals one
+
+118
+00:03:51,766 --> 00:03:53,566
+this 的作用是绑定值
+what this does is that binds the value
+
+119
+00:03:53,566 --> 00:03:54,633
+在右手侧
+on the right hand side
+
+120
+00:03:54,633 --> 00:03:55,666
+在这种情况下一个
+one in this case
+
+121
+00:03:55,733 --> 00:03:57,666
+到左侧的变量 a
+to the variable a that's on the left hand side
+
+122
+00:03:58,033 --> 00:04:00,433
+我们会认识到这只是分配
+and we would recognize that as just assignment
+
+123
+00:04:00,700 --> 00:04:02,433
+所以现在 a 的值为 1
+so now the value of a is one
+
+124
+00:04:02,833 --> 00:04:04,566
+但有趣的是等号运算符
+but the interesting thing is the equal operator
+
+125
+00:04:04,566 --> 00:04:05,866
+灵丹妙药不是任务
+an elixir isn't assignment
+
+126
+00:04:05,866 --> 00:04:07,300
+就像我们习惯用其他语言一样
+like we're used to in other languages
+
+127
+00:04:07,300 --> 00:04:09,700
+它实际上被称为 mash 运算符
+it's actually called the mash operator
+
+128
+00:04:10,033 --> 00:04:10,900
+所以检查一下
+so check this out
+
+129
+00:04:11,166 --> 00:04:14,166
+一等于返回值一的井
+one equals a well that returns the value one
+
+130
+00:04:14,666 --> 00:04:15,566
+所以这里发生的是
+so what's happening here is
+
+131
+00:04:15,566 --> 00:04:17,700
+长生不老药总是试图使左手边
+elixir always tries to make the left hand side
+
+132
+00:04:17,766 --> 00:04:19,633
+这和右手边一样
+this same as the right hand side
+
+133
+00:04:19,900 --> 00:04:21,033
+如果垫子成功
+if the mat succeeds
+
+134
+00:04:21,033 --> 00:04:23,133
+它返回匹配表达式的结果
+it returns the result of the match expression
+
+135
+00:04:23,300 --> 00:04:25,533
+这正是这里发生的事情，我们找回了一个
+and that's exactly what happened here we got back one
+
+136
+00:04:25,900 --> 00:04:28,366
+这场比赛是因为左右手边
+this match is because both the left and right hand side
+
+137
+00:04:28,366 --> 00:04:29,233
+等于一
+are equal to one
+
+138
+00:04:29,733 --> 00:04:31,300
+但是如果左边和右边会发生什么
+but what happens if the left and the right
+
+139
+00:04:31,333 --> 00:04:33,066
+不匹配所以两个等于一个
+don't match so two equals a
+
+140
+00:04:33,166 --> 00:04:34,600
+好吧，我们找回了比赛的气氛
+well we get back a match air
+
+141
+00:04:34,833 --> 00:04:36,200
+因为 a 的值为 1
+because the value of a is one
+
+142
+00:04:36,300 --> 00:04:38,300
+和两个相等的一个是匹配的空气
+and two equal one is a match air
+
+143
+00:04:38,700 --> 00:04:40,133
+现在如果左边有一个变量
+now if there's a variable on the left
+
+144
+00:04:40,133 --> 00:04:41,366
+和右边的值
+and a value on the right
+
+145
+00:04:41,366 --> 00:04:42,900
+然后变量被绑定
+then the variable gets bound
+
+146
+00:04:42,900 --> 00:04:44,933
+使匹配成功的值
+to the value to make the match succeed
+
+147
+00:04:44,933 --> 00:04:46,833
+所以如果我们说 a 等于二
+so if we say a equals two
+
+148
+00:04:47,200 --> 00:04:48,666
+好吧，我们在左边有一个变量
+well we've got a variable on the left
+
+149
+00:04:48,666 --> 00:04:49,866
+和右边的值
+and a value on the right
+
+150
+00:04:50,400 --> 00:04:53,166
+所以它会将两个绑定到变量 a
+so it's going to bind two to the variable a
+
+151
+00:04:53,466 --> 00:04:55,533
+这是一场比赛，所以我们得到了两个
+and it's a match so we get back two
+
+152
+00:04:55,566 --> 00:04:57,133
+作为该表达式的结果
+as the result of that expression
+
+153
+00:04:57,466 --> 00:05:00,666
+这有效地将 a 重新绑定到两个的值
+this effectively rebinds a to the value of two
+
+154
+00:05:01,033 --> 00:05:02,366
+它从一开始
+it started off with the value of one
+
+155
+00:05:02,366 --> 00:05:04,133
+但我们将其反弹到 2
+but we rebound it to a value of two
+
+156
+00:05:04,533 --> 00:05:06,133
+所以现在如果我们说二等于一
+so now if we say two equals a
+
+157
+00:05:06,333 --> 00:05:08,066
+那些会匹配，我们会再次获得两个
+will those match and we get back two again
+
+158
+00:05:08,500 --> 00:05:11,166
+现在有时你不想重新绑定变量
+now sometimes you don't want to rebind the variable
+
+159
+00:05:11,166 --> 00:05:12,400
+相反，你想要一个
+instead you want a
+
+160
+00:05:12,400 --> 00:05:15,666
+模式匹配变量现有值
+pattern match against the variables existing value
+
+161
+00:05:15,866 --> 00:05:17,800
+在这种情况下，您需要使用 pin 运算符
+in that case you need to use the pin operator
+
+162
+00:05:17,800 --> 00:05:18,700
+看起来像这样
+it looks like that
+
+163
+00:05:18,966 --> 00:05:20,700
+如果我们说 a 等于三
+if we say a equals three
+
+164
+00:05:21,166 --> 00:05:22,766
+好吧，这是一个匹配错误
+well it's a match error
+
+165
+00:05:23,033 --> 00:05:25,566
+注意它没有尝试绑定值 3
+notice it didn't try to bind the value three
+
+166
+00:05:25,700 --> 00:05:26,766
+对变量 a
+to the variable a
+
+167
+00:05:27,100 --> 00:05:29,466
+相反，它查看了 a 的现有值
+instead it looked at the existing value of a
+
+168
+00:05:29,466 --> 00:05:31,700
+在这种情况下是二，不等于三
+which is two in this case and that doesn't equal three
+
+169
+00:05:32,366 --> 00:05:34,333
+那么这在实践中如何有用
+so how is this useful in practice
+
+170
+00:05:34,533 --> 00:05:37,100
+好吧，实际上模式匹配被全部使用
+well actually pattern matching is used all
+
+171
+00:05:37,300 --> 00:05:39,133
+在长生不老药程序中的位置
+over the place in elixir programs
+
+172
+00:05:39,133 --> 00:05:41,633
+我们会在整个课程中看到很多例子
+and we'll see many examples throughout this course
+
+173
+00:05:42,133 --> 00:05:42,766
+和最
+and one of the most
+
+174
+00:05:42,766 --> 00:05:45,533
+使用模式匹配的强大方法是破坏
+powerful ways to use pattern matching is to destruct
+
+175
+00:05:45,533 --> 00:05:46,933
+复杂数据类型
+complex data types
+
+176
+00:05:46,933 --> 00:05:47,900
+比如列表
+such as lists
+
+177
+00:05:48,100 --> 00:05:49,500
+所以让我们从头开始
+so let's just start at the top again
+
+178
+00:05:49,566 --> 00:05:51,733
+假设我有一个清单一二和三
+let's say I've got a list one two and three
+
+179
+00:05:52,400 --> 00:05:54,500
+我们可以说等于一
+we can say equal one
+
+180
+00:05:55,033 --> 00:05:56,300
+二三如此
+two and three so
+
+181
+00:05:56,300 --> 00:05:57,533
+左右是一样的
+the right and the left are the same
+
+182
+00:05:57,566 --> 00:05:58,600
+我们有一场比赛
+and we have a match
+
+183
+00:05:58,933 --> 00:06:00,933
+但我们想重组这个列表
+but we'd like to restructure this list
+
+184
+00:06:00,933 --> 00:06:02,533
+这是在右手边
+that's on the right hand side
+
+185
+00:06:02,900 --> 00:06:04,033
+为了做到这一点，我们可以把
+and to do that we can put
+
+186
+00:06:04,033 --> 00:06:05,766
+左侧的变量
+variables on the left hand side
+
+187
+00:06:05,766 --> 00:06:08,100
+所以在这个位置我只会说第一个
+so here in this position I'll just say 1st
+
+188
+00:06:08,900 --> 00:06:11,500
+如果我们在那里击中返回，那就是一场比赛 1 2 3
+if we hit return there well it's a match 1 2 3
+
+189
+00:06:11,700 --> 00:06:13,866
+所以变量首先在左侧
+so that variable first on the left hand side
+
+190
+00:06:14,166 --> 00:06:16,700
+绑定到值一
+got bound to the value one
+
+191
+00:06:16,966 --> 00:06:18,000
+因为那是位置
+because that's in the position
+
+192
+00:06:18,000 --> 00:06:19,600
+右侧列表的
+of the list on the right hand side
+
+193
+00:06:19,800 --> 00:06:21,733
+让整场比赛成功
+to make this whole match succeed
+
+194
+00:06:22,400 --> 00:06:23,833
+所以现在如果我们先看看变量
+so now if we look at the variable first
+
+195
+00:06:23,933 --> 00:06:25,100
+好吧，它的价值是一
+well it has the value one
+
+196
+00:06:25,600 --> 00:06:27,600
+现在重要的是要注意，长生不老药只会改变
+now it's important to note that elixir will only change
+
+197
+00:06:27,600 --> 00:06:30,066
+左侧变量的值
+the value of a variable that's on the left hand side
+
+198
+00:06:30,066 --> 00:06:31,400
+所以如果我们在这里有一个变量
+so if we had a variable over here
+
+199
+00:06:31,533 --> 00:06:33,166
+它不会尝试将其绑定到任何东西
+it wouldn't try to bind it to anything
+
+200
+00:06:33,700 --> 00:06:35,200
+所以现在如果我们想重组我们的清单
+so now if we wanted to restructure our list
+
+201
+00:06:35,200 --> 00:06:35,900
+再远一点
+a little bit further
+
+202
+00:06:35,900 --> 00:06:38,000
+我们可以使用多个变量
+we can use multiple variables on the
+
+203
+00:06:38,000 --> 00:06:38,733
+右侧
+right hand side
+
+204
+00:06:38,733 --> 00:06:39,833
+所以这可能是第一个
+so this might be first
+
+205
+00:06:40,033 --> 00:06:41,833
+我们会把这两个留在中间
+we'll leave the two in there in the middle
+
+206
+00:06:41,900 --> 00:06:43,266
+如果我们在这里使用 last
+and if we use last here
+
+207
+00:06:43,600 --> 00:06:46,733
+我们得到的第一个是一个，最后一个是三个
+what we've got first being one and last being three
+
+208
+00:06:47,333 --> 00:06:48,900
+所以你可以想到左边
+so you can think of the left side
+
+209
+00:06:48,933 --> 00:06:51,233
+作为您尝试成功的模式
+as a pattern you're trying to successfully
+
+210
+00:06:51,233 --> 00:06:53,633
+与右侧的术语匹配
+match with the term on the right hand side
+
+211
+00:06:54,300 --> 00:06:55,500
+在这种情况下，右边和左边
+in this case the right and the left
+
+212
+00:06:55,500 --> 00:06:56,566
+具有相同的结构
+have the same structure
+
+213
+00:06:56,566 --> 00:06:58,333
+有三个元素列表
+there are three element lists
+
+214
+00:06:58,566 --> 00:07:00,800
+右边的字面两个
+the literal two on the right hand side
+
+215
+00:07:01,133 --> 00:07:02,366
+匹配字面量二
+matches the literal two
+
+216
+00:07:02,366 --> 00:07:04,266
+在左侧的相同位置
+in the same position on the left hand side
+
+217
+00:07:04,433 --> 00:07:06,900
+然后为了使匹配值一被绑定
+and then to make the match the value one is bound
+
+218
+00:07:07,033 --> 00:07:09,900
+到变量 first 并且值 3 被绑定
+to the variable first and the value three is bound
+
+219
+00:07:10,100 --> 00:07:11,000
+到变量最后
+to the variable last
+
+220
+00:07:11,566 --> 00:07:14,400
+所以特定值之一不匹配
+so one of a specific value doesn't match
+
+221
+00:07:14,400 --> 00:07:17,066
+比如让我们把二改成七
+like let's change two to seven
+
+222
+00:07:19,100 --> 00:07:19,633
+那么在那种情况下
+well in that case
+
+223
+00:07:19,633 --> 00:07:21,233
+两个文字在中间不匹配
+the two literals don't match in the middle
+
+224
+00:07:21,233 --> 00:07:22,466
+所以我们在这里得到一场比赛
+so we get a match here
+
+225
+00:07:22,966 --> 00:07:24,066
+现在这并不奇怪
+now that's not surprising
+
+226
+00:07:24,066 --> 00:07:26,266
+但它表明我们可以使用模式匹配
+but it demonstrates that we can use pattern matching
+
+227
+00:07:26,266 --> 00:07:27,166
+既要检查
+to both check
+
+228
+00:07:27,266 --> 00:07:28,300
+字面值
+literal values
+
+229
+00:07:28,466 --> 00:07:29,966
+并提取值
+and extract values
+
+230
+00:07:30,433 --> 00:07:32,466
+现在如果结构尺寸不同怎么办
+now what if the structures are different sizes
+
+231
+00:07:32,466 --> 00:07:34,366
+就像让我们一起删除这七个
+like let's remove this seven all together
+
+232
+00:07:35,166 --> 00:07:37,300
+是的，我们这里只有一个包含两个元素的列表
+yeah we'll just have a two element list over here
+
+233
+00:07:38,100 --> 00:07:39,500
+那也是一个匹配错误
+well that's a match error as well
+
+234
+00:07:40,133 --> 00:07:41,533
+所以现在我们知道如何申请了
+so now we know how to apply
+
+235
+00:07:41,566 --> 00:07:44,233
+模式匹配来解析我们的字符串
+pattern matching to parse our string
+
+236
+00:07:44,700 --> 00:07:46,600
+是的，我们在那里有第一行
+yeah we've got our first line in there
+
+237
+00:07:46,600 --> 00:07:48,466
+请记住，这是在第一行变量中
+remember that's in the first line variable
+
+238
+00:07:48,966 --> 00:07:51,266
+所以我们可以拆分字符串拆分
+so we can split it string split
+
+239
+00:07:52,133 --> 00:07:53,633
+第一行拆分它
+1st line split it
+
+240
+00:07:54,000 --> 00:07:58,200
+在空格上，我们知道这将返回一个列表
+on spaces and we know that's going to return a list
+
+241
+00:07:58,833 --> 00:08:00,733
+像那样，让我们匹配
+like that so let's make it match
+
+242
+00:08:00,733 --> 00:08:03,033
+这将是我们想要捕捉的方法
+this is going to be the method we want to capture that
+
+243
+00:08:03,033 --> 00:08:04,733
+在方法变量中
+in a method variable
+
+244
+00:08:04,800 --> 00:08:05,900
+这将是道路
+this is going to be the path
+
+245
+00:08:05,900 --> 00:08:07,100
+这将是版本
+and that's going to be the version
+
+246
+00:08:07,700 --> 00:08:09,900
+这是一个匹配方法是 get
+and that's a match method is get
+
+247
+00:08:10,833 --> 00:08:11,866
+路径是野物
+path is wild things
+
+248
+00:08:12,600 --> 00:08:14,700
+并且版本是http一腐一
+and the version is http one rot one
+
+249
+00:08:15,300 --> 00:08:17,766
+现在我们对http版本并不感兴趣
+now we're not really interested in the http version
+
+250
+00:08:17,766 --> 00:08:19,300
+所以你可以做的另一件事是
+so another thing you can do is
+
+251
+00:08:19,400 --> 00:08:20,966
+在这里使用下划线
+just use an underscore right here
+
+252
+00:08:21,133 --> 00:08:21,966
+这将匹配
+which will match
+
+253
+00:08:22,033 --> 00:08:23,266
+右手边的任何东西
+anything on the right hand side
+
+254
+00:08:23,366 --> 00:08:24,866
+它基本上是一张外卡
+it's basically a wild card
+
+255
+00:08:25,633 --> 00:08:27,566
+所以现在我们可以继续把它从这里复制出来
+so now we can go ahead and copy this out of here
+
+256
+00:08:28,200 --> 00:08:29,900
+将其粘贴回我们的解析函数
+paste it back in our parse function
+
+257
+00:08:30,733 --> 00:08:31,533
+所以这条线
+so this line
+
+258
+00:08:31,600 --> 00:08:34,166
+分配第一行，所以我们可以在这里粘贴
+assigns the first line so we can just paste in here
+
+259
+00:08:34,400 --> 00:08:36,233
+分割第一行的东西
+the thing that splits that first line
+
+260
+00:08:36,266 --> 00:08:37,733
+并给我们方法路径
+and gives us the method path
+
+261
+00:08:37,733 --> 00:08:39,966
+我们忽略了http协议
+and we ignore the http protocol
+
+262
+00:08:40,300 --> 00:08:41,966
+现在我们可以改变我们的地图来使用
+and now we can change our map to use
+
+263
+00:08:41,966 --> 00:08:44,533
+解析的值而不是这些硬编码的值
+the parsed values rather than these hardcoded value
+
+264
+00:08:44,533 --> 00:08:45,633
+所以这将是方法
+so this is going to be method
+
+265
+00:08:45,666 --> 00:08:47,433
+并且路径的值将是
+and the value of path is going to be
+
+266
+00:08:47,800 --> 00:08:49,466
+路径变量中有什么
+what's ever in the path variable
+
+267
+00:08:49,733 --> 00:08:52,466
+我们可以删除这个 con 变量，因为
+and we can remove this co n variable because
+
+268
+00:08:52,500 --> 00:08:54,200
+这是函数的最后一个表达式
+this is the last expression of the function
+
+269
+00:08:54,200 --> 00:08:56,733
+所以这就是隐式返回的内容
+so this is what's going to be implicitly returned
+
+270
+00:08:56,900 --> 00:08:58,800
+所以零件将返回一张地图
+so parts is going to return a map which is
+
+271
+00:08:58,800 --> 00:08:59,900
+正是我们想要的
+exactly what we want
+
+272
+00:09:00,533 --> 00:09:01,600
+所以这会起作用
+so this will work
+
+273
+00:09:01,800 --> 00:09:04,433
+但我们可以使用管道使其更简洁
+but we can make it more concise using pipes
+
+274
+00:09:04,766 --> 00:09:06,133
+所以让我们重新安排一下
+so let's rearrange this a bit
+
+275
+00:09:06,500 --> 00:09:08,866
+我们将在第一行删除这个临时变量
+we'll get rid of this temporary variable first line
+
+276
+00:09:09,200 --> 00:09:11,700
+所以我们接受我们的请求，这是一个多行字符串
+so we take our request which is a multi line string
+
+277
+00:09:11,700 --> 00:09:14,533
+我们想将其拆分为行列表
+we want to split it into a list of lines
+
+278
+00:09:14,700 --> 00:09:16,333
+然后我们想得到第一行
+then we want to get the first line
+
+279
+00:09:16,700 --> 00:09:18,366
+然后我们要先拆分
+then we want to split that first
+
+280
+00:09:18,366 --> 00:09:19,766
+分为三个部分
+line into its three parts
+
+281
+00:09:19,766 --> 00:09:21,133
+所以我要把它拿出来
+so I'm just going to take this out
+
+282
+00:09:21,133 --> 00:09:24,066
+将其剪切到我的复制粘贴缓冲区中
+cut it out here into my copy paste buffer
+
+283
+00:09:24,233 --> 00:09:26,100
+我们真正想做的是管道
+what we really want to do is pipe
+
+284
+00:09:26,100 --> 00:09:27,733
+这个表达式的结果
+the result of this expression
+
+285
+00:09:27,733 --> 00:09:29,500
+这将是一个字符串
+which is going to be a string
+
+286
+00:09:30,366 --> 00:09:31,966
+进入这个功能
+into this function
+
+287
+00:09:32,266 --> 00:09:33,900
+并且管道会做到它会供应
+and the pipe will do that it will supply
+
+288
+00:09:33,900 --> 00:09:35,733
+第一行是那里的第一个参数
+first line is the first argument there
+
+289
+00:09:35,766 --> 00:09:37,866
+所以管道将提供该参数
+so the pipe will supply that argument
+
+290
+00:09:38,300 --> 00:09:40,033
+然后这一切都会回来
+and then all this is going to return
+
+291
+00:09:40,766 --> 00:09:41,566
+这又是
+this again
+
+292
+00:09:43,666 --> 00:09:45,700
+所以你可以把它想象成一个层次结构
+so you can kind of think of this as a hierarchy
+
+293
+00:09:45,700 --> 00:09:46,500
+管道
+of pipelines
+
+294
+00:09:46,500 --> 00:09:48,766
+我们在这里有我们的高级管道请求
+we've got our high level pipeline here request
+
+295
+00:09:49,000 --> 00:09:51,000
+一路转化为响应
+transforming all the way into response
+
+296
+00:09:51,066 --> 00:09:53,366
+然后在管道的这个特定步骤中
+and then in this particular step of the pipeline
+
+297
+00:09:53,466 --> 00:09:55,000
+我们在这里进入这个管道
+we get into this pipeline here
+
+298
+00:09:55,266 --> 00:09:58,200
+这确实与那个相关
+which does sort of sub related to that
+
+299
+00:09:58,533 --> 00:10:00,366
+你几乎可以把这些管道想象成
+you can almost think of these pipelines as being
+
+300
+00:10:00,500 --> 00:10:02,100
+分形我们可以拥有其中之一
+fractal we could have one of these
+
+301
+00:10:02,533 --> 00:10:05,166
+调用一个函数，然后执行另一个管道
+call a function that then does a whole another pipeline
+
+302
+00:10:05,266 --> 00:10:07,033
+所以它有点像管道一直向下
+so it's kind of like pipelines all the way down
+
+303
+00:10:07,633 --> 00:10:08,600
+我们会看到很多
+we're going to see a lot
+
+304
+00:10:08,600 --> 00:10:10,900
+更多模式匹配示例
+more examples of pattern matching going forward
+
+305
+00:10:11,033 --> 00:10:11,866
+虽然现在
+for now though
+
+306
+00:10:11,966 --> 00:10:13,500
+这个转变完成了
+this transformation is complete
+
+307
+00:10:14,000 --> 00:10:16,900
+接下来我们准备更新响应正文
+and we're ready to update the response body next
+

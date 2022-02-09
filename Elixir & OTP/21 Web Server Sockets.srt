@@ -1,0 +1,2144 @@
+1
+00:00:00,333 --> 00:00:03,033
+so I've been thinking since we're writing a web server
+
+2
+00:00:03,033 --> 00:00:04,233
+after all isn't it
+
+3
+00:00:04,233 --> 00:00:06,800
+about time we start sending our request from a client
+
+4
+00:00:06,800 --> 00:00:08,300
+you know like a browser
+
+5
+00:00:08,800 --> 00:00:09,866
+well here's the cool thing
+
+6
+00:00:09,866 --> 00:00:13,000
+our handler module knows how to transform requests
+
+7
+00:00:13,000 --> 00:00:15,700
+into responses that the browser can display
+
+8
+00:00:15,933 --> 00:00:17,366
+so all we need to do
+
+9
+00:00:17,366 --> 00:00:20,366
+is wrap that handler in a thin socket layer
+
+10
+00:00:20,366 --> 00:00:23,466
+that lets any hdbb client interact with our server
+
+11
+00:00:23,633 --> 00:00:24,566
+and we can do that
+
+12
+00:00:24,566 --> 00:00:26,466
+with a fairly limited amount of code
+
+13
+00:00:26,466 --> 00:00:28,433
+by using an early library
+
+14
+00:00:29,266 --> 00:00:31,900
+here's a quick refresher on how a web server works
+
+15
+00:00:32,200 --> 00:00:32,966
+the server first
+
+16
+00:00:32,966 --> 00:00:33,933
+creates a socket
+
+17
+00:00:33,933 --> 00:00:36,533
+to listen for client connections on a specific port
+
+18
+00:00:36,533 --> 00:00:38,833
+number for example port 4000
+
+19
+00:00:39,166 --> 00:00:41,933
+you can think of a socket as a communication channel
+
+20
+00:00:41,933 --> 00:00:44,900
+between any two programs a client and a server
+
+21
+00:00:45,033 --> 00:00:47,933
+in our case we'll assume the client is a browser
+
+22
+00:00:48,033 --> 00:00:50,466
+though it could be any http client
+
+23
+00:00:51,033 --> 00:00:52,533
+after creating the listening socket
+
+24
+00:00:52,533 --> 00:00:55,233
+the server waits to accept a client connection
+
+25
+00:00:55,233 --> 00:00:56,900
+on that listening socket
+
+26
+00:00:57,533 --> 00:00:59,300
+to send an http request
+
+27
+00:00:59,300 --> 00:01:02,466
+the browser sends a connection request to the server
+
+28
+00:01:02,566 --> 00:01:03,533
+on the port number
+
+29
+00:01:03,700 --> 00:01:06,066
+and ip address where the server is listening
+
+30
+00:01:06,466 --> 00:01:09,233
+the server accepts the connection and creates a new
+
+31
+00:01:09,233 --> 00:01:10,400
+client socket
+
+32
+00:01:10,400 --> 00:01:11,466
+a new socket is
+
+33
+00:01:11,466 --> 00:01:14,300
+needed so that the server can continue listening for
+
+34
+00:01:14,333 --> 00:01:17,033
+other connection requests on the listening socket
+
+35
+00:01:17,333 --> 00:01:20,900
+the browser then sends the http request to the server
+
+36
+00:01:21,033 --> 00:01:22,466
+over the client socket
+
+37
+00:01:22,766 --> 00:01:25,533
+the server receives the request generates
+
+38
+00:01:25,533 --> 00:01:28,133
+out an appropriate http response
+
+39
+00:01:28,333 --> 00:01:30,933
+and sends that response back to the browser
+
+40
+00:01:30,933 --> 00:01:32,700
+over the same client socket
+
+41
+00:01:33,300 --> 00:01:35,933
+finally the server closes the client socket to
+
+42
+00:01:35,933 --> 00:01:37,066
+end the connection
+
+43
+00:01:37,566 --> 00:01:38,433
+the server is now
+
+44
+00:01:38,466 --> 00:01:40,700
+ready to accept the next connection request
+
+45
+00:01:40,700 --> 00:01:42,033
+on the listening socket
+
+46
+00:01:42,866 --> 00:01:43,533
+in this way
+
+47
+00:01:43,533 --> 00:01:45,933
+ignoring bells and whistles such as keep alive
+
+48
+00:01:45,933 --> 00:01:47,866
+as simple web server handles one
+
+49
+00:01:47,866 --> 00:01:50,900
+http request response cycle at a time
+
+50
+00:01:51,766 --> 00:01:53,366
+so basically a web server has
+
+51
+00:01:53,366 --> 00:01:56,366
+two separate layers with distinct responsibilities
+
+52
+00:01:56,800 --> 00:01:58,900
+there's a socket layer that's responsible for
+
+53
+00:01:58,900 --> 00:02:01,100
+communicating with hdp clients
+
+54
+00:02:01,166 --> 00:02:03,233
+and it doesn't know how to handle requests
+
+55
+00:02:03,433 --> 00:02:05,966
+so it delegates that responsibility to a request
+
+56
+00:02:05,966 --> 00:02:07,933
+handler which is the second layer
+
+57
+00:02:08,400 --> 00:02:09,933
+the handlers responsible for
+
+58
+00:02:09,933 --> 00:02:11,566
+transforming a request string
+
+59
+00:02:11,800 --> 00:02:12,966
+into a response string
+
+60
+00:02:13,266 --> 00:02:15,566
+and it doesn't care where the request came from
+
+61
+00:02:15,666 --> 00:02:17,200
+or where the response is going
+
+62
+00:02:17,833 --> 00:02:19,666
+now we already have a handler module that
+
+63
+00:02:19,666 --> 00:02:21,066
+parses and router requests
+
+64
+00:02:21,066 --> 00:02:23,000
+and returns an appropriate response
+
+65
+00:02:23,333 --> 00:02:25,100
+we just need to set up some sockets
+
+66
+00:02:25,100 --> 00:02:27,733
+so that http clients can interface with our app
+
+67
+00:02:27,866 --> 00:02:28,666
+over the network
+
+68
+00:02:29,266 --> 00:02:31,933
+to do this we'll use a socket library that takes care
+
+69
+00:02:31,933 --> 00:02:33,833
+of all the low level details
+
+70
+00:02:33,866 --> 00:02:35,966
+but it won't be an elixir library
+
+71
+00:02:35,966 --> 00:02:38,633
+because elixir doesn't need to reinvent that wheel
+
+72
+00:02:38,933 --> 00:02:42,400
+early already has an excellent proven socket library
+
+73
+00:02:42,466 --> 00:02:43,966
+named jen tcp
+
+74
+00:02:44,066 --> 00:02:46,866
+and that library is pre installed with elixir
+
+75
+00:02:47,533 --> 00:02:49,866
+since gen is an urban library
+
+76
+00:02:49,866 --> 00:02:52,366
+the documentation for it is at urban
+
+77
+00:02:52,400 --> 00:02:55,300
+org dock and you'll notice right away at the
+
+78
+00:02:55,300 --> 00:02:56,800
+top it says urban
+
+79
+00:02:57,466 --> 00:03:01,933
+top now top stands for open telecast platform
+
+80
+00:03:01,933 --> 00:03:02,933
+which is misleading
+
+81
+00:03:02,933 --> 00:03:05,566
+because it's not specific to telecommunications
+
+82
+00:03:05,666 --> 00:03:07,000
+but earling was originally
+
+83
+00:03:07,000 --> 00:03:09,400
+designed for building telecommunication systems
+
+84
+00:03:09,400 --> 00:03:12,066
+and as often happens the name stuck
+
+85
+00:03:12,333 --> 00:03:14,433
+so why is top still relevant today
+
+86
+00:03:14,833 --> 00:03:15,766
+while it turns out
+
+87
+00:03:15,766 --> 00:03:18,466
+today's high availability systems have similar needs
+
+88
+00:03:18,466 --> 00:03:21,133
+the telecast systems including concurrency
+
+89
+00:03:21,300 --> 00:03:24,166
+fault tolerant capability and distribution
+
+90
+00:03:24,366 --> 00:03:25,566
+and since top was
+
+91
+00:03:25,566 --> 00:03:27,533
+designed as a general purpose framework
+
+92
+00:03:27,633 --> 00:03:29,500
+a set of libraries and patterns
+
+93
+00:03:29,566 --> 00:03:32,033
+it enables us to build these kinds of systems with
+
+94
+00:03:32,033 --> 00:03:33,033
+greater ease
+
+95
+00:03:33,300 --> 00:03:36,200
+now remember this all started some 20 years ago now
+
+96
+00:03:36,333 --> 00:03:37,266
+and in the meantime
+
+97
+00:03:37,266 --> 00:03:40,400
+top has evolved into a battle proven foundation
+
+98
+00:03:40,466 --> 00:03:42,733
+on which to build modern applications
+
+99
+00:03:43,166 --> 00:03:45,766
+so to find gntc we just go over to the left hand
+
+100
+00:03:45,766 --> 00:03:47,800
+nav here and click on modules
+
+101
+00:03:48,100 --> 00:03:50,766
+and we see a bunch of ruling libraries now
+
+102
+00:03:50,766 --> 00:03:53,200
+these libraries are written in ruling but we can call
+
+103
+00:03:53,233 --> 00:03:55,033
+any ruling library from elixir
+
+104
+00:03:55,033 --> 00:03:57,700
+because elixir code is compiled into bite code
+
+105
+00:03:57,733 --> 00:03:59,300
+that runs on the urging vm
+
+106
+00:03:59,566 --> 00:04:00,033
+and this is
+
+107
+00:04:00,066 --> 00:04:03,233
+huge because it means elixir is compatible with all
+
+108
+00:04:03,300 --> 00:04:04,833
+existing or lang libraries
+
+109
+00:04:05,166 --> 00:04:06,900
+we're looking for the gentle library
+
+110
+00:04:06,900 --> 00:04:07,933
+so we just scroll down
+
+111
+00:04:08,566 --> 00:04:10,500
+there's a ton of libraries inside of here
+
+112
+00:04:11,166 --> 00:04:12,833
+go down to the gen section
+
+113
+00:04:14,566 --> 00:04:16,500
+and by the way when you see gen underscore
+
+114
+00:04:16,533 --> 00:04:18,366
+it just stands for generic
+
+115
+00:04:18,400 --> 00:04:20,866
+so we're looking for gen tcp I'll click on it
+
+116
+00:04:21,466 --> 00:04:22,766
+and we see in the description it says
+
+117
+00:04:22,766 --> 00:04:25,100
+this module provides functions for communicating with
+
+118
+00:04:25,100 --> 00:04:27,333
+sockets using the to protocol
+
+119
+00:04:27,400 --> 00:04:29,000
+which is exactly what we need
+
+120
+00:04:29,633 --> 00:04:31,400
+now this first example down here
+
+121
+00:04:31,466 --> 00:04:34,133
+shows how to write in http client
+
+122
+00:04:34,333 --> 00:04:36,600
+but we're going to be using a browser as the client
+
+123
+00:04:36,866 --> 00:04:39,066
+we need to write the server side of this equation
+
+124
+00:04:39,066 --> 00:04:40,033
+so I'm going to go down
+
+125
+00:04:40,033 --> 00:04:42,466
+a little bit further and there's a server example
+
+126
+00:04:42,566 --> 00:04:44,000
+and I'm just going to copy this
+
+127
+00:04:44,300 --> 00:04:45,933
+and we'll use it as a starting point
+
+128
+00:04:46,533 --> 00:04:49,033
+then back over and sublime in the lib survey directory
+
+129
+00:04:49,033 --> 00:04:52,400
+I'm going to create a new file called http server
+
+130
+00:04:52,533 --> 00:04:55,033
+ex and then just paste in that code
+
+131
+00:04:55,600 --> 00:04:57,600
+now at first glance this looks familiar
+
+132
+00:04:57,600 --> 00:05:00,533
+we see functions matching what we saw in the diagram
+
+133
+00:05:00,533 --> 00:05:01,966
+so there's a listen function
+
+134
+00:05:02,066 --> 00:05:03,266
+an except function
+
+135
+00:05:03,400 --> 00:05:05,533
+there's this custom do receive function
+
+136
+00:05:05,566 --> 00:05:06,766
+to receive the data
+
+137
+00:05:06,900 --> 00:05:08,233
+that's just what this example used
+
+138
+00:05:08,233 --> 00:05:10,633
+we're going to change that to just receive in a minute
+
+139
+00:05:10,700 --> 00:05:12,566
+and then we have the close function
+
+140
+00:05:12,966 --> 00:05:14,333
+now these are ruling functions
+
+141
+00:05:14,333 --> 00:05:15,800
+and we can call them from elixir
+
+142
+00:05:15,800 --> 00:05:18,200
+but we need to convert or transcode
+
+143
+00:05:18,233 --> 00:05:19,800
+this code to elixir
+
+144
+00:05:20,333 --> 00:05:22,733
+this turns out to be a fairly straightforward
+
+145
+00:05:22,733 --> 00:05:24,266
+and instructive exercise
+
+146
+00:05:24,400 --> 00:05:26,300
+since as an elixir developer
+
+147
+00:05:26,433 --> 00:05:27,833
+you'll sometimes want to use
+
+148
+00:05:27,833 --> 00:05:29,766
+an existing early library
+
+149
+00:05:29,766 --> 00:05:31,700
+instead of reinventing the wheel
+
+150
+00:05:32,000 --> 00:05:35,066
+so it pays to know how to call early libraries
+
+151
+00:05:35,066 --> 00:05:37,233
+from elixir I'll paste it
+
+152
+00:05:37,233 --> 00:05:39,033
+again and comment out the earland code
+
+153
+00:05:39,033 --> 00:05:40,533
+so we can see the differences
+
+154
+00:05:41,333 --> 00:05:43,100
+so this first line here server
+
+155
+00:05:43,133 --> 00:05:44,833
+this is an earland function
+
+156
+00:05:44,966 --> 00:05:46,666
+so let's just change it to an elixir function
+
+157
+00:05:46,666 --> 00:05:49,466
+it doesn't take any argument so it's just def server do
+
+158
+00:05:51,366 --> 00:05:53,733
+and end now I'm going to scorch these over
+
+159
+00:05:55,233 --> 00:05:57,733
+there we go so this first line here
+
+160
+00:05:57,766 --> 00:06:00,666
+creates a listening socket it calls listen to do that
+
+161
+00:06:00,833 --> 00:06:03,066
+and it's going to be on port 5 6 7 8
+
+162
+00:06:03,266 --> 00:06:04,666
+and then it has some options
+
+163
+00:06:04,666 --> 00:06:06,466
+here's a list in square brackets
+
+164
+00:06:06,666 --> 00:06:09,266
+now since this code comes from erling documentation
+
+165
+00:06:09,333 --> 00:06:11,300
+it follows earling naming conventions
+
+166
+00:06:11,300 --> 00:06:12,266
+which are slightly
+
+167
+00:06:12,266 --> 00:06:13,266
+different from elixir
+
+168
+00:06:13,466 --> 00:06:16,166
+so let's walk through transcoding it to elixir
+
+169
+00:06:16,666 --> 00:06:19,066
+1st we have this tuple on the left hand side
+
+170
+00:06:19,400 --> 00:06:20,800
+and we pattern match it
+
+171
+00:06:20,800 --> 00:06:22,800
+against what we expect to be returned
+
+172
+00:06:22,800 --> 00:06:24,166
+from this listen function
+
+173
+00:06:24,566 --> 00:06:26,700
+now we're not going to worry about any air conditions
+
+174
+00:06:26,733 --> 00:06:28,866
+so we expect this to be successful
+
+175
+00:06:29,000 --> 00:06:31,200
+so we're going to get back ok and you notice ok
+
+176
+00:06:31,200 --> 00:06:32,933
+here is all lowercase
+
+177
+00:06:33,200 --> 00:06:35,300
+well name starting with lowercase letters
+
+178
+00:06:35,300 --> 00:06:37,033
+in early are atoms
+
+179
+00:06:37,033 --> 00:06:39,300
+in elixir we need to add a colon here
+
+180
+00:06:39,500 --> 00:06:41,066
+this is an elixir atom
+
+181
+00:06:41,533 --> 00:06:44,566
+then the second element in the tuple is this l sock
+
+182
+00:06:44,566 --> 00:06:46,700
+and this is the variable and it's going to be bound
+
+183
+00:06:46,700 --> 00:06:48,200
+to the new listening socket
+
+184
+00:06:48,200 --> 00:06:50,466
+the thing returned by the listen function
+
+185
+00:06:50,700 --> 00:06:53,933
+in variables in earling start with uppercase letters
+
+186
+00:06:53,966 --> 00:06:54,933
+but in elixir
+
+187
+00:06:55,033 --> 00:06:56,066
+they're lowercase letters
+
+188
+00:06:56,066 --> 00:06:58,666
+so we're just going to convert this to l sock
+
+189
+00:06:59,300 --> 00:06:59,966
+so that's it for the
+
+190
+00:06:59,966 --> 00:07:01,500
+tuple and if we come over here
+
+191
+00:07:01,566 --> 00:07:05,466
+we've got the erling module g and then the function is
+
+192
+00:07:05,766 --> 00:07:09,100
+listen well to reference earlier modules from elixir
+
+193
+00:07:09,100 --> 00:07:10,933
+we need to use a colon at the beginning here
+
+194
+00:07:10,933 --> 00:07:12,900
+so it's going to be colon g
+
+195
+00:07:13,100 --> 00:07:14,133
+and then to call the function
+
+196
+00:07:14,133 --> 00:07:16,066
+we replace this colon with a dot
+
+197
+00:07:16,700 --> 00:07:18,566
+so just like calling any function in elixir
+
+198
+00:07:18,566 --> 00:07:20,233
+we use a dot and then the function name
+
+199
+00:07:20,266 --> 00:07:21,500
+the module comes before it
+
+200
+00:07:21,500 --> 00:07:22,866
+but the only difference here is
+
+201
+00:07:23,100 --> 00:07:25,400
+erelong modules need to start with a colon
+
+202
+00:07:25,400 --> 00:07:26,733
+and they're all lowercase
+
+203
+00:07:27,200 --> 00:07:29,033
+then the listen function takes two arguments
+
+204
+00:07:29,033 --> 00:07:29,800
+the port number
+
+205
+00:07:29,800 --> 00:07:32,900
+and then the list of options here in square brackets
+
+206
+00:07:33,100 --> 00:07:34,300
+well again this is a
+
+207
+00:07:34,300 --> 00:07:36,966
+lowercase binary and we know that's an atom
+
+208
+00:07:36,966 --> 00:07:39,300
+in early in elixir we have to use a colon
+
+209
+00:07:39,700 --> 00:07:41,100
+the same way with packet
+
+210
+00:07:42,033 --> 00:07:43,166
+and active here
+
+211
+00:07:43,766 --> 00:07:46,066
+so now what we have is a list where the first
+
+212
+00:07:46,066 --> 00:07:47,900
+element is an adam binary
+
+213
+00:07:47,900 --> 00:07:49,966
+the second element is actually a tuple
+
+214
+00:07:50,400 --> 00:07:52,700
+where the first element is an atom and then a value
+
+215
+00:07:52,700 --> 00:07:55,500
+zero and then the third element in the list is
+
+216
+00:07:55,533 --> 00:07:56,933
+also a tuple active
+
+217
+00:07:56,966 --> 00:07:58,100
+and the value false
+
+218
+00:07:58,500 --> 00:07:59,366
+and that will work
+
+219
+00:07:59,500 --> 00:08:02,033
+but there's a more automatic way to do this in elixir
+
+220
+00:08:02,533 --> 00:08:04,700
+because we have a list of tuples
+
+221
+00:08:05,133 --> 00:08:07,566
+where the first item of the tuple is an atom
+
+222
+00:08:07,733 --> 00:08:09,700
+we can use an elixir keyword list
+
+223
+00:08:10,066 --> 00:08:12,533
+the way to do that if we just drop the curly braces
+
+224
+00:08:12,533 --> 00:08:15,066
+here and we put the colon on the other side of this
+
+225
+00:08:16,066 --> 00:08:17,400
+so it's packet zero
+
+226
+00:08:17,800 --> 00:08:19,766
+drop that curly brace then down here
+
+227
+00:08:20,800 --> 00:08:21,600
+take this off
+
+228
+00:08:22,900 --> 00:08:23,866
+coal and false
+
+229
+00:08:24,233 --> 00:08:25,033
+and drop that
+
+230
+00:08:25,466 --> 00:08:27,366
+and that's just the more significant way to do it
+
+231
+00:08:27,500 --> 00:08:29,700
+but internally it's represented as the same
+
+232
+00:08:29,766 --> 00:08:31,300
+list of two poles we started with
+
+233
+00:08:31,833 --> 00:08:33,300
+and don't worry about what these options mean
+
+234
+00:08:33,300 --> 00:08:35,166
+right now we'll come back to that in a minute
+
+235
+00:08:35,533 --> 00:08:38,733
+and then finally the last thing on this line is a comma
+
+236
+00:08:38,900 --> 00:08:40,900
+and in earl the body of a function is
+
+237
+00:08:40,900 --> 00:08:43,866
+one or more early expressions separated by a comma
+
+238
+00:08:43,866 --> 00:08:45,666
+but we don't need the commas in elixir
+
+239
+00:08:46,500 --> 00:08:48,633
+the 2nd line calls accept
+
+240
+00:08:48,733 --> 00:08:50,933
+which suspends it's a blocking call
+
+241
+00:08:51,100 --> 00:08:53,400
+and it waits to accept a client connection
+
+242
+00:08:53,400 --> 00:08:55,833
+on the listening socket which is this loss
+
+243
+00:08:56,233 --> 00:08:58,066
+and when a connection is established
+
+244
+00:08:58,166 --> 00:09:01,533
+this sock is bound to the new client socket
+
+245
+00:09:01,766 --> 00:09:02,966
+so let's go ahead and convert this
+
+246
+00:09:02,966 --> 00:09:04,500
+this is going to be the atom okay
+
+247
+00:09:04,866 --> 00:09:06,733
+this is going to be a variable sock
+
+248
+00:09:06,800 --> 00:09:08,433
+so lowercase an elixir
+
+249
+00:09:09,300 --> 00:09:10,633
+colon getup
+
+250
+00:09:11,600 --> 00:09:13,733
+dot except and this is just
+
+251
+00:09:13,733 --> 00:09:15,766
+l sock and we can remove the comment at the end
+
+252
+00:09:16,500 --> 00:09:19,266
+now on the 3rd line we need to receive the request
+
+253
+00:09:19,333 --> 00:09:22,133
+from the client by reading from the client socket
+
+254
+00:09:22,166 --> 00:09:23,766
+which is sock in this case
+
+255
+00:09:24,000 --> 00:09:24,566
+and you notice
+
+256
+00:09:24,566 --> 00:09:27,133
+this example uses the custom do receive function
+
+257
+00:09:27,566 --> 00:09:28,766
+so let's go ahead and convert it
+
+258
+00:09:28,766 --> 00:09:30,066
+this is going to be adam
+
+259
+00:09:30,066 --> 00:09:33,233
+okay this bin variable is going to be bound
+
+260
+00:09:33,333 --> 00:09:34,533
+to the request string
+
+261
+00:09:34,533 --> 00:09:37,300
+it's name bin because it's a binary string
+
+262
+00:09:37,600 --> 00:09:38,366
+it's a variable
+
+263
+00:09:38,366 --> 00:09:40,333
+so we're going to change it to a lowercase bin
+
+264
+00:09:40,766 --> 00:09:42,233
+then instead of calling do receive
+
+265
+00:09:42,233 --> 00:09:44,700
+right here we're going to call go tcp
+
+266
+00:09:45,400 --> 00:09:48,433
+there's a function called receive r e
+
+267
+00:09:49,300 --> 00:09:51,466
+we pass it in that client socket
+
+268
+00:09:52,033 --> 00:09:53,733
+and then instead of using a list here
+
+269
+00:09:53,833 --> 00:09:55,133
+we're going to pass in zero
+
+270
+00:09:55,366 --> 00:09:56,933
+that means we want to receive
+
+271
+00:09:57,033 --> 00:09:58,266
+all the available bites
+
+272
+00:09:58,266 --> 00:10:00,533
+so all available bites will be returned
+
+273
+00:10:00,666 --> 00:10:02,666
+and it will be bound to the variable bin
+
+274
+00:10:03,066 --> 00:10:04,800
+and then we can get rid of that comment at the end
+
+275
+00:10:05,333 --> 00:10:06,700
+now that we have the request string
+
+276
+00:10:06,700 --> 00:10:09,300
+here we can go ahead and close that client socket
+
+277
+00:10:09,700 --> 00:10:11,466
+so this is going to be the adam okay
+
+278
+00:10:12,733 --> 00:10:14,933
+getup dot clothes
+
+279
+00:10:15,400 --> 00:10:18,366
+get rid of that comma and this is just lowercase socket
+
+280
+00:10:18,933 --> 00:10:21,900
+and then the final line here just returns bin
+
+281
+00:10:21,933 --> 00:10:23,233
+that's the request string
+
+282
+00:10:23,733 --> 00:10:25,133
+so we're changes to a lowercase b
+
+283
+00:10:25,133 --> 00:10:26,266
+and we can remove this
+
+284
+00:10:26,400 --> 00:10:27,366
+dot at the end
+
+285
+00:10:27,700 --> 00:10:29,933
+in earning the dot means we're at the end of a function
+
+286
+00:10:29,933 --> 00:10:31,366
+but we don't need that in elixir
+
+287
+00:10:31,966 --> 00:10:32,733
+finally we know that
+
+288
+00:10:32,733 --> 00:10:35,000
+all elixir functions need to live in a module
+
+289
+00:10:35,033 --> 00:10:36,500
+so let's put this in a module
+
+290
+00:10:37,866 --> 00:10:40,266
+we'll call it survey htp server
+
+291
+00:10:42,500 --> 00:10:43,433
+there's our function
+
+292
+00:10:44,100 --> 00:10:44,900
+and there we go
+
+293
+00:10:45,400 --> 00:10:48,500
+now let's take our http server for our spin in sex
+
+294
+00:10:49,533 --> 00:10:50,166
+so we'll start with
+
+295
+00:10:50,166 --> 00:10:51,866
+survey dot top server
+
+296
+00:10:52,366 --> 00:10:54,166
+dot server that's the name of the function
+
+297
+00:10:54,933 --> 00:10:55,366
+alright
+
+298
+00:10:55,366 --> 00:10:58,066
+index hangs because it's waiting for a connection
+
+299
+00:10:58,066 --> 00:10:59,400
+so let's head over to a browser
+
+300
+00:10:59,766 --> 00:11:01,600
+and we're going to go to local host
+
+301
+00:11:01,633 --> 00:11:03,633
+and it's going to be 5 6 7 8
+
+302
+00:11:03,633 --> 00:11:04,433
+that's the port
+
+303
+00:11:05,433 --> 00:11:07,066
+he notices says this page isn't working
+
+304
+00:11:07,066 --> 00:11:08,833
+local hosts didn't send any data
+
+305
+00:11:08,833 --> 00:11:09,300
+well that's
+
+306
+00:11:09,300 --> 00:11:10,633
+because our example doesn't actually
+
+307
+00:11:10,633 --> 00:11:12,433
+send a response back to the browser
+
+308
+00:11:12,700 --> 00:11:14,300
+but if we come back and look at six
+
+309
+00:11:14,600 --> 00:11:16,633
+well we see that it prints the request
+
+310
+00:11:17,200 --> 00:11:19,533
+that was returned by that server function
+
+311
+00:11:20,033 --> 00:11:20,266
+remember
+
+312
+00:11:20,266 --> 00:11:22,966
+the server function just returns bin at the end
+
+313
+00:11:22,966 --> 00:11:24,900
+and that's the request that it got from
+
+314
+00:11:25,000 --> 00:11:28,100
+the receive so fix is just printing out
+
+315
+00:11:28,366 --> 00:11:29,966
+that request which is a string
+
+316
+00:11:30,600 --> 00:11:31,800
+and that's what we're seeing right here
+
+317
+00:11:32,266 --> 00:11:33,266
+and then it's done
+
+318
+00:11:33,266 --> 00:11:36,066
+because the server function only handles one request
+
+319
+00:11:36,800 --> 00:11:40,066
+this actually gives us a great start to finish it off
+
+320
+00:11:40,066 --> 00:11:41,066
+we simply need to
+
+321
+00:11:41,066 --> 00:11:45,166
+send a valid http response back to the client
+
+322
+00:11:45,466 --> 00:11:46,633
+and then loop
+
+323
+00:11:46,666 --> 00:11:47,966
+back to the accept line
+
+324
+00:11:47,966 --> 00:11:50,366
+to wait for the next connection request
+
+325
+00:11:50,966 --> 00:11:52,166
+so let's look at what a more
+
+326
+00:11:52,166 --> 00:11:54,100
+fully fleshed out server would look like
+
+327
+00:11:54,600 --> 00:11:55,800
+I'm going to paste some prepared
+
+328
+00:11:55,800 --> 00:11:58,233
+code to replace what's currently in this file
+
+329
+00:11:58,866 --> 00:12:00,033
+and then we're going to close the sidebar
+
+330
+00:12:00,033 --> 00:12:01,066
+just so we have more room
+
+331
+00:12:01,533 --> 00:12:03,733
+don't worry you'll find this code in the code bundle
+
+332
+00:12:04,300 --> 00:12:05,400
+so let's walk through it
+
+333
+00:12:05,400 --> 00:12:07,033
+we've got the same module served at
+
+334
+00:12:07,033 --> 00:12:10,166
+http server and then we have this function start
+
+335
+00:12:10,166 --> 00:12:11,166
+we name it start
+
+336
+00:12:11,166 --> 00:12:13,666
+rather than server as they did in the example code
+
+337
+00:12:13,900 --> 00:12:16,200
+and this just starts the server on the given port
+
+338
+00:12:16,200 --> 00:12:17,333
+of local host
+
+339
+00:12:17,366 --> 00:12:18,833
+and we've used a guard clause here
+
+340
+00:12:18,833 --> 00:12:20,633
+to make sure the port is an integer
+
+341
+00:12:20,800 --> 00:12:21,233
+and
+
+342
+00:12:21,233 --> 00:12:23,900
+also that the port number is above ten twenty three
+
+343
+00:12:24,166 --> 00:12:26,566
+and that's because ports zero through ten twenty three
+
+344
+00:12:26,833 --> 00:12:28,400
+are reserved for the operating system
+
+345
+00:12:28,733 --> 00:12:30,966
+so we need a port above ten twenty three
+
+346
+00:12:31,200 --> 00:12:33,100
+and we've used the guard claws to enforce that
+
+347
+00:12:33,666 --> 00:12:35,766
+then the first thing that happens is we call listen
+
+348
+00:12:35,766 --> 00:12:37,433
+just like we did in the example
+
+349
+00:12:37,566 --> 00:12:39,100
+and it's going to create a socket to
+
+350
+00:12:39,100 --> 00:12:40,733
+listen for client connections
+
+351
+00:12:41,066 --> 00:12:43,300
+and so this listen socket variable is bound
+
+352
+00:12:43,333 --> 00:12:44,766
+to the listening socket
+
+353
+00:12:45,000 --> 00:12:45,833
+as we saw before
+
+354
+00:12:45,833 --> 00:12:47,733
+listen takes two arguments the port
+
+355
+00:12:47,733 --> 00:12:49,800
+and then a list of options
+
+356
+00:12:50,000 --> 00:12:52,233
+so this is similar to the options we had before
+
+357
+00:12:52,566 --> 00:12:53,966
+but we've changed a couple of these
+
+358
+00:12:53,966 --> 00:12:56,033
+so what do these options actually mean
+
+359
+00:12:56,166 --> 00:12:58,200
+we don't have to really worry about these details
+
+360
+00:12:58,200 --> 00:12:59,000
+because you'll use
+
+361
+00:12:59,000 --> 00:13:00,966
+different options in different scenarios
+
+362
+00:13:00,966 --> 00:13:02,133
+but let's walk through these
+
+363
+00:13:02,700 --> 00:13:03,966
+this binary option
+
+364
+00:13:03,966 --> 00:13:06,700
+means we want to open the socket in binary mode
+
+365
+00:13:06,766 --> 00:13:08,833
+and deliver data as binaries
+
+366
+00:13:09,333 --> 00:13:11,866
+and then the second option is this packet raw
+
+367
+00:13:12,200 --> 00:13:15,000
+which means we want the entire binary deliver to us
+
+368
+00:13:15,366 --> 00:13:18,133
+without any packet handling happening behind the scenes
+
+369
+00:13:18,600 --> 00:13:20,766
+then we have this active false which
+
+370
+00:13:20,766 --> 00:13:23,266
+means we want to receive data when we're ready
+
+371
+00:13:23,366 --> 00:13:25,266
+by calling g receive
+
+372
+00:13:25,266 --> 00:13:26,733
+which we'll look at in just a minute
+
+373
+00:13:27,066 --> 00:13:28,333
+and then finally we have this
+
+374
+00:13:28,333 --> 00:13:30,133
+reused address set to true
+
+375
+00:13:30,366 --> 00:13:32,666
+which means we want to allow reusing the
+
+376
+00:13:32,666 --> 00:13:34,533
+address if the listener crashes
+
+377
+00:13:34,900 --> 00:13:37,200
+and these are pretty standard options for a simple
+
+378
+00:13:37,200 --> 00:13:40,033
+web server then we print out that we're listening for
+
+379
+00:13:40,033 --> 00:13:41,800
+connections on that port
+
+380
+00:13:42,333 --> 00:13:44,400
+and then we drop into the except loop
+
+381
+00:13:44,600 --> 00:13:46,800
+so this is just a function called except loop
+
+382
+00:13:46,833 --> 00:13:49,066
+we pass it the listen socket
+
+383
+00:13:49,166 --> 00:13:51,100
+and this is going to accept client connections
+
+384
+00:13:51,100 --> 00:13:52,400
+on this listen socket
+
+385
+00:13:52,766 --> 00:13:53,333
+we print out that
+
+386
+00:13:53,333 --> 00:13:55,300
+we're waiting to accept a client connection
+
+387
+00:13:55,566 --> 00:13:56,466
+and then we call
+
+388
+00:13:56,466 --> 00:13:59,166
+accept just like we saw in the example code earlier
+
+389
+00:13:59,700 --> 00:14:01,033
+remember it suspends or
+
+390
+00:14:01,033 --> 00:14:03,366
+blocks and waits for a client connection
+
+391
+00:14:03,700 --> 00:14:05,400
+and when that connection is accepted
+
+392
+00:14:05,566 --> 00:14:07,400
+then this client socket is bound
+
+393
+00:14:07,633 --> 00:14:09,300
+to the new client socket
+
+394
+00:14:09,766 --> 00:14:10,033
+so then
+
+395
+00:14:10,033 --> 00:14:12,133
+we just pronounced that the connection was accepted
+
+396
+00:14:12,300 --> 00:14:14,066
+and then we call this function serve
+
+397
+00:14:14,366 --> 00:14:16,233
+which is going to receive the request
+
+398
+00:14:16,566 --> 00:14:19,466
+off that client socket and send a response back
+
+399
+00:14:19,566 --> 00:14:20,833
+over that client socket
+
+400
+00:14:21,266 --> 00:14:22,866
+and once this returns
+
+401
+00:14:22,866 --> 00:14:24,800
+then we're going to call accept loop again
+
+402
+00:14:24,866 --> 00:14:27,366
+recursively to loop back up here
+
+403
+00:14:27,366 --> 00:14:29,666
+and wait for the next client connection
+
+404
+00:14:30,200 --> 00:14:32,200
+so let's dive into this serve function
+
+405
+00:14:33,166 --> 00:14:35,433
+well it takes the client socket here
+
+406
+00:14:36,066 --> 00:14:37,566
+pipes it into reed request
+
+407
+00:14:37,766 --> 00:14:40,033
+that's going to return the request as a string
+
+408
+00:14:40,366 --> 00:14:41,000
+then we pipe it
+
+409
+00:14:41,000 --> 00:14:43,466
+in this function generate response so we generate a
+
+410
+00:14:43,466 --> 00:14:45,100
+valid http response
+
+411
+00:14:45,266 --> 00:14:47,300
+and then we pipe it into right response
+
+412
+00:14:47,300 --> 00:14:48,333
+to write it back out
+
+413
+00:14:48,333 --> 00:14:49,500
+over that client socket
+
+414
+00:14:50,000 --> 00:14:53,300
+read request is pretty simple it calls gnpc receive
+
+415
+00:14:53,600 --> 00:14:55,633
+on that client socket passing in zero
+
+416
+00:14:55,633 --> 00:14:57,533
+which means we want all the available bites
+
+417
+00:14:57,766 --> 00:14:57,933
+then
+
+418
+00:14:57,933 --> 00:14:59,666
+the request is going to get bound to this variable
+
+419
+00:14:59,666 --> 00:15:02,533
+request which we return from this function here
+
+420
+00:15:03,466 --> 00:15:05,300
+so the return of this is our request string
+
+421
+00:15:05,300 --> 00:15:07,400
+which we then pipe into generate response
+
+422
+00:15:08,166 --> 00:15:09,566
+generate response just returns this
+
+423
+00:15:09,566 --> 00:15:10,966
+generic http response
+
+424
+00:15:10,966 --> 00:15:11,700
+you notice we're actually
+
+425
+00:15:11,700 --> 00:15:14,100
+ignoring the request here because we don't really care
+
+426
+00:15:14,333 --> 00:15:15,566
+we're just generating a
+
+427
+00:15:15,766 --> 00:15:17,300
+hear dock to return
+
+428
+00:15:17,466 --> 00:15:20,000
+a valid http response that just says hello
+
+429
+00:15:20,633 --> 00:15:22,533
+so that returns the response
+
+430
+00:15:22,766 --> 00:15:25,133
+here which gets piped into right response
+
+431
+00:15:25,700 --> 00:15:26,733
+if we have a look at that
+
+432
+00:15:27,033 --> 00:15:29,000
+it takes the response in a client socket
+
+433
+00:15:29,666 --> 00:15:31,200
+calls gntc send
+
+434
+00:15:31,533 --> 00:15:34,100
+on that client socket giving it the response
+
+435
+00:15:34,266 --> 00:15:35,700
+and we assume that that's successful
+
+436
+00:15:35,700 --> 00:15:37,166
+so we pattern match it to okay
+
+437
+00:15:37,500 --> 00:15:39,333
+we say hey we sent the response back
+
+438
+00:15:39,666 --> 00:15:41,866
+and then we closed that client socket
+
+439
+00:15:42,566 --> 00:15:43,766
+so then back up here
+
+440
+00:15:44,866 --> 00:15:48,133
+this pipeline here is done that's the serve part
+
+441
+00:15:48,466 --> 00:15:49,633
+this returns
+
+442
+00:15:49,633 --> 00:15:52,600
+and then we loop back up to accept loop here
+
+443
+00:15:53,033 --> 00:15:54,366
+which takes us back up here
+
+444
+00:15:54,433 --> 00:15:56,900
+and we're waiting for the next client connection
+
+445
+00:15:57,466 --> 00:15:58,966
+so this is basically what we saw
+
+446
+00:15:58,966 --> 00:16:00,266
+in the early example we
+
+447
+00:16:00,266 --> 00:16:01,433
+transcended earlier
+
+448
+00:16:01,633 --> 00:16:02,400
+we just added a bunch
+
+449
+00:16:02,400 --> 00:16:04,300
+of comments and some print statements
+
+450
+00:16:04,300 --> 00:16:05,833
+to demonstrate what's happening
+
+451
+00:16:06,300 --> 00:16:07,200
+we also added the part
+
+452
+00:16:07,200 --> 00:16:09,400
+where it sends a valid hdp response
+
+453
+00:16:09,400 --> 00:16:09,900
+back out
+
+454
+00:16:09,900 --> 00:16:11,033
+over the client socket
+
+455
+00:16:11,333 --> 00:16:12,100
+the other important
+
+456
+00:16:12,100 --> 00:16:14,166
+change we made is that we recursively call
+
+457
+00:16:14,166 --> 00:16:17,433
+accept loops so the server can continue to accept
+
+458
+00:16:17,433 --> 00:16:18,933
+new connection requests
+
+459
+00:16:19,500 --> 00:16:22,100
+now let's take this version of our code for spin and I
+
+460
+00:16:22,133 --> 00:16:22,933
+x
+
+461
+00:16:24,633 --> 00:16:26,600
+it's survey hd server
+
+462
+00:16:26,666 --> 00:16:29,200
+we called our function start and it takes a port
+
+463
+00:16:29,366 --> 00:16:31,133
+I'm going to use port 4000
+
+464
+00:16:31,566 --> 00:16:33,600
+you can use whatever port you want above ten
+
+465
+00:16:33,600 --> 00:16:34,400
+twenty three
+
+466
+00:16:35,133 --> 00:16:36,100
+okay it starts up
+
+467
+00:16:36,333 --> 00:16:38,600
+and we see that it's listening for connection requests
+
+468
+00:16:38,600 --> 00:16:39,966
+on port 4000
+
+469
+00:16:40,200 --> 00:16:43,033
+and it's waiting to accept the next client connection
+
+470
+00:16:43,133 --> 00:16:45,566
+that's that blocking call except right there
+
+471
+00:16:46,000 --> 00:16:48,166
+so now if we browse over to local host
+
+472
+00:16:48,166 --> 00:16:49,666
+4000 that's our port
+
+473
+00:16:49,733 --> 00:16:51,366
+I'm going to do slash bears
+
+474
+00:16:52,000 --> 00:16:55,100
+look at that we get hello that's our generic response
+
+475
+00:16:55,800 --> 00:16:57,966
+and back over an ix if we scroll up
+
+476
+00:16:59,433 --> 00:17:00,700
+it was waiting right here
+
+477
+00:17:00,800 --> 00:17:02,466
+but then when we sent the request in
+
+478
+00:17:02,733 --> 00:17:04,200
+the connection was accepted
+
+479
+00:17:04,366 --> 00:17:07,733
+it received this request right here for slash bears
+
+480
+00:17:08,033 --> 00:17:10,033
+so here's the full http request
+
+481
+00:17:10,900 --> 00:17:12,833
+and then it sent the response back out
+
+482
+00:17:12,833 --> 00:17:14,333
+our generic response here
+
+483
+00:17:14,833 --> 00:17:15,966
+and then it loot back up
+
+484
+00:17:16,000 --> 00:17:17,800
+and it's waiting for the next client connection
+
+485
+00:17:18,366 --> 00:17:21,066
+cool so our generic http server is going
+
+486
+00:17:21,066 --> 00:17:22,833
+through all the correct motions
+
+487
+00:17:23,233 --> 00:17:26,200
+now all we need to do is plug in our request handler
+
+488
+00:17:26,233 --> 00:17:27,366
+into this pipeline
+
+489
+00:17:27,466 --> 00:17:30,433
+so instead of generating a generic response right here
+
+490
+00:17:30,566 --> 00:17:32,033
+we want to call survey
+
+491
+00:17:32,433 --> 00:17:34,100
+handle handle
+
+492
+00:17:34,600 --> 00:17:35,466
+so what's going to happen
+
+493
+00:17:35,533 --> 00:17:36,266
+is read
+
+494
+00:17:36,266 --> 00:17:36,766
+request
+
+495
+00:17:36,766 --> 00:17:39,033
+is going to get the request from the client socket
+
+496
+00:17:39,133 --> 00:17:41,033
+then it's going to pipe that string
+
+497
+00:17:41,133 --> 00:17:42,433
+into our handle function
+
+498
+00:17:42,533 --> 00:17:44,833
+which returns the response as the string
+
+499
+00:17:45,100 --> 00:17:47,100
+and that response string is then piped into
+
+500
+00:17:47,100 --> 00:17:48,133
+right response
+
+501
+00:17:48,200 --> 00:17:50,000
+which sends the response back out
+
+502
+00:17:50,000 --> 00:17:51,100
+over the client socket
+
+503
+00:17:51,433 --> 00:17:52,266
+in other words
+
+504
+00:17:52,266 --> 00:17:54,366
+we've wrapped our handler in a thin
+
+505
+00:17:54,366 --> 00:17:55,833
+socket layer that lets
+
+506
+00:17:55,833 --> 00:17:59,133
+any http client interface with our server
+
+507
+00:17:59,600 --> 00:18:00,733
+so let's run this again
+
+508
+00:18:00,900 --> 00:18:02,633
+now my sex session is hung
+
+509
+00:18:02,633 --> 00:18:04,266
+because it's waiting for a client connection
+
+510
+00:18:04,300 --> 00:18:05,200
+so I'm just going to
+
+511
+00:18:05,200 --> 00:18:06,633
+control c twice to get out of that
+
+512
+00:18:07,200 --> 00:18:09,066
+and start ix back up again
+
+513
+00:18:09,666 --> 00:18:12,000
+then we'll start our server on port 4000 again
+
+514
+00:18:12,600 --> 00:18:14,300
+okay it's waiting for a client connection
+
+515
+00:18:14,866 --> 00:18:17,366
+reload local host 4000 slash bears
+
+516
+00:18:17,733 --> 00:18:20,000
+and look at that we get a list of all of the bears
+
+517
+00:18:20,366 --> 00:18:22,766
+cool so now we know it's calling our handler
+
+518
+00:18:23,433 --> 00:18:25,133
+so it works on their browser but now
+
+519
+00:18:25,300 --> 00:18:27,933
+any http client can interface with our web server
+
+520
+00:18:28,100 --> 00:18:28,533
+in fact
+
+521
+00:18:28,533 --> 00:18:31,033
+we can use the curl command line client to send an
+
+522
+00:18:31,033 --> 00:18:34,133
+api request so I'm just in a new terminal session here
+
+523
+00:18:34,133 --> 00:18:35,200
+I'm going to use curl
+
+524
+00:18:35,366 --> 00:18:39,000
+and then I'm going to give it http local host 4000 api
+
+525
+00:18:39,066 --> 00:18:42,766
+slash bears and we get back a json list of bears
+
+526
+00:18:42,966 --> 00:18:43,933
+that's pretty sweet
+
+527
+00:18:44,600 --> 00:18:45,300
+since earling has
+
+528
+00:18:45,300 --> 00:18:46,633
+been around for decades
+
+529
+00:18:46,633 --> 00:18:50,066
+it has an extensive set of tried and true libraries
+
+530
+00:18:50,233 --> 00:18:52,066
+this is something worth keeping in mind
+
+531
+00:18:52,300 --> 00:18:55,466
+if you don't find an elixir library to suit your needs
+
+532
+00:18:55,500 --> 00:18:57,200
+look for an earling library
+
+533
+00:18:57,333 --> 00:18:59,666
+odds are if it's a general purpose need
+
+534
+00:18:59,833 --> 00:19:02,066
+somebody has already written a library
+
+535
+00:19:02,433 --> 00:19:03,566
+and now you know how to use
+
+536
+00:19:03,666 --> 00:19:05,733
+any ruling library in your elixir wrap
+

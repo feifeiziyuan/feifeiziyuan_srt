@@ -1,0 +1,2000 @@
+1
+00:00:00,300 --> 00:00:02,566
+现在这个模块是完全可选的
+now this module is completely optional
+
+2
+00:00:02,566 --> 00:00:04,166
+但如果你正在学习灵药
+but in case you're learning elixir
+
+3
+00:00:04,166 --> 00:00:05,966
+因为你接下来要去凤凰城
+because you're on your way to Phoenix next
+
+4
+00:00:05,966 --> 00:00:07,733
+好吧，我们有好消息要告诉你
+well we have good news for you
+
+5
+00:00:07,966 --> 00:00:09,900
+它会看起来很熟悉
+it's gonna look pretty familiar
+
+6
+00:00:10,133 --> 00:00:11,933
+是的，这有点像学习一门新语言
+yeah it's a bit like learning a new language
+
+7
+00:00:11,933 --> 00:00:13,233
+国际旅行前
+before an international trip
+
+8
+00:00:13,366 --> 00:00:14,666
+你选择了语言课程
+you pick up a language course
+
+9
+00:00:14,766 --> 00:00:17,000
+你学习了一些常用的单词和短语
+you learn some common words and phrases
+
+10
+00:00:17,000 --> 00:00:19,566
+然后你在办公室周围练习k
+and then you practice them around the office k
+
+11
+00:00:20,000 --> 00:00:21,600
+然后当你出现在你的目的地
+then when you turn up at your destination
+
+12
+00:00:21,600 --> 00:00:23,800
+有些景象和声音感觉很熟悉
+some of the sights and sounds feel familiar
+
+13
+00:00:24,033 --> 00:00:25,933
+所以让我们先来看一个 Phoenix 应用程序
+so let's start by looking at a Phoenix app
+
+14
+00:00:26,600 --> 00:00:27,533
+只是让你不认为我们有
+just so you don't think we have
+
+15
+00:00:27,533 --> 00:00:28,633
+我们袖手旁观的任何技巧
+any tricks up our sleeve
+
+16
+00:00:28,633 --> 00:00:29,866
+我们将生成一个 Phoenix 应用程序
+we'll generate a Phoenix app
+
+17
+00:00:29,866 --> 00:00:31,433
+从头开始，看看我们得到了什么
+from scratch and see what we get
+
+18
+00:00:31,433 --> 00:00:32,233
+免费
+for free
+
+19
+00:00:32,400 --> 00:00:34,900
+现在我已经在这台电脑上安装了 Phoenix
+now I already have Phoenix installed on this computer
+
+20
+00:00:35,000 --> 00:00:35,600
+检查笔记
+check the notes
+
+21
+00:00:35,600 --> 00:00:37,133
+如果您需要安装说明
+if you need installation instructions
+
+22
+00:00:37,133 --> 00:00:38,566
+在您的计算机上进行设置
+to get it set up on your computer
+
+23
+00:00:38,833 --> 00:00:39,800
+并生成应用程序
+and to generate the app
+
+24
+00:00:39,800 --> 00:00:42,733
+我们以应用程序的名义说 mix p new
+we say mix p new in the name of the app
+
+25
+00:00:42,800 --> 00:00:44,500
+在这种情况下，我们将称之为避难所
+in this case we're going to call it refuge
+
+26
+00:00:44,633 --> 00:00:45,566
+现在只要确保
+now just make sure
+
+27
+00:00:45,700 --> 00:00:47,000
+你不在调查目录中
+that you're not in the survey directory
+
+28
+00:00:47,000 --> 00:00:48,833
+当你运行它时，你可以在其他任何地方
+when you run this you can be anywhere else
+
+29
+00:00:48,933 --> 00:00:50,900
+我现在在一个空的应用程序目录中
+I'm in an empty apps directory right now
+
+30
+00:00:52,133 --> 00:00:53,800
+然后继续生成了一堆代码
+and that went ahead and generated a bunch of code
+
+31
+00:00:53,800 --> 00:00:54,600
+然后问我们
+and then asked us
+
+32
+00:00:54,600 --> 00:00:56,266
+如果我们要安装依赖项
+if we want to install the dependencies
+
+33
+00:00:56,433 --> 00:00:57,433
+一定要继续这样做
+sure go ahead and do that
+
+34
+00:00:58,233 --> 00:00:59,700
+然后它将下载依赖项
+then it's going to download the dependencies
+
+35
+00:00:59,700 --> 00:01:00,766
+并编译它们并得到
+and compile them and get
+
+36
+00:01:00,800 --> 00:01:01,600
+一切都设置好了
+everything set up
+
+37
+00:01:01,800 --> 00:01:03,000
+并通过视频的魔力
+and through the magic of video
+
+38
+00:01:03,033 --> 00:01:04,166
+我们会加快速度
+we'll speed this up a bit
+
+39
+00:01:04,933 --> 00:01:05,633
+然后我们会改变
+then we'll change
+
+40
+00:01:05,633 --> 00:01:07,466
+进入它创建的那个避难所目录
+into that refuge directory that it created
+
+41
+00:01:07,900 --> 00:01:10,000
+我们要生成一些脚手架代码
+and we'll want to generate some scaffold code
+
+42
+00:01:10,000 --> 00:01:10,966
+用于创建
+for creating
+
+43
+00:01:10,966 --> 00:01:14,066
+阅读更新和删除我们的熊资源
+reading updating and deleting our bear resources
+
+44
+00:01:14,166 --> 00:01:15,966
+是的，凤凰城有许多发电机
+yeah Phoenix has a number of generators
+
+45
+00:01:15,966 --> 00:01:19,866
+我们将生成一个 html 应用程序，让我们说 mix p
+we're going to generate an html app so let's say mix p
+
+46
+00:01:20,233 --> 00:01:23,766
+dot gm html 然后是上下文的名称
+dot gm html then once the name of a context
+
+47
+00:01:23,766 --> 00:01:25,466
+我稍后会解释，我们将调用我们的
+I'll explain that a bit later we're going to call our
+
+48
+00:01:25,466 --> 00:01:26,266
+野生的东西
+wild things
+
+49
+00:01:26,700 --> 00:01:28,366
+资源的名称将是熊
+the name of the resource is going to be bear
+
+50
+00:01:28,366 --> 00:01:30,533
+然后它想要它的复数名称
+then it wants the plural name it'll be bears
+
+51
+00:01:30,600 --> 00:01:32,266
+然后我们给它资源的属性
+and then we give it attributes for the resource
+
+52
+00:01:32,266 --> 00:01:33,200
+所以我们会有一个名字
+so we're going to have a name
+
+53
+00:01:33,300 --> 00:01:34,366
+那将是一个字符串
+that's going to be a string
+
+54
+00:01:34,600 --> 00:01:35,866
+类型将是一个字符串
+a type will be a string
+
+55
+00:01:36,233 --> 00:01:37,966
+我们会冬眠
+and we'll have hibernating
+
+56
+00:01:38,300 --> 00:01:39,666
+这将是一个布尔值
+which will be a boolean
+
+57
+00:01:41,433 --> 00:01:43,100
+它继续生成所有文件
+and it went ahead and generated all the files
+
+58
+00:01:43,100 --> 00:01:44,600
+用于管理该资源
+for managing that resource
+
+59
+00:01:44,900 --> 00:01:46,633
+所以现在我们将继续在我们的编辑器中打开它
+so now we'll go ahead and open it in our editor
+
+60
+00:01:46,633 --> 00:01:47,833
+我正在使用崇高
+and I'm using sublime
+
+61
+00:01:48,566 --> 00:01:50,300
+我在左边有我们的调查应用程序
+and I have our survey app on the left
+
+62
+00:01:50,300 --> 00:01:51,700
+和右边的 Phoenix 应用程序
+and the Phoenix app on the right
+
+63
+00:01:52,300 --> 00:01:54,966
+让我们直接进入 Phoenix 应用的控制器
+let's dive right into the controller of the Phoenix app
+
+64
+00:01:55,466 --> 00:01:57,233
+是的，它是在实时目录中完成的
+yeah it's done in the live directory
+
+65
+00:01:57,500 --> 00:01:59,566
+有一个目录叫避难所
+there's a directory called refuge
+
+66
+00:01:59,766 --> 00:02:01,633
+然后如果我们进入网络内部
+and then if we go inside of web
+
+67
+00:02:02,000 --> 00:02:04,033
+好吧，有一个名为 controllers 的子目录
+well there's a sub directory called controllers
+
+68
+00:02:04,133 --> 00:02:05,400
+我会再打开一点
+I'll open that up just a little bit more
+
+69
+00:02:05,400 --> 00:02:06,200
+所以我们可以看到
+so we can see it
+
+70
+00:02:06,200 --> 00:02:07,533
+还有裸控制器
+and there's the bare controller
+
+71
+00:02:07,800 --> 00:02:09,100
+不仅节省空间
+and didn't just save space
+
+72
+00:02:09,100 --> 00:02:10,966
+我要关闭那个侧边栏
+I'm going to close that sidebar
+
+73
+00:02:11,500 --> 00:02:13,500
+就像我们左边的裸控制器一样
+and just like our bare controller on the left
+
+74
+00:02:13,600 --> 00:02:15,766
+它是一个定义
+it's a module that defines
+
+75
+00:02:15,766 --> 00:02:17,733
+称为动作的函数
+functions called actions
+
+76
+00:02:18,466 --> 00:02:19,766
+处理不同的请求
+to handle different requests
+
+77
+00:02:20,100 --> 00:02:22,733
+所以从这里的顶部开始，第一行是这个
+so starting from the top here the first line is this
+
+78
+00:02:22,800 --> 00:02:25,966
+使用线，这是一个元编程咒语
+use line and it's a meta programming incantation
+
+79
+00:02:26,066 --> 00:02:28,533
+这需要这个网络模块
+which requires this web module
+
+80
+00:02:28,600 --> 00:02:30,633
+这反过来又注入了一些代码
+which in turn injects some code
+
+81
+00:02:31,100 --> 00:02:32,233
+进入我们的控制器
+into our controller
+
+82
+00:02:32,266 --> 00:02:33,966
+现在这是凤凰城特有的东西
+now this is a Phoenix specific thing
+
+83
+00:02:34,066 --> 00:02:35,033
+别担心
+don't worry about it
+
+84
+00:02:35,333 --> 00:02:37,633
+然后它给这个狂野的东西起了别名
+and then it aliases this wild things
+
+85
+00:02:37,633 --> 00:02:39,366
+稍后我们将看到的模块
+module which we'll look at in a minute
+
+86
+00:02:39,566 --> 00:02:41,366
+然后我们有索引动作
+then we have the index action
+
+87
+00:02:41,633 --> 00:02:42,533
+现在在凤凰城
+now in Phoenix
+
+88
+00:02:42,533 --> 00:02:43,833
+每个动作需要两个
+each action takes two
+
+89
+00:02:43,833 --> 00:02:46,533
+Phoenix 框架提供的参数
+parameters which the Phoenix framework provides
+
+90
+00:02:46,566 --> 00:02:47,733
+动作运行时
+when the action is run
+
+91
+00:02:48,100 --> 00:02:50,833
+第一个参数始终是 con nn
+the first parameter is always co n n
+
+92
+00:02:50,933 --> 00:02:52,733
+这是连接的缩写
+it's an abbreviation for connection
+
+93
+00:02:52,733 --> 00:02:54,866
+它类似于我们的骗局
+it's similar to our con
+
+94
+00:02:55,033 --> 00:02:56,033
+这是一个结构
+it's a structure
+
+95
+00:02:56,033 --> 00:02:58,033
+包含有关请求的信息
+that holds information about the request
+
+96
+00:02:58,400 --> 00:02:59,800
+第二个参数是
+the second parameter is
+
+97
+00:02:59,800 --> 00:03:03,200
+para 是一个包含任何请求参数的映射
+para which is a map that holds any request parameters
+
+98
+00:03:03,233 --> 00:03:04,733
+类似于我们的参数的地图
+similar to our param's map
+
+99
+00:03:04,933 --> 00:03:07,033
+现在这种情况下的索引操作不使用
+now the index action in this case doesn't use
+
+100
+00:03:07,033 --> 00:03:07,933
+参数
+the parameters
+
+101
+00:03:08,033 --> 00:03:09,300
+所以它使用下划线
+so it uses underscore
+
+102
+00:03:09,300 --> 00:03:11,333
+参数，这样我们就不会收到编译器警告
+parameters so that we don't get a compiler warning
+
+103
+00:03:11,500 --> 00:03:12,733
+关于它没有被使用
+about it not being used
+
+104
+00:03:13,133 --> 00:03:15,733
+现在我们的索引操作只需要转换
+now our index action just takes conv
+
+105
+00:03:15,933 --> 00:03:18,233
+因为第一个参数没有第二个参数
+as the first parameter doesn't have a second parameter
+
+106
+00:03:18,433 --> 00:03:21,033
+因为我们没有在我们的索引操作中使用 para
+because we don't use the para in our index action
+
+107
+00:03:21,233 --> 00:03:22,433
+但你知道如何通过这些
+but you know how to pass those through
+
+108
+00:03:22,433 --> 00:03:23,433
+如果你想那样做
+if you wanted to do that
+
+109
+00:03:24,133 --> 00:03:26,100
+就像我们的应用程序调用狂野的东西
+just like our app calls wild things
+
+110
+00:03:26,300 --> 00:03:28,033
+列出熊以获取所有熊
+list bears to get all the bears
+
+111
+00:03:28,066 --> 00:03:29,366
+如果我们查看 Phoenix 应用程序
+if we look in the Phoenix app
+
+112
+00:03:29,500 --> 00:03:31,633
+索引操作的第一行做同样的事情
+the first line in index action does the same thing
+
+113
+00:03:31,633 --> 00:03:32,966
+我们有一个模块wild things
+we've got a module wild things
+
+114
+00:03:33,133 --> 00:03:35,266
+并调用一个函数来列出熊和
+and calls a function to list bears and
+
+115
+00:03:35,266 --> 00:03:37,400
+两者都返回熊市名单
+both return a list of bear struck
+
+116
+00:03:37,800 --> 00:03:40,533
+然后它调用 render 传递 conn
+then it calls render passing conn
+
+117
+00:03:40,766 --> 00:03:44,100
+它还传递了模板名称索引 html
+and it also passes the template name index html
+
+118
+00:03:44,200 --> 00:03:45,900
+现在凤凰使用了一个略
+now Phoenix uses a slightly
+
+119
+00:03:45,900 --> 00:03:47,500
+与我们不同的命名约定
+different naming convention than ours
+
+120
+00:03:47,533 --> 00:03:49,833
+但两个模板都呈现 html
+but both templates render html
+
+121
+00:03:50,033 --> 00:03:52,166
+然后第三个参数是绑定
+and then the third parameter is the bindings
+
+122
+00:03:52,166 --> 00:03:54,466
+所以他们要把熊绑在熊身上
+so they're going to bind bears to bears
+
+123
+00:03:54,500 --> 00:03:56,800
+就像我们在这里调用渲染时所做的那样
+just like we did over here when we called our render
+
+124
+00:03:57,233 --> 00:03:59,033
+现在让我们更深一层
+now let's dig one level deeper
+
+125
+00:03:59,066 --> 00:04:00,733
+进入这个野物模块
+into this wild things module
+
+126
+00:04:01,133 --> 00:04:02,300
+再次打开侧边栏
+open up the sidebar again
+
+127
+00:04:02,666 --> 00:04:05,033
+它在一个名为 wild things 的目录中
+it's down here in a directory called wild things
+
+128
+00:04:05,600 --> 00:04:07,600
+还有一个狂野的东西
+and there's a wild things ex
+
+129
+00:04:08,633 --> 00:04:10,500
+我们将在我们的调查应用程序中做同样的事情
+and we'll do the same over here in our survey app
+
+130
+00:04:11,066 --> 00:04:12,766
+我们只是在调查中的所有内容
+we just have everything under survey
+
+131
+00:04:13,300 --> 00:04:14,900
+还有我们的野生动物模块
+and there's our wild things module
+
+132
+00:04:15,633 --> 00:04:17,033
+所以如果我们看看野生动物
+so if we look at the wild things
+
+133
+00:04:17,033 --> 00:04:18,733
+Phoenix 生成的模块
+module generated by Phoenix
+
+134
+00:04:18,733 --> 00:04:21,266
+这是创建阅读的简单抽象
+it's a simple abstraction for creating reading
+
+135
+00:04:21,266 --> 00:04:24,366
+在我们的案例中更新和删除资源
+updating and deleting a resource bears in our case
+
+136
+00:04:24,700 --> 00:04:26,600
+现在，如果您查看 Phoenix 文档
+now if you look to the Phoenix documentation
+
+137
+00:04:26,600 --> 00:04:29,533
+他们会把这件事称为上下文
+they're going to refer to this thing as a context
+
+138
+00:04:29,600 --> 00:04:32,133
+评论说这是野外的边界
+and the comment says that it's a boundary for the wild
+
+139
+00:04:32,133 --> 00:04:32,933
+事物系统
+things system
+
+140
+00:04:33,300 --> 00:04:35,966
+所以基本上这是一个数据访问层
+so basically this is a data access layer
+
+141
+00:04:35,966 --> 00:04:37,233
+它封装
+it encapsulates
+
+142
+00:04:37,333 --> 00:04:38,366
+一切与
+everything related to
+
+143
+00:04:38,433 --> 00:04:39,833
+让熊创造熊
+getting bears creating bears
+
+144
+00:04:39,833 --> 00:04:41,500
+更新熊和删除熊
+updating bears and deleting bears
+
+145
+00:04:41,866 --> 00:04:44,366
+所以如果我们看这个列表就在这里
+so if we look at this list bears function right here
+
+146
+00:04:44,533 --> 00:04:47,600
+它在传递的熊下面调用
+it calls below passing bear
+
+147
+00:04:47,933 --> 00:04:50,200
+那么 re 模块是
+well the re module is part of the
+
+148
+00:04:50,200 --> 00:04:53,166
+ecto 库，这是数据库说唱歌手库
+ecto library and this is the database rapper library
+
+149
+00:04:53,166 --> 00:04:54,366
+凤凰使用
+used by Phoenix
+
+150
+00:04:54,533 --> 00:04:57,433
+repo 表示与数据库的连接
+and repo represents a connection to a database which
+
+151
+00:04:57,433 --> 00:04:58,366
+默认情况下将是
+by default is going to be
+
+152
+00:04:58,366 --> 00:04:59,733
+后风险数据库
+a post risk database
+
+153
+00:04:59,900 --> 00:05:00,933
+所以打电话给代表
+so calling rep
+
+154
+00:05:01,433 --> 00:05:04,633
+查询数据库以获取我们应用程序中的所有熊
+queries the database to fetch all the bears in our app
+
+155
+00:05:04,633 --> 00:05:06,566
+我们只有一个内存数据库
+we just have an in memory database
+
+156
+00:05:06,566 --> 00:05:09,500
+所以我们的列表熊只返回一个熊的列表
+so our list bears just returns a list of bears
+
+157
+00:05:09,966 --> 00:05:10,800
+然后回到这里
+then back over here
+
+158
+00:05:10,800 --> 00:05:12,166
+如果我们再向下滚动一点
+if we scroll down a little bit further
+
+159
+00:05:12,366 --> 00:05:15,700
+他们有一个调用 repo dot get 的 get bear 函数
+they have a get bear function that calls repo dot get
+
+160
+00:05:15,766 --> 00:05:17,333
+传递 id 中的熊
+passing the bear in the id
+
+161
+00:05:17,566 --> 00:05:19,366
+这将发出一个数据库查询来查找
+which will issue a database query to find
+
+162
+00:05:19,366 --> 00:05:20,600
+具有给定 ID 的熊
+the bear with the given id
+
+163
+00:05:20,966 --> 00:05:22,466
+和我们的get bear很相似
+it's pretty similar to our get bear
+
+164
+00:05:22,466 --> 00:05:23,733
+除了我们使用电子邮件
+except we're using email
+
+165
+00:05:23,733 --> 00:05:24,866
+找找
+find to find
+
+166
+00:05:24,866 --> 00:05:26,333
+熊名单中的熊
+the bear within the list of bears
+
+167
+00:05:26,333 --> 00:05:27,700
+具有匹配的 id
+that has that matching id
+
+168
+00:05:28,433 --> 00:05:30,466
+现在你注意到如果我们向下滚动和狂野的东西
+now you notice if we scroll down over and wild things
+
+169
+00:05:30,666 --> 00:05:32,266
+他们有创造熊的功能
+they have a function for creating a bear
+
+170
+00:05:32,500 --> 00:05:34,066
+有更新熊的功能
+there's a function for updating a bear
+
+171
+00:05:34,500 --> 00:05:36,633
+以及从数据库中删除熊
+and also for deleting a bear from the database
+
+172
+00:05:37,266 --> 00:05:37,700
+现在让我们走吧
+now let's go
+
+173
+00:05:37,700 --> 00:05:39,566
+看看那个索引模板看看发生了什么
+have a look at that index template to see what's going
+
+174
+00:05:39,566 --> 00:05:41,766
+在凤凰应用程序中
+on in there so in the Phoenix app
+
+175
+00:05:41,766 --> 00:05:43,833
+在 web 目录下，您会找到一个模板
+under the web directory you'll find a template
+
+176
+00:05:43,833 --> 00:05:44,733
+子目录
+sub directory
+
+177
+00:05:44,866 --> 00:05:47,033
+然后它由控制器组织这些
+and then it has these organized by the controller
+
+178
+00:05:47,033 --> 00:05:48,933
+所以裸控制器的所有模板都是
+so all the templates for the bare controller are
+
+179
+00:05:48,933 --> 00:05:50,500
+在裸子目录下
+under the bare sub directory
+
+180
+00:05:50,700 --> 00:05:52,066
+还有那个索引
+and there's the index for that
+
+181
+00:05:52,800 --> 00:05:54,933
+你注意到他们使用命名约定索引
+and you notice they use the naming convention index
+
+182
+00:05:54,933 --> 00:05:56,633
+那个 html 前
+that html ex
+
+183
+00:05:56,633 --> 00:05:59,066
+这只是与我们使用的命名约定不同
+it's just a different naming convention than we used
+
+184
+00:05:59,233 --> 00:06:00,100
+这里的意图是
+the intent here is
+
+185
+00:06:00,100 --> 00:06:01,466
+看名字就知道
+you know by looking at the name
+
+186
+00:06:01,500 --> 00:06:03,100
+这会生成 html
+that this generates html
+
+187
+00:06:03,766 --> 00:06:06,166
+因此在这里打开我们的索引模板
+thus open up our index template over here
+
+188
+00:06:06,900 --> 00:06:07,966
+在模板中
+down in templates
+
+189
+00:06:08,500 --> 00:06:09,300
+在那里
+there it is
+
+190
+00:06:09,933 --> 00:06:11,333
+嘿，以同样的方式检查一下
+hey check this out in the same way
+
+191
+00:06:11,333 --> 00:06:13,066
+我们用一个理解来
+we use a comprehension to
+
+192
+00:06:13,166 --> 00:06:14,466
+遍历所有的熊
+loop through all the bears
+
+193
+00:06:14,500 --> 00:06:16,433
+然后我们使用小于 % 等于
+and then we're using less than % equals
+
+194
+00:06:16,600 --> 00:06:17,833
+好吧，他们在这里做同样的事情
+well they're doing the same thing here
+
+195
+00:06:17,833 --> 00:06:19,700
+对熊有一种理解
+there's a comprehension for bear
+
+196
+00:06:19,900 --> 00:06:22,700
+注意熊在它前面有一个符号
+notice the bears has an at sign before it
+
+197
+00:06:22,966 --> 00:06:25,166
+这就是 Phoenix 设置数据的方式
+this is just the way Phoenix sets up data
+
+198
+00:06:25,266 --> 00:06:26,266
+在行动中
+in the actions
+
+199
+00:06:26,266 --> 00:06:28,900
+所以要访问绑定到熊名的值
+so to get access to the value bound to the bears name
+
+200
+00:06:28,900 --> 00:06:30,900
+你必须在凤凰城的熊市使用
+you have to use at bears in Phoenix
+
+201
+00:06:31,266 --> 00:06:32,533
+然后在那个循环里面
+and then inside of that loop
+
+202
+00:06:32,533 --> 00:06:33,433
+他们使用相同的
+they use the same
+
+203
+00:06:33,466 --> 00:06:35,700
+获取熊的所有属性的语法
+syntax to get all the attributes of the bear
+
+204
+00:06:36,166 --> 00:06:37,866
+到目前为止，这一切都很熟悉
+so far this is all pretty familiar
+
+205
+00:06:38,333 --> 00:06:39,900
+现在让我们回到控制器
+now let's go back to the controller
+
+206
+00:06:40,866 --> 00:06:41,833
+熊控制器在这里
+bear controller here
+
+207
+00:06:43,533 --> 00:06:44,700
+和这里的裸控制器
+and the bare controller here
+
+208
+00:06:45,333 --> 00:06:46,233
+让我们看看这个
+let's have a look at this
+
+209
+00:06:46,233 --> 00:06:48,466
+在 Phoenix 生成的应用程序中显示操作
+show action in the Phoenix generated app
+
+210
+00:06:48,466 --> 00:06:50,366
+这是并排放置的
+here is put them side by side
+
+211
+00:06:50,833 --> 00:06:53,000
+你会注意到就像我们的表演动作
+and you notice just like our show action
+
+212
+00:06:53,000 --> 00:06:54,033
+第二个参数
+the second parameters
+
+213
+00:06:54,033 --> 00:06:56,300
+这些 para，他们正在使用模式匹配
+these para and they're using pattern matching
+
+214
+00:06:56,333 --> 00:06:58,033
+提取这个id
+to extract this id
+
+215
+00:06:58,400 --> 00:06:59,600
+然后他们转身打电话
+then they turn around and call
+
+216
+00:06:59,600 --> 00:07:01,966
+得到熊与那个 id 得到熊袭击
+get bear with that id to get the bear struck
+
+217
+00:07:01,966 --> 00:07:04,866
+然后他们用模板 show html 调用 render
+then they call render with the template show html
+
+218
+00:07:05,000 --> 00:07:07,300
+并将熊作为绑定值传递
+and pass the bear as a bound value
+
+219
+00:07:07,633 --> 00:07:09,400
+与我们提取 id 的方式相同
+the same way we extract the id
+
+220
+00:07:09,700 --> 00:07:11,633
+从我们的野生动物模块中获取熊
+get the bear from our wild things module
+
+221
+00:07:11,633 --> 00:07:13,033
+并渲染显示模板
+and render the show template
+
+222
+00:07:13,766 --> 00:07:15,600
+现在这里的箱子动作怎么样
+now what about this crate action over here
+
+223
+00:07:15,766 --> 00:07:16,500
+在我们的应用程序中很好
+well in our app
+
+224
+00:07:16,500 --> 00:07:18,566
+我们实际上并没有在数据库中创建熊
+we didn't actually create a bear in the database
+
+225
+00:07:18,566 --> 00:07:20,366
+这有点超出本课程的范围
+that's sort of outside the scope of this course
+
+226
+00:07:20,700 --> 00:07:21,366
+但是如果我们看
+but if we look at
+
+227
+00:07:21,366 --> 00:07:23,400
+生成的 crate 动作是如何做到的
+how the generated crate action does it
+
+228
+00:07:23,466 --> 00:07:24,600
+这是熟悉的代码
+it's familiar code
+
+229
+00:07:25,066 --> 00:07:26,666
+我们注意到它的模式匹配
+we notice its pattern matching
+
+230
+00:07:26,800 --> 00:07:27,933
+在对面
+on the para
+
+231
+00:07:27,933 --> 00:07:30,800
+将熊 para 提取到这个变量中
+to extract the bear para into this variable
+
+232
+00:07:31,133 --> 00:07:33,433
+这些 para 进来的方式是它们是嵌套的
+and the way these para come in is they're nested
+
+233
+00:07:33,433 --> 00:07:34,900
+在一个叫熊的钥匙下
+under a key called bear
+
+234
+00:07:34,966 --> 00:07:37,200
+所以这是另一张地图中的一张地图
+so it's a map inside of another map
+
+235
+00:07:37,533 --> 00:07:38,800
+然后他们调用创建
+then they call the create
+
+236
+00:07:38,800 --> 00:07:40,933
+熊婴儿车的熊功能
+bear function with those bear prams
+
+237
+00:07:40,933 --> 00:07:43,100
+这可能成功也可能失败
+and that can succeed or fail
+
+238
+00:07:43,366 --> 00:07:45,000
+所以他们使用 case 表达式
+so they're using a case expression
+
+239
+00:07:45,000 --> 00:07:46,433
+然后他们可以进行模式匹配
+and then they can pattern match
+
+240
+00:07:46,433 --> 00:07:47,700
+关于成败
+on the success or failure
+
+241
+00:07:47,700 --> 00:07:50,833
+所以如果它成功了，我们将得到一个 ok atom
+so if it succeeds we're going to get an ok atom
+
+242
+00:07:50,833 --> 00:07:52,000
+然后我们会有一只熊
+and then we're going to have a bear
+
+243
+00:07:52,400 --> 00:07:54,433
+在这种情况下，他们会建立联系
+in that case they take the connection
+
+244
+00:07:54,700 --> 00:07:55,466
+他们打电话给
+and they call
+
+245
+00:07:55,500 --> 00:07:58,000
+put flash on it 放一条闪光信息
+put flash on it to put a flash message
+
+246
+00:07:58,000 --> 00:07:59,266
+在那个连接里面
+inside of that connection
+
+247
+00:07:59,533 --> 00:08:02,200
+这只是添加了连接的额外信息
+this just adds extra information of the connection
+
+248
+00:08:02,333 --> 00:08:04,900
+就像我们插入函数一样
+in the same way that we plugged in functions
+
+249
+00:08:04,966 --> 00:08:07,100
+使用日志和跟踪之类的东西
+using things like log and track
+
+250
+00:08:07,533 --> 00:08:09,200
+然后它重定向到显示动作
+and then it redirects to the show action
+
+251
+00:08:09,200 --> 00:08:10,233
+展示新熊
+to show the new bear
+
+252
+00:08:10,766 --> 00:08:12,633
+否则如果创建熊失败
+otherwise if creating the bear fails
+
+253
+00:08:12,633 --> 00:08:15,166
+然后我们得到这个元组和模式匹配
+then we get this tuple and pattern match on it
+
+254
+00:08:15,533 --> 00:08:16,300
+我们得到一个错误
+we get an error
+
+255
+00:08:16,300 --> 00:08:17,966
+然后我们有一个叫做改变的东西
+and then we have this thing called a change
+
+256
+00:08:17,966 --> 00:08:19,333
+设置它们的模式匹配
+set that they pattern match on
+
+257
+00:08:19,566 --> 00:08:20,366
+那改变
+and that change
+
+258
+00:08:20,366 --> 00:08:23,533
+set 将包括要显示的任何验证错误
+set will include any validation errors to be displayed
+
+259
+00:08:23,966 --> 00:08:25,633
+所以他们提取变更集
+so they extract the change set
+
+260
+00:08:25,766 --> 00:08:27,733
+然后他们渲染新模板
+and then they render the new template
+
+261
+00:08:27,900 --> 00:08:29,000
+给它改变
+giving it the change
+
+262
+00:08:29,000 --> 00:08:31,166
+设置以便它可以提取验证错误
+set so it can pull out the validation errors
+
+263
+00:08:31,400 --> 00:08:32,666
+如果你滚动浏览这个文件
+and if you scroll through this file
+
+264
+00:08:32,666 --> 00:08:34,300
+你会看到生成器实现了
+you'll see that the generator implemented
+
+265
+00:08:34,300 --> 00:08:35,633
+其他安静的动作
+other restful actions
+
+266
+00:08:35,933 --> 00:08:38,733
+喜欢编辑这里有更新
+like edit there's update down here
+
+267
+00:08:38,800 --> 00:08:40,200
+有一个删除操作
+there's a delete action
+
+268
+00:08:40,300 --> 00:08:42,833
+但这里真的没有新的语法或概念
+but there's really no new syntax or concepts here
+
+269
+00:08:43,100 --> 00:08:45,833
+路由器更有趣所以让我们跳过去
+the router is more interesting so let's hop over there
+
+270
+00:08:46,300 --> 00:08:49,133
+路由器在目录 web 中结束
+the router is over in the directory web
+
+271
+00:08:50,100 --> 00:08:52,933
+如果你向下滚动这里有一个文件路由器 ex
+if you scroll down here there's a file router ex
+
+272
+00:08:53,566 --> 00:08:54,700
+只是为了比较
+and just for comparison
+
+273
+00:08:54,700 --> 00:08:54,933
+这边
+over here
+
+274
+00:08:54,933 --> 00:08:56,966
+我要打开我们的处理程序，因为它有我们的
+I'm going to open up our handler because that has our
+
+275
+00:08:56,966 --> 00:08:58,333
+里面的路由功能
+route function inside of it
+
+276
+00:08:59,133 --> 00:09:01,133
+现在这个路由器模块看起来很漂亮
+now this router module looks pretty
+
+277
+00:09:01,233 --> 00:09:03,333
+不同于我们见过的其他模块
+different than other modules that we've seen
+
+278
+00:09:03,633 --> 00:09:05,166
+而不是定义函数
+rather than defining functions
+
+279
+00:09:05,166 --> 00:09:06,533
+它使用宏
+it uses macros
+
+280
+00:09:06,533 --> 00:09:09,166
+所以感觉更像是一种特定领域的语言
+so it feels more like a domain specific language
+
+281
+00:09:09,366 --> 00:09:10,966
+并且宏得到扩展
+and the macros get expanded
+
+282
+00:09:10,966 --> 00:09:12,733
+在编译时进入函数
+into functions at compile time
+
+283
+00:09:12,933 --> 00:09:14,366
+现在这里发生了很多事情
+now there's a lot going on in here
+
+284
+00:09:14,366 --> 00:09:15,433
+所以让我们分解一下
+so let's break it down
+
+285
+00:09:16,066 --> 00:09:18,233
+暂时忘记这些管道
+forget about these pipelines for just a minute
+
+286
+00:09:18,233 --> 00:09:19,233
+我们会回到那些
+we'll come back to those
+
+287
+00:09:19,466 --> 00:09:21,566
+让我们在这里专注于这条路线
+let's focus on this route right here
+
+288
+00:09:21,933 --> 00:09:25,666
+所以它匹配路径斜杠的 git 请求
+so it matches a git request for the path slash
+
+289
+00:09:25,800 --> 00:09:28,233
+然后它会调用页面控制器
+and then it's going to call the page controllers
+
+290
+00:09:28,466 --> 00:09:30,900
+处理该请求的索引操作
+index action to handle that request
+
+291
+00:09:31,333 --> 00:09:32,700
+现在凤凰生成页面
+now Phoenix generated the page
+
+292
+00:09:32,733 --> 00:09:34,700
+默认情况下 index 动作中的控制器
+controller in the index action by default
+
+293
+00:09:34,733 --> 00:09:36,966
+因为它只想显示一个欢迎页面
+because it just wants to display a welcome page and
+
+294
+00:09:36,966 --> 00:09:37,533
+有些东西
+have something
+
+295
+00:09:37,533 --> 00:09:38,733
+在那里供人们查看
+there for people to look at
+
+296
+00:09:39,133 --> 00:09:41,100
+但我们想要一个列出承载的路线
+but we want a route for listing bearers
+
+297
+00:09:41,133 --> 00:09:42,500
+所以我要复制这个
+so I'm just going to copy this
+
+298
+00:09:43,566 --> 00:09:44,966
+把它放在这条路线下面
+put it below this route
+
+299
+00:09:45,833 --> 00:09:48,133
+当我们去砍熊的时候
+and when we go to slash bears
+
+300
+00:09:48,433 --> 00:09:50,400
+我们想运行我们的熊控制器
+we want to run our bear controller
+
+301
+00:09:50,933 --> 00:09:52,433
+立即索引操作
+index action now
+
+302
+00:09:52,433 --> 00:09:54,166
+我提到这个模块大量使用
+I mentioned that this module makes heavy use
+
+303
+00:09:54,166 --> 00:09:55,433
+宏和
+of macros and
+
+304
+00:09:55,433 --> 00:09:56,900
+get 是一个宏
+get is a macro
+
+305
+00:09:57,100 --> 00:09:59,533
+它会在编译时扩展
+and it's going to get expanded at compile time
+
+306
+00:09:59,766 --> 00:10:01,633
+进入一个名为 match 的函数
+into a function called match
+
+307
+00:10:01,633 --> 00:10:02,666
+它看起来像这样
+it looks something like this
+
+308
+00:10:02,666 --> 00:10:04,333
+我只是将它粘贴到这里之外
+I'm just going to paste it outside of here
+
+309
+00:10:04,666 --> 00:10:06,333
+所以该函数称为匹配
+so the function is called match
+
+310
+00:10:06,333 --> 00:10:06,733
+它
+it
+
+311
+00:10:06,733 --> 00:10:10,166
+接受他们的联系或对话
+takes a conn that's their connection or conversation
+
+312
+00:10:10,533 --> 00:10:12,633
+是否在 hdp 动词上进行模式匹配
+did it pattern matches on the hdp verb
+
+313
+00:10:12,633 --> 00:10:13,866
+在这种情况下，这将是一个得到
+in this case it's going to be a get
+
+314
+00:10:13,866 --> 00:10:14,966
+因为我们曾经到达那里
+because we used get there
+
+315
+00:10:15,366 --> 00:10:17,400
+然后第三个参数是
+and then the third parameter is
+
+316
+00:10:17,400 --> 00:10:19,000
+他们模式匹配的列表
+a list that they pattern match on
+
+317
+00:10:19,000 --> 00:10:20,766
+这是斜线熊的路径
+and this is the path slash bears
+
+318
+00:10:21,200 --> 00:10:23,666
+所以 match 函数需要三个参数
+so the match function takes three arguments
+
+319
+00:10:23,766 --> 00:10:26,600
+如果我们查看斜线熊的路线功能
+if we look over at our route function for slash bears
+
+320
+00:10:26,600 --> 00:10:28,033
+我们只接受一个论点
+we're just taking one argument
+
+321
+00:10:28,133 --> 00:10:30,233
+这是 co 和 v 我们的联系
+it's the co and v our connection
+
+322
+00:10:30,600 --> 00:10:32,433
+然后我们进行模式匹配
+and then we pattern match on
+
+323
+00:10:32,533 --> 00:10:34,300
+该连接的内部是什么
+what's inside of that connection
+
+324
+00:10:34,366 --> 00:10:35,433
+所以我们是模式匹配
+so we're pattern matching
+
+325
+00:10:35,433 --> 00:10:37,400
+对话地图中的任何内容
+whatever's inside of the conversation map
+
+326
+00:10:37,400 --> 00:10:38,500
+作为一个论点
+as one argument
+
+327
+00:10:39,100 --> 00:10:40,566
+以及它们的模式匹配
+and their pattern matching on the
+
+328
+00:10:40,566 --> 00:10:43,433
+动词和路径分别是两个单独的参数
+verb and the path separately is two separate arguments
+
+329
+00:10:43,666 --> 00:10:44,666
+但这没什么大不了的
+but that's no big deal
+
+330
+00:10:44,666 --> 00:10:46,166
+现在您知道如何进行模式匹配了
+now that you know how to pattern match
+
+331
+00:10:46,166 --> 00:10:48,166
+你可以在一个参数上进行模式匹配
+you could pattern match on one argument that has
+
+332
+00:10:48,500 --> 00:10:49,400
+地图内的一切
+everything inside of a map
+
+333
+00:10:49,633 --> 00:10:51,533
+或者您可以在单独的参数上进行模式匹配
+or you could pattern match on separate arguments
+
+334
+00:10:51,533 --> 00:10:53,433
+这是六个半打的其他
+it's six and one half a dozen of the other
+
+335
+00:10:54,033 --> 00:10:54,900
+所以我要摆脱这个
+so I'm going to get rid of this
+
+336
+00:10:54,900 --> 00:10:57,033
+因为这又是在编译时生成的
+because again that's generated at compile time
+
+337
+00:10:57,200 --> 00:10:59,733
+通过宏，但假设我们想要完整的
+by the macro but let's say we wanted the full
+
+338
+00:10:59,733 --> 00:11:02,100
+管理熊资源的补充途径
+complementary route to manage a bear resource
+
+339
+00:11:02,233 --> 00:11:03,133
+好吧，我们可以这样做
+well we could do this
+
+340
+00:11:03,133 --> 00:11:04,433
+通过在这里放一堆路线
+by putting a bunch of routes in here
+
+341
+00:11:04,433 --> 00:11:06,000
+我只是要粘贴一个
+and I'm just going to paste in a
+
+342
+00:11:06,000 --> 00:11:06,900
+我已经有的清单
+list I already have
+
+343
+00:11:07,500 --> 00:11:09,500
+每一个都是一个宏
+and each of these is a macro
+
+344
+00:11:09,500 --> 00:11:10,966
+这会扩大
+that's going to get expanded
+
+345
+00:11:10,966 --> 00:11:12,333
+进入匹配函数
+into a match function
+
+346
+00:11:12,500 --> 00:11:13,933
+所以我们最终会得到八个
+so we're going to end up with eight
+
+347
+00:11:13,933 --> 00:11:15,833
+多子句匹配函数
+multi clause match functions
+
+348
+00:11:15,833 --> 00:11:18,333
+我们知道多子句函数的行为
+and we know how multi clause functions behave
+
+349
+00:11:18,600 --> 00:11:21,133
+elixir 尝试从上到下匹配它们
+elixir tries to match them from top to bottom
+
+350
+00:11:21,200 --> 00:11:21,833
+和第一个
+and the first
+
+351
+00:11:21,833 --> 00:11:24,366
+匹配动词和路径的子句将被运行
+clause that matches the verb and the path will be run
+
+352
+00:11:24,966 --> 00:11:25,866
+现在正如你所料
+now as you might expect
+
+353
+00:11:25,866 --> 00:11:28,533
+有一条捷径可以添加所有这些宁静的路线
+there's a shortcut to adding all these restful routes
+
+354
+00:11:28,633 --> 00:11:29,733
+所以如果我们把它注释掉
+so if we comment this out
+
+355
+00:11:30,333 --> 00:11:33,000
+这样做的速记方法是说资源
+shorthand way of doing this is to say resources
+
+356
+00:11:33,266 --> 00:11:34,300
+斜线熊
+slash bears
+
+357
+00:11:35,966 --> 00:11:37,233
+然后是裸控制器
+and then bare controller
+
+358
+00:11:37,600 --> 00:11:40,666
+这本身就是一个将要扩展的宏
+and that itself is a macro that's going to expand
+
+359
+00:11:40,666 --> 00:11:41,666
+给我们所有人
+to give us all
+
+360
+00:11:41,800 --> 00:11:43,766
+match函数的八个子句
+eight clauses of the match function
+
+361
+00:11:44,333 --> 00:11:46,000
+所以现在让我们回头看看这个
+so now let's double back and look at this
+
+362
+00:11:46,000 --> 00:11:47,566
+管道顶部的东西在这里
+pipeline stuff at the top here
+
+363
+00:11:48,200 --> 00:11:50,333
+记住我们有自己的管道
+and remember we have our own pipeline
+
+364
+00:11:50,333 --> 00:11:51,633
+在这个句柄函数中
+over in this handle function
+
+365
+00:11:51,633 --> 00:11:53,466
+我们正在使用管道运算符来做到这一点
+we're using the pipe operator to do that
+
+366
+00:11:53,800 --> 00:11:55,000
+它管道请求
+it pipes the request
+
+367
+00:11:55,000 --> 00:11:56,733
+通过我们编写的各种函数
+through various functions we've written
+
+368
+00:11:57,000 --> 00:11:59,300
+而 Phoenix 有两条独立的管道
+while Phoenix has two separate pipelines
+
+369
+00:11:59,300 --> 00:12:00,600
+其中一个叫做浏览器
+one of them's called browser
+
+370
+00:12:00,600 --> 00:12:02,300
+其中一个叫做 api
+and one of them's called api
+
+371
+00:12:02,600 --> 00:12:05,066
+他们在内部执行不同的转换
+and they perform different transformations inside
+
+372
+00:12:05,133 --> 00:12:06,100
+这个用于浏览器
+this one for the browsers
+
+373
+00:12:06,100 --> 00:12:08,366
+比 api 更复杂一点
+a little bit more involved than the one for the api
+
+374
+00:12:08,600 --> 00:12:10,066
+因为他们有不同的需求
+because they have different needs
+
+375
+00:12:10,266 --> 00:12:12,366
+而不是使用管道运算符
+instead of using the pipe operator
+
+376
+00:12:12,366 --> 00:12:14,400
+他们使用这个插件功能
+they use this plug function
+
+377
+00:12:14,700 --> 00:12:15,466
+就在这儿
+right here
+
+378
+00:12:15,466 --> 00:12:17,600
+然后他们给它一个函数的名字
+and then they give it the name of a function
+
+379
+00:12:17,633 --> 00:12:19,533
+所以这会插入接受功能
+so this plugs the accepts function
+
+380
+00:12:19,600 --> 00:12:21,933
+获取会话功能等
+the fetch session function and so on
+
+381
+00:12:22,100 --> 00:12:24,466
+但它基本上是一样的
+but it's basically the same thing it's a
+
+382
+00:12:24,466 --> 00:12:27,033
+转换功能管道
+pipeline of transformation functions
+
+383
+00:12:27,066 --> 00:12:28,733
+他们被应用于请求
+they get applied to the request
+
+384
+00:12:29,233 --> 00:12:31,433
+然后因为这些管道有名字
+then because these pipelines have names
+
+385
+00:12:31,433 --> 00:12:34,066
+如果我们在范围斜线下往下看
+if we look down here under scope slash
+
+386
+00:12:34,066 --> 00:12:36,700
+它说通过浏览器管道
+it says pipe through browser
+
+387
+00:12:37,066 --> 00:12:39,933
+因此基于浏览器的请求通过管道传递
+so browser based requests get piped through
+
+388
+00:12:40,033 --> 00:12:41,100
+这条管道
+this pipeline
+
+389
+00:12:41,266 --> 00:12:42,166
+意思是
+which means
+
+390
+00:12:42,166 --> 00:12:45,066
+与这些路由匹配的任何请求都将具有
+any of the requests that match these routes will have
+
+391
+00:12:45,066 --> 00:12:46,800
+已经通过了这条管道
+already gone through this pipeline
+
+392
+00:12:47,233 --> 00:12:49,233
+同样，如果您向下滚动一点
+likewise if you scroll down a little bit further
+
+393
+00:12:49,233 --> 00:12:51,033
+有一个范围
+there is a scope for
+
+394
+00:12:51,300 --> 00:12:54,600
+api 并通过 api 管道传输
+api and it gets piped through the api pipeline
+
+395
+00:12:55,033 --> 00:12:57,333
+现在我们才刚刚触及凤凰的表面
+now we've barely scratched the surface of Phoenix
+
+396
+00:12:57,333 --> 00:12:59,233
+它是一个全栈 Web 框架
+it's a full stack web framework
+
+397
+00:12:59,233 --> 00:13:01,233
+毕竟有很多花里胡哨
+after all with lots of bells and whistles
+
+398
+00:13:01,500 --> 00:13:03,933
+但希望这个快速演练能给你更多
+but hopefully this quick walkthrough has given you more
+
+399
+00:13:03,933 --> 00:13:05,733
+起航前的信心
+confidence before setting sail
+
+400
+00:13:05,833 --> 00:13:07,633
+为了凤凰火热的土地
+for the fiery land of Phoenix
+

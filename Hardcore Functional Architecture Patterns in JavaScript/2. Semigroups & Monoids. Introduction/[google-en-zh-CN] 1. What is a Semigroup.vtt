@@ -1,0 +1,321 @@
+WEBVTT
+
+1
+00:00:00.110 --> 00:00:02.620
+所以我们将从幺半群开始。
+So we're gonna start here with monoids.
+
+2
+00:00:02.620 --> 00:00:06.420
+我要定义我们所说的半组。
+And I'm gonna define what we call a semi group.
+
+3
+00:00:06.420 --> 00:00:09.500
+如果您听说过或使用过半组，请举手。
+Raise your hand if you've heard of a semi group or used it.
+
+4
+00:00:09.500 --> 00:00:10.870
+好的，我们有一个。
+Okay, we got one.
+
+5
+00:00:10.870 --> 00:00:13.890
+好吧，幺半群怎么样，人们正在使用，很酷。
+All right, how about monoids, people are using, cool.
+
+6
+00:00:15.030 --> 00:00:19.340
+所以，我们将从定义一个半组开始，让我们看一些例子。
+So, we're gonna start by defining a semi group and let's look at some examples.
+
+7
+00:00:19.340 --> 00:00:25.090
+所以一加二，加三加六，其实并不重要。
+So one plus two, plus three plus six, doesn't really matter.
+
+8
+00:00:25.090 --> 00:00:29.590
+这里发生的事情是我是否加括号无关紧要
+What's happening here is it doesn't matter if I parenthesize
+
+9
+00:00:29.590 --> 00:00:34.700
+这些在右边或左边，我会得到相同的答案。
+these ones in the right or the left first, I'll get the same answer.
+
+10
+00:00:34.700 --> 00:00:38.510
+因此，关联性再次发挥作用。
+So again, associativity keeps coming into play.
+
+11
+00:00:38.510 --> 00:00:43.970
+所以加法是结合的，它也是封闭的。
+So addition is associative, it also is closed.
+
+12
+00:00:43.970 --> 00:00:50.260
+因此，如果我添加一堆整数，我将永远无法通过加法打破整数。
+So if I add a bunch of integers I can never break out of integers with addition.
+
+13
+00:00:50.260 --> 00:00:53.762
+我总是会得到整数，所以它在组合下关闭。
+I'll always get integers back, so it's closed under composition.
+
+14
+00:00:53.762 --> 00:00:55.050
+我的意思是这是组合所以
+I mean this is the composition so
+
+15
+00:00:55.050 --> 00:00:58.620
+二元运算符，我们要组合这些数字。
+binary operators, we're gonna compose these numbers.
+
+16
+00:00:58.620 --> 00:01:04.710
+所以现在，让我们继续说，我们要取几个数字的乘积。
+So now, let's go ahead and say, we’re gonna take the product of a few numbers.
+
+17
+00:01:04.710 --> 00:01:08.330
+那么二、五和八怎么样。
+So how about two and five and eight.
+
+18
+00:01:08.330 --> 00:01:10.530
+再说一次，它是关联的，对吗？
+And again, it’s associative right?
+
+19
+00:01:10.530 --> 00:01:13.410
+我如何将这个操作括起来并不重要。
+It doesn’t matter how I parenthesize this operation.
+
+20
+00:01:13.410 --> 00:01:16.669
+再次，它是关闭的。
+And again, it is closed.
+
+21
+00:01:17.750 --> 00:01:22.951
+在我得到产品的数据类型下。
+Under the data type I'm getting the product of.
+
+22
+00:01:22.951 --> 00:01:27.417
+现在，对比作为一个反例，如果，
+Now, contrast just as a counter example, if,
+
+23
+00:01:27.417 --> 00:01:32.120
+假设我有 10 除以 4 除以 2。
+let's say I have 10 divided by 4 divided by 2.
+
+24
+00:01:32.120 --> 00:01:36.720
+这既不是封闭的也不是关联的。
+This is neither closed nor associative.
+
+25
+00:01:36.720 --> 00:01:40.900
+所以如果我做四比二，我会得到两个，对吧？
+So if I do four over two, I'm gonna get two, right?
+
+26
+00:01:40.900 --> 00:01:43.000
+然后 10 除以 2 是 5。
+And then 10 divided by two is five.
+
+27
+00:01:43.000 --> 00:01:47.899
+所以有那个答案，但如果我加括号
+So there's that answer but if I parenthesized
+
+28
+00:01:47.899 --> 00:01:52.190
+这样 10 比 4 就像 2.5。
+it this way 10 over 4 is like 2.5.
+
+29
+00:01:52.190 --> 00:01:54.588
+并且不超过两个就像 1.2。
+And that not over two is like, 1.2.
+
+30
+00:01:54.588 --> 00:01:59.200
+是的，所以我们将整数分解为浮点数
+And it's, so we're breaking out of integers into floats and
+
+31
+00:01:59.200 --> 00:02:02.610
+我们得到了不同的答案，但这取决于我们如何加括号。
+we're getting different answers but depending on how we parenthesize.
+
+32
+00:02:02.610 --> 00:02:10.870
+就像仅供参考，如果你是封闭的并且你是联想的，那么你就是平行的。
+Just as FYI, if you're closed and you're associative, you're parallel.
+
+33
+00:02:10.870 --> 00:02:11.860
+这很整洁。
+That's pretty neat.
+
+34
+00:02:11.860 --> 00:02:12.810
+你可以并行化，
+You can parallelize that,
+
+35
+00:02:12.810 --> 00:02:15.870
+你可以把它分成一堆不同的添加物，对吧？
+you can chunk it up into a bunch of different additions, right?
+
+36
+00:02:15.870 --> 00:02:17.760
+x 加 y 加 z。
+x plus y plus z.
+
+37
+00:02:17.760 --> 00:02:20.190
+我们可以将它发送到不同的服务器，将它们全部组合起来
+We can send it to different servers have them all combined and
+
+38
+00:02:20.190 --> 00:02:21.920
+然后合并结果。
+then combine the results.
+
+39
+00:02:21.920 --> 00:02:23.350
+我们可以并行执行。
+And we can do it in parallel.
+
+40
+00:02:23.350 --> 00:02:25.350
+那太棒了。
+That's pretty great.
+
+41
+00:02:25.350 --> 00:02:28.210
+拼写关联错误，但无论如何。
+Spelled associative wrong, but whatever.
+
+42
+00:02:28.210 --> 00:02:29.820
+让我们看更多这方面的例子。
+Let's look at more examples of this.
+
+43
+00:02:29.820 --> 00:02:34.450
+假设我们有一个真、一个真和一个假。
+Let's say we have a true and a true and a false.
+
+44
+00:02:35.700 --> 00:02:37.080
+这又是联想的。
+This is again associative.
+
+45
+00:02:38.510 --> 00:02:42.610
+我们可以做 ORS，这与我们只是在看这些二进制文件有关
+We could do ORS, that's associated with we're just looking at these binary
+
+46
+00:02:42.610 --> 00:02:45.460
+运算符，它们是关联的，它们是封闭的。
+operators they are associative and they are closed.
+
+47
+00:02:45.460 --> 00:02:49.770
+这有什么关系，如何设置交集，我们有 1、2、3。
+There's something to this, how about set intersection, we have 1, 2, 3.
+
+48
+00:02:49.770 --> 00:02:54.280
+我们将进行会面，那不是真正的接线员。
+And we'll do the meet, that's not a real operator.
+
+49
+00:02:54.280 --> 00:02:57.744
+我只是为了弥补这一点。
+I'm just making that up for this.
+
+50
+00:02:57.744 --> 00:03:03.439
+我们有 2, 5, 6 并再次这样做，我们可以，本质上这是关联的，
+We have 2, 5, 6 and do that again, we could, essentially that's associative,
+
+51
+00:03:03.439 --> 00:03:07.890
+我们会得到所有数组的交集，对吧？
+we'll get the intersection of all the arrays, right?
+
+52
+00:03:07.890 --> 00:03:16.310
+所以在这种情况下，它会是两个但是，让我们深入到这个路口或工会。
+So in this case, it'd be two but, let's go down to this junction or union.
+
+53
+00:03:16.310 --> 00:03:17.130
+你得到同样的东西。
+You get the same thing.
+
+54
+00:03:17.130 --> 00:03:19.340
+你得到了他们所有人的联合。
+You get the union of all them.
+
+55
+00:03:19.340 --> 00:03:21.270
+这是关联的，它是封闭的。
+This is associative, it's closed.
+
+56
+00:03:21.270 --> 00:03:26.125
+所以试着想想半群的任何其他例子，就是这样
+So try to think of any other examples of a semigroup, that's that's
+
+57
+00:03:26.125 --> 00:03:28.905
+我们得到的是任何一种- &gt;&gt; 关闭又是什么意思？
+what we're getting at is any kind of- &gt;&gt; What does closed mean again?
+
+58
+00:03:28.905 --> 00:03:33.005
+&gt;&gt; 关闭意味着我们在，如果我要到达十字路口或
+&gt;&gt; Close means that we're, if I'm going to get the intersection or
+
+59
+00:03:33.005 --> 00:03:36.825
+这些集合的并集，在这种情况下，我会得到一个新的集合或数组。
+union of these sets, I'll get a new set back or array in this case.
+
+60
+00:03:36.825 --> 00:03:37.795
+整数也是一样。
+Same thing with integers.
+
+61
+00:03:37.795 --> 00:03:40.355
+我不改变数据类型。
+I don't change the data type.
+
+62
+00:03:40.355 --> 00:03:44.420
+当我们查看除法时，我知道在 JavaScript 中只是数字。
+When we looked at division, I know in JavaScript is just number.
+
+63
+00:03:44.420 --> 00:03:47.410
+但是我们有整数，我们将整数和繁荣相除，你得到一个浮点数或
+But we had integers and we were dividing integers and boom, you get a float or
+
+64
+00:03:47.410 --> 00:03:51.080
+你不知从哪里得到一个实数，对，所以它不会被关闭。
+you get a real number out of nowhere, right and so that is not closed.

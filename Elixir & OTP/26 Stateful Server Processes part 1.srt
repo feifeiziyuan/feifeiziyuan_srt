@@ -1,0 +1,916 @@
+1
+00:00:00,300 --> 00:00:02,033
+let's say we're running a pledge drive
+
+2
+00:00:02,066 --> 00:00:04,700
+to build a crocodile swamp on our refuge
+
+3
+00:00:04,733 --> 00:00:07,266
+gee I hope we don't attract a lock ness monster
+
+4
+00:00:08,133 --> 00:00:10,433
+people would pledge a lot to see that
+
+5
+00:00:10,800 --> 00:00:13,566
+in any event how's our server going to handle pledges
+
+6
+00:00:14,000 --> 00:00:15,633
+well to create a pledge
+
+7
+00:00:15,633 --> 00:00:17,866
+a name and an amount will be sent to our server
+
+8
+00:00:17,866 --> 00:00:19,033
+as a post request
+
+9
+00:00:19,433 --> 00:00:21,133
+we'll route that request to the create
+
+10
+00:00:21,133 --> 00:00:22,766
+action of a pledge controller
+
+11
+00:00:22,766 --> 00:00:23,700
+which will in turn
+
+12
+00:00:23,766 --> 00:00:26,900
+send the pledge information to an external service
+
+13
+00:00:27,000 --> 00:00:29,100
+via its api because
+
+14
+00:00:29,166 --> 00:00:31,766
+after all we're busy running a wildlife refuge
+
+15
+00:00:31,766 --> 00:00:33,533
+and can't be bothered to handle all
+
+16
+00:00:33,533 --> 00:00:35,266
+the intricacies of a pledge drive
+
+17
+00:00:35,366 --> 00:00:37,433
+you know like managing user accounts
+
+18
+00:00:37,466 --> 00:00:39,133
+charging credit cards and the like
+
+19
+00:00:39,533 --> 00:00:42,033
+so we'll let the external service handle all of those
+
+20
+00:00:42,066 --> 00:00:45,000
+details then when we want to get all the pledges
+
+21
+00:00:45,000 --> 00:00:47,100
+we'll send a get request to our server
+
+22
+00:00:47,500 --> 00:00:48,566
+we'll route that request
+
+23
+00:00:48,566 --> 00:00:50,833
+to the index action of the pledge controller
+
+24
+00:00:50,866 --> 00:00:51,933
+which will turn around
+
+25
+00:00:51,933 --> 00:00:54,566
+and fetch the pledges from the external service
+
+26
+00:00:54,966 --> 00:00:55,166
+but
+
+27
+00:00:55,166 --> 00:00:57,400
+suppose we're only interested in displaying the three
+
+28
+00:00:57,400 --> 00:00:58,700
+most recent pledges
+
+29
+00:00:58,733 --> 00:01:00,233
+not all the pledges
+
+30
+00:01:00,400 --> 00:01:02,700
+well rather than hitting the external service
+
+31
+00:01:02,733 --> 00:01:05,200
+every time we want to display recent pledges
+
+32
+00:01:05,200 --> 00:01:07,300
+we'll create an in memory cash
+
+33
+00:01:07,633 --> 00:01:09,066
+when pledges are created
+
+34
+00:01:09,066 --> 00:01:11,800
+will send them all to the external service
+
+35
+00:01:11,833 --> 00:01:15,266
+but only keep a cash of the three most recent ones
+
+36
+00:01:15,533 --> 00:01:17,166
+so when a new pledge comes in
+
+37
+00:01:17,333 --> 00:01:19,000
+we'll bump the oldest pledge out of
+
+38
+00:01:19,000 --> 00:01:22,466
+the cash and add the newest one in and in doing so
+
+39
+00:01:22,733 --> 00:01:24,366
+only keep the most recent three
+
+40
+00:01:24,933 --> 00:01:27,100
+then when the recent pledges are requested
+
+41
+00:01:27,266 --> 00:01:29,433
+we'll return them straight from the cash
+
+42
+00:01:29,900 --> 00:01:32,800
+now we already know how to handle git and post request
+
+43
+00:01:32,800 --> 00:01:34,633
+we've done that in previous modules
+
+44
+00:01:34,800 --> 00:01:37,333
+so we've prepared that code to give us a head start
+
+45
+00:01:37,966 --> 00:01:40,933
+in handler ex we've defined two new routes
+
+46
+00:01:41,100 --> 00:01:43,833
+so if we get a post request for pledges
+
+47
+00:01:44,033 --> 00:01:44,866
+we're going to delegate
+
+48
+00:01:44,866 --> 00:01:47,200
+to the crate action of a pledge controller
+
+49
+00:01:47,633 --> 00:01:49,500
+and if we get a get request for slash pledges
+
+50
+00:01:49,500 --> 00:01:51,333
+we're going to delegate to the index action of that
+
+51
+00:01:51,333 --> 00:01:52,366
+same pledge controller
+
+52
+00:01:52,933 --> 00:01:54,800
+and we went ahead and created the pledge controller
+
+53
+00:01:54,800 --> 00:01:57,100
+you see it over here pledge controller ex
+
+54
+00:01:57,166 --> 00:01:59,400
+it has a crate action and an index action
+
+55
+00:01:59,533 --> 00:02:01,300
+the crate action just captures the
+
+56
+00:02:01,300 --> 00:02:02,900
+name and the mount parameters
+
+57
+00:02:03,033 --> 00:02:05,233
+and then it needs to send that pledge information
+
+58
+00:02:05,366 --> 00:02:07,500
+to the external service and also cash it
+
+59
+00:02:07,700 --> 00:02:09,466
+so we'll do that in a function called
+
+60
+00:02:09,466 --> 00:02:10,400
+create pledge notice
+
+61
+00:02:10,400 --> 00:02:12,600
+it takes two arguments the name in the amount
+
+62
+00:02:12,900 --> 00:02:14,700
+and then in the response body we just say
+
+63
+00:02:14,866 --> 00:02:16,666
+name pledged whatever the amount is
+
+64
+00:02:17,433 --> 00:02:19,766
+then in the index action we need to get the reason
+
+65
+00:02:19,766 --> 00:02:21,166
+pledges from the cash
+
+66
+00:02:21,266 --> 00:02:22,433
+we're going to do that in a function
+
+67
+00:02:22,433 --> 00:02:23,766
+called recent pledges
+
+68
+00:02:23,833 --> 00:02:25,166
+the returns those pledges
+
+69
+00:02:25,166 --> 00:02:26,533
+and then we just inspect them
+
+70
+00:02:26,766 --> 00:02:28,266
+and put them in the response body
+
+71
+00:02:28,833 --> 00:02:29,933
+so we need to define two
+
+72
+00:02:29,933 --> 00:02:32,100
+functions this create pledge function and
+
+73
+00:02:32,100 --> 00:02:33,500
+recent pledges function
+
+74
+00:02:33,633 --> 00:02:35,933
+and it doesn't make sense to define those in this
+
+75
+00:02:35,933 --> 00:02:36,866
+controller module
+
+76
+00:02:37,000 --> 00:02:39,900
+so we'll define those functions in a new module called
+
+77
+00:02:39,900 --> 00:02:40,900
+pledge server
+
+78
+00:02:41,133 --> 00:02:43,133
+and then we'll call the functions on that module
+
+79
+00:02:43,133 --> 00:02:44,200
+so this is going to be
+
+80
+00:02:44,733 --> 00:02:46,433
+serve pledge server
+
+81
+00:02:49,700 --> 00:02:50,466
+and just take that
+
+82
+00:02:50,466 --> 00:02:52,000
+and we're going to call recent pledges on that
+
+83
+00:02:52,000 --> 00:02:52,800
+same module
+
+84
+00:02:53,433 --> 00:02:55,433
+now let's go ahead and create the pledge server module
+
+85
+00:02:55,433 --> 00:02:57,400
+it's going to be in the lib survey directory
+
+86
+00:02:59,600 --> 00:03:01,000
+plug server dx
+
+87
+00:03:05,133 --> 00:03:06,300
+servey dot pledge server
+
+88
+00:03:08,566 --> 00:03:09,233
+and then that first
+
+89
+00:03:09,233 --> 00:03:11,333
+function that we want is called crate pledge
+
+90
+00:03:11,900 --> 00:03:13,600
+it takes a name and an amount
+
+91
+00:03:14,766 --> 00:03:16,200
+and then what should this function do
+
+92
+00:03:16,366 --> 00:03:16,900
+well first
+
+93
+00:03:16,900 --> 00:03:19,800
+it needs to send the pledge to the external service
+
+94
+00:03:20,033 --> 00:03:21,400
+so let's say we have a function called
+
+95
+00:03:21,433 --> 00:03:23,200
+send pledge to service
+
+96
+00:03:23,900 --> 00:03:25,833
+we'll just go ahead and shuttle the name and the amount
+
+97
+00:03:25,833 --> 00:03:26,900
+over to that function
+
+98
+00:03:27,133 --> 00:03:28,966
+and then it's going to return a tuple
+
+99
+00:03:29,266 --> 00:03:30,700
+if it's successful it's going to be
+
+100
+00:03:30,766 --> 00:03:33,500
+the adam okay and then some id
+
+101
+00:03:33,666 --> 00:03:35,466
+it might be like a transaction id
+
+102
+00:03:35,466 --> 00:03:37,166
+of the pledge or the pledge id
+
+103
+00:03:37,333 --> 00:03:37,566
+just
+
+104
+00:03:37,566 --> 00:03:40,166
+some unique identifier that that pledge got created
+
+105
+00:03:40,600 --> 00:03:43,166
+we'll assume our pledge is always successfully created
+
+106
+00:03:43,166 --> 00:03:45,633
+but you can imagine returning a different tuple
+
+107
+00:03:45,800 --> 00:03:47,066
+and if there's an air
+
+108
+00:03:47,066 --> 00:03:47,733
+then you can use
+
+109
+00:03:47,733 --> 00:03:50,266
+a case statement to handle either the success
+
+110
+00:03:50,266 --> 00:03:51,133
+or the failure
+
+111
+00:03:52,000 --> 00:03:54,400
+okay now for this sin pledge to service function
+
+112
+00:03:54,566 --> 00:03:55,200
+I'm going to
+
+113
+00:03:55,200 --> 00:03:58,466
+make a private function for that sin pledge to service
+
+114
+00:04:00,800 --> 00:04:02,133
+and we're just going to stub this out
+
+115
+00:04:02,133 --> 00:04:02,533
+we're not
+
+116
+00:04:02,533 --> 00:04:04,166
+actually going to send it to an external service
+
+117
+00:04:04,166 --> 00:04:05,600
+so I'm not going to use the name
+
+118
+00:04:05,600 --> 00:04:07,100
+so I'm going to use underscore name
+
+119
+00:04:07,266 --> 00:04:09,166
+just so we don't get any compiler warnings and
+
+120
+00:04:09,166 --> 00:04:10,100
+underscore mount
+
+121
+00:04:10,333 --> 00:04:12,933
+and in the body of this well we would have some code
+
+122
+00:04:13,500 --> 00:04:15,800
+code goes here to send pledge
+
+123
+00:04:16,333 --> 00:04:17,533
+to external service
+
+124
+00:04:19,766 --> 00:04:21,033
+and then we'll just return a
+
+125
+00:04:21,100 --> 00:04:22,733
+canned response so it's going to be a tuple
+
+126
+00:04:22,766 --> 00:04:23,533
+we're going to assume it
+
+127
+00:04:23,566 --> 00:04:25,533
+always returns ok as the first element
+
+128
+00:04:25,766 --> 00:04:27,266
+and then we need an id
+
+129
+00:04:27,633 --> 00:04:28,866
+and just to make it interesting
+
+130
+00:04:28,866 --> 00:04:29,733
+I'm going to use a string
+
+131
+00:04:29,766 --> 00:04:31,433
+it's going to be pledged dash
+
+132
+00:04:31,566 --> 00:04:33,333
+and then we're going to generate our random number
+
+133
+00:04:33,366 --> 00:04:35,166
+just so that we have something unique here
+
+134
+00:04:35,733 --> 00:04:37,966
+and I'm going to use the rand module
+
+135
+00:04:37,966 --> 00:04:39,466
+that's an urban module
+
+136
+00:04:39,633 --> 00:04:41,500
+and it has a function uniform
+
+137
+00:04:41,700 --> 00:04:43,900
+and it will pass it 1000 and that will return
+
+138
+00:04:44,166 --> 00:04:45,266
+a random integer
+
+139
+00:04:45,266 --> 00:04:48,133
+uniformly distributed in the range from one to 1000
+
+140
+00:04:48,133 --> 00:04:49,566
+so we'll have like pledge
+
+141
+00:04:49,900 --> 00:04:51,400
+4 5 6 for example
+
+142
+00:04:51,933 --> 00:04:52,333
+so this
+
+143
+00:04:52,333 --> 00:04:55,166
+simulates sending the pledge to the external service
+
+144
+00:04:55,300 --> 00:04:56,266
+but this function
+
+145
+00:04:56,333 --> 00:04:58,666
+also needs to cash the pledge in memory
+
+146
+00:05:02,833 --> 00:05:04,966
+so the cash is just going to be a list
+
+147
+00:05:05,466 --> 00:05:07,900
+and inside that list we want our pledge information
+
+148
+00:05:08,133 --> 00:05:09,966
+and we're going to represent that as a tuple
+
+149
+00:05:10,066 --> 00:05:11,500
+the first element of the tuple will be the
+
+150
+00:05:11,500 --> 00:05:12,233
+person's name
+
+151
+00:05:12,233 --> 00:05:12,900
+and then the second
+
+152
+00:05:12,900 --> 00:05:14,400
+element will be how much they pledge
+
+153
+00:05:14,400 --> 00:05:16,500
+so larry pledge $10
+
+154
+00:05:16,866 --> 00:05:19,700
+so if crate pledge gets called with larry and tin
+
+155
+00:05:19,700 --> 00:05:22,166
+then our cash is going to look exactly like this
+
+156
+00:05:22,866 --> 00:05:26,066
+okay so what should our recent pledges function do
+
+157
+00:05:26,633 --> 00:05:28,133
+well it needs to return
+
+158
+00:05:28,533 --> 00:05:29,833
+the most recent
+
+159
+00:05:30,866 --> 00:05:33,400
+pledges and that's our cash
+
+160
+00:05:34,400 --> 00:05:36,866
+so if our cash is currently this list
+
+161
+00:05:36,866 --> 00:05:39,033
+then it would need to return that list
+
+162
+00:05:39,900 --> 00:05:41,633
+so sticking with our wildlife theme
+
+163
+00:05:41,633 --> 00:05:43,566
+here's the big crocodile in the room
+
+164
+00:05:43,566 --> 00:05:45,766
+where do we store this cash
+
+165
+00:05:45,833 --> 00:05:48,466
+so that the crate pledge function can update it
+
+166
+00:05:48,566 --> 00:05:51,566
+and then the recent pledges function can return
+
+167
+00:05:51,866 --> 00:05:52,866
+those pledges
+
+168
+00:05:53,133 --> 00:05:55,000
+well modules can't hold state
+
+169
+00:05:55,166 --> 00:05:56,066
+modules aren't like
+
+170
+00:05:56,066 --> 00:05:57,833
+objects in an object ornate language
+
+171
+00:05:57,833 --> 00:05:58,833
+that can hold state
+
+172
+00:05:58,833 --> 00:06:00,233
+in instance variables
+
+173
+00:06:00,500 --> 00:06:04,533
+ah but it turns out processes can hold state
+
+174
+00:06:04,966 --> 00:06:05,966
+in the pledge server
+
+175
+00:06:05,966 --> 00:06:09,033
+module will define a function named listen loop
+
+176
+00:06:09,033 --> 00:06:11,433
+that continuously receives and handles
+
+177
+00:06:11,433 --> 00:06:13,200
+messages in an endless loop
+
+178
+00:06:13,266 --> 00:06:15,833
+and will spawn a process that runs that function
+
+179
+00:06:16,200 --> 00:06:19,200
+in that server process will keep some internal state
+
+180
+00:06:19,200 --> 00:06:21,433
+a cash of recent pledges
+
+181
+00:06:21,766 --> 00:06:23,233
+when the process starts
+
+182
+00:06:23,233 --> 00:06:26,066
+its initial state will be an empty elixir list
+
+183
+00:06:26,400 --> 00:06:27,800
+when we get our first pledge
+
+184
+00:06:27,800 --> 00:06:30,233
+the request handling process will send a message
+
+185
+00:06:30,233 --> 00:06:31,700
+to the server process
+
+186
+00:06:31,766 --> 00:06:33,233
+with the pledge information
+
+187
+00:06:33,700 --> 00:06:35,533
+when the server receives that message
+
+188
+00:06:35,633 --> 00:06:36,633
+the pledge info
+
+189
+00:06:36,633 --> 00:06:38,966
+will get passed along to the external service
+
+190
+00:06:39,166 --> 00:06:41,700
+we won't concern ourselves with how that happens
+
+191
+00:06:41,933 --> 00:06:42,766
+more relevant
+
+192
+00:06:42,766 --> 00:06:43,900
+to our objective
+
+193
+00:06:44,133 --> 00:06:45,633
+the server process will
+
+194
+00:06:45,833 --> 00:06:48,066
+also add the pledge to the cash
+
+195
+00:06:48,100 --> 00:06:50,833
+which is the state managed by the server process
+
+196
+00:06:51,100 --> 00:06:53,300
+the server process will then send a message back
+
+197
+00:06:53,300 --> 00:06:53,966
+to the request
+
+198
+00:06:53,966 --> 00:06:55,133
+handling process
+
+199
+00:06:55,166 --> 00:06:58,100
+indicating that the pledge was successfully created
+
+200
+00:06:58,166 --> 00:06:59,566
+or not the request
+
+201
+00:06:59,566 --> 00:07:00,733
+howling process then
+
+202
+00:07:00,733 --> 00:07:03,766
+sends a corresponding http response back
+
+203
+00:07:03,766 --> 00:07:04,800
+to its client
+
+204
+00:07:04,933 --> 00:07:07,633
+for example a browser and the process dies
+
+205
+00:07:08,166 --> 00:07:10,566
+then when we get our 2nd and hopefully
+
+206
+00:07:10,566 --> 00:07:11,966
+subsequent pledges
+
+207
+00:07:12,033 --> 00:07:14,766
+the request howling process will send a message to this
+
+208
+00:07:14,766 --> 00:07:18,600
+same server process updating its existing cash
+
+209
+00:07:19,166 --> 00:07:21,633
+then when the recent pledges are requested
+
+210
+00:07:21,666 --> 00:07:23,666
+the request handling process will send a
+
+211
+00:07:23,766 --> 00:07:25,900
+different message to the server process
+
+212
+00:07:26,166 --> 00:07:28,100
+when the server receives that message
+
+213
+00:07:28,100 --> 00:07:29,500
+it will send a message back
+
+214
+00:07:29,500 --> 00:07:31,666
+that includes the pledges in the cash
+
+215
+00:07:32,133 --> 00:07:34,433
+so the server process will need to receive
+
+216
+00:07:34,500 --> 00:07:37,633
+and be able to handle different kinds of messages
+
+217
+00:07:37,900 --> 00:07:39,266
+this is pretty interesting
+
+218
+00:07:39,266 --> 00:07:41,433
+elixir processes can store state
+
+219
+00:07:41,666 --> 00:07:43,766
+and other processes can change
+
+220
+00:07:43,800 --> 00:07:46,700
+or retrieve that state by sending messages
+
+221
+00:07:47,166 --> 00:07:47,866
+stepping back
+
+222
+00:07:47,866 --> 00:07:49,866
+we see two different types of processes
+
+223
+00:07:49,866 --> 00:07:51,466
+each with specific roles
+
+224
+00:07:51,833 --> 00:07:54,833
+a server process is typically our long running process
+
+225
+00:07:54,833 --> 00:07:56,000
+that maintains state
+
+226
+00:07:56,200 --> 00:07:57,366
+and as we'll see later
+
+227
+00:07:57,433 --> 00:08:00,233
+can also perform arbitrary work concurrently
+
+228
+00:08:00,600 --> 00:08:02,533
+client processes on the other hand
+
+229
+00:08:02,866 --> 00:08:05,366
+send to and receive messages from the server
+

@@ -1,0 +1,925 @@
+1
+00:00:00,333 --> 00:00:01,833
+所以现在我们有我们的要求
+so now that we have our requests
+
+2
+00:00:01,833 --> 00:00:04,466
+解析，我们知道它要求的是狂野的东西
+parsed and we know it's asking for wild things
+
+3
+00:00:04,700 --> 00:00:06,866
+我们需要在响应正文中填写
+we need to fill the response body with
+
+4
+00:00:06,900 --> 00:00:07,866
+那些野东西
+those wild things
+
+5
+00:00:07,966 --> 00:00:09,333
+熊狮子和老虎
+bears lions and tigers
+
+6
+00:00:09,366 --> 00:00:10,466
+哦，我的现在
+oh my now
+
+7
+00:00:10,466 --> 00:00:12,633
+显然我们将不得不处理请求
+obviously we're going to have to handle requests for
+
+8
+00:00:12,633 --> 00:00:14,566
+我们将在下一节中做的其他事情
+other things which we'll do in the next section
+
+9
+00:00:14,566 --> 00:00:16,566
+但现在一切都是疯狂的
+but for now it's all wild things
+
+10
+00:00:17,366 --> 00:00:18,433
+现在的情况
+now as things stand
+
+11
+00:00:18,433 --> 00:00:20,900
+parse 函数返回一个地图
+the parse function returns a map
+
+12
+00:00:20,900 --> 00:00:22,933
+响应体为空
+with an empty response body
+
+13
+00:00:23,100 --> 00:00:25,266
+在我们的管道中，结果
+and in our pipeline the result of that
+
+14
+00:00:25,266 --> 00:00:26,933
+被传递到 rout
+is passed into rout
+
+15
+00:00:26,966 --> 00:00:28,566
+所以在我们的路线功能中
+so down in our route function
+
+16
+00:00:28,800 --> 00:00:30,266
+这张 co 和 v 地图
+this co and v map
+
+17
+00:00:30,566 --> 00:00:32,766
+已经有填写的方法和路径
+already has the method and the path filled in
+
+18
+00:00:32,766 --> 00:00:35,566
+但正如妮可所说，响应正文是空的
+but the response body is empty as nicole said
+
+19
+00:00:35,933 --> 00:00:38,766
+所以在我们的路线功能中，我们只需要更新地图
+so in our route function we just need to update the map
+
+20
+00:00:38,866 --> 00:00:41,000
+包括响应主体
+to include the response body like
+
+21
+00:00:41,000 --> 00:00:43,066
+像我们这里一样熊线和老虎
+bears lines and tigers as we have here
+
+22
+00:00:43,333 --> 00:00:44,400
+我们不需要设置
+and we won't need to set
+
+23
+00:00:44,400 --> 00:00:46,166
+我们在这里做的方法和路径
+method and path as we're doing here
+
+24
+00:00:46,266 --> 00:00:46,566
+因为
+because
+
+25
+00:00:46,566 --> 00:00:49,066
+已经在这张 co 和 v 地图上设置了
+that's already going to be set on this co and v map
+
+26
+00:00:49,100 --> 00:00:50,266
+当它进入路线时
+when it comes into route
+
+27
+00:00:50,533 --> 00:00:52,800
+现在我们之前已经看过这个 map 语法了
+now we've seen this map syntax before
+
+28
+00:00:52,866 --> 00:00:55,366
+它是键值对的集合
+it's a collection of key value pairs
+
+29
+00:00:55,466 --> 00:00:57,033
+所以我说让我们跳回去
+so I said let's hop back
+
+30
+00:00:57,033 --> 00:01:00,400
+进入性生活，更熟悉灵药地图
+into sex and get more familiar with elixir maps
+
+31
+00:01:00,666 --> 00:01:00,766
+当然
+sure
+
+32
+00:01:00,766 --> 00:01:03,166
+我只是要复制这张地图并随身携带
+I'm just going to copy this map and take it with us
+
+33
+00:01:03,500 --> 00:01:05,033
+我已经有一个 ix 会话正在运行
+I already have an ix session running
+
+34
+00:01:05,033 --> 00:01:06,300
+所以我要把它粘贴进去
+so I'm just going to paste that in
+
+35
+00:01:06,633 --> 00:01:07,800
+然后我要改变
+and then I'm going to change
+
+36
+00:01:07,833 --> 00:01:09,366
+响应主体
+the response body to be
+
+37
+00:01:09,366 --> 00:01:11,033
+一个空字符串，因为这就是
+an empty string because that's how
+
+38
+00:01:11,166 --> 00:01:11,900
+这张地图要去
+this map's going to
+
+39
+00:01:11,900 --> 00:01:13,100
+现在开始
+start out now
+
+40
+00:01:13,100 --> 00:01:15,066
+我们地图上的键是原子
+the keys on our map are atoms
+
+41
+00:01:15,066 --> 00:01:18,333
+所以我们可以使用 ceo 和 v 获取这些键的值
+so we can get the value for those keys using ceo and v
+
+42
+00:01:18,733 --> 00:01:20,533
+那是那里的原子方法的名称
+that's the name of the atom there method
+
+43
+00:01:20,533 --> 00:01:21,566
+我们回来了
+and we get back get
+
+44
+00:01:21,666 --> 00:01:24,100
+如果我们想获得路径，我们可以这样做
+if we want to get the path we can do it that way
+
+45
+00:01:24,600 --> 00:01:25,700
+只是需要注意的地方
+and just something to notice
+
+46
+00:01:25,700 --> 00:01:27,666
+原子总是以冒号开头
+atoms always start with a colon
+
+47
+00:01:27,900 --> 00:01:31,333
+并且这里的方法使用语法方法冒号
+and the method here uses the syntax method colon
+
+48
+00:01:31,333 --> 00:01:32,833
+如果你正在使用
+if you're using
+
+49
+00:01:33,100 --> 00:01:34,866
+原子作为映射中的键
+atoms as keys in a map
+
+50
+00:01:34,933 --> 00:01:35,833
+这会很熟悉
+this will be familiar
+
+51
+00:01:35,833 --> 00:01:37,266
+如果你用 ruby 编程过
+again if you've programmed in ruby
+
+52
+00:01:37,666 --> 00:01:38,166
+但是会发生什么
+but what happens
+
+53
+00:01:38,166 --> 00:01:40,566
+如果我们尝试获取一个不存在的键的值
+if we try to get the value of a key that doesn't exist
+
+54
+00:01:40,700 --> 00:01:44,933
+像迈克一样，如果没有匹配的密钥，我们会返回 nil
+like mike we get back nil if there's no matching key
+
+55
+00:01:45,266 --> 00:01:47,333
+所以我更喜欢使用点符号
+so instead I prefer to use the dot notation
+
+56
+00:01:47,333 --> 00:01:48,500
+这有点严格
+which is a bit more strict
+
+57
+00:01:48,500 --> 00:01:50,033
+我们可以说是骗局
+we can just say con
+
+58
+00:01:50,666 --> 00:01:51,466
+小路
+path
+
+59
+00:01:51,566 --> 00:01:54,266
+那会给我们回馈如果我以我的名义尝试
+that'll give us back that and if I try it on my name
+
+60
+00:01:54,700 --> 00:01:55,933
+当我得到一个实际的错误时
+while I get an actual error
+
+61
+00:01:55,933 --> 00:01:58,100
+在那张地图上找不到钥匙麦克风
+there's no key mic found in that map
+
+62
+00:01:58,600 --> 00:02:00,300
+现在只需注意这个点符号
+now just be aware that this dot notation
+
+63
+00:02:00,433 --> 00:02:02,800
+仅当键是原子时才有效
+only works if the keys are atoms
+
+64
+00:02:03,266 --> 00:02:07,033
+所以我们要做的是更新响应正文值
+so what we want to do is update the response body value
+
+65
+00:02:07,166 --> 00:02:09,800
+现在，如果您来自面向对象的背景
+now if you're coming from an object oriented background
+
+66
+00:02:09,800 --> 00:02:13,200
+你会期望我们可以使用赋值语法
+you would expect that we can use the assignment syntax
+
+67
+00:02:13,200 --> 00:02:16,166
+因为在oo程序状态是可变的
+because in oo program state is mutable
+
+68
+00:02:16,566 --> 00:02:18,633
+所以你认为你可以做一个熟悉的任务
+so you think you could just do a familiar assignment
+
+69
+00:02:18,633 --> 00:02:19,433
+像这样的东西
+something like this
+
+70
+00:02:19,433 --> 00:02:20,600
+你把它分配到哪里
+where you assign it to
+
+71
+00:02:20,933 --> 00:02:22,066
+例如熊
+bears for example
+
+72
+00:02:22,500 --> 00:02:25,533
+但我们得到这个有趣的编译器部分是因为
+but we get this funny compiler partially because
+
+73
+00:02:25,933 --> 00:02:28,533
+请记住，equal 是匹配运算符
+remember that the equal is a match operator
+
+74
+00:02:28,866 --> 00:02:30,033
+但更重要的是
+but more important is that
+
+75
+00:02:30,166 --> 00:02:33,233
+在 Elixir 中，所有数据结构都是不可变的
+in elixir all data structures are immutable
+
+76
+00:02:33,366 --> 00:02:34,400
+所以我们不能改变
+so we can't change
+
+77
+00:02:34,400 --> 00:02:36,833
+使用这样的赋值的 co 和 v 映射
+the co and v map using assignment like this
+
+78
+00:02:37,200 --> 00:02:39,633
+而不是修改或改变地图
+rather than modifying or mutating the map
+
+79
+00:02:39,633 --> 00:02:42,366
+我们需要将其转换为新地图
+we need to transform it into a new map
+
+80
+00:02:42,433 --> 00:02:44,166
+我们通过调用一个函数来做到这一点
+and we do that by calling a function
+
+81
+00:02:44,700 --> 00:02:46,000
+所以我要从头开始
+so I'm just going to start at the top again
+
+82
+00:02:46,000 --> 00:02:48,300
+我们将使用那个 h 函数来获得一些帮助
+we'll use that h function to get some help
+
+83
+00:02:48,333 --> 00:02:50,533
+在 elixir 中有一个模块叫做 map
+and there's a module in elixir called map
+
+84
+00:02:50,733 --> 00:02:53,066
+只需按键和点，然后点击标签
+by just key and dot and then hit a tab
+
+85
+00:02:53,266 --> 00:02:54,833
+它会做一些自动完成
+it'll do some auto completion
+
+86
+00:02:55,066 --> 00:02:57,800
+我们想在地图中添加一个新的键和值
+and we want to put a new key and value into the map
+
+87
+00:02:57,800 --> 00:02:59,300
+所以有一个函数
+so there's a function put
+
+88
+00:02:59,300 --> 00:03:01,266
+你注意到它的真实性为三
+and you notice it has an verity of three
+
+89
+00:03:01,266 --> 00:03:02,933
+这意味着它需要三个参数
+which means it takes three arguments
+
+90
+00:03:03,266 --> 00:03:04,500
+所以如果我们看看帮助
+so if we just have a look at the help
+
+91
+00:03:04,733 --> 00:03:07,933
+那么第一个参数是我们想要的地图
+well the first argument is the map that we want to
+
+92
+00:03:08,133 --> 00:03:10,500
+更改将创建此地图的新副本
+change is going to create a new copy of this map
+
+93
+00:03:10,666 --> 00:03:11,866
+我们想添加一个密钥
+we want to add a key
+
+94
+00:03:11,866 --> 00:03:14,266
+在这种情况下是 b 和两个值
+which in this case is b and a value of two
+
+95
+00:03:14,500 --> 00:03:16,700
+这将返回一张新地图
+and that's going to return a new map
+
+96
+00:03:17,066 --> 00:03:18,866
+所以我们只使用 map put
+so we just use map put
+
+97
+00:03:19,200 --> 00:03:22,533
+第一个参数是地图，它在我们的 co 和 v 中
+first argument is the map and that's in our co and v
+
+98
+00:03:22,600 --> 00:03:25,833
+变量关键是响应体
+variable the key is response body
+
+99
+00:03:26,666 --> 00:03:28,366
+并且价值是熊
+and the value is bears
+
+100
+00:03:29,266 --> 00:03:30,766
+你注意到我们拿回了一张地图
+and you notice we get back a map
+
+101
+00:03:30,933 --> 00:03:32,433
+有响应体
+which has the response body
+
+102
+00:03:32,800 --> 00:03:36,133
+有了熊的新价值，但如果我们看一下 clv
+with the new value of bears but if we look at clv
+
+103
+00:03:36,866 --> 00:03:39,333
+好吧它没有改变它有一个响应体
+well it's unchanged it has a response body
+
+104
+00:03:39,466 --> 00:03:40,366
+等于空
+equal to an empty
+
+105
+00:03:40,366 --> 00:03:41,166
+细绳
+string
+
+106
+00:03:41,400 --> 00:03:44,466
+所以重要的是要认识到这并没有修改
+so it's important to recognize that this didn't modify
+
+107
+00:03:44,700 --> 00:03:46,433
+这张 co 和 v 地图
+this co and v map
+
+108
+00:03:46,733 --> 00:03:49,633
+记住所有数据结构和长生不老药都是不可变的
+remember all data structures and elixir are immutable
+
+109
+00:03:49,800 --> 00:03:52,333
+相反，它会创建地图的新副本
+instead it creates a new copy of the map
+
+110
+00:03:52,333 --> 00:03:54,666
+具有更新的响应正文
+which has the updated response body
+
+111
+00:03:54,866 --> 00:03:55,766
+所以我们可以添加
+so we can add
+
+112
+00:03:55,833 --> 00:03:57,000
+新的键值对
+new key value pairs
+
+113
+00:03:57,000 --> 00:03:59,600
+但原始地图从未修改过
+but the original map is never modified
+
+114
+00:03:59,833 --> 00:04:02,800
+所有转换数据的函数，例如 map put
+all functions that transform data such as map put
+
+115
+00:04:03,000 --> 00:04:04,866
+返回数据的新副本
+return a new copy of the data
+
+116
+00:04:05,433 --> 00:04:08,233
+因此为了捕捉新地图
+therefore in order to capture the new map
+
+117
+00:04:08,233 --> 00:04:10,000
+由 pud 函数返回
+returned by the pud function
+
+118
+00:04:10,066 --> 00:04:12,466
+我们需要将它绑定到一个变量
+we need to bind it to a variable
+
+119
+00:04:12,700 --> 00:04:15,566
+是的，我们只是将它重新绑定到这个 con 变量
+yeah we'll just rebind it to this co n variable
+
+120
+00:04:17,100 --> 00:04:20,466
+就像那样，所以我们使用了我们最初的 co 和 v 地图
+just like that so we used our initial co and v map map
+
+121
+00:04:20,566 --> 00:04:22,533
+put 返回了一个新的副本
+put returned a new copy of that
+
+122
+00:04:22,633 --> 00:04:25,233
+然后我们再次反弹到 co 和 v
+that we then just rebounded to co and v again
+
+123
+00:04:25,733 --> 00:04:27,200
+这是一种很常见的方法
+and this is a pretty common way to do it
+
+124
+00:04:27,200 --> 00:04:29,000
+我们只是改造了一张地图
+we just transformed one map
+
+125
+00:04:29,466 --> 00:04:30,266
+进入另一张地图
+into another map
+
+126
+00:04:30,700 --> 00:04:32,866
+如果我们现在好好看看 co 和 v
+and if we look at co and v now well
+
+127
+00:04:32,866 --> 00:04:35,266
+我们看到响应主体设置为熊
+we see that the response body is set to bears
+
+128
+00:04:35,266 --> 00:04:36,366
+正如我们所期望的
+just as we would expect
+
+129
+00:04:37,033 --> 00:04:38,100
+现在更新地图是
+now updating a map is
+
+130
+00:04:38,100 --> 00:04:40,600
+如此常见以至于有一个方便的快捷方式可以做到这一点
+so common that there's a handy shortcut to do this
+
+131
+00:04:41,733 --> 00:04:45,100
+而不是使用 map put 我们可以使用这种语法
+instead of using map put we can use this syntax
+
+132
+00:04:45,333 --> 00:04:47,733
+我们给它 cnv 然后我们使用竖线
+we give it cnv then we use a vertical bar
+
+133
+00:04:47,966 --> 00:04:49,100
+我们给它钥匙
+and we give it the key in
+
+134
+00:04:49,100 --> 00:04:51,733
+我们想要改变的值是响应体
+the value we want to change would be response body
+
+135
+00:04:51,800 --> 00:04:55,300
+假设这次我们希望它是熊狮子
+and let's say this time we want it to be bears lions
+
+136
+00:04:55,500 --> 00:04:56,300
+老虎
+tigers
+
+137
+00:04:57,300 --> 00:04:58,933
+然后如果我们现在看看 co 和 v
+and then if we look at co and v now
+
+138
+00:04:59,533 --> 00:05:02,266
+我们看到这也返回了地图的新副本
+we see that this also returns a new copy of the map
+
+139
+00:05:02,266 --> 00:05:05,533
+响应体现在是熊狮子和老虎
+the response body is now bears lions and tigers
+
+140
+00:05:06,000 --> 00:05:07,966
+要记住的一件事是使用此快捷方式
+one thing to keep in mind is using this shortcut
+
+141
+00:05:07,966 --> 00:05:08,600
+你可以
+you can
+
+142
+00:05:08,600 --> 00:05:11,500
+只修改地图中已经存在的值和
+only modify values that already exist in the map and
+
+143
+00:05:11,566 --> 00:05:13,766
+我们已经有一个响应正文字段
+we already have a response body field
+
+144
+00:05:13,766 --> 00:05:14,666
+所以这行得通
+so this works
+
+145
+00:05:15,100 --> 00:05:16,466
+所以这是一个不错的小捷径
+so this is a nice little shortcut
+
+146
+00:05:16,466 --> 00:05:17,833
+让我们继续复制这个
+let's just go ahead and copy this
+
+147
+00:05:17,833 --> 00:05:19,600
+我们会将它粘贴回我们的
+and we'll paste it back in our
+
+148
+00:05:19,700 --> 00:05:20,533
+路由功能
+route function
+
+149
+00:05:20,766 --> 00:05:22,066
+所以我们将它粘贴在这里
+so we'll just paste it in here
+
+150
+00:05:22,500 --> 00:05:23,933
+我们可以摆脱这条线
+we can get rid of this line
+
+151
+00:05:24,433 --> 00:05:25,466
+我们的工作已经完成
+and our to do is done
+
+152
+00:05:25,466 --> 00:05:26,933
+因为这会创建一个新地图
+because this creates a new map that
+
+153
+00:05:26,966 --> 00:05:28,300
+也有响应体
+also has the response body
+
+154
+00:05:29,000 --> 00:05:30,433
+所以我们有一个决赛要做
+so we have one final to do
+
+155
+00:05:30,433 --> 00:05:34,333
+现在我们需要更新 http 响应字符串
+now we need to update the http response string
+
+156
+00:05:34,366 --> 00:05:35,933
+根据地图上的内容
+based on what's in the map
+
+157
+00:05:36,200 --> 00:05:36,366
+喜欢
+like
+
+158
+00:05:36,366 --> 00:05:39,366
+我们不希望内容链接再被硬编码
+we don't want content links to be hard coded anymore
+
+159
+00:05:39,366 --> 00:05:42,333
+我们希望这是动态生成的
+and we want this to be dynamically generated
+
+160
+00:05:42,733 --> 00:05:44,666
+我们已经知道如何访问地图中的值
+we already know how to access values in the map
+
+161
+00:05:44,666 --> 00:05:46,066
+所以这很简单
+so this is pretty straightforward
+
+162
+00:05:46,333 --> 00:05:47,533
+我们在一个听码头里面
+we're inside of a hear dock
+
+163
+00:05:47,533 --> 00:05:49,233
+我们可以使用字符串插值
+and we can use string interpolation
+
+164
+00:05:49,233 --> 00:05:51,200
+所以不是这个硬涂层 20
+so instead of this hard coated 20
+
+165
+00:05:51,300 --> 00:05:52,500
+我们可以插值
+we can just interpolate
+
+166
+00:05:52,633 --> 00:05:54,433
+响应体的长度
+the length of the response body
+
+167
+00:05:54,433 --> 00:05:55,766
+所以我们将使用字符串模块
+so we'll use the string module
+
+168
+00:05:55,766 --> 00:05:58,500
+它有一个长度函数，然后我们将它传递给
+it has a length function and then we'll pass it the
+
+169
+00:05:58,533 --> 00:06:01,766
+对话地图的响应正文部分
+response body part of the conversation map
+
+170
+00:06:02,166 --> 00:06:04,500
+然后在这里我们将插入
+and then down here we'll just interpolate
+
+171
+00:06:05,233 --> 00:06:07,200
+响应体
+con response body
+
+172
+00:06:07,466 --> 00:06:09,566
+这应该照顾到这一点
+and that should take care of this to do
+
+173
+00:06:09,900 --> 00:06:11,800
+如果我们把它保存起来并运行它
+and if we save this away and run it
+
+174
+00:06:12,033 --> 00:06:13,633
+好吧，我们得到了回应
+well we get our response
+
+175
+00:06:13,900 --> 00:06:15,700
+我们一直看到相同的输出
+we've been seeing the same output all along
+
+176
+00:06:15,700 --> 00:06:17,733
+但现在它是动态生成的
+but now it's being dynamically generated
+
+177
+00:06:17,833 --> 00:06:19,500
+因为路线被调用
+because the route's getting called with
+
+178
+00:06:19,500 --> 00:06:20,600
+co和v地图
+the co and v map
+
+179
+00:06:20,666 --> 00:06:22,100
+我们正在放置一个响应体
+we're putting a response body
+
+180
+00:06:22,133 --> 00:06:24,466
+然后将其传递到格式响应中
+and then that's getting passed into format response
+
+181
+00:06:24,466 --> 00:06:26,866
+我们正在动态生成该内容
+and we're dynamically generating that content
+
+182
+00:06:27,233 --> 00:06:29,133
+所以本质上是我们最初的要求
+so essentially our initial request
+
+183
+00:06:29,133 --> 00:06:32,100
+正在转化为有效响应
+is being transformed into a valid response
+
+184
+00:06:32,100 --> 00:06:33,833
+通过一系列功能
+through a series of functions
+
+185
+00:06:33,966 --> 00:06:35,766
+接下来我们将查看我们的第二个请求
+next up we'll look at our 2nd request
+

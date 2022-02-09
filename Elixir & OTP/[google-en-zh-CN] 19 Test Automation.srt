@@ -1,0 +1,2085 @@
+1
+00:00:00,266 --> 00:00:00,966
+在这个模块中
+in this module
+
+2
+00:00:00,966 --> 00:00:02,466
+我们将看看如何编写自动化
+we're going to look at how to write automated
+
+3
+00:00:02,466 --> 00:00:03,533
+长生不老药中的测试
+tests in elixir
+
+4
+00:00:03,700 --> 00:00:04,533
+但这里有一些事情
+but here's some things
+
+5
+00:00:04,533 --> 00:00:06,433
+我们不会在这个模块中做
+we're not going to do in this module
+
+6
+00:00:06,533 --> 00:00:08,733
+我们不会试图说服你测试是
+we're not going to try to convince you that testing is
+
+7
+00:00:08,733 --> 00:00:11,400
+重要的是，我们假设您已经知道
+important we assume you already know that
+
+8
+00:00:11,900 --> 00:00:12,700
+我们也不去
+we're also not going
+
+9
+00:00:12,700 --> 00:00:13,700
+如果你不是，让你感到羞耻
+to shame you if you're not
+
+10
+00:00:13,700 --> 00:00:15,266
+做洗手间和发展
+doing restroom and development
+
+11
+00:00:15,333 --> 00:00:17,500
+或者没有 100% 的测试覆盖率
+or don't have 100% test coverage
+
+12
+00:00:17,700 --> 00:00:21,100
+事实上，我们根本不会宣扬测试教条
+in fact we're not going to preach testing dogma at all
+
+13
+00:00:21,566 --> 00:00:22,200
+我们假设
+we're going to assume
+
+14
+00:00:22,200 --> 00:00:23,866
+你已经使用了一个单元测试框架
+you've used a unit testing framework in
+
+15
+00:00:23,866 --> 00:00:24,666
+另一种语言
+another language
+
+16
+00:00:24,666 --> 00:00:26,900
+并且您想知道如何在 elixir 中进行测试
+and you want to know how to test in elixir
+
+17
+00:00:27,900 --> 00:00:31,100
+现在我们在处理程序的底部有这段代码
+right now we have this code at the bottom of handler
+
+18
+00:00:31,100 --> 00:00:33,533
+向句柄函数发送请求
+that sends request to the handle function
+
+19
+00:00:33,600 --> 00:00:35,600
+并打印出响应
+and prints out the responses
+
+20
+00:00:36,000 --> 00:00:40,100
+因此，当我们在 ix 会话中重新编译调查处理程序时
+so when we recompile survey handler in an ix session
+
+21
+00:00:40,100 --> 00:00:43,466
+该代码运行，我们看到请求和响应
+that code is run and we see the requests and responses
+
+22
+00:00:43,633 --> 00:00:45,600
+所以本质上我们只是视觉上的
+so in essence we're just visually
+
+23
+00:00:45,600 --> 00:00:47,666
+测试，我在这里使用空中报价
+testing and I'm using air quotes here
+
+24
+00:00:47,966 --> 00:00:50,166
+每个请求都有效
+that each request works
+
+25
+00:00:50,400 --> 00:00:51,600
+你可能猜到了
+and as you might guess
+
+26
+00:00:51,600 --> 00:00:53,533
+有更好的测试方法
+there's a better way to do testing
+
+27
+00:00:54,100 --> 00:00:56,833
+当我们使用 mix 创建一个新的 elixir 项目时
+when we created a new elixir project using mix
+
+28
+00:00:56,833 --> 00:00:59,733
+新的服务组合足够大胆
+new service mix was presumptuous enough to
+
+29
+00:00:59,733 --> 00:01:01,833
+还生成一个测试目录
+also generate a test directory
+
+30
+00:01:01,933 --> 00:01:03,566
+它里面有两个文件
+and it has two files in it
+
+31
+00:01:03,666 --> 00:01:07,366
+测试助手 exs 和服务测试 exs
+test helper exs and service test exs
+
+32
+00:01:07,700 --> 00:01:09,366
+测试文件是长生不老药脚本
+the test files are elixir scripts
+
+33
+00:01:09,366 --> 00:01:11,000
+这就是性延伸
+that's the sex extension
+
+34
+00:01:11,000 --> 00:01:13,100
+这意味着它们不必被编译
+which means they don't have to be compiled
+
+35
+00:01:13,200 --> 00:01:14,100
+在他们跑步之前
+before their run
+
+36
+00:01:14,500 --> 00:01:16,166
+如果我们查看测试助手
+and if we look in test helper
+
+37
+00:01:16,500 --> 00:01:17,900
+好吧，我们看到它开始了
+well we see that it starts
+
+38
+00:01:17,900 --> 00:01:20,800
+ex unit 和 ex unit 是 Elixir 内置的
+ex unit and ex unit is elixir's built in
+
+39
+00:01:20,833 --> 00:01:21,666
+测试框架
+test framework
+
+40
+00:01:22,133 --> 00:01:24,333
+那么如果我们看看调查测试
+then if we have a look in survey test
+
+41
+00:01:24,700 --> 00:01:26,366
+好吧，有一个模块叫做调查测试
+well there's a module called survey test
+
+42
+00:01:26,366 --> 00:01:30,066
+第一行说使用单位案例
+and this first line says use ex unit case
+
+43
+00:01:30,366 --> 00:01:33,466
+使用添加测试功能或行为
+use adds the testing functionality or behavior
+
+44
+00:01:33,600 --> 00:01:36,733
+在这个 ex unit case 模块中定义
+that's defined in this ex unit case module
+
+45
+00:01:36,766 --> 00:01:39,166
+并将该行为添加到当前模块
+and it adds that behavior to the current module
+
+46
+00:01:39,166 --> 00:01:40,466
+这是我们的调查测试
+which is our survey test
+
+47
+00:01:40,866 --> 00:01:42,066
+第二行是这个
+the 2nd line is this
+
+48
+00:01:42,066 --> 00:01:44,533
+停靠测试，我们将在一分钟内回到那个
+dock test and we'll come back to that in just a minute
+
+49
+00:01:44,833 --> 00:01:48,100
+然后我们有定义测试的测试宏
+then we have the testing macro which defines a test
+
+50
+00:01:48,300 --> 00:01:50,200
+然后有一个字符串的描述
+and then there's a description as a string
+
+51
+00:01:50,366 --> 00:01:51,566
+和一段代码
+and a block of code
+
+52
+00:01:51,900 --> 00:01:53,266
+然后在代码块内
+and then inside of the block of code
+
+53
+00:01:53,266 --> 00:01:55,033
+我们陈述我们的期望
+we state our expectations
+
+54
+00:01:55,033 --> 00:01:56,966
+使用这个断言宏
+using this assert macro
+
+55
+00:01:57,066 --> 00:02:00,333
+只是测试这个表达是真的
+was just test that this expression is truth
+
+56
+00:02:00,566 --> 00:02:03,000
+所以我们断言 1+1 等于 2
+so we're asserting that 1+1 equals two
+
+57
+00:02:03,266 --> 00:02:06,600
+assert 的反义词叫做 refute
+the opposite of assert is something called refute
+
+58
+00:02:06,966 --> 00:02:09,766
+所以我们可以反驳 2+1 等于 2
+so we could refute that 2+1 equals two
+
+59
+00:02:09,766 --> 00:02:11,000
+因为那不是真的
+because that's not true
+
+60
+00:02:11,433 --> 00:02:12,433
+通常这些
+and generally these
+
+61
+00:02:12,433 --> 00:02:13,533
+两个宏都是
+two macros are all
+
+62
+00:02:13,533 --> 00:02:14,500
+你需要做测试
+you need to do testing
+
+63
+00:02:14,500 --> 00:02:15,600
+因为你要么会断言
+because you're either going to assert that
+
+64
+00:02:15,600 --> 00:02:16,500
+某事是真的
+something's true
+
+65
+00:02:16,666 --> 00:02:18,100
+或者你要反驳某事
+or you're going to refute something
+
+66
+00:02:18,700 --> 00:02:20,366
+好吧，我现在要摆脱这个
+all right I'm going to get rid of this for now
+
+67
+00:02:20,900 --> 00:02:22,500
+所以让我们继续运行这个测试
+so let's go ahead and run this test
+
+68
+00:02:22,700 --> 00:02:23,933
+我在调查目录中
+I'm in the survey directory
+
+69
+00:02:23,933 --> 00:02:25,333
+我们使用
+and we run the test by using
+
+70
+00:02:25,333 --> 00:02:27,800
+混合测试，然后我们给它测试文件的名称
+mix test and then we give it the name of the test file
+
+71
+00:02:27,800 --> 00:02:28,600
+所以它会是
+so it's going to be
+
+72
+00:02:28,700 --> 00:02:30,833
+测试调查测试前
+test survey test ex
+
+73
+00:02:32,033 --> 00:02:34,033
+毫不奇怪它成功了
+and no surprise it succeeds
+
+74
+00:02:34,400 --> 00:02:34,566
+现在
+now
+
+75
+00:02:34,566 --> 00:02:37,133
+让我们让它失败只是为了看看输出如何变化
+let's make it fail just to see how the output changes
+
+76
+00:02:37,133 --> 00:02:39,100
+所以我们断言 1+1 等于
+so we'll assert that 1+1 equals
+
+77
+00:02:39,100 --> 00:02:39,900
+三
+three
+
+78
+00:02:40,200 --> 00:02:41,166
+再次运行测试
+run the test again
+
+79
+00:02:41,933 --> 00:02:43,466
+你在这里向上滚动一点
+you scroll up a little bit here
+
+80
+00:02:44,033 --> 00:02:46,066
+断言宏的好处是
+well what's nice about the assert macro is
+
+81
+00:02:46,100 --> 00:02:47,433
+它内省代码
+it introspects the code
+
+82
+00:02:47,433 --> 00:02:49,100
+给我们一些有用的反馈
+to give us some helpful feedback
+
+83
+00:02:49,300 --> 00:02:51,866
+它向我们展示了在这里失败的断言
+it shows us the assertion that failed right here
+
+84
+00:02:52,433 --> 00:02:54,233
+这是期望值二
+this is the expected value two
+
+85
+00:02:54,400 --> 00:02:56,466
+然后这是实际值三
+and then this is the actual value three
+
+86
+00:02:57,100 --> 00:02:59,366
+很酷，所以让我们继续把它改回
+cool so let's go ahead and change it back to a
+
+87
+00:02:59,366 --> 00:03:00,266
+通过状态
+passing state
+
+88
+00:03:02,200 --> 00:03:03,000
+我们去吧
+there we go
+
+89
+00:03:03,566 --> 00:03:05,733
+所以我们不要编写自己的单元测试
+so let's not write our own unit test
+
+90
+00:03:05,733 --> 00:03:07,033
+帮助我们开始
+to help us get started
+
+91
+00:03:07,033 --> 00:03:08,933
+让我们复制这段代码
+let's copy this code
+
+92
+00:03:09,166 --> 00:03:12,466
+然后我们可以为我们的解析器创建一个测试用例
+and then we can create a test case for our parser
+
+93
+00:03:12,533 --> 00:03:15,500
+命名解析器下划线测试
+named parser underscore test
+
+94
+00:03:16,600 --> 00:03:18,566
+我将粘贴我们拥有的代码
+and I'll just paste in the code that we have
+
+95
+00:03:18,966 --> 00:03:20,733
+我们将把模块从
+and we're going to change the module from
+
+96
+00:03:20,766 --> 00:03:22,700
+调查测试到解析器测试
+survey test to parser test
+
+97
+00:03:23,700 --> 00:03:27,766
+我还将更改此文档测试以服务解析器
+I'm also going to change this doc test to serve parser
+
+98
+00:03:28,433 --> 00:03:29,933
+我们会在一分钟内回到那个
+and we'll come back to that in a minute
+
+99
+00:03:30,333 --> 00:03:32,266
+我们还需要在解析器中使用别名
+we also need to alias in the parser
+
+100
+00:03:32,266 --> 00:03:33,700
+因为这就是我们要测试的
+since that's what we're going to test
+
+101
+00:03:34,300 --> 00:03:35,733
+那么我们应该在解析器中测试什么
+so what should we test in the parser
+
+102
+00:03:35,733 --> 00:03:38,500
+好吧，让我们看看解析器 ex
+well let's have a look at that in parser ex
+
+103
+00:03:39,033 --> 00:03:41,200
+在我们结束兴趣之前
+well before we get to our end to interest
+
+104
+00:03:41,366 --> 00:03:44,000
+让我们向他们展示两种编写单元测试的方法
+let's show them two ways to write unit tests
+
+105
+00:03:44,366 --> 00:03:45,966
+是的，我们有一些递归
+yeah we've got some recursion going
+
+106
+00:03:45,966 --> 00:03:48,033
+在这里，当我们解析标题时
+on here when we're parsing the headers
+
+107
+00:03:48,300 --> 00:03:51,100
+所以让我们为这些函数编写一个单元测试
+so let's write a unit test for these functions
+
+108
+00:03:51,366 --> 00:03:52,500
+你会记得这个功能
+you'll remember this function
+
+109
+00:03:52,500 --> 00:03:53,333
+它需要一个
+it takes a
+
+110
+00:03:53,366 --> 00:03:56,433
+头部和尾部的标题行列表
+list of header lines that's the head and the tail
+
+111
+00:03:56,866 --> 00:03:58,200
+然后我们要解析那些
+and then we want to parse those
+
+112
+00:03:58,366 --> 00:04:01,066
+进入包含键值对的映射，所以
+into a map that contains key value pairs so
+
+113
+00:04:01,066 --> 00:04:02,333
+这将是标题
+it'll be the headers
+
+114
+00:04:02,666 --> 00:04:03,966
+所以我们可以为此编写一个测试
+so we can write a test for that
+
+115
+00:04:04,366 --> 00:04:05,833
+回到解析器测试
+come back over to parser test
+
+116
+00:04:08,900 --> 00:04:10,266
+在此处更改描述
+change the description here
+
+117
+00:04:10,800 --> 00:04:14,366
+解析头字段列表
+parses a list of header fields
+
+118
+00:04:15,533 --> 00:04:16,333
+进入地图
+into a map
+
+119
+00:04:17,333 --> 00:04:19,933
+摆脱这个，让我们设置一些标题行
+get rid of this so let's set up some header lines
+
+120
+00:04:21,100 --> 00:04:22,666
+这将是一个看起来像这样的列表
+it's going to be a list that looks like this
+
+121
+00:04:23,066 --> 00:04:24,933
+标头 a 的值可能为 1
+the header a might have a value of one
+
+122
+00:04:24,966 --> 00:04:27,533
+然后标题 b 的值可能为 2
+and then the header b might have a value of two
+
+123
+00:04:28,066 --> 00:04:29,300
+现在实际的标题有
+now the actual headers have
+
+124
+00:04:29,300 --> 00:04:31,900
+不同的键和值，但 a one 和 b two 工作
+different keys and values but a one and b two work
+
+125
+00:04:31,900 --> 00:04:33,233
+适合这里的测试
+just fine for the test here
+
+126
+00:04:33,666 --> 00:04:35,166
+然后我们想改变这个
+then we want to transform this
+
+127
+00:04:35,200 --> 00:04:38,333
+进入标题映射，我们通过调用解析器来做到这一点
+into a map of headers and we do that by calling parser
+
+128
+00:04:38,600 --> 00:04:39,400
+解析标头
+parse headers
+
+129
+00:04:40,233 --> 00:04:41,800
+我们传入标题行
+we pass in the header lines
+
+130
+00:04:42,466 --> 00:04:44,066
+和一张这样的空地图
+and an empty map like that
+
+131
+00:04:44,733 --> 00:04:47,200
+那么我们期望返回到标题看起来像什么
+so what do we expect to return to headers to look like
+
+132
+00:04:47,200 --> 00:04:49,800
+好吧，我们可以使用 assert 宏并说我们断言
+well we can use the assert macro and say we assert
+
+133
+00:04:50,033 --> 00:04:52,800
+标题等于地图
+the headers equal a map
+
+134
+00:04:53,166 --> 00:04:54,400
+有一个键
+that has a key of a
+
+135
+00:04:54,866 --> 00:04:56,066
+和一个值
+and a value of one
+
+136
+00:04:56,733 --> 00:04:57,666
+和 b 的键
+and a key of b
+
+137
+00:04:59,133 --> 00:04:59,966
+两个的值
+the value of two
+
+138
+00:05:00,633 --> 00:05:04,100
+所以我们希望它解析这个行列表
+so we expect it to parse this list of lines
+
+139
+00:05:04,233 --> 00:05:05,766
+成键值对
+into key value pairs
+
+140
+00:05:06,233 --> 00:05:07,266
+如果我们把它保存起来
+if we save that away
+
+141
+00:05:07,966 --> 00:05:09,500
+然后运行它，我们将像以前一样执行它
+then to run it we'll do it just like before
+
+142
+00:05:09,500 --> 00:05:11,433
+除了我们要给它解析器测试
+except we're going to give it parser test
+
+143
+00:05:13,033 --> 00:05:14,166
+看起来有效
+it looks like it works
+
+144
+00:05:14,833 --> 00:05:16,166
+断言宏是
+the assert macro is
+
+145
+00:05:16,166 --> 00:05:18,600
+实际上非常聪明地帮助你弄清楚
+actually pretty smart about helping you figure out
+
+146
+00:05:18,600 --> 00:05:20,433
+为什么断言失败
+why an assertion is failing
+
+147
+00:05:20,633 --> 00:05:21,366
+所以让我们说
+so let's say
+
+148
+00:05:21,366 --> 00:05:24,400
+我们从我们的预期中删除一个关键值
+that we remove one of the key values from our expected
+
+149
+00:05:24,400 --> 00:05:27,500
+map 然后我们重新运行我们的测试
+map and then we rerun our tests
+
+150
+00:05:29,000 --> 00:05:30,066
+好吧，它失败了
+well it fails
+
+151
+00:05:30,700 --> 00:05:33,100
+它告诉我们为什么我们看到左边的地图
+and it tells us why we see the map on the left
+
+152
+00:05:33,166 --> 00:05:35,300
+与右边的地图不匹配
+doesn't match the map on the right
+
+153
+00:05:35,366 --> 00:05:36,300
+因为左边那个
+because the one on the left
+
+154
+00:05:36,533 --> 00:05:39,100
+也有一个键 b 和一个值二
+also has a key b and a value of two
+
+155
+00:05:39,300 --> 00:05:40,800
+所以我们缺少一个关键值
+so we're missing a key value
+
+156
+00:05:41,200 --> 00:05:43,533
+所以我就把它改回来，这样我们就可以通过测试了
+so I'll just change that back so we have a passing test
+
+157
+00:05:45,733 --> 00:05:48,533
+好了，这是编写单元测试的一种方法
+there we go so that's one way to write unit tests
+
+158
+00:05:48,533 --> 00:05:50,500
+但不是将它们放在单独的文件中
+but instead of putting them in a separate file
+
+159
+00:05:50,500 --> 00:05:51,400
+我们可以写点东西
+we can write something
+
+160
+00:05:51,466 --> 00:05:53,133
+称为文档测试
+called doc tests
+
+161
+00:05:53,433 --> 00:05:54,800
+所以让我们回到我们的教区
+so let's go back to our parish
+
+162
+00:05:55,500 --> 00:05:56,766
+我们已经测试过了
+we've got this tested
+
+163
+00:05:57,266 --> 00:05:59,200
+但是这个解析的段落就在这里
+but what about this parsed para right here
+
+164
+00:05:59,633 --> 00:06:01,333
+我将粘贴一些文档
+I'm going to paste in a little bit of documentation
+
+165
+00:06:01,333 --> 00:06:02,133
+在顶部
+at the top
+
+166
+00:06:02,833 --> 00:06:04,533
+我们已经知道如何使用
+we already know how to use
+
+167
+00:06:04,533 --> 00:06:07,900
+在码头上记录一个函数的作用
+at dock to document what a function does like this
+
+168
+00:06:08,333 --> 00:06:10,833
+包含以下示例也很有帮助
+it's also helpful to include examples of
+
+169
+00:06:10,833 --> 00:06:12,233
+如何使用该功能
+how to use the function
+
+170
+00:06:12,433 --> 00:06:13,600
+按照惯例
+and by convention
+
+171
+00:06:13,600 --> 00:06:16,966
+这些示例显示在这样的 ix 会话中
+those examples are shown in an ix session like this
+
+172
+00:06:17,733 --> 00:06:17,900
+现在
+now
+
+173
+00:06:17,900 --> 00:06:20,066
+这个配色方案有点难看
+this is a bit difficult to see with this color scheme
+
+174
+00:06:20,066 --> 00:06:21,466
+所以我只是不寻常的这些
+so i'm just going to uncommon these
+
+175
+00:06:21,466 --> 00:06:23,000
+一分钟以获得不同的颜色
+for a minute to get a different color
+
+176
+00:06:23,900 --> 00:06:25,400
+现在首先要注意的是我们写
+now the first thing to note is that we write
+
+177
+00:06:25,433 --> 00:06:26,666
+长生不老药文档
+elixir documentation
+
+178
+00:06:26,666 --> 00:06:27,600
+使用降价
+using markdown
+
+179
+00:06:27,633 --> 00:06:29,266
+你注意到这里的双重哈希
+you notice this double hash here
+
+180
+00:06:29,366 --> 00:06:31,000
+这将产生一个 h 2
+that's going to generate an h two
+
+181
+00:06:31,266 --> 00:06:33,366
+你也会注意到我们在这里的代码
+and you also notice that the code that we have up here
+
+182
+00:06:33,366 --> 00:06:34,666
+对于键和值
+for keys and values
+
+183
+00:06:34,700 --> 00:06:36,766
+进入单个反引号内
+goes inside of single back ticks
+
+184
+00:06:37,733 --> 00:06:39,666
+然后这部分被称为讲解员
+and then this part is called the docent
+
+185
+00:06:39,666 --> 00:06:41,866
+它基本上是一组期望
+and it's basically a set of expectations
+
+186
+00:06:41,866 --> 00:06:45,133
+或关于我们的代码如何工作的断言
+or assertions about how our code is intended to work
+
+187
+00:06:45,866 --> 00:06:48,400
+所以如果我们有一个看起来像这样的参数字符串
+so if we have a param string that looks like this
+
+188
+00:06:48,800 --> 00:06:51,666
+然后我们调用serve parser pars para
+and then we call serve parser pars para
+
+189
+00:06:51,766 --> 00:06:53,433
+这是它的第一个参数
+this is the first parameter to it
+
+190
+00:06:53,733 --> 00:06:56,300
+然后第二个参数是我们的参数字符串
+and then the second parameter is our param string
+
+191
+00:06:56,700 --> 00:06:57,733
+好吧，我们期望什么
+well what do we expect
+
+192
+00:06:58,166 --> 00:07:01,500
+好吧，我们希望 ix 返回一个看起来像这样的地图
+well we expect ix to return a map that looks like this
+
+193
+00:07:01,833 --> 00:07:04,033
+它从这里获取名称和类型
+it took the name and the type from here
+
+194
+00:07:04,233 --> 00:07:05,500
+并将其放入地图中
+and put it inside of a map
+
+195
+00:07:06,033 --> 00:07:08,033
+然后如果我们用 parse para 调用
+and then if we call parse para with
+
+196
+00:07:08,033 --> 00:07:10,166
+多部分表单数据作为第一个参数
+multipart form data as the first parameter
+
+197
+00:07:10,166 --> 00:07:12,100
+param string 是第二个参数
+and param string is the second parameter
+
+198
+00:07:12,333 --> 00:07:13,500
+好吧，我们不处理
+well we don't handle
+
+199
+00:07:13,500 --> 00:07:15,633
+这种格式，所以我们希望回到
+this format so we expect to get back in
+
+200
+00:07:15,633 --> 00:07:16,433
+空地图
+empty map
+
+201
+00:07:17,133 --> 00:07:19,166
+现在如果我们能跑起来岂不是很酷
+now wouldn't it be cool if we could run
+
+202
+00:07:19,166 --> 00:07:20,533
+这些例子和检查
+these examples and check
+
+203
+00:07:20,533 --> 00:07:23,233
+函数返回的实际值
+that the actual value returned by the function
+
+204
+00:07:23,366 --> 00:07:25,500
+匹配注释中显示的值
+matches the values shown in the comment
+
+205
+00:07:25,900 --> 00:07:30,666
+想象一下，这正是这条讲解路线
+imagine that well that's exactly what this docent line
+
+206
+00:07:30,700 --> 00:07:32,666
+在解析器测试中完成
+over in parser test does
+
+207
+00:07:32,900 --> 00:07:34,966
+这是一个寻找的宏
+it's a macro that looks for
+
+208
+00:07:34,966 --> 00:07:37,933
+本模块调查解析器中的讲解员
+docents in this module survey parser
+
+209
+00:07:38,200 --> 00:07:42,333
+如果它找到了讲解员，那么它会为他们生成测试
+and if it finds docent then it generates tests for them
+
+210
+00:07:42,900 --> 00:07:45,033
+所以因为我们已经有了这条线
+so because we already have this line
+
+211
+00:07:45,466 --> 00:07:47,366
+我们在这里进行了码头测试
+and we've got this dock test over here
+
+212
+00:07:47,666 --> 00:07:48,600
+我只需要
+I just need to
+
+213
+00:07:48,900 --> 00:07:50,266
+以应有的方式发表评论
+comment this the way it should be
+
+214
+00:07:50,266 --> 00:07:52,333
+所以这是一个实际的码头测试
+so it's an actual dock test
+
+215
+00:07:52,866 --> 00:07:54,766
+像这样把它保存起来
+like that save it away
+
+216
+00:07:55,266 --> 00:07:58,000
+现在如果我们来到这里再次运行解析器测试
+now if we come down here and run parser test again
+
+217
+00:07:58,500 --> 00:08:00,266
+现在我们有两个测试
+well now we have two tests
+
+218
+00:08:00,566 --> 00:08:02,633
+我们通常编写的单元测试之一
+one of the unit tests we wrote conventionally
+
+219
+00:08:02,633 --> 00:08:05,100
+并且其中一项测试是从
+and one of the tests got generated from
+
+220
+00:08:05,100 --> 00:08:06,066
+这个码头测试
+this dock test
+
+221
+00:08:06,500 --> 00:08:08,500
+现在只是为了表明这是一个实际的测试
+now just to show that this is an actual test
+
+222
+00:08:08,500 --> 00:08:09,500
+让它失败
+let's make it fail
+
+223
+00:08:09,700 --> 00:08:11,466
+我会将这种类型更改为颜色
+I'll change this type to a color
+
+224
+00:08:13,566 --> 00:08:14,666
+果然失败了
+and sure enough it fails
+
+225
+00:08:14,666 --> 00:08:16,266
+就像任何其他单元测试一样
+just like any other unit test would
+
+226
+00:08:16,600 --> 00:08:18,033
+所以让我们继续把它改回来
+so let's go ahead and change that back
+
+227
+00:08:18,933 --> 00:08:20,533
+这真的很酷的是我们
+what's really cool about this is we
+
+228
+00:08:20,533 --> 00:08:23,533
+一直都知道dock test中的例子是
+always know that the examples in the dock test are
+
+229
+00:08:23,533 --> 00:08:26,266
+最新的，他们从不撒谎，这是你的事
+up to date and they never lie which is something you
+
+230
+00:08:26,333 --> 00:08:28,000
+总是希望在文档中
+always hope for in documentation
+
+231
+00:08:28,000 --> 00:08:29,200
+但不要总是得到
+but don't always get
+
+232
+00:08:29,900 --> 00:08:31,966
+所以现在我们有两个测试文件
+so now we have two test files
+
+233
+00:08:31,966 --> 00:08:34,733
+我们可以一口气运行这些测试
+and we can run those tests in one swoop
+
+234
+00:08:35,033 --> 00:08:36,300
+我们只是通过使用来做到这一点
+we just do that by using
+
+235
+00:08:36,300 --> 00:08:38,866
+混合测试而不给它一个文件名
+mix test and not giving it a file name
+
+236
+00:08:39,366 --> 00:08:40,666
+我们看到我们有三个测试
+we see that we have three tests
+
+237
+00:08:40,666 --> 00:08:43,200
+我们已经进行了解析器测试，然后进行了调查测试
+we've got our parser tests and then survey tests
+
+238
+00:08:43,266 --> 00:08:45,500
+混合测试所做的只是在
+and what mix test did is it just looked in the
+
+239
+00:08:45,500 --> 00:08:46,533
+测试目录在这里
+test directory here
+
+240
+00:08:46,833 --> 00:08:49,500
+它找到了所有以下划线测试结尾的文件
+and it found all the files ending in underscore tests
+
+241
+00:08:49,500 --> 00:08:51,566
+前它继续运行那些
+ex and it went ahead and ran those
+
+242
+00:08:52,633 --> 00:08:54,333
+现在我们知道如何编写测试了
+now that we know how to write tests
+
+243
+00:08:54,333 --> 00:08:56,200
+让我们回到最初的目标
+let's return to our original goal
+
+244
+00:08:56,233 --> 00:08:57,633
+这是要转换
+which was to convert
+
+245
+00:08:57,733 --> 00:09:00,666
+此代码位于句柄模块的底部
+this code at the bottom of the handle module
+
+246
+00:09:01,166 --> 00:09:02,866
+进入自动化测试
+into automated tests
+
+247
+00:09:03,300 --> 00:09:04,666
+让我们从删除这些开始
+let's start by deleting these
+
+248
+00:09:04,700 --> 00:09:05,433
+因为我们不想要这个
+because we don't want this
+
+249
+00:09:05,433 --> 00:09:07,400
+当我们运行我们的应用程序时执行的代码
+code executing when we run our app
+
+250
+00:09:07,900 --> 00:09:09,600
+所以我们要深入到最底层
+so we're just going to go down to the very bottom
+
+251
+00:09:09,933 --> 00:09:11,600
+在这里抓住所有这些东西
+grab all this stuff here
+
+252
+00:09:12,900 --> 00:09:14,666
+到那里并把它消灭掉
+to there and zap it out
+
+253
+00:09:15,166 --> 00:09:16,766
+我要创建一个新的测试文件
+I'm going to create a new test file
+
+254
+00:09:16,766 --> 00:09:17,833
+测试目录下
+under the test directory
+
+255
+00:09:18,033 --> 00:09:21,266
+它将被称为 handler test exs
+it's going to be called handler test exs
+
+256
+00:09:22,000 --> 00:09:25,066
+我现在要粘贴我们的第一个结束测试
+and I'm going to paste in our first end end test now
+
+257
+00:09:25,066 --> 00:09:26,633
+不用担心在这个测试中输入
+don't worry about typing in this test
+
+258
+00:09:26,633 --> 00:09:27,833
+你真的会找到它
+you'll actually find it
+
+259
+00:09:27,833 --> 00:09:30,266
+以及代码包中的所有其他测试
+as well as all the other tests in the code bundle
+
+260
+00:09:31,000 --> 00:09:32,533
+它被称为处理程序测试
+it's called handler test
+
+261
+00:09:32,733 --> 00:09:34,166
+又是这条使用线
+there's this use line again
+
+262
+00:09:34,466 --> 00:09:36,100
+然后我们有这条导入线
+and then we have this import line
+
+263
+00:09:36,100 --> 00:09:37,966
+我们在这里要做的是导入这个
+what we're going to do here is import this
+
+264
+00:09:37,966 --> 00:09:38,966
+句柄函数
+handle function
+
+265
+00:09:39,100 --> 00:09:41,333
+只是为了在这个模块内部很容易使用
+just so it's easy to use inside of this module
+
+266
+00:09:41,700 --> 00:09:43,300
+然后我们在这里使用我们的测试宏
+then we use our test macro here
+
+267
+00:09:43,566 --> 00:09:44,600
+我们的描述是
+and our description is
+
+268
+00:09:44,700 --> 00:09:46,433
+这是为了获得一些狂野的东西
+this is for a get of wild things
+
+269
+00:09:46,666 --> 00:09:47,733
+我们有我们的代码块
+we've got our code block
+
+270
+00:09:47,966 --> 00:09:49,533
+所以我们在代码块中所做的是
+so what we do inside the code block is
+
+271
+00:09:49,533 --> 00:09:50,700
+我们建立了一个请求
+we set up a request
+
+272
+00:09:50,866 --> 00:09:51,900
+使用听码头
+using a hear dock
+
+273
+00:09:52,166 --> 00:09:53,400
+我们通过请求
+we pass the request
+
+274
+00:09:53,833 --> 00:09:57,366
+进入我们的句柄函数，这是服务处理程序句柄
+into our handle function this is serve handler handle
+
+275
+00:09:57,466 --> 00:09:58,866
+我们得到回复
+we get back a response
+
+276
+00:09:59,033 --> 00:10:00,700
+然后我们将使用 assert 宏
+and then we're going to use the assert macro
+
+277
+00:10:01,033 --> 00:10:03,900
+断言该响应等于
+to assert that that response equals
+
+278
+00:10:04,033 --> 00:10:06,300
+另一个听到码头，这是我们的回应
+another hear dock which is our response
+
+279
+00:10:06,766 --> 00:10:08,133
+现在你可能想知道
+now you might be wondering
+
+280
+00:10:08,266 --> 00:10:11,166
+行尾的这些字符是什么
+what's with these characters at the end of the lines
+
+281
+00:10:11,600 --> 00:10:13,366
+以及http规范
+well the http spec
+
+282
+00:10:13,400 --> 00:10:15,833
+实际上需要这些行结束
+actually requires these lines to end
+
+283
+00:10:15,833 --> 00:10:19,066
+在作为反斜杠 r 的回车换行符中
+in a carriage return line feed which is backslash r
+
+284
+00:10:19,166 --> 00:10:20,133
+反斜杠 n
+backslash n
+
+285
+00:10:20,566 --> 00:10:23,800
+现在发坞隐含地给了我们反斜杠 n
+now the hair dock implicitly gives us the backslash n
+
+286
+00:10:23,800 --> 00:10:24,966
+在每一行的末尾
+at the end of each line
+
+287
+00:10:25,066 --> 00:10:28,033
+但我们必须明确添加反斜杠 r
+but we have to explicitly add the backslash r
+
+288
+00:10:28,533 --> 00:10:30,866
+所以你会在这些行的末尾看到
+so you see that at the end of these lines
+
+289
+00:10:31,166 --> 00:10:32,066
+以同样的方式
+in the same way
+
+290
+00:10:32,066 --> 00:10:34,066
+规范还要求
+the spec also requires
+
+291
+00:10:34,066 --> 00:10:37,233
+响应行上的反斜杠 r 反斜杠 n
+backslash r backslash n on the response lines
+
+292
+00:10:37,233 --> 00:10:38,566
+所以我们在这里添加了这些
+so we've added those here
+
+293
+00:10:39,066 --> 00:10:39,800
+现在这有点
+now this is a bit
+
+294
+00:10:39,800 --> 00:10:43,533
+迂腐，但消息正文在此处的最后一行
+pedantic but the message body this last line here
+
+295
+00:10:43,533 --> 00:10:45,766
+不必有反斜杠 r
+doesn't have to have a backslash r
+
+296
+00:10:45,766 --> 00:10:47,133
+所以你在那里看不到一个
+so you don't see one there
+
+297
+00:10:47,433 --> 00:10:49,433
+我们不希望这些早点妨碍
+we didn't want these to get in the way earlier
+
+298
+00:10:49,433 --> 00:10:51,200
+他们看起来有点讨厌
+they do kind of look obnoxious
+
+299
+00:10:51,233 --> 00:10:54,266
+但稍后会从浏览器发送请求
+but a bit later will send requests from a browser
+
+300
+00:10:54,366 --> 00:10:56,066
+他们将采用这种格式
+and they'll be in this format
+
+301
+00:10:56,233 --> 00:10:59,300
+所以我们现在不妨考虑这些角色
+so we might as well account for these characters now
+
+302
+00:10:59,866 --> 00:11:01,433
+所以让我们看看这个测试是否有效
+so let's see if this test works
+
+303
+00:11:02,333 --> 00:11:04,566
+混合测试
+mix test
+
+304
+00:11:05,366 --> 00:11:07,500
+处理程序测试前
+handler test ex
+
+305
+00:11:07,866 --> 00:11:09,400
+看起来我们有问题
+and it looks like we have a problem
+
+306
+00:11:10,066 --> 00:11:11,300
+如果我们在这里向上滚动
+if we scroll up here
+
+307
+00:11:11,900 --> 00:11:14,933
+虽然我们看到右侧值不匹配
+while we see no match the right side value
+
+308
+00:11:15,866 --> 00:11:16,933
+得到狂野的东西
+get wild things
+
+309
+00:11:17,466 --> 00:11:19,166
+注意我们看到这些
+and notice we see these
+
+310
+00:11:19,466 --> 00:11:22,766
+反斜杠 r 反斜杠在此处结束
+backslash r backslash ends throughout here
+
+311
+00:11:23,500 --> 00:11:25,033
+因为这就是我们的要求
+because that's what our request has
+
+312
+00:11:25,133 --> 00:11:27,766
+但这不是我们的解析器所期望的
+but that's not what our parser's expecting
+
+313
+00:11:28,233 --> 00:11:29,700
+所以我们回到解析器
+so we go back over to the parser
+
+314
+00:11:30,633 --> 00:11:31,766
+这里的最高点
+the very top here
+
+315
+00:11:32,266 --> 00:11:33,566
+我们分开
+we split on
+
+316
+00:11:34,433 --> 00:11:36,766
+斜线很好，这实际上是
+slash n well this is actually going to be
+
+317
+00:11:37,233 --> 00:11:39,033
+反斜杠 r 反斜杠 n
+backslash r backslash n
+
+318
+00:11:39,166 --> 00:11:40,566
+反斜杠 r 反斜杠 n
+backslash r backslash n
+
+319
+00:11:40,566 --> 00:11:43,166
+将顶部与婴儿车字符串分开
+that separates the top from the pram strings
+
+320
+00:11:43,266 --> 00:11:44,166
+以同样的方式
+in the same way
+
+321
+00:11:44,166 --> 00:11:47,966
+所有最上面的行都有一个反斜杠 r 反斜杠 n
+all the top lines will have a backslash r backslash n
+
+322
+00:11:48,466 --> 00:11:51,600
+以便修复解析器但在处理程序中
+so that fixes the parser but over in the handler
+
+323
+00:11:51,733 --> 00:11:54,633
+我们还需要改变这个格式响应函数
+we also need to change this format response function
+
+324
+00:11:54,733 --> 00:11:56,400
+包括反斜杠 r
+to include backslash r
+
+325
+00:11:56,466 --> 00:11:57,833
+在这些行的末尾
+at the end of these lines
+
+326
+00:11:59,000 --> 00:12:00,566
+现在我们的测试应该通过了
+and now our test should pass
+
+327
+00:12:00,600 --> 00:12:01,400
+下来这里
+come down here
+
+328
+00:12:01,666 --> 00:12:04,166
+再次运行它，果然他们通过了
+run it again sure enough they pass
+
+329
+00:12:04,666 --> 00:12:07,533
+已经只有七个测试要写了
+already so only seven more tests to write
+
+330
+00:12:07,533 --> 00:12:09,266
+准备好你的手指
+get your fingers ready
+
+331
+00:12:09,633 --> 00:12:10,433
+只是在开玩笑
+just kidding
+
+332
+00:12:10,533 --> 00:12:12,233
+我们不会让你受苦
+we're not going to make you suffer through that
+
+333
+00:12:12,466 --> 00:12:14,733
+我们只是要一次又一次地粘贴它们
+we're just going to paste them in and again
+
+334
+00:12:14,733 --> 00:12:17,433
+您可以在代码包中找到所有测试
+you can find all the tests in the code bundle
+
+335
+00:12:18,066 --> 00:12:19,733
+这是我们刚刚编写的测试
+so here's the test that we just wrote
+
+336
+00:12:19,733 --> 00:12:21,766
+然后我们在它下面粘贴了一些测试
+and then we pasted some tests beneath it
+
+337
+00:12:21,933 --> 00:12:24,666
+所以这是一个用于获得斜线熊的
+so here's one for get slash bears
+
+338
+00:12:25,000 --> 00:12:26,133
+我们设置了请求
+we set up the request
+
+339
+00:12:26,733 --> 00:12:28,800
+我们调用句柄得到响应
+we call handle get a response to that
+
+340
+00:12:29,066 --> 00:12:30,466
+我做了这个有点不同
+and I did this one a little bit differently
+
+341
+00:12:30,466 --> 00:12:32,666
+注意我说预期响应等于
+notice I say expected response equals
+
+342
+00:12:32,666 --> 00:12:33,900
+然后我们有一个听码头
+and then we have a hear dock
+
+343
+00:12:34,300 --> 00:12:36,866
+然后我们有我们期望的标题
+and then we have the headers we would expect
+
+344
+00:12:37,100 --> 00:12:38,100
+然后是内容
+and then the content
+
+345
+00:12:38,100 --> 00:12:39,733
+记住从模板生成
+remembers generated from a template
+
+346
+00:12:39,966 --> 00:12:42,866
+这就是模板生成的所有内容
+so this is all that template generated content
+
+347
+00:12:43,300 --> 00:12:45,433
+因为那个模板可以有不同的
+and because that template can have different
+
+348
+00:12:45,433 --> 00:12:46,300
+里面的空白
+white space in it
+
+349
+00:12:46,300 --> 00:12:48,033
+有时很难断言
+and sometimes it's difficult to assert
+
+350
+00:12:48,033 --> 00:12:49,100
+基于空白
+based on white space
+
+351
+00:12:49,333 --> 00:12:50,533
+我写了一个小函数
+I wrote a little function down
+
+352
+00:12:50,533 --> 00:12:52,066
+下面称为删除右空间
+below called remove right space
+
+353
+00:12:52,333 --> 00:12:54,666
+所以我们只在响应中调用删除空格
+so we just call remove white space on the response
+
+354
+00:12:54,733 --> 00:12:55,866
+那应该等于
+and that should equal
+
+355
+00:12:56,166 --> 00:12:58,733
+相当于我们预期的反应
+the equivalent of our expected response
+
+356
+00:12:58,733 --> 00:13:00,133
+我们使用 assert 宏
+and we use the assert macro
+
+357
+00:13:00,200 --> 00:13:01,366
+确保这是真的
+to make sure that's true
+
+358
+00:13:02,033 --> 00:13:04,833
+并且所有其他测试都以类似的方式工作
+and all the other tests work in a similar way
+
+359
+00:13:04,900 --> 00:13:06,133
+这里真的没有什么新鲜事
+there's really nothing new here
+
+360
+00:13:06,233 --> 00:13:07,600
+如果只是一行
+if it's just one line
+
+361
+00:13:07,600 --> 00:13:08,733
+像这样的回应
+of a response like this
+
+362
+00:13:08,733 --> 00:13:10,466
+不是从模板生成的
+that wasn't generated from a template
+
+363
+00:13:10,600 --> 00:13:13,233
+那么我只是在那个响应上使用断言
+well then I just use assert on that response
+
+364
+00:13:13,466 --> 00:13:15,400
+但如果是模板生成的代码
+but if it's template generated code
+
+365
+00:13:15,533 --> 00:13:18,033
+我使用这种去除空白的模式
+I use this pattern of removing white space
+
+366
+00:13:18,266 --> 00:13:20,066
+但你可以看看这里，你会看到
+but you can look through here and you'll see that
+
+367
+00:13:20,133 --> 00:13:22,233
+他们都遵循相似的风格
+all of them follow the similar style
+
+368
+00:13:22,633 --> 00:13:24,700
+更好的是他们都应该通过
+and better yet they should all pass
+
+369
+00:13:26,700 --> 00:13:27,966
+他们确实做到了
+and indeed they do
+
+370
+00:13:28,200 --> 00:13:28,966
+但如果你滚动
+but if you scroll
+
+371
+00:13:28,966 --> 00:13:29,166
+向上
+up
+
+372
+00:13:29,166 --> 00:13:31,733
+你可能想知道这里的所有这些输出是怎么回事
+you might wonder what's with all this output up here
+
+373
+00:13:32,200 --> 00:13:33,400
+好吧，如果你记得
+well if you recall
+
+374
+00:13:33,433 --> 00:13:37,566
+我们在处理程序顶部的管道有插件
+our pipeline at the top of handler has plugins
+
+375
+00:13:37,633 --> 00:13:39,400
+记录和跟踪请求
+to log and track requests
+
+376
+00:13:39,833 --> 00:13:42,766
+这些功能在插件模块中
+those functions are in the plugins module
+
+377
+00:13:43,133 --> 00:13:46,433
+他们使用 io 打印出警告信息
+and they use io to print out a warning message
+
+378
+00:13:46,566 --> 00:13:48,500
+并将信息记录到控制台
+and log information to the console
+
+379
+00:13:48,933 --> 00:13:49,866
+但也许我们
+but perhaps we
+
+380
+00:13:49,866 --> 00:13:50,933
+只想打印这个
+only want to print this
+
+381
+00:13:50,933 --> 00:13:52,533
+应用程序时的东西到控制台
+stuff to the console when the app
+
+382
+00:13:52,533 --> 00:13:54,700
+在特定环境中运行
+is running in a specific environment
+
+383
+00:13:55,166 --> 00:13:58,033
+是的 mix 实际上支持三种不同的环境
+yeah mix actually supports three different environments
+
+384
+00:13:58,033 --> 00:14:01,066
+dev test 和 prod 是 production 的缩写
+dev test and prod which is short for production
+
+385
+00:14:01,400 --> 00:14:04,333
+de 是默认值，当我们使用时它会切换到测试
+de is the default and it switches to test when we use
+
+386
+00:14:04,400 --> 00:14:05,433
+混合测试
+mix test
+
+387
+00:14:05,700 --> 00:14:08,200
+所以假设我们只想看到这个的输出
+so suppose we only want to see the output of this
+
+388
+00:14:08,200 --> 00:14:10,066
+开发过程中的日志功能
+log function during development
+
+389
+00:14:10,066 --> 00:14:11,433
+虽然我们可以改变这个
+while we can change this around
+
+390
+00:14:11,466 --> 00:14:13,433
+并在此处将其更改为多行函数
+and change it to a multiline function here
+
+391
+00:14:16,533 --> 00:14:18,300
+然后我们只希望这条线运行
+and then we only want this line to run
+
+392
+00:14:18,433 --> 00:14:19,600
+在开发过程中
+during development
+
+393
+00:14:19,733 --> 00:14:21,433
+所以我们可以在这里放一个 if 语句
+so we can put an if statement around here
+
+394
+00:14:21,533 --> 00:14:23,400
+如果你可以打电话给 mix
+if and you can call mix
+
+395
+00:14:23,566 --> 00:14:26,333
+end 将返回当前的混音环境
+end that will return the current mix environment
+
+396
+00:14:26,666 --> 00:14:27,900
+如果它等于 dev
+if it equals dev
+
+397
+00:14:28,200 --> 00:14:29,700
+我们会继续打印出来
+we'll go ahead and print that out
+
+398
+00:14:31,733 --> 00:14:33,400
+否则它不会记住
+otherwise it won't and remember
+
+399
+00:14:33,433 --> 00:14:35,533
+因为这个日志在管道中起作用
+because this log functions in a pipeline
+
+400
+00:14:35,533 --> 00:14:37,866
+我们总是需要返回 con
+we always need to return co n
+
+401
+00:14:38,333 --> 00:14:38,466
+哦
+oh
+
+402
+00:14:38,466 --> 00:14:41,000
+我总是忘记在 if 结尾加上露水
+and I always forget to add the dew at the end of an if
+
+403
+00:14:41,000 --> 00:14:42,200
+只是旧习惯
+just old habit
+
+404
+00:14:42,666 --> 00:14:44,033
+这样就可以处理日志
+so that takes care of log
+
+405
+00:14:44,033 --> 00:14:46,100
+这里的跟踪功能怎么样
+what about this track function up here
+
+406
+00:14:46,566 --> 00:14:48,733
+好吧，假设我们要跟踪四人之四
+well let's say we want to track four of fours
+
+407
+00:14:48,733 --> 00:14:50,566
+在开发和生产中
+in development and in production
+
+408
+00:14:50,633 --> 00:14:52,200
+但不在测试中
+but not in test
+
+409
+00:14:52,600 --> 00:14:54,166
+所以我们可以在这里做的是说
+so what we can do here is say
+
+410
+00:14:54,600 --> 00:14:58,800
+如果混合结束不等于测试做
+if mix end does not equal test do
+
+411
+00:15:00,700 --> 00:15:02,533
+把它放在那个 if 条件里面
+put that inside of that if condition
+
+412
+00:15:02,966 --> 00:15:05,233
+然后确保总是返回 co 和 v
+and then make sure to always return co and v
+
+413
+00:15:05,700 --> 00:15:06,733
+如果我们把它保存起来
+if we save that away
+
+414
+00:15:07,166 --> 00:15:09,733
+并运行我们的测试，我们应该得到更清晰的输出
+and run our test we should get a lot cleaner output
+
+415
+00:15:10,300 --> 00:15:11,100
+我们去吧
+there we go
+
+416
+00:15:11,533 --> 00:15:13,633
+如果我们很好地运行我们所有的测试
+and if we run all of our test well
+
+417
+00:15:13,766 --> 00:15:16,866
+我们确实应该全面绿色
+we should have green across the board indeed we do
+

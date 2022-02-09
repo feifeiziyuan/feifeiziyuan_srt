@@ -1,0 +1,1191 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:01.680
+让我们来看看这些例子。
+Let's go through these examples.
+
+2
+00:00:01.680 --> 00:00:04.310
+我们将返回，结果，它就在屏幕上。
+We'll circle back, it turns out, it's right here on the screen.
+
+3
+00:00:04.310 --> 00:00:05.830
+这是正确的end。
+This is the proper endo.
+
+4
+00:00:05.830 --> 00:00:08.020
+我之前有点糊涂。
+I got a little confused before.
+
+5
+00:00:08.020 --> 00:00:12.180
+原因是，如果，我们之后会绕回去，但是
+The reason was, if, we'll circle back afterwards, but
+
+6
+00:00:12.180 --> 00:00:15.310
+我会告诉你为什么我感到困惑以及为什么这有效。
+I'll show you why I got confused and why this works.
+
+7
+00:00:15.310 --> 00:00:20.250
+所以让我们回到我们的第一个练习，
+So let's go down to our first exercise,
+
+8
+00:00:20.250 --> 00:00:25.830
+我们要把普通的 HTML 变成 JSX 风格的 HTML。
+we're gonna turn normal HTML into the JSX style HTML.
+
+9
+00:00:25.830 --> 00:00:27.100
+我们要欺骗这个。
+We're gonna cheat on this one.
+
+10
+00:00:27.100 --> 00:00:30.970
+它实际上不会正常工作，但仅用于示例目的。
+It's not actually gonna work right but it's just for example purposes here.
+
+11
+00:00:30.970 --> 00:00:37.250
+所以，我们有endo，我们有一堆从字符串到字符串的函数，太棒了。
+So, we have endo, we have a bunch of functions from string to string, terrific.
+
+12
+00:00:37.250 --> 00:00:40.110
+我们可以使用endo来重写它。
+We can rewrite this using endo.
+
+13
+00:00:40.110 --> 00:00:44.223
+在我潜入之前，有人对此有任何疑问或障碍吗？
+Did anybody have any questions or snags on this one before I dive in,
+
+14
+00:00:44.223 --> 00:00:46.110
+当我们这样做时，我可以解决。
+I could address while we do it.
+
+15
+00:00:47.558 --> 00:00:48.952
+都好？好吧，那么，
+All good? All right, so,
+
+16
+00:00:48.952 --> 00:00:54.100
+好吧，我们做的第一件事就是将这些放入endos，对吗？
+well the first thing we do is just put these in endos, right?
+
+17
+00:00:54.100 --> 00:00:57.427
+我可以说 HTML 的结束，
+I can say endo of HTML for,
+
+18
+00:00:57.427 --> 00:01:03.175
+我们将把它与这个结尾结合起来，
+we'll concat that with the endo of this one,
+
+19
+00:01:03.175 --> 00:01:10.459
+我们将在本节末尾连接它，依此类推。
+and we'll concat that at the endo of this one, and so on.
+
+20
+00:01:10.459 --> 00:01:12.940
+这里发生了什么？
+And what's happening here?
+
+21
+00:01:12.940 --> 00:01:16.980
+这是一种方式，我们会用另一种方式重做，但我们还没有运行它。
+This is one way, we'll redo it another way, but we haven't run it yet.
+
+22
+00:01:16.980 --> 00:01:20.840
+所以我们必须在 HTML 上运行它，看看它是否通过。
+So we have to run it on the HTML and see if that passes.
+
+23
+00:01:20.840 --> 00:01:22.250
+确实如此，棒极了。
+It does, terrific.
+
+24
+00:01:22.250 --> 00:01:27.020
+所以它只是通过幺半群捕获函数组合。
+So it's just capturing function composition via monoids.
+
+25
+00:01:27.020 --> 00:01:30.600
+由于函数总是返回相同的输入类型和相同的输出类型，
+Since the functions always return the same inputs type and same output type,
+
+26
+00:01:30.600 --> 00:01:35.680
+我们可以毫不费力地组合类型，从来没有类型错误。
+we can effortlessly compose the types, never had a type error.
+
+27
+00:01:35.680 --> 00:01:41.212
+所以我们也可以说，如果我们要把它放在一个列表中，对吗？
+So we also alternatively say, if we're gonna throw this on a list, right?
+
+28
+00:01:41.212 --> 00:01:44.460
+清单，砰。
+List of, bam.
+
+29
+00:01:44.460 --> 00:01:49.510
+而且它在完整地图上并不重要。
+And also it kind of doesn't really matter on the full map is.
+
+30
+00:01:49.510 --> 00:01:54.564
+有点领先于我自己，对于地图end，
+Kinda ahead of myself sort of, for map endo,
+
+31
+00:01:54.564 --> 00:02:02.145
+我们将给它endo.empty，最后用HTML 运行它。
+and we'll give it the endo.empty and finally run it with the HTML.
+
+32
+00:02:04.816 --> 00:02:06.736
+怎么样？
+How's that?
+
+33
+00:02:06.736 --> 00:02:08.760
+没有用，列表没有定义。
+Didn't work, list is not defined.
+
+34
+00:02:08.760 --> 00:02:10.170
+我提示了吗，没有带入列表。
+Did I prompt, didn't bring in list.
+
+35
+00:02:10.170 --> 00:02:10.970
+好吧，没关系。
+Okay, that's fine.
+
+36
+00:02:10.970 --> 00:02:12.830
+[笑]我们可以换一种方式，
+[LAUGH] We could do it a different way,
+
+37
+00:02:12.830 --> 00:02:15.310
+我们可以把它扔到一个数组中并减少它。
+we can just throw it in an array and reduce it.
+
+38
+00:02:15.310 --> 00:02:21.080
+如果我们没有可用的完整地图，我们可以做一个reduce，好吗？
+If we don't have full map at our disposal, we could just do a reduce, all right?
+
+39
+00:02:21.080 --> 00:02:22.580
+一个 acc 和一个 x。
+An acc and an x.
+
+40
+00:02:22.580 --> 00:02:28.645
+我们将 x 放在 end 中，然后有一个东西
+We'll put the x in the endo and there's a something
+
+41
+00:02:28.645 --> 00:02:34.350
+提醒我们，就像猎犬帮派一样，将 x 放在 end 中。
+reminds us that like a bloodhound gang line, put the x in the endo.
+
+42
+00:02:34.350 --> 00:02:37.975
+[笑] 我把它连起来。
+[LAUGH] l concat that.
+
+43
+00:02:37.975 --> 00:02:39.935
+那么这里发生了什么？
+So what's happening here?
+
+44
+00:02:39.935 --> 00:02:42.555
+&gt;&gt; 您提供了额外的括号。
+&gt;&gt; You've given extra parentheses.
+
+45
+00:02:42.555 --> 00:02:43.182
+&gt;&gt; 是的。
+&gt;&gt; Yes.
+
+46
+00:02:43.182 --> 00:02:44.585
+&gt;&gt; 打开一。
+&gt;&gt; Opening one.
+
+47
+00:02:44.585 --> 00:02:45.735
+&gt;&gt; 就是这样。
+&gt;&gt; There it is.
+
+48
+00:02:45.735 --> 00:02:47.940
+巴姆，好吧。
+Bam, all right.
+
+49
+00:02:47.940 --> 00:02:49.810
+我们走了，传球。
+And there we go, passes.
+
+50
+00:02:49.810 --> 00:02:52.480
+所以，再一次，这是所有折叠地图都拿走了，对吧？
+So, again, this is all fold map took away, right?
+
+51
+00:02:52.480 --> 00:02:53.270
+这就像一条线。
+It's like a one line.
+
+52
+00:02:53.270 --> 00:02:54.940
+我不必为此导入库。
+I didn't have to import a library for that.
+
+53
+00:02:54.940 --> 00:02:57.530
+我只是因为真的需要推广我的图书馆。
+I just do because really need to promote my libraries.
+
+54
+00:02:57.530 --> 00:02:58.760
+是的，我才明白。
+Yeah, I'm just getting it.
+
+55
+00:02:58.760 --> 00:03:02.380
+这正是你会一直在其他语言中看到的。
+It's just what you're gonna see in other languages all the time.
+
+56
+00:03:02.380 --> 00:03:03.370
+所以我想模仿那个。
+So I wanted to mimic that.
+
+57
+00:03:03.370 --> 00:03:05.140
+那真的不是关于图书馆。
+That's it's really not about the library.
+
+58
+00:03:05.140 --> 00:03:11.060
+这是关于通用接口的，太酷了，完成了。
+It's about common Interfaces, so cool, done.
+
+59
+00:03:11.060 --> 00:03:13.405
+它把这件事变成了这件事。
+And it turned this thing into this thing.
+
+60
+00:03:13.405 --> 00:03:16.870
+[笑] 如果你注意到顺序并不重要，是吗？
+[LAUGH] And if you notice the order doesn't really matter, does it?
+
+61
+00:03:16.870 --> 00:03:23.420
+这是你签署的合同的一部分。
+And that's kind of part of the contract you're kinda signing up for a little bit.
+
+62
+00:03:23.420 --> 00:03:29.884
+它正在组合它们，但它是，因为它总是相同的类型，
+It is composing them, but it's, since it's always the same type,
+
+63
+00:03:29.884 --> 00:03:34.015
+我的意思是顺序往往无关紧要，好吧。
+I mean the order tends to not matter, okay.
+
+64
+00:03:34.015 --> 00:03:36.040
+让我们进入谓词。
+Let's go into predicates.
+
+65
+00:03:36.040 --> 00:03:39.463
+现在，所以这个，我们将在这里讨论一些很酷的东西。
+Now, so this, we're gonna get into some cool stuff here.
+
+66
+00:03:39.463 --> 00:03:45.297
+当我们在最后一个减速器示例中离开时，我们将反对 map。
+We're gonna contra map as we left off in the last example of reducers.
+
+67
+00:03:45.297 --> 00:03:50.014
+所以让我们继续编写谓词，我们将接收一个函数，
+So let's go ahead and write predicate, we'll take in a function,
+
+68
+00:03:50.014 --> 00:03:53.260
+谓词函数，往往会调用这些运行。
+predicate function, tend to call these run.
+
+69
+00:03:55.730 --> 00:04:00.160
+并遵循我们为公开运行所做的相同模式。
+And follow the same kind of pattern we've been doing for expose run.
+
+70
+00:04:01.740 --> 00:04:05.830
+我们在这里要做的就是说，反对地图。
+And what we'll do here is just say, contra map.
+
+71
+00:04:05.830 --> 00:04:10.760
+由于谓词是 a，它需要一个返回布尔值的函数，对吗？
+Since predicate is a, it takes a function that returns a Boolean, right?
+
+72
+00:04:10.760 --> 00:04:11.890
+所以我无法映射它。
+So I cannot map it.
+
+73
+00:04:11.890 --> 00:04:13.880
+我不能把布尔值变成另一回事。
+I can't turn the Boolean into another thing.
+
+74
+00:04:13.880 --> 00:04:15.430
+它不再是谓词函数。
+It wouldn't be a predicate function anymore.
+
+75
+00:04:15.430 --> 00:04:18.596
+那只会破坏建模谓词的整个想法。
+That would just ruin the whole idea of modeling predicates.
+
+76
+00:04:18.596 --> 00:04:24.460
+所以我要做的就是反对地图，给自己一个机会，
+So what I'm gonna do is I'm gonna contra map, and give myself an opportunity,
+
+77
+00:04:24.460 --> 00:04:30.440
+提前一个小钩子来击中我们的价值，
+a little hook beforehand to hit our value coming in,
+
+78
+00:04:30.440 --> 00:04:36.590
+x 和 f，在它实际运行之前。
+x with the f, before it actually runs.
+
+79
+00:04:38.120 --> 00:04:40.090
+所以让我们看看这里发生了什么。
+So let's see what's happening here.
+
+80
+00:04:44.913 --> 00:04:49.700
+所以我们有一张 contra 地图，我们也需要连接。
+So we have a contra map, and we need to concat too.
+
+81
+00:04:49.700 --> 00:04:50.520
+没关系。
+That's fine.
+
+82
+00:04:50.520 --> 00:04:52.740
+我们如何连接两个谓词？
+How do we concat two predicates?
+
+83
+00:04:53.980 --> 00:04:56.550
+康卡特，我们再拿一个。
+Concat, we take another one.
+
+84
+00:04:57.560 --> 00:05:01.052
+而且，所以我们在这里有一个谓词。
+And, so we have a predicate here.
+
+85
+00:05:01.052 --> 00:05:06.170
+我们可以，抱歉，这是违禁地图，忘记跑了。
+And we could, sorry, this is contra map, forgot to run.
+
+86
+00:05:06.170 --> 00:05:08.240
+所以这里出了点问题。
+So something's wrong here.
+
+87
+00:05:08.240 --> 00:05:10.550
+我会运行它的价值。
+I will run the value of that.
+
+88
+00:05:10.550 --> 00:05:11.940
+好的，很酷。
+Okay, cool.
+
+89
+00:05:11.940 --> 00:05:13.310
+你看我是怎么错过的。
+Do you see how I missed that.
+
+90
+00:05:13.310 --> 00:05:14.870
+我们要在 x 上点击 f 并且
+We're gonna hit the f on the x and
+
+91
+00:05:14.870 --> 00:05:18.140
+在我们实际运行它之前转换值。
+transform the value before we actually run it.
+
+92
+00:05:18.140 --> 00:05:21.340
+好的，在这里连接，我们要做的是说，
+All right, in concat here, what we're gonna do here is say,
+
+93
+00:05:21.340 --> 00:05:26.600
+好吧，如果我运行它，它会给我一个布尔值，我们还有另一个，对吧？
+well, if I run this, so it'll give me a Boolean and we have another one, right?
+
+94
+00:05:26.600 --> 00:05:30.930
+我不知道为什么那会过去[笑]这可能不好，但是
+I don't know why that's passing [LAUGH] that's probably not good, but
+
+95
+00:05:30.930 --> 00:05:33.930
+无论如何，让我这样做。
+let me do this anyway.
+
+96
+00:05:33.930 --> 00:05:37.879
+我们会说我们有另一个带有运行功能的
+We're gonna say we have some other one with a run function and
+
+97
+00:05:37.879 --> 00:05:40.720
+我们可以连接另一个运行。
+we can just concat that other run.
+
+98
+00:05:40.720 --> 00:05:43.720
+我认为我们现在必须决定是否或
+And I think we have to decide right now whether or
+
+99
+00:05:43.720 --> 00:05:49.540
+我们不想在我们的谓词函数中返回任何或所有是免费的。
+not we wanna return any or all within our predicate functions are free.
+
+100
+00:05:49.540 --> 00:05:51.190
+我们只想修一个。
+We just wanna fix one.
+
+101
+00:05:51.190 --> 00:05:52.641
+我们为什么不直接说和。
+Why don't we just say and.
+
+102
+00:05:55.480 --> 00:05:58.480
+这，人们看到它是如何工作的了吗？
+This, did people see how that works?
+
+103
+00:05:58.480 --> 00:06:02.250
+基本上，如果我运行我的谓词函数将返回真或假。
+Basically, if I run my predicate function is gonna return a true or false.
+
+104
+00:06:02.250 --> 00:06:04.266
+如果我运行另一个，它会返回真或假。
+If I run the other one, it's gonna return a true or false.
+
+105
+00:06:04.266 --> 00:06:08.630
+现在我有一个谓词函数，它告诉我它们都是真还是假。
+And now I have a predicate function that tells me they're both true or both false.
+
+106
+00:06:08.630 --> 00:06:10.045
+我可以决定使它成为一个或。
+I could decide to make it an or.
+
+107
+00:06:11.470 --> 00:06:15.860
+或者我实际上可以说不，它会在我内部返回另一个幺半群。
+Or I can actually say no, it returns me another monoid inside.
+
+108
+00:06:15.860 --> 00:06:21.160
+现在我连接了这两个，但我们并没有真正设置它来做到这一点。
+And now I concat those two but we didn't really set this up to do that.
+
+109
+00:06:21.160 --> 00:06:24.970
+所以让我们把它修好，它就过去了。
+So let's just fix it to and it passes.
+
+110
+00:06:24.970 --> 00:06:29.030
+就这么过去了，倒是有些担心。
+It was a little worrying that it passed this way.
+
+111
+00:06:29.030 --> 00:06:32.685
+所以我可能只是写了一个不好的例子，但它应该是这样的。
+So I probably just wrote a bad example, but this is what it should look like.
+
+112
+00:06:32.685 --> 00:06:35.660
+[笑] 但是，如果你看这里的例子，
+[LAUGH] But yeah, if you look at the example here,
+
+113
+00:06:35.660 --> 00:06:38.700
+我们在 x 到达之前获取它的长度。
+we're grabbing the length of x before it gets here.
+
+114
+00:06:38.700 --> 00:06:43.980
+然后我们问，它是否以 s 开头。
+And then we're asking, if it starts with s.
+
+115
+00:06:43.980 --> 00:06:49.990
+所以我们把这些都变成了，好吧，看起来像，
+So we're transforming each of these into, all right, looks like,
+
+116
+00:06:49.990 --> 00:06:55.270
+是我们问的是整个数组的长度，而不是每个数组的长度。
+is that we're asking about the entire arrays length not each one's length.
+
+117
+00:06:55.270 --> 00:06:56.640
+这就是错误的原因吗？
+Is that why it was wrong?
+
+118
+00:06:56.640 --> 00:07:00.140
+好吧，无论如何，谓词看起来很棒。
+Well, in any case, that's predicate looks great.
+
+119
+00:07:00.140 --> 00:07:03.300
+我们可以进一步深入了解为什么会通过。
+We can dig in further into why that passed.
+
+120
+00:07:04.430 --> 00:07:04.980
+是的。
+Yeah.
+
+121
+00:07:04.980 --> 00:07:09.945
+&gt;&gt; 你能不能再给一下像反对地图的高级定义 -
+&gt;&gt; Could you just give like the high level definition of contra map again with the-
+
+122
+00:07:09.945 --> 00:07:12.180
+&gt;&gt; 是的，所以这里的想法，
+&gt;&gt; Yeah, so here's the idea,
+
+123
+00:07:12.180 --> 00:07:14.820
+是这样吗，我有这个谓词吗？
+is that like, I have this predicate right?
+
+124
+00:07:14.820 --> 00:07:16.500
+来，看看这个，对吧？
+Here, look at this one, right?
+
+125
+00:07:16.500 --> 00:07:21.640
+我有这个谓词说，
+I've got this predicate that says,
+
+126
+00:07:21.640 --> 00:07:24.640
+我们称之为大于四。
+let's call it greater than four.
+
+127
+00:07:26.350 --> 00:07:31.960
+这个谓词函数需要一个数字，对。
+And this predicate function takes a number, right.
+
+128
+00:07:31.960 --> 00:07:36.577
+我还有这个其他谓词函数
+And I have this other predicate function
+
+129
+00:07:36.577 --> 00:07:40.799
+需要一个字符串，const sStart。
+that takes a string, const sStart.
+
+130
+00:07:40.799 --> 00:07:43.705
+[笑] 所以它以 s 开头，好酷。
+[LAUGH] So it starts with s, okay cool.
+
+131
+00:07:43.705 --> 00:07:45.550
+所以我有两个谓词函数。
+So I have two predicate functions.
+
+132
+00:07:45.550 --> 00:07:47.490
+这个需要一个字符串，这个需要一个数字。
+This one takes a string, this one takes a number.
+
+133
+00:07:48.800 --> 00:07:52.160
+我想做的是遍历我的结果
+And what I wanted to do is run through my results and
+
+134
+00:07:52.160 --> 00:07:57.810
+过滤所有满足这两个谓词的字符串。
+filter all these strings that satisfy both predicates.
+
+135
+00:07:57.810 --> 00:08:01.690
+但是我不想将字符串传递给需要数字的东西，对吗？
+But I don't want to pass a string to the thing that takes a number, right?
+
+136
+00:08:01.690 --> 00:08:09.470
+所以我能做的就是反映射它，我们把它转换成它的长度。
+So what I can do is contra map that it, we transform it into its length.
+
+137
+00:08:09.470 --> 00:08:11.490
+但我不想在定义中这样做。
+But I don't want to do that in the definition.
+
+138
+00:08:11.490 --> 00:08:16.410
+当我将两者结合起来说时，我可以在调用函数中做到这一点，
+I can do that at the calling function when I'm combining the two to say like,
+
+139
+00:08:16.410 --> 00:08:16.980
+你知道吗？
+you know what?
+
+140
+00:08:16.980 --> 00:08:20.210
+我有一个钩子可以
+I have a hook to be able to
+
+141
+00:08:21.580 --> 00:08:27.460
+实际上更改此函数并仍将其传递到同一个过滤器中。
+actually change this function and still pass it into the same filter.
+
+142
+00:08:27.460 --> 00:08:32.260
+然后这让我有能力编写一个过滤器
+And then that gives me the ability to write one filter that just kind of
+
+143
+00:08:32.260 --> 00:08:36.200
+组合所有这些谓词并在它们到达之前转换它们。
+combines all these predicates and transforms them before they get there.
+
+144
+00:08:36.200 --> 00:08:38.390
+所以这是具体情况，但是
+So that's the specific case, but
+
+145
+00:08:38.390 --> 00:08:42.380
+一般情况是，通常当您将这些功能组合成一个时，
+the general case is that typically when you're combining these functions into one,
+
+146
+00:08:42.380 --> 00:08:45.705
+他们可能会采取不同的论点，它会给你一个改变它的钩子。
+they might take different arguments and it gives you a hook to kind of change it.
+
+147
+00:08:45.705 --> 00:08:47.090
+这是用例，对吧？
+And this is the use case, right?
+
+148
+00:08:47.090 --> 00:08:50.750
+就像这是在库中预定义的，我想在那里使用它。
+Like this is predefined in a library and I want to use that there.
+
+149
+00:08:50.750 --> 00:08:52.345
+这回答了问题还是你还有一些 -
+Did that answer the question or are you still have some-
+
+150
+00:08:52.345 --> 00:08:53.811
+&gt;&gt; 不不，这很清楚。
+&gt;&gt; No no, that's that's pretty clear.
+
+151
+00:08:53.811 --> 00:08:55.265
+&gt;&gt; 酷。
+&gt;&gt; Cool.
+
+152
+00:08:55.265 --> 00:08:59.537
+只是如果，我们只是让我们知道它被称为逆变函子，如果你
+Just if, we just so we're aware it's called a contravariant functor if you
+
+153
+00:08:59.537 --> 00:09:02.910
+有反向映射，逆变，反向映射。
+have contra map, contravariant, contra map.
+
+154
+00:09:02.910 --> 00:09:06.280
+如果我们有 contra map 和 map，它被称为 profunctor。
+If we have contra map and map, it's called a profunctor.
+
+155
+00:09:06.280 --> 00:09:07.860
+您可以更改输入和输出。
+You can change the input and the output.
+
+156
+00:09:07.860 --> 00:09:10.020
+这有点像连接器的小东西。
+It's kind of like a little connector thing.
+
+157
+00:09:10.020 --> 00:09:16.090
+所以 profunctor 定义了两者，逆变函子做一个和
+And so profunctors define both, contravariant functors does one and
+
+158
+00:09:16.090 --> 00:09:22.872
+只是函子或其他只是地图 我们有这个有趣的小图形。
+just functors or the other just map We have this little fun graphic.
+
+159
+00:09:22.872 --> 00:09:26.108
+[笑]如果有人想过夜，
+[LAUGH] If anybody wants to spend a night,
+
+160
+00:09:26.108 --> 00:09:30.024
+给自己倒一杯烈酒，通读一遍。
+pour yourself stiff drink, read through that.
+
+161
+00:09:30.024 --> 00:09:32.600
+但就在那里。
+But that's there.
+
+162
+00:09:32.600 --> 00:09:37.010
+如果你想看看那里，它在幻想土地数字中。
+It's in the fantasy land figures if you want to take a look there.
+
+163
+00:09:37.010 --> 00:09:40.750
+好的，回到我们的例子。
+Okay, back to our our example.
+
+164
+00:09:41.770 --> 00:09:45.170
+所以在练习三，这是最后一个练习。
+So on exercise three, which is the last exercise.
+
+165
+00:09:45.170 --> 00:09:47.690
+我们在这里要做的是说，
+What we're gonna do here is say,
+
+166
+00:09:47.690 --> 00:09:52.550
+使用matchesAny 谓词重写，因此它建立在前一个谓词的基础上。
+rewrite using the matchesAny predicate, so it builds on the previous one.
+
+167
+00:09:52.550 --> 00:09:54.320
+所以如果你没有得到上一个，这一个会更难。
+So if you didn't get the previous one, this one will be harder.
+
+168
+00:09:55.670 --> 00:10:00.290
+这个想法是我们有matchesAny，它只是一个普通的字符串匹配和
+The idea is that we have matchesAny, which is just a normal string match and
+
+169
+00:10:00.290 --> 00:10:04.070
+然后我们有匹配的 IP，即谓词版本。
+then we have matching IP, the predicate version of that.
+
+170
+00:10:04.070 --> 00:10:08.740
+我们只是包装了matchesAny 并将其放入谓词中。
+We just wrapped matchesAny and put it in a predicate.
+
+171
+00:10:08.740 --> 00:10:12.560
+所以现在谓词是一个函数，当你调用 run 时，
+So now predicate is a function which takes, when you call run,
+
+172
+00:10:12.560 --> 00:10:13.630
+它需要那个字符串。
+it takes that string.
+
+173
+00:10:13.630 --> 00:10:17.230
+所以你想用matchesAny IP运行这些。
+So you wanna run these with matchesAny IP.
+
+174
+00:10:17.230 --> 00:10:22.728
+既然我们想利用 concat 和 contra map，我们可以，
+And since we wanna take advantage of concat and contra map, we can,
+
+175
+00:10:22.728 --> 00:10:29.396
+给我们一个提示，让我们快速了解正在发生的事情。
+kind of give us a hint as to, let's just give a quick idea of what's happening is.
+
+176
+00:10:29.396 --> 00:10:32.377
+我在这里调用文件的扩展名，并且
+I'm calling the extension on the file here, and
+
+177
+00:10:32.377 --> 00:10:34.930
+我正在那里调用文件中的内容。
+I'm calling contents on the file there.
+
+178
+00:10:34.930 --> 00:10:39.720
+并将它们与
+And combine them with and so let's leave that alone for a second and
+
+179
+00:10:39.720 --> 00:10:45.480
+只需在它下面用matchesAny IP写同样的东西。
+just write the same thing under it with matchesAny IP.
+
+180
+00:10:45.480 --> 00:10:54.410
+所以现在我有了它，我实际上可以反对地图扩展，对吗？
+So now that I have that, I can actually contra map extension, right?
+
+181
+00:10:54.410 --> 00:11:00.270
+然后我可以连接而不是调用 and，用另一个谓词 and
+And then I can concat instead of calling and, with another predicate and
+
+182
+00:11:00.270 --> 00:11:08.798
+这个需要内容，所以我可以映射那个x.contents。
+this one takes contents so I can contra map that one x.contents.
+
+183
+00:11:08.798 --> 00:11:16.520
+所以我猜文件，归档内容，然后我们必须运行它。
+So I guess the file, file the contents and then we have to run it.
+
+184
+00:11:16.520 --> 00:11:17.760
+用文件运行它。
+Run it with the file.
+
+185
+00:11:18.840 --> 00:11:20.190
+看看能不能通过。
+See if that passes.
+
+186
+00:11:20.190 --> 00:11:23.950
+它没有，可能有参数语法错误。
+It does not, probably have a argument syntax error.
+
+187
+00:11:23.950 --> 00:11:24.450
+我们走了。
+There we go.
+
+188
+00:11:26.660 --> 00:11:30.670
+几乎就在那里，在扩展上拆分未定义。
+And almost there, split of undefined on extension.
+
+189
+00:11:30.670 --> 00:11:33.680
+那么让我们看看那里发生了什么。
+So let's see what happened there.
+
+190
+00:11:33.680 --> 00:11:36.320
+扩展名获取文件，扩展名是什么样的？。
+Extension takes the file, what does extension look like?.
+
+191
+00:11:36.320 --> 00:11:39.160
+File.name.split，好的。
+File.name.split, all right.
+
+192
+00:11:39.160 --> 00:11:40.990
+每个文件都有一个名称。
+Each file has a name.
+
+193
+00:11:40.990 --> 00:11:42.190
+有人看到任何问题吗？
+Anybody see any issues?
+
+194
+00:11:43.540 --> 00:11:47.050
+我们反对将扩展名与这个扩展名进行映射。
+We're contra mapping the extension concacting it with this one.
+
+195
+00:11:47.050 --> 00:11:51.790
+所以在这里我关闭了 concat 并且我正在映射内容。
+So here I closed the concat and I'm conra mapping the contents.
+
+196
+00:11:51.790 --> 00:11:57.130
+如果我把它移到外面，现在它应该可以工作了。
+If I move this on the outside, now it should work.
+
+197
+00:11:57.130 --> 00:12:00.300
+所以让我们看一下，让我把这个稍微分解成那个。
+So let's take a look, allow me, just kind of break this down a little bit to that.
+
+198
+00:12:01.780 --> 00:12:05.820
+那么，我们看到我们有这个功能吗？
+So, are we seeing we have this function and
+
+199
+00:12:05.820 --> 00:12:09.290
+然后将它与该函数连接起来，然后我们运行它。
+then concatenate it with that function, and then we're running it.
+
+200
+00:12:09.290 --> 00:12:12.310
+我犯了一个错误，我可以将它与它连接起来
+I made a mistake where I can concated it with that and
+
+201
+00:12:12.310 --> 00:12:14.390
+然后反对映射整个事情。
+then contra map the whole thing.
+
+202
+00:12:14.390 --> 00:12:18.470
+因为每次我连接两个东西时，我都会得到一个新东西，对吧？
+Because every time I concat two things, I get a new thing back, right?
+
+203
+00:12:18.470 --> 00:12:24.250
+这实际上对建筑有很大的影响。
+This actually has big, big implications for architecture.
+
+204
+00:12:24.250 --> 00:12:28.644
+也就是说，如果你看一个正常的应用程序，
+Which is that if you look at a normal app that's normal,
+
+205
+00:12:28.644 --> 00:12:33.414
+一个典型的日常 JavaScript 应用程序或 Ruby 或 Java 或
+a typical everyday JavaScript application or Ruby or Java or
+
+206
+00:12:33.414 --> 00:12:39.508
+无论你想看什么，它都会有很多类型和很多值。
+whatever you want to look at, its gonna have a lot of types and a lot of values.
+
+207
+00:12:39.508 --> 00:12:43.205
+你最终会得到适配器和类型转换
+And you end up with adapters and type transformations and
+
+208
+00:12:43.205 --> 00:12:47.440
+你必须做很多事情才能把东西塞在一起。
+a lot of stuff that you have to do to kind of plug things together.
+
+209
+00:12:47.440 --> 00:12:51.950
+然而，他们只是喜欢很多片段，这是你保留的这种附加流
+And yet a lot of pieces they just kind of, it's this additive flow where you keep
+
+210
+00:12:51.950 --> 00:12:55.970
+向系统添加新的部分，然后你必须处理它们。
+adding new pieces to the system and then you kind of have to deal with them.
+
+211
+00:12:55.970 --> 00:13:00.920
+使用幺半群，你有一个片段，你只需将它们组合成同一个片段。
+With monoid, you have one piece and you just combine them into the same piece.
+
+212
+00:13:00.920 --> 00:13:05.918
+所以你不需要适配器，你只需不断组合，你就会得到一件事
+And so you don't need adapters, you just keep combining and you get one thing back
+
+213
+00:13:05.918 --> 00:13:11.350
+而不是这种复合物或将事物锁在一起的新类型。
+instead of this composite thing or new types that kind of latch things together.
+
+214
+00:13:11.350 --> 00:13:16.510
+所以，通过将我们的类型规范化为谓词并说我们要得到，
+So, by normalizing our types into predicates and saying we're gonna get,
+
+215
+00:13:16.510 --> 00:13:19.700
+提供一堆可比较的谓词，然后将它们组合起来。
+provide a bunch of compasable predicates and then combine them.
+
+216
+00:13:19.700 --> 00:13:22.440
+你没有在你的系统中引入任何新概念，
+You're not introducing any new concepts in your system,
+
+217
+00:13:22.440 --> 00:13:25.720
+你只是不断地把它粉碎成一件事。
+you're just continually smashing it back into one thing.
+
+218
+00:13:25.720 --> 00:13:31.630
+好的，是的，让我们在这里回顾一下我的小问题。
+Okay, yeah, let's take a look back at my little issue here.
+
+219
+00:13:31.630 --> 00:13:36.430
+我们只是尝试做，比方说，我想为 end 提供一个空字符串。
+We're just trying to do, let's say, I wanna provide endo with an empty string.
+
+220
+00:13:36.430 --> 00:13:38.840
+我很喜欢，坚持下去，对吧？
+I was very like, stuck on that, right?
+
+221
+00:13:38.840 --> 00:13:41.776
+我想，我，这些是字符串函数
+I was like, I, these are string functions and
+
+222
+00:13:41.776 --> 00:13:44.800
+我需要做空的end，我没有空的。
+I need to do empty endo and I didn't have empty.
+
+223
+00:13:44.800 --> 00:13:47.150
+那么为什么它不能使用空字符串呢？
+So why wouldn't it work with an empty string?
+
+224
+00:13:47.150 --> 00:13:51.597
+好吧，事实证明，endo 稍后会得到它的论点。
+Well, it turns out that endo gets its argument later.
+
+225
+00:13:51.597 --> 00:13:53.902
+Endo 是一个函数，当你调用 run 时，
+Endo was a function that when you call run,
+
+226
+00:13:53.902 --> 00:13:56.950
+那是它得到论证的时候，对吧？
+that's when it gets its argument, right?
+
+227
+00:13:56.950 --> 00:14:01.020
+和恒等函数，因为它是一个从相同类型到
+And the identity function, since it's a function from the same type to
+
+228
+00:14:01.020 --> 00:14:05.510
+同样的类型，这里又是恒等函数。
+the same type, here it is, again, identity function.
+
+229
+00:14:05.510 --> 00:14:06.970
+它派上用场了，对吧？
+It's coming in handy, right?
+
+230
+00:14:06.970 --> 00:14:10.000
+它说，好吧，好吧，我们就从你开始的地方开始
+And it says, okay, well, we'll just take what you started with and
+
+231
+00:14:10.000 --> 00:14:12.640
+使，有效地使空值。
+make, effectively make that the empty value.
+
+232
+00:14:13.660 --> 00:14:14.860
+所以后来才来。
+So it comes later.
+
+233
+00:14:14.860 --> 00:14:16.830
+这就是我被绊倒的地方。
+That's where I got little tripped up.
+
+234
+00:14:16.830 --> 00:14:19.070
+所以在那里，所以内空是完全没问题的。
+So there, so endo empty is totally fine.
+
+235
+00:14:19.070 --> 00:14:21.940
+它持有一个函数而不是一个空字符串。
+It's holding a function not an empty string.
+
+236
+00:14:21.940 --> 00:14:26.880
+所以，然后如果我们看看这一切，如果我跑的话，效果会很好
+So, and then if we look at all this, it works out just fine if I run
+
+237
+00:14:26.880 --> 00:14:32.360
+节点函数建模为零，我们得到了我们的Hello 东西。
+node function modeling zero, we get this our Hello thing.
+
+238
+00:14:32.360 --> 00:14:35.713
+稍后我将讨论这个问题，但是是的，完全有效。
+I'm gonna talk about this in a second but yeah, totally works.

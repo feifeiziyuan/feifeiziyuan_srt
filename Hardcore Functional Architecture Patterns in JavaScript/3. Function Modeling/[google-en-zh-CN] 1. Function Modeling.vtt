@@ -1,0 +1,606 @@
+WEBVTT
+
+1
+00:00:00.012 --> 00:00:02.470
+我们将谈谈函数建模。
+We're gonna talk a little bit about function modeling.
+
+2
+00:00:02.470 --> 00:00:05.350
+让我们跳到函数上。
+Let's hop over to functions.
+
+3
+00:00:06.720 --> 00:00:09.390
+嘟嘟嘟嘟嘟嘟。
+Doo doo doo doo doo doo.
+
+4
+00:00:09.390 --> 00:00:11.210
+让我们看看如何让自己开始。
+Let's see what to get myself to start.
+
+5
+00:00:11.210 --> 00:00:11.830
+谢谢你，布莱恩。
+Thank you, Brian.
+
+6
+00:00:11.830 --> 00:00:15.576
+从一无所有开始真是太好了。
+That's very nice to start off with nothing.
+
+7
+00:00:15.576 --> 00:00:20.940
+好的，所以 [笑] 所以我们只是用验证进行了函数建模。
+Okay, so [LAUGH] so we just did function modeling with validations.
+
+8
+00:00:20.940 --> 00:00:22.630
+有人抓到了吗？
+Did anybody catch that?
+
+9
+00:00:22.630 --> 00:00:27.090
+我们说，我要去，而不是建模一种数据，
+We said, I'm going to, instead of modeling a type of data and
+
+10
+00:00:27.090 --> 00:00:30.410
+该类型中的数据，我要建模一个函数。
+the data inside that type, I'm gonna model a function.
+
+11
+00:00:30.410 --> 00:00:34.720
+我们将其称为运行，然后我们就可以组合功能。
+We're gonna call it run, and then we're able to combine functions.
+
+12
+00:00:35.920 --> 00:00:37.560
+所以让我们多谈一点。
+So let's talk about that a little bit more.
+
+13
+00:00:37.560 --> 00:00:42.740
+给自己一些函数，我最喜欢的，toUpper，其实我应该
+Let's give ourself some functions, my favorite ones, toUpper, actually I should
+
+14
+00:00:42.740 --> 00:00:47.865
+可能只是引入了 rammed 或其他东西，但没关系，x 到大写。
+probably just bring in rammed or something but it's fine, x to UpperCase.
+
+15
+00:00:48.890 --> 00:00:55.083
+好吧，其他最喜欢的函数惊呼我们只做 x concat，
+All right, and other favorite function exclaimed we'll just do x concat,
+
+16
+00:00:55.083 --> 00:00:59.346
+[笑] 我们走了。
+[LAUGH] there we go.
+
+17
+00:00:59.346 --> 00:01:03.713
+然后让我们看看还有什么，应该没问题。
+And then let's see what else, should be fine.
+
+18
+00:01:03.713 --> 00:01:09.803
+好的，所以我们在这里尝试做的是使用这些函数
+Okay, so what we're trying to do here is take these functions and
+
+19
+00:01:09.803 --> 00:01:16.240
+假设我想组合它们并以不同的方式组合它们。
+let's say I want to combine them and compose them in different ways.
+
+20
+00:01:16.240 --> 00:01:19.210
+我想为它们建模并与它们一起做有趣的事情。
+I want to model them and do interesting things with them.
+
+21
+00:01:19.210 --> 00:01:21.490
+函数没有给你任何关于它的方法。
+Function doesn't give you any methods on it.
+
+22
+00:01:21.490 --> 00:01:23.490
+所以我们实际上可以做的是 make 函数。
+So what we could do is actually make function.
+
+23
+00:01:24.600 --> 00:01:32.190
+这需要一些，我将称之为运行和运行，我们将公开它。
+And that takes some, which I'm gonna call run and run we'll expose that.
+
+24
+00:01:32.190 --> 00:01:34.320
+所以我们实际上可以运行它。
+So we can actually run it.
+
+25
+00:01:34.320 --> 00:01:36.580
+让我们从做一个 concat 开始。
+Let's just start by doing a concat.
+
+26
+00:01:36.580 --> 00:01:38.050
+因为我们刚刚使用过幺半群。
+Because we've just worked with monoids.
+
+27
+00:01:38.050 --> 00:01:39.510
+我们刚刚从那开始。
+We're just fresh from that.
+
+28
+00:01:39.510 --> 00:01:44.540
+所以如果我想连接两个函数，我该怎么做？
+So if I want to concat two functions, how would I do that?
+
+29
+00:01:44.540 --> 00:01:46.730
+嗯，我还有一个功能。
+Well, I have another function.
+
+30
+00:01:46.730 --> 00:01:49.310
+我会打电话给 other.run。
+And I'll call other.run.
+
+31
+00:01:49.310 --> 00:01:51.220
+我知道我跑了。
+And I know I have my run.
+
+32
+00:01:51.220 --> 00:01:55.140
+我必须运行该函数以获取值。
+And I have to run the function to get the value out.
+
+33
+00:01:55.140 --> 00:01:58.570
+然后我连接另一个给我的值，对吗？
+And then I concat the value that the other one gave me, right?
+
+34
+00:01:59.735 --> 00:02:01.861
+但它必须关闭，我必须返回新函数，
+But it have to be closed, I have to return new function,
+
+35
+00:02:01.861 --> 00:02:04.185
+如果我组合两个函数，我必须返回一个函数。
+if I'm combining two functions I have to return a function.
+
+36
+00:02:04.185 --> 00:02:06.765
+所以我们将从那里开始，我们将从功能开始。
+So we'll start there, we'll start with function.
+
+37
+00:02:06.765 --> 00:02:09.615
+嘿，看，函数需要一个参数。
+And hey, look, function takes an argument.
+
+38
+00:02:09.615 --> 00:02:10.743
+现在突然有了一个x，
+Now all of a sudden have an x,
+
+39
+00:02:10.743 --> 00:02:14.845
+不知从哪儿冒出来的，我们现在只有一个 x，是不是很整洁？
+out of nowhere, we just have an x now, isn't that neat?
+
+40
+00:02:14.845 --> 00:02:16.275
+我明白了。
+I get that passed in.
+
+41
+00:02:16.275 --> 00:02:18.830
+所以现在我可以用 x 运行我的另一个。
+So now I can run my other one with x.
+
+42
+00:02:18.830 --> 00:02:22.950
+用 x 记住我的函数，我可以连接结果。
+Remember my function with x, and I can concat the results.
+
+43
+00:02:24.640 --> 00:02:25.440
+太棒了。
+That is cool.
+
+44
+00:02:25.440 --> 00:02:26.640
+有人对此有任何疑问吗？
+Does anybody have any questions on that?
+
+45
+00:02:26.640 --> 00:02:29.070
+这正是我们刚刚对验证所做的。
+That's exactly what we just did with validations.
+
+46
+00:02:30.540 --> 00:02:34.680
+有趣的是连接
+And what's interesting about this is concating
+
+47
+00:02:34.680 --> 00:02:38.670
+两个函数说我有两个盒子。
+two functions says I have two boxes.
+
+48
+00:02:38.670 --> 00:02:42.135
+你可以把函数看作一个因素，我认为我们可以正式地把它变成一个因素，
+You can think of functions as a factor, I think we can formally make it a factor,
+
+49
+00:02:42.135 --> 00:02:42.880
+让我们这样做。
+let's do that.
+
+50
+00:02:44.070 --> 00:02:47.130
+现在，让我们将 f 映射到我们的函数上。
+Now, let's map f over our function.
+
+51
+00:02:47.130 --> 00:02:53.025
+所以你总是把它放回盒子里，得到一个 x，在 x 上运行它，我们得到一个值。
+So you always keep it back in the box, get an x, run it on the x, we get a value.
+
+52
+00:02:53.025 --> 00:02:54.890
+我们对该值运行 f 。
+And we run f on that value.
+
+53
+00:02:56.270 --> 00:02:58.140
+现在我们有了一个因素，对吧？
+And now we have a factor, right?
+
+54
+00:02:58.140 --> 00:03:02.690
+Run 会返回一个值，你可以把它想象成一个盒子
+Run is gonna return us a value, function you can think of as a box holding
+
+55
+00:03:02.690 --> 00:03:06.200
+一个值，您必须运行它来获取该值，然后我们对其运行 f。
+a value and you have to run it to get the value and then we run f on it.
+
+56
+00:03:07.260 --> 00:03:12.070
+所以我要去的地方是我们有
+So where I was going with that is is we have
+
+57
+00:03:12.070 --> 00:03:17.470
+这些组合函数的方式，map只是一个函数的组合。
+these ways to combine functions, map is just a composition on a function.
+
+58
+00:03:17.470 --> 00:03:20.420
+concat 说两者都运行，然后合并结果。
+And concat says run both and then combine the results.
+
+59
+00:03:20.420 --> 00:03:24.190
+我拿着这个东西，就像直觉告诉所有其他人一样
+I'm holding this thing and just like the intuition says from all the other
+
+60
+00:03:24.190 --> 00:03:29.960
+例如，我会打开我的盒子并连接里面的东西。
+examples, I'll open up my box and concat what's inside.
+
+61
+00:03:29.960 --> 00:03:34.040
+所以，当我们谈论函数时，盒子示例有点崩溃，因为
+So, the box example kind of breaks down when we're talking about functions because
+
+62
+00:03:34.040 --> 00:03:38.610
+你并没有真正将函数视为一个盒子，但我猜你可以。
+you don't really think of functions as a box but, you can I guess.
+
+63
+00:03:38.610 --> 00:03:41.720
+所以让我们对 upper 和
+So let's do function to upper and
+
+64
+00:03:41.720 --> 00:03:46.440
+我们将把它和它的函数 exclaim 结合起来。
+we'll concat that with its function exclaim.
+
+65
+00:03:50.070 --> 00:03:50.930
+好的，太好了。
+All right, great.
+
+66
+00:03:50.930 --> 00:03:57.507
+然后我们将使用 fp sux 运行它。
+And then we'll run that with a fp sux.
+
+67
+00:03:57.507 --> 00:03:58.679
+好吧[笑]。
+All right [LAUGH].
+
+68
+00:03:58.679 --> 00:04:05.990
+好吧，没有函数建模零。
+All right, no function modelling zero.
+
+69
+00:04:05.990 --> 00:04:10.310
+好的，那么这里发生了什么？
+Okay, so what happened here?
+
+70
+00:04:10.310 --> 00:04:14.290
+第一个 UpperCase 它返回一个字符串。
+The first one UpperCase it returned a string.
+
+71
+00:04:14.290 --> 00:04:18.344
+由于字符串是一个半群或一个幺半群，我们将它连接起来。
+And since strings a semigroup or a monoid, we concat it.
+
+72
+00:04:18.344 --> 00:04:23.410
+我们将它与运行另一个的结果连接起来。
+We concatt it with the result of running the other one.
+
+73
+00:04:23.410 --> 00:04:24.480
+有趣的。
+Interesting.
+
+74
+00:04:24.480 --> 00:04:27.730
+所以我们已经运行了两个函数并且我们已经整理了结果。
+So we've run two functions and we've concacted the results.
+
+75
+00:04:29.002 --> 00:04:33.290
+我可以做一些我们把它们放在一个数组中的事情
+I could do something where we put them in an arrays and
+
+76
+00:04:33.290 --> 00:04:37.310
+我们会得到结果的数组等等。
+we'll get the arrays of the results and so on.
+
+77
+00:04:38.800 --> 00:04:43.590
+但这开始形成我们所谓的读者单子的基础。
+But this is starting to form the basis of what we call the reader monad.
+
+78
+00:04:43.590 --> 00:04:51.070
+我们实际上是在对一个函数本身进行建模，如果我们对其进行映射，让我们这样做。
+We're actually modeling a function itself and if we map over it, let's do this.
+
+79
+00:04:51.070 --> 00:04:56.140
+让我们映射结果，现在这个拉号是多少，对吧？
+Let's map over the result, which is this pull number now, right?
+
+80
+00:04:56.140 --> 00:05:03.590
+然后我们无论如何，从前几片中切下一片，三片。
+And then we'll whatever, take a slice of the first couple slice, three.
+
+81
+00:05:03.590 --> 00:05:04.691
+那样有用吗？
+Does that work?
+
+82
+00:05:07.394 --> 00:05:09.140
+好吧，酷。
+All right, cool.
+
+83
+00:05:09.140 --> 00:05:13.220
+所以我们能够映射结合这两个函数的结果。
+So we're able to map over the result of combining these two functions.
+
+84
+00:05:14.320 --> 00:05:16.885
+然后，我们运行它。
+And then, we run it on that.
+
+85
+00:05:16.885 --> 00:05:18.380
+那么，它是什么？
+So, what is it?
+
+86
+00:05:18.380 --> 00:05:22.160
+使函数成为 monad 是什么意思？
+What does it mean to make function a monad?
+
+87
+00:05:22.160 --> 00:05:24.740
+那意味着什么？
+What would that mean?
+
+88
+00:05:24.740 --> 00:05:27.310
+单子谈论嵌套，对吧？
+Monads talk about nesting, right?
+
+89
+00:05:27.310 --> 00:05:31.620
+所以我们会说，我在一个函数中有一个函数，对吗？
+So we'd say, I have a function within a function, right?
+
+90
+00:05:33.500 --> 00:05:36.937
+每个函数都有一些参数，对，这需要一个 y。
+Each function takes some argument, right, and this takes a y.
+
+91
+00:05:36.937 --> 00:05:40.670
+我们现在这里有一个 x 和 ay。
+We have an x and a y here now.
+
+92
+00:05:40.670 --> 00:05:44.220
+我们想将这两个扁平化为一个函数。
+We wanna flatten these two into one function.
+
+93
+00:05:44.220 --> 00:05:45.530
+这就是 monad 所做的。
+That's what monads do.
+
+94
+00:05:46.810 --> 00:05:49.350
+所以，让我们写吧。
+So, let's write that.
+
+95
+00:05:49.350 --> 00:05:50.380
+看看这里发生了什么。
+See what happens here.
+
+96
+00:05:50.380 --> 00:05:53.790
+所以我们有链到链 F。
+So we have chain to chain F.
+
+97
+00:05:53.790 --> 00:06:01.980
+将会发生的是我们需要在外部返回一个函数。
+And what's gonna happen is we need to return a function on the outside.
+
+98
+00:06:01.980 --> 00:06:07.770
+这样做的原因很好，我们可以看看，如果我刚刚决定
+And the reason for that is well, we could just see, if I just decided
+
+99
+00:06:07.770 --> 00:06:13.850
+要运行我的函数，我什至没有 x 来运行它。
+to run my function, I don't even have an x to run it with.
+
+100
+00:06:13.850 --> 00:06:14.855
+那行不通。
+That doesn't work.
+
+101
+00:06:14.855 --> 00:06:20.663
+[笑] 所以我必须首先说好的，但功能需要一个 x，对。
+[LAUGH] So I have to start by saying okay, but function it's gonna take an x, right.
+
+102
+00:06:20.663 --> 00:06:22.898
+然后我将使用 x 运行我的函数。
+And then I'll run my function with the x.
+
+103
+00:06:22.898 --> 00:06:27.724
+我们说好的，就像地图一样，
+And we are saying okay, just like map,
+
+104
+00:06:27.724 --> 00:06:31.900
+我想打电话给 f，对。
+I want to call f on that, right.
+
+105
+00:06:31.900 --> 00:06:35.490
+将运行我的函数的值传递给下一个函数。
+Pass the value of running my function into the next function.
+
+106
+00:06:35.490 --> 00:06:40.440
+在我们进一步了解它的含义之前，这可能会有所帮助。
+Maybe it's helpful before we go any further to see what it means.
+
+107
+00:06:40.440 --> 00:06:45.590
+所以假设我要使用另一个函数链接到 upper，所以
+So let's say I am going to chain to upper with another function, so
+
+108
+00:06:45.590 --> 00:06:51.470
+我们得到我们的 UpperCase upper，然后我要返回另一个函数，对吧？
+we get our UpperCase upper, and then I'm gonna return another function, right?
+
+109
+00:06:51.470 --> 00:06:57.210
+那确实惊呼，哎呀，我在鞋面上拼错了。
+That does exclaim on, oops, I spelled it wrong on the upper.
+
+110
+00:06:58.240 --> 00:07:01.740
+让我们看看，这需要
+And let's see, this takes a y and
+
+111
+00:07:01.740 --> 00:07:04.640
+我想它现在对它没有任何作用。
+I guess it just doesn't do anything with it right now.
+
+112
+00:07:04.640 --> 00:07:06.300
+我们会弄清楚如何处理这个 y 但是
+We'll figure out what to do with this y but
+
+113
+00:07:06.300 --> 00:07:09.330
+我们还有另一个论点，这就是重点。
+we have another argument, that's kind of the point.
+
+114
+00:07:09.330 --> 00:07:12.270
+我们只是凭空而来。
+We just have this y out of nowhere.
+
+115
+00:07:12.270 --> 00:07:16.466
+所以让我们让它工作，然后我们会看看这里发生了什么。
+So let's get this to work and then we'll kind of look at what's happening here.
+
+116
+00:07:16.466 --> 00:07:21.360
+这么高，好吧，所以
+So high, all right, so
+
+117
+00:07:21.360 --> 00:07:25.050
+我们在这件事上，我们运行了这个函数，我们得到了另一个函数，然后
+we're in this thing, we ran the function, we got another function out and
+
+118
+00:07:25.050 --> 00:07:29.440
+我们现在必须运行那个函数，对吗？
+we actually have to run that function now, right?
+
+119
+00:07:29.440 --> 00:07:33.900
+再次说出 x，看看那里会发生什么。
+With, say the x again and see what happens there.
+
+120
+00:07:35.190 --> 00:07:37.100
+所以让我们继续玩这个游戏。
+So let's go ahead and play through this one.
+
+121
+00:07:37.100 --> 00:07:40.980
+看看会发生什么，我们就会变得很酷，
+See what happens and we get high cool,

@@ -1,0 +1,885 @@
+1
+00:00:00,300 --> 00:00:01,900
+所以我们正在取得良好的进展
+so we're making good progress
+
+2
+00:00:01,900 --> 00:00:03,733
+但是我们的服务器还是有点笨
+but our server's still kind of dumb
+
+3
+00:00:03,900 --> 00:00:05,633
+毕竟它只能处理一个请求
+after all it can only handle one request
+
+4
+00:00:05,733 --> 00:00:07,500
+好吧，让我们创建第二个请求
+well let's create a second request
+
+5
+00:00:07,500 --> 00:00:09,166
+我在想这个可能是
+I was thinking this one could be for
+
+6
+00:00:09,166 --> 00:00:11,266
+只是我们野生动物保护区的熊
+just the bears at our wildlife refuge
+
+7
+00:00:11,333 --> 00:00:12,500
+哦，听起来很有趣
+oh that sounds like fun
+
+8
+00:00:13,000 --> 00:00:14,266
+现在在我们这样做之前
+now before we do that
+
+9
+00:00:14,466 --> 00:00:16,233
+让我们打印出请求
+let's print out the request
+
+10
+00:00:16,266 --> 00:00:17,866
+所以我们可以看到它的样子
+so we can see what it looks like
+
+11
+00:00:18,066 --> 00:00:19,300
+在它被路由之前
+before it gets routed
+
+12
+00:00:19,700 --> 00:00:20,533
+所以我们想添加一些
+so we want to add some
+
+13
+00:00:20,533 --> 00:00:22,500
+登录管道，它将是
+logging into the pipeline and it's going to be
+
+14
+00:00:22,500 --> 00:00:23,100
+在零件之后
+after the parts
+
+15
+00:00:23,100 --> 00:00:25,733
+但在路线之前，所以我们将在这里添加一个步骤
+but before the route so we'll just add a step here
+
+16
+00:00:25,866 --> 00:00:27,500
+我要调用函数日志
+and I'm going to call the function log
+
+17
+00:00:28,000 --> 00:00:29,500
+这条管道有什么了不起的
+what's cool about this pipeline
+
+18
+00:00:29,500 --> 00:00:30,866
+设计是我们可以插入
+design is we can plug in
+
+19
+00:00:30,966 --> 00:00:33,000
+任何需要对话图的函数
+any function that takes a conversation map
+
+20
+00:00:33,000 --> 00:00:34,733
+并返回一个对话地图
+and returns a conversation map
+
+21
+00:00:35,066 --> 00:00:36,500
+那么我们可以定义日志
+so then we can define log
+
+22
+00:00:36,966 --> 00:00:37,966
+把它放在这里
+just put it right here
+
+23
+00:00:38,766 --> 00:00:40,733
+这将需要一张 con 地图
+it's going to take a co n map
+
+24
+00:00:40,833 --> 00:00:42,533
+它也必须返回一个
+it's going to have to return one as well
+
+25
+00:00:42,533 --> 00:00:43,766
+在那个管道中工作
+to work in that pipeline
+
+26
+00:00:44,033 --> 00:00:46,133
+然后在这里我将使用 io inspect
+and then right here I'm going to use io inspect
+
+27
+00:00:46,133 --> 00:00:47,333
+我们想打印一张地图
+we want to print out a map
+
+28
+00:00:47,333 --> 00:00:49,833
+所以我将使用检查而不是使用 put us
+so instead of using put us I'm going to use inspect
+
+29
+00:00:50,133 --> 00:00:51,766
+我们想检查那张地图
+and we want to inspect that map
+
+30
+00:00:52,333 --> 00:00:54,666
+现在这将起作用，但我们可以使它更简洁
+now this will work but we can make it more concise
+
+31
+00:00:54,833 --> 00:00:57,633
+因为检查打印数据结构和
+because inspect prints the data structure and
+
+32
+00:00:57,900 --> 00:01:01,233
+还返回给定的数据结构不变
+also returns the given data structure unchanged
+
+33
+00:01:01,433 --> 00:01:03,633
+正因为如此，我们可以删除这条线
+and because of that we could remove this line
+
+34
+00:01:03,633 --> 00:01:05,033
+现在我们只剩下一个
+and now we're just left with a
+
+35
+00:01:05,033 --> 00:01:07,566
+这里有单行函数，还有更简洁的
+single line function here and there's a more concise
+
+36
+00:01:07,566 --> 00:01:09,100
+表示单身的方式
+way to represent single
+
+37
+00:01:09,100 --> 00:01:11,433
+将逗号放在此处的行函数
+line functions that's to put a comma here
+
+38
+00:01:11,966 --> 00:01:13,233
+做后冒号
+a colon after do
+
+39
+00:01:13,466 --> 00:01:15,366
+那么我们可以在这里提出这个
+then we can just bring this up here
+
+40
+00:01:15,933 --> 00:01:17,066
+然后摆脱结束
+and then get rid of the end
+
+41
+00:01:17,400 --> 00:01:19,533
+那么如果我们保存并运行它
+then if we save this and run it well
+
+42
+00:01:19,533 --> 00:01:20,466
+我们注意到我们有
+we notice we've got
+
+43
+00:01:20,466 --> 00:01:22,833
+我们的地图正在打印出来
+a representation of our map being printed out
+
+44
+00:01:22,966 --> 00:01:25,033
+在我们看到回复之前就在这里，所以我们
+right here before we see the response so we
+
+45
+00:01:25,100 --> 00:01:26,533
+看看我们收到了什么请求
+see what we're getting in as a request
+
+46
+00:01:27,200 --> 00:01:29,533
+所以让我们处理另一个获取请求
+so let's handle another get request
+
+47
+00:01:29,533 --> 00:01:31,166
+所以让我们拿我们拥有的那个
+so let's take the one we have
+
+48
+00:01:31,166 --> 00:01:33,833
+并将其更改为斜线熊
+and change it for slash bears
+
+49
+00:01:34,366 --> 00:01:36,133
+好的，我会接受我们的请求
+okay I'm just going to take the request we have
+
+50
+00:01:36,133 --> 00:01:36,966
+和所有这些东西
+and all this stuff
+
+51
+00:01:36,966 --> 00:01:38,600
+我现在只是复制它
+and I'm just going to copy it for now
+
+52
+00:01:38,966 --> 00:01:42,066
+我们会将请求从野生动物改为熊
+and we'll change the request from wild things to bears
+
+53
+00:01:43,000 --> 00:01:44,733
+但是如果我们现在运行它
+but if we run it now
+
+54
+00:01:45,500 --> 00:01:48,033
+好吧，我们之前得到了相同的响应
+well we get the same response before
+
+55
+00:01:48,133 --> 00:01:50,933
+因为我们的路由函数当前返回
+because our route function currently returns
+
+56
+00:01:51,066 --> 00:01:52,333
+只有一个回应
+only one response
+
+57
+00:01:52,400 --> 00:01:55,166
+是的，这两个都是回归熊狮子和老虎
+yeah both of these are returning bears lions and tigers
+
+58
+00:01:55,600 --> 00:01:57,333
+所以要解决这个问题，我们只需看看我们的
+so to fix that we'll just look at our
+
+59
+00:01:57,433 --> 00:01:58,733
+路由功能在这里
+route function here
+
+60
+00:01:58,733 --> 00:02:00,933
+传统的解决方案是使用
+and a conventional solution would be to use
+
+61
+00:02:00,933 --> 00:02:01,933
+一个 if 语句
+an if statement
+
+62
+00:02:02,300 --> 00:02:03,533
+长生不老药它看起来像这样
+elixir it looks like this
+
+63
+00:02:03,900 --> 00:02:05,333
+if do else end
+if do else end
+
+64
+00:02:05,633 --> 00:02:07,166
+这里没有什么令人惊讶的
+nothing really surprising here
+
+65
+00:02:07,500 --> 00:02:11,000
+所以我们可以看看 co 和 v 它有一个路径键
+so we could look at the co and v it has a path key
+
+66
+00:02:11,266 --> 00:02:14,233
+我们会说这是否等于狂野的东西
+we'll say if that equals wild things
+
+67
+00:02:14,866 --> 00:02:17,000
+那么我们想返回这张地图
+well then we want to return this map
+
+68
+00:02:18,733 --> 00:02:22,166
+否则我们会收到只熊的请求
+otherwise we're getting a request for just bears
+
+69
+00:02:22,166 --> 00:02:24,700
+所以我们会返回一个熊的列表，就像
+so we'll return a list of bears which would be like
+
+70
+00:02:24,966 --> 00:02:28,233
+泰迪烟熏和帕丁顿
+teddy smoky and paddington
+
+71
+00:02:29,133 --> 00:02:30,366
+如果我们运行良好
+and if we run it well
+
+72
+00:02:30,366 --> 00:02:32,000
+这适用于我们的第一个请求
+that works for our first request we
+
+73
+00:02:32,000 --> 00:02:33,533
+取回熊线和老虎
+get back bears lines and tigers
+
+74
+00:02:33,533 --> 00:02:35,000
+因为我们要求狂野的东西
+because we're requesting wild things
+
+75
+00:02:35,000 --> 00:02:36,433
+当我们要求熊
+when we request bears
+
+76
+00:02:36,433 --> 00:02:38,666
+我们回来了泰迪吸烟帕丁顿
+we get back teddy smoking paddington
+
+77
+00:02:38,966 --> 00:02:40,333
+但在长生不老药中你不使用
+but in elixir you don't use
+
+78
+00:02:40,333 --> 00:02:42,000
+如果条件和你一样频繁
+if conditionals as often as you would
+
+79
+00:02:42,000 --> 00:02:44,100
+在命令式语言中，例如 ruby
+in imperative languages such as ruby
+
+80
+00:02:44,333 --> 00:02:45,133
+反而
+instead
+
+81
+00:02:45,133 --> 00:02:48,300
+控制程序的流程更加地道
+it's more idiomatic to control the flow of the program
+
+82
+00:02:48,400 --> 00:02:50,566
+使用模式匹配和函数
+using pattern matching and functions
+
+83
+00:02:50,966 --> 00:02:52,733
+在这种情况下，我们可以使用模式匹配
+in this case we can use pattern matching
+
+84
+00:02:52,733 --> 00:02:54,333
+匹配传入的请求
+to match incoming requests
+
+85
+00:02:54,333 --> 00:02:56,100
+并运行适当的功能
+and run an appropriate function
+
+86
+00:02:56,233 --> 00:02:58,033
+填写响应正文
+to fill in the response body
+
+87
+00:02:58,200 --> 00:03:00,700
+所以我们将有一个名为 route 的函数
+so we'll have a function called route
+
+88
+00:03:00,833 --> 00:03:01,633
+这需要
+it's going to take
+
+89
+00:03:01,633 --> 00:03:04,300
+a co 和 v 作为第一个参数，我们需要它
+a co and v as the first argument and we need that
+
+90
+00:03:04,300 --> 00:03:06,366
+这样我们就可以更新响应正文
+so that we can update the response body
+
+91
+00:03:06,600 --> 00:03:07,966
+然后它会走上这条路
+and then it's going to take in the path
+
+92
+00:03:07,966 --> 00:03:10,166
+在这种情况下，这将是野生的
+in this case this one will be for wild things
+
+93
+00:03:11,000 --> 00:03:12,533
+当该函数运行时
+and when that function gets run
+
+94
+00:03:12,533 --> 00:03:14,533
+当我们想要返回这张地图时
+while we want to return this map
+
+95
+00:03:16,433 --> 00:03:18,766
+然后我们将定义第二个路由函数
+then we'll define a second route function
+
+96
+00:03:19,733 --> 00:03:21,333
+这个也会拿地图
+this one will also take the map
+
+97
+00:03:21,333 --> 00:03:24,333
+但它会有熊的路径
+but it will have the path of bears
+
+98
+00:03:24,700 --> 00:03:25,800
+以及何时运行该功能
+and when that function is run
+
+99
+00:03:25,800 --> 00:03:27,333
+我们想返回这张地图
+we want to return this map
+
+100
+00:03:29,200 --> 00:03:32,833
+所以我们有两个同名的函数定义
+so we have two function definitions with the same name
+
+101
+00:03:32,833 --> 00:03:34,433
+和相同数量的参数
+and the same number of arguments
+
+102
+00:03:34,433 --> 00:03:35,966
+在这种情况下，两个参数
+in this case two arguments
+
+103
+00:03:36,100 --> 00:03:37,433
+用长生不老药的说法
+and in elixir parlance
+
+104
+00:03:37,600 --> 00:03:40,400
+我们将这些称为函数子句
+we refer to these as function clauses
+
+105
+00:03:40,600 --> 00:03:42,700
+如果一个函数有多个子句
+and if a function has several clauses
+
+106
+00:03:42,700 --> 00:03:43,866
+灵药会尝试
+elixir will try
+
+107
+00:03:43,866 --> 00:03:46,366
+每个子句，直到找到匹配的子句
+each clause until it finds one that matches
+
+108
+00:03:46,900 --> 00:03:50,000
+现在这些函数有两个参数
+now these functions take two arguments
+
+109
+00:03:50,000 --> 00:03:54,033
+但在管道路线中通过了一个参数
+but in the pipeline route gets past a single argument
+
+110
+00:03:54,066 --> 00:03:57,200
+对了，这就是这里的功能
+con right and that's this function here it
+
+111
+00:03:57,200 --> 00:03:59,366
+有一个 co 和 v 所以的能力
+has an ability of one co and v so
+
+112
+00:03:59,500 --> 00:04:00,766
+在这里我们不想这样做
+inside of here we don't want to do this
+
+113
+00:04:00,766 --> 00:04:03,400
+我们已经在函数子句中表示了这一点
+we've got this represented in our function clauses
+
+114
+00:04:03,566 --> 00:04:06,800
+所以我们需要做的就是利用这个附庸风雅的功能
+so what we need to do is take this one arty function
+
+115
+00:04:06,866 --> 00:04:08,433
+并调用路由方法
+and call a route method
+
+116
+00:04:08,433 --> 00:04:10,833
+需要两个参数或具有两个能力
+that takes two arguments or has an ability of two
+
+117
+00:04:11,033 --> 00:04:12,866
+所以我们将传递 conv
+so we'll just pass along conv
+
+118
+00:04:13,033 --> 00:04:15,933
+我们还将通过 conv 路径
+and we'll also pass along conv path
+
+119
+00:04:16,400 --> 00:04:17,900
+所以我们有一个艺术功能
+so we've got a one arty function
+
+120
+00:04:17,900 --> 00:04:19,700
+调用两个能力函数
+calling a two ability function
+
+121
+00:04:19,866 --> 00:04:21,866
+当这两个能力函数被调用时
+and when that two ability function is called
+
+122
+00:04:21,866 --> 00:04:23,066
+长生不老药将运行
+elixir will run
+
+123
+00:04:23,166 --> 00:04:26,500
+第一个匹配该模式的函数子句
+the first function clause that matches that pattern
+
+124
+00:04:26,900 --> 00:04:28,333
+所以模式匹配适用
+so pattern matching applies
+
+125
+00:04:28,533 --> 00:04:30,900
+任何时候我们需要将值绑定到变量
+anytime we need to bind values to variables
+
+126
+00:04:30,900 --> 00:04:32,866
+例如调用函数时
+for example when calling a function
+
+127
+00:04:32,966 --> 00:04:34,633
+并将参数传递给它
+and passing arguments to it
+
+128
+00:04:34,933 --> 00:04:36,866
+所以我们要这样调用这个函数
+so we're going to call this function like this
+
+129
+00:04:36,966 --> 00:04:38,900
+co 和 v 将匹配
+co and v is going to match that
+
+130
+00:04:39,300 --> 00:04:41,933
+然后无论路径的文字值是什么
+and then whatever the literal value of the path is
+
+131
+00:04:42,033 --> 00:04:44,166
+我们将在那里匹配第二个参数
+we'll match the second parameter there
+
+132
+00:04:44,166 --> 00:04:46,466
+所以它将对这些字符串进行模式匹配
+so it's going to do pattern matching on those strings
+
+133
+00:04:47,000 --> 00:04:47,866
+它是否有效
+and does it work
+
+134
+00:04:48,466 --> 00:04:49,866
+如果我们运行它，我们会得到泰迪熊
+if we run it we get teddy
+
+135
+00:04:49,866 --> 00:04:52,266
+smoky 和 paddington 的第二个请求和熊
+smoky and paddington for the second request and bears
+
+136
+00:04:52,266 --> 00:04:53,233
+狮子和老虎
+lions and tigers
+
+137
+00:04:54,000 --> 00:04:58,033
+现在 http 请求由它们的路径唯一标识
+now http requests are uniquely identified by their path
+
+138
+00:04:58,066 --> 00:04:59,233
+和他们的方法
+and their method
+
+139
+00:04:59,433 --> 00:05:02,400
+得到帖子等，所以让我们改变
+get post etc so let's change
+
+140
+00:05:02,400 --> 00:05:04,800
+function 子句也包含方法
+the function clause to include the method too
+
+141
+00:05:05,366 --> 00:05:07,900
+是的，我们将方法作为第二个参数
+yeah we'll put the method as the second argument
+
+142
+00:05:08,033 --> 00:05:09,333
+所以这些是begets
+so these are begets
+
+143
+00:05:10,733 --> 00:05:12,033
+把那个也放在这里
+put that one down here as well
+
+144
+00:05:12,566 --> 00:05:14,966
+所以现在这些功能有三个能力
+so now these functions have an ability of three
+
+145
+00:05:15,233 --> 00:05:17,533
+所以当我们在这里调用它时，我们需要
+so when we call it here we need to
+
+146
+00:05:17,533 --> 00:05:20,400
+也通过安慰法
+also pass the comfort method
+
+147
+00:05:20,833 --> 00:05:22,966
+所以现在我们有一个艺术函数调用
+so now we have a one arty function calling a
+
+148
+00:05:22,966 --> 00:05:24,100
+三艺功能
+three arty function
+
+149
+00:05:24,733 --> 00:05:25,566
+所以我们很顺利
+so we're on a roll
+
+150
+00:05:25,566 --> 00:05:29,133
+让我们为大脚尝试第三个请求
+let's try a third request this one for bigfoot
+
+151
+00:05:29,566 --> 00:05:31,566
+好吧，我只是再把这些复制到这里
+all right I'm just going to copy these down here again
+
+152
+00:05:31,566 --> 00:05:32,833
+我们稍后会清理一下
+we'll clean this up a little bit later
+
+153
+00:05:32,833 --> 00:05:34,200
+但现在我们只是在滚动
+but for now we're just on a roll
+
+154
+00:05:34,200 --> 00:05:34,900
+所以我们要
+so we're going to
+
+155
+00:05:34,900 --> 00:05:35,833
+继续这个
+keep going with this
+
+156
+00:05:36,200 --> 00:05:39,033
+而不是熊，我有一个大脚怪的要求
+instead of bears I've got a request for bigfoot
+
+157
+00:05:39,633 --> 00:05:42,033
+现在我们知道我们没有一个函数子句
+now we know we don't have a function clause that
+
+158
+00:05:42,033 --> 00:05:43,533
+匹配此请求
+matches this request
+
+159
+00:05:43,733 --> 00:05:45,200
+所以会发生什么
+so what's going to happen
+
+160
+00:05:46,033 --> 00:05:48,933
+好吧，当我们运行它时，我们得到一个错误，说没有功能
+well when we run it we get an error says no function
+
+161
+00:05:48,933 --> 00:05:50,166
+爪匹配
+claws matching
+
+162
+00:05:50,666 --> 00:05:53,633
+路线三，我们看到路径是
+route three and we see that the path is
+
+163
+00:05:54,400 --> 00:05:58,333
+bigfoot so elixir 试图找到一个匹配的函数
+bigfoot so elixir tried to find a matching function
+
+164
+00:05:58,700 --> 00:05:59,733
+但它不存在
+but it doesn't exist
+
+165
+00:05:59,766 --> 00:06:01,900
+因为我们只匹配野生动物和熊
+because we're only matching wild things and bears
+
+166
+00:06:02,133 --> 00:06:04,133
+现在我们将继续在下一节中修复它
+now we'll go ahead and fix that in the next section
+
+167
+00:06:04,133 --> 00:06:05,800
+但到目前为止我们注意到的一件事
+but one thing we've noticed so far
+
+168
+00:06:05,800 --> 00:06:08,133
+是模式匹配消除了对
+is that pattern matching removes the need for
+
+169
+00:06:08,300 --> 00:06:09,700
+if else 条件
+if else conditionals
+
+170
+00:06:09,766 --> 00:06:10,966
+我们知道我们会处理
+and we know we're going to handle
+
+171
+00:06:10,966 --> 00:06:12,300
+更多请求即将出现
+more requests coming up
+
+172
+00:06:12,533 --> 00:06:14,233
+所以我们不会以这个结束
+and so we're not going to end up with this
+
+173
+00:06:14,300 --> 00:06:15,633
+long fl 条件式
+long fl's conditional
+
+174
+00:06:15,633 --> 00:06:16,966
+相反，我们将使用
+instead we're just going to use
+
+175
+00:06:17,133 --> 00:06:19,766
+匹配这些请求的函数子句
+function clauses to match on those requests
+
+176
+00:06:20,100 --> 00:06:20,700
+那就对了
+that's right
+
+177
+00:06:20,700 --> 00:06:23,766
+相反，我们可以编写简短的声明性函数
+instead we can write short declarative functions
+

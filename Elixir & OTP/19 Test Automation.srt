@@ -1,0 +1,1668 @@
+1
+00:00:00,266 --> 00:00:00,966
+in this module
+
+2
+00:00:00,966 --> 00:00:02,466
+we're going to look at how to write automated
+
+3
+00:00:02,466 --> 00:00:03,533
+tests in elixir
+
+4
+00:00:03,700 --> 00:00:04,533
+but here's some things
+
+5
+00:00:04,533 --> 00:00:06,433
+we're not going to do in this module
+
+6
+00:00:06,533 --> 00:00:08,733
+we're not going to try to convince you that testing is
+
+7
+00:00:08,733 --> 00:00:11,400
+important we assume you already know that
+
+8
+00:00:11,900 --> 00:00:12,700
+we're also not going
+
+9
+00:00:12,700 --> 00:00:13,700
+to shame you if you're not
+
+10
+00:00:13,700 --> 00:00:15,266
+doing restroom and development
+
+11
+00:00:15,333 --> 00:00:17,500
+or don't have 100% test coverage
+
+12
+00:00:17,700 --> 00:00:21,100
+in fact we're not going to preach testing dogma at all
+
+13
+00:00:21,566 --> 00:00:22,200
+we're going to assume
+
+14
+00:00:22,200 --> 00:00:23,866
+you've used a unit testing framework in
+
+15
+00:00:23,866 --> 00:00:24,666
+another language
+
+16
+00:00:24,666 --> 00:00:26,900
+and you want to know how to test in elixir
+
+17
+00:00:27,900 --> 00:00:31,100
+right now we have this code at the bottom of handler
+
+18
+00:00:31,100 --> 00:00:33,533
+that sends request to the handle function
+
+19
+00:00:33,600 --> 00:00:35,600
+and prints out the responses
+
+20
+00:00:36,000 --> 00:00:40,100
+so when we recompile survey handler in an ix session
+
+21
+00:00:40,100 --> 00:00:43,466
+that code is run and we see the requests and responses
+
+22
+00:00:43,633 --> 00:00:45,600
+so in essence we're just visually
+
+23
+00:00:45,600 --> 00:00:47,666
+testing and I'm using air quotes here
+
+24
+00:00:47,966 --> 00:00:50,166
+that each request works
+
+25
+00:00:50,400 --> 00:00:51,600
+and as you might guess
+
+26
+00:00:51,600 --> 00:00:53,533
+there's a better way to do testing
+
+27
+00:00:54,100 --> 00:00:56,833
+when we created a new elixir project using mix
+
+28
+00:00:56,833 --> 00:00:59,733
+new service mix was presumptuous enough to
+
+29
+00:00:59,733 --> 00:01:01,833
+also generate a test directory
+
+30
+00:01:01,933 --> 00:01:03,566
+and it has two files in it
+
+31
+00:01:03,666 --> 00:01:07,366
+test helper exs and service test exs
+
+32
+00:01:07,700 --> 00:01:09,366
+the test files are elixir scripts
+
+33
+00:01:09,366 --> 00:01:11,000
+that's the sex extension
+
+34
+00:01:11,000 --> 00:01:13,100
+which means they don't have to be compiled
+
+35
+00:01:13,200 --> 00:01:14,100
+before their run
+
+36
+00:01:14,500 --> 00:01:16,166
+and if we look in test helper
+
+37
+00:01:16,500 --> 00:01:17,900
+well we see that it starts
+
+38
+00:01:17,900 --> 00:01:20,800
+ex unit and ex unit is elixir's built in
+
+39
+00:01:20,833 --> 00:01:21,666
+test framework
+
+40
+00:01:22,133 --> 00:01:24,333
+then if we have a look in survey test
+
+41
+00:01:24,700 --> 00:01:26,366
+well there's a module called survey test
+
+42
+00:01:26,366 --> 00:01:30,066
+and this first line says use ex unit case
+
+43
+00:01:30,366 --> 00:01:33,466
+use adds the testing functionality or behavior
+
+44
+00:01:33,600 --> 00:01:36,733
+that's defined in this ex unit case module
+
+45
+00:01:36,766 --> 00:01:39,166
+and it adds that behavior to the current module
+
+46
+00:01:39,166 --> 00:01:40,466
+which is our survey test
+
+47
+00:01:40,866 --> 00:01:42,066
+the 2nd line is this
+
+48
+00:01:42,066 --> 00:01:44,533
+dock test and we'll come back to that in just a minute
+
+49
+00:01:44,833 --> 00:01:48,100
+then we have the testing macro which defines a test
+
+50
+00:01:48,300 --> 00:01:50,200
+and then there's a description as a string
+
+51
+00:01:50,366 --> 00:01:51,566
+and a block of code
+
+52
+00:01:51,900 --> 00:01:53,266
+and then inside of the block of code
+
+53
+00:01:53,266 --> 00:01:55,033
+we state our expectations
+
+54
+00:01:55,033 --> 00:01:56,966
+using this assert macro
+
+55
+00:01:57,066 --> 00:02:00,333
+was just test that this expression is truth
+
+56
+00:02:00,566 --> 00:02:03,000
+so we're asserting that 1+1 equals two
+
+57
+00:02:03,266 --> 00:02:06,600
+the opposite of assert is something called refute
+
+58
+00:02:06,966 --> 00:02:09,766
+so we could refute that 2+1 equals two
+
+59
+00:02:09,766 --> 00:02:11,000
+because that's not true
+
+60
+00:02:11,433 --> 00:02:12,433
+and generally these
+
+61
+00:02:12,433 --> 00:02:13,533
+two macros are all
+
+62
+00:02:13,533 --> 00:02:14,500
+you need to do testing
+
+63
+00:02:14,500 --> 00:02:15,600
+because you're either going to assert that
+
+64
+00:02:15,600 --> 00:02:16,500
+something's true
+
+65
+00:02:16,666 --> 00:02:18,100
+or you're going to refute something
+
+66
+00:02:18,700 --> 00:02:20,366
+all right I'm going to get rid of this for now
+
+67
+00:02:20,900 --> 00:02:22,500
+so let's go ahead and run this test
+
+68
+00:02:22,700 --> 00:02:23,933
+I'm in the survey directory
+
+69
+00:02:23,933 --> 00:02:25,333
+and we run the test by using
+
+70
+00:02:25,333 --> 00:02:27,800
+mix test and then we give it the name of the test file
+
+71
+00:02:27,800 --> 00:02:28,600
+so it's going to be
+
+72
+00:02:28,700 --> 00:02:30,833
+test survey test ex
+
+73
+00:02:32,033 --> 00:02:34,033
+and no surprise it succeeds
+
+74
+00:02:34,400 --> 00:02:34,566
+now
+
+75
+00:02:34,566 --> 00:02:37,133
+let's make it fail just to see how the output changes
+
+76
+00:02:37,133 --> 00:02:39,100
+so we'll assert that 1+1 equals
+
+77
+00:02:39,100 --> 00:02:39,900
+three
+
+78
+00:02:40,200 --> 00:02:41,166
+run the test again
+
+79
+00:02:41,933 --> 00:02:43,466
+you scroll up a little bit here
+
+80
+00:02:44,033 --> 00:02:46,066
+well what's nice about the assert macro is
+
+81
+00:02:46,100 --> 00:02:47,433
+it introspects the code
+
+82
+00:02:47,433 --> 00:02:49,100
+to give us some helpful feedback
+
+83
+00:02:49,300 --> 00:02:51,866
+it shows us the assertion that failed right here
+
+84
+00:02:52,433 --> 00:02:54,233
+this is the expected value two
+
+85
+00:02:54,400 --> 00:02:56,466
+and then this is the actual value three
+
+86
+00:02:57,100 --> 00:02:59,366
+cool so let's go ahead and change it back to a
+
+87
+00:02:59,366 --> 00:03:00,266
+passing state
+
+88
+00:03:02,200 --> 00:03:03,000
+there we go
+
+89
+00:03:03,566 --> 00:03:05,733
+so let's not write our own unit test
+
+90
+00:03:05,733 --> 00:03:07,033
+to help us get started
+
+91
+00:03:07,033 --> 00:03:08,933
+let's copy this code
+
+92
+00:03:09,166 --> 00:03:12,466
+and then we can create a test case for our parser
+
+93
+00:03:12,533 --> 00:03:15,500
+named parser underscore test
+
+94
+00:03:16,600 --> 00:03:18,566
+and I'll just paste in the code that we have
+
+95
+00:03:18,966 --> 00:03:20,733
+and we're going to change the module from
+
+96
+00:03:20,766 --> 00:03:22,700
+survey test to parser test
+
+97
+00:03:23,700 --> 00:03:27,766
+I'm also going to change this doc test to serve parser
+
+98
+00:03:28,433 --> 00:03:29,933
+and we'll come back to that in a minute
+
+99
+00:03:30,333 --> 00:03:32,266
+we also need to alias in the parser
+
+100
+00:03:32,266 --> 00:03:33,700
+since that's what we're going to test
+
+101
+00:03:34,300 --> 00:03:35,733
+so what should we test in the parser
+
+102
+00:03:35,733 --> 00:03:38,500
+well let's have a look at that in parser ex
+
+103
+00:03:39,033 --> 00:03:41,200
+well before we get to our end to interest
+
+104
+00:03:41,366 --> 00:03:44,000
+let's show them two ways to write unit tests
+
+105
+00:03:44,366 --> 00:03:45,966
+yeah we've got some recursion going
+
+106
+00:03:45,966 --> 00:03:48,033
+on here when we're parsing the headers
+
+107
+00:03:48,300 --> 00:03:51,100
+so let's write a unit test for these functions
+
+108
+00:03:51,366 --> 00:03:52,500
+you'll remember this function
+
+109
+00:03:52,500 --> 00:03:53,333
+it takes a
+
+110
+00:03:53,366 --> 00:03:56,433
+list of header lines that's the head and the tail
+
+111
+00:03:56,866 --> 00:03:58,200
+and then we want to parse those
+
+112
+00:03:58,366 --> 00:04:01,066
+into a map that contains key value pairs so
+
+113
+00:04:01,066 --> 00:04:02,333
+it'll be the headers
+
+114
+00:04:02,666 --> 00:04:03,966
+so we can write a test for that
+
+115
+00:04:04,366 --> 00:04:05,833
+come back over to parser test
+
+116
+00:04:08,900 --> 00:04:10,266
+change the description here
+
+117
+00:04:10,800 --> 00:04:14,366
+parses a list of header fields
+
+118
+00:04:15,533 --> 00:04:16,333
+into a map
+
+119
+00:04:17,333 --> 00:04:19,933
+get rid of this so let's set up some header lines
+
+120
+00:04:21,100 --> 00:04:22,666
+it's going to be a list that looks like this
+
+121
+00:04:23,066 --> 00:04:24,933
+the header a might have a value of one
+
+122
+00:04:24,966 --> 00:04:27,533
+and then the header b might have a value of two
+
+123
+00:04:28,066 --> 00:04:29,300
+now the actual headers have
+
+124
+00:04:29,300 --> 00:04:31,900
+different keys and values but a one and b two work
+
+125
+00:04:31,900 --> 00:04:33,233
+just fine for the test here
+
+126
+00:04:33,666 --> 00:04:35,166
+then we want to transform this
+
+127
+00:04:35,200 --> 00:04:38,333
+into a map of headers and we do that by calling parser
+
+128
+00:04:38,600 --> 00:04:39,400
+parse headers
+
+129
+00:04:40,233 --> 00:04:41,800
+we pass in the header lines
+
+130
+00:04:42,466 --> 00:04:44,066
+and an empty map like that
+
+131
+00:04:44,733 --> 00:04:47,200
+so what do we expect to return to headers to look like
+
+132
+00:04:47,200 --> 00:04:49,800
+well we can use the assert macro and say we assert
+
+133
+00:04:50,033 --> 00:04:52,800
+the headers equal a map
+
+134
+00:04:53,166 --> 00:04:54,400
+that has a key of a
+
+135
+00:04:54,866 --> 00:04:56,066
+and a value of one
+
+136
+00:04:56,733 --> 00:04:57,666
+and a key of b
+
+137
+00:04:59,133 --> 00:04:59,966
+the value of two
+
+138
+00:05:00,633 --> 00:05:04,100
+so we expect it to parse this list of lines
+
+139
+00:05:04,233 --> 00:05:05,766
+into key value pairs
+
+140
+00:05:06,233 --> 00:05:07,266
+if we save that away
+
+141
+00:05:07,966 --> 00:05:09,500
+then to run it we'll do it just like before
+
+142
+00:05:09,500 --> 00:05:11,433
+except we're going to give it parser test
+
+143
+00:05:13,033 --> 00:05:14,166
+it looks like it works
+
+144
+00:05:14,833 --> 00:05:16,166
+the assert macro is
+
+145
+00:05:16,166 --> 00:05:18,600
+actually pretty smart about helping you figure out
+
+146
+00:05:18,600 --> 00:05:20,433
+why an assertion is failing
+
+147
+00:05:20,633 --> 00:05:21,366
+so let's say
+
+148
+00:05:21,366 --> 00:05:24,400
+that we remove one of the key values from our expected
+
+149
+00:05:24,400 --> 00:05:27,500
+map and then we rerun our tests
+
+150
+00:05:29,000 --> 00:05:30,066
+well it fails
+
+151
+00:05:30,700 --> 00:05:33,100
+and it tells us why we see the map on the left
+
+152
+00:05:33,166 --> 00:05:35,300
+doesn't match the map on the right
+
+153
+00:05:35,366 --> 00:05:36,300
+because the one on the left
+
+154
+00:05:36,533 --> 00:05:39,100
+also has a key b and a value of two
+
+155
+00:05:39,300 --> 00:05:40,800
+so we're missing a key value
+
+156
+00:05:41,200 --> 00:05:43,533
+so I'll just change that back so we have a passing test
+
+157
+00:05:45,733 --> 00:05:48,533
+there we go so that's one way to write unit tests
+
+158
+00:05:48,533 --> 00:05:50,500
+but instead of putting them in a separate file
+
+159
+00:05:50,500 --> 00:05:51,400
+we can write something
+
+160
+00:05:51,466 --> 00:05:53,133
+called doc tests
+
+161
+00:05:53,433 --> 00:05:54,800
+so let's go back to our parish
+
+162
+00:05:55,500 --> 00:05:56,766
+we've got this tested
+
+163
+00:05:57,266 --> 00:05:59,200
+but what about this parsed para right here
+
+164
+00:05:59,633 --> 00:06:01,333
+I'm going to paste in a little bit of documentation
+
+165
+00:06:01,333 --> 00:06:02,133
+at the top
+
+166
+00:06:02,833 --> 00:06:04,533
+we already know how to use
+
+167
+00:06:04,533 --> 00:06:07,900
+at dock to document what a function does like this
+
+168
+00:06:08,333 --> 00:06:10,833
+it's also helpful to include examples of
+
+169
+00:06:10,833 --> 00:06:12,233
+how to use the function
+
+170
+00:06:12,433 --> 00:06:13,600
+and by convention
+
+171
+00:06:13,600 --> 00:06:16,966
+those examples are shown in an ix session like this
+
+172
+00:06:17,733 --> 00:06:17,900
+now
+
+173
+00:06:17,900 --> 00:06:20,066
+this is a bit difficult to see with this color scheme
+
+174
+00:06:20,066 --> 00:06:21,466
+so i'm just going to uncommon these
+
+175
+00:06:21,466 --> 00:06:23,000
+for a minute to get a different color
+
+176
+00:06:23,900 --> 00:06:25,400
+now the first thing to note is that we write
+
+177
+00:06:25,433 --> 00:06:26,666
+elixir documentation
+
+178
+00:06:26,666 --> 00:06:27,600
+using markdown
+
+179
+00:06:27,633 --> 00:06:29,266
+you notice this double hash here
+
+180
+00:06:29,366 --> 00:06:31,000
+that's going to generate an h two
+
+181
+00:06:31,266 --> 00:06:33,366
+and you also notice that the code that we have up here
+
+182
+00:06:33,366 --> 00:06:34,666
+for keys and values
+
+183
+00:06:34,700 --> 00:06:36,766
+goes inside of single back ticks
+
+184
+00:06:37,733 --> 00:06:39,666
+and then this part is called the docent
+
+185
+00:06:39,666 --> 00:06:41,866
+and it's basically a set of expectations
+
+186
+00:06:41,866 --> 00:06:45,133
+or assertions about how our code is intended to work
+
+187
+00:06:45,866 --> 00:06:48,400
+so if we have a param string that looks like this
+
+188
+00:06:48,800 --> 00:06:51,666
+and then we call serve parser pars para
+
+189
+00:06:51,766 --> 00:06:53,433
+this is the first parameter to it
+
+190
+00:06:53,733 --> 00:06:56,300
+and then the second parameter is our param string
+
+191
+00:06:56,700 --> 00:06:57,733
+well what do we expect
+
+192
+00:06:58,166 --> 00:07:01,500
+well we expect ix to return a map that looks like this
+
+193
+00:07:01,833 --> 00:07:04,033
+it took the name and the type from here
+
+194
+00:07:04,233 --> 00:07:05,500
+and put it inside of a map
+
+195
+00:07:06,033 --> 00:07:08,033
+and then if we call parse para with
+
+196
+00:07:08,033 --> 00:07:10,166
+multipart form data as the first parameter
+
+197
+00:07:10,166 --> 00:07:12,100
+and param string is the second parameter
+
+198
+00:07:12,333 --> 00:07:13,500
+well we don't handle
+
+199
+00:07:13,500 --> 00:07:15,633
+this format so we expect to get back in
+
+200
+00:07:15,633 --> 00:07:16,433
+empty map
+
+201
+00:07:17,133 --> 00:07:19,166
+now wouldn't it be cool if we could run
+
+202
+00:07:19,166 --> 00:07:20,533
+these examples and check
+
+203
+00:07:20,533 --> 00:07:23,233
+that the actual value returned by the function
+
+204
+00:07:23,366 --> 00:07:25,500
+matches the values shown in the comment
+
+205
+00:07:25,900 --> 00:07:30,666
+imagine that well that's exactly what this docent line
+
+206
+00:07:30,700 --> 00:07:32,666
+over in parser test does
+
+207
+00:07:32,900 --> 00:07:34,966
+it's a macro that looks for
+
+208
+00:07:34,966 --> 00:07:37,933
+docents in this module survey parser
+
+209
+00:07:38,200 --> 00:07:42,333
+and if it finds docent then it generates tests for them
+
+210
+00:07:42,900 --> 00:07:45,033
+so because we already have this line
+
+211
+00:07:45,466 --> 00:07:47,366
+and we've got this dock test over here
+
+212
+00:07:47,666 --> 00:07:48,600
+I just need to
+
+213
+00:07:48,900 --> 00:07:50,266
+comment this the way it should be
+
+214
+00:07:50,266 --> 00:07:52,333
+so it's an actual dock test
+
+215
+00:07:52,866 --> 00:07:54,766
+like that save it away
+
+216
+00:07:55,266 --> 00:07:58,000
+now if we come down here and run parser test again
+
+217
+00:07:58,500 --> 00:08:00,266
+well now we have two tests
+
+218
+00:08:00,566 --> 00:08:02,633
+one of the unit tests we wrote conventionally
+
+219
+00:08:02,633 --> 00:08:05,100
+and one of the tests got generated from
+
+220
+00:08:05,100 --> 00:08:06,066
+this dock test
+
+221
+00:08:06,500 --> 00:08:08,500
+now just to show that this is an actual test
+
+222
+00:08:08,500 --> 00:08:09,500
+let's make it fail
+
+223
+00:08:09,700 --> 00:08:11,466
+I'll change this type to a color
+
+224
+00:08:13,566 --> 00:08:14,666
+and sure enough it fails
+
+225
+00:08:14,666 --> 00:08:16,266
+just like any other unit test would
+
+226
+00:08:16,600 --> 00:08:18,033
+so let's go ahead and change that back
+
+227
+00:08:18,933 --> 00:08:20,533
+what's really cool about this is we
+
+228
+00:08:20,533 --> 00:08:23,533
+always know that the examples in the dock test are
+
+229
+00:08:23,533 --> 00:08:26,266
+up to date and they never lie which is something you
+
+230
+00:08:26,333 --> 00:08:28,000
+always hope for in documentation
+
+231
+00:08:28,000 --> 00:08:29,200
+but don't always get
+
+232
+00:08:29,900 --> 00:08:31,966
+so now we have two test files
+
+233
+00:08:31,966 --> 00:08:34,733
+and we can run those tests in one swoop
+
+234
+00:08:35,033 --> 00:08:36,300
+we just do that by using
+
+235
+00:08:36,300 --> 00:08:38,866
+mix test and not giving it a file name
+
+236
+00:08:39,366 --> 00:08:40,666
+we see that we have three tests
+
+237
+00:08:40,666 --> 00:08:43,200
+we've got our parser tests and then survey tests
+
+238
+00:08:43,266 --> 00:08:45,500
+and what mix test did is it just looked in the
+
+239
+00:08:45,500 --> 00:08:46,533
+test directory here
+
+240
+00:08:46,833 --> 00:08:49,500
+and it found all the files ending in underscore tests
+
+241
+00:08:49,500 --> 00:08:51,566
+ex and it went ahead and ran those
+
+242
+00:08:52,633 --> 00:08:54,333
+now that we know how to write tests
+
+243
+00:08:54,333 --> 00:08:56,200
+let's return to our original goal
+
+244
+00:08:56,233 --> 00:08:57,633
+which was to convert
+
+245
+00:08:57,733 --> 00:09:00,666
+this code at the bottom of the handle module
+
+246
+00:09:01,166 --> 00:09:02,866
+into automated tests
+
+247
+00:09:03,300 --> 00:09:04,666
+let's start by deleting these
+
+248
+00:09:04,700 --> 00:09:05,433
+because we don't want this
+
+249
+00:09:05,433 --> 00:09:07,400
+code executing when we run our app
+
+250
+00:09:07,900 --> 00:09:09,600
+so we're just going to go down to the very bottom
+
+251
+00:09:09,933 --> 00:09:11,600
+grab all this stuff here
+
+252
+00:09:12,900 --> 00:09:14,666
+to there and zap it out
+
+253
+00:09:15,166 --> 00:09:16,766
+I'm going to create a new test file
+
+254
+00:09:16,766 --> 00:09:17,833
+under the test directory
+
+255
+00:09:18,033 --> 00:09:21,266
+it's going to be called handler test exs
+
+256
+00:09:22,000 --> 00:09:25,066
+and I'm going to paste in our first end end test now
+
+257
+00:09:25,066 --> 00:09:26,633
+don't worry about typing in this test
+
+258
+00:09:26,633 --> 00:09:27,833
+you'll actually find it
+
+259
+00:09:27,833 --> 00:09:30,266
+as well as all the other tests in the code bundle
+
+260
+00:09:31,000 --> 00:09:32,533
+it's called handler test
+
+261
+00:09:32,733 --> 00:09:34,166
+there's this use line again
+
+262
+00:09:34,466 --> 00:09:36,100
+and then we have this import line
+
+263
+00:09:36,100 --> 00:09:37,966
+what we're going to do here is import this
+
+264
+00:09:37,966 --> 00:09:38,966
+handle function
+
+265
+00:09:39,100 --> 00:09:41,333
+just so it's easy to use inside of this module
+
+266
+00:09:41,700 --> 00:09:43,300
+then we use our test macro here
+
+267
+00:09:43,566 --> 00:09:44,600
+and our description is
+
+268
+00:09:44,700 --> 00:09:46,433
+this is for a get of wild things
+
+269
+00:09:46,666 --> 00:09:47,733
+we've got our code block
+
+270
+00:09:47,966 --> 00:09:49,533
+so what we do inside the code block is
+
+271
+00:09:49,533 --> 00:09:50,700
+we set up a request
+
+272
+00:09:50,866 --> 00:09:51,900
+using a hear dock
+
+273
+00:09:52,166 --> 00:09:53,400
+we pass the request
+
+274
+00:09:53,833 --> 00:09:57,366
+into our handle function this is serve handler handle
+
+275
+00:09:57,466 --> 00:09:58,866
+we get back a response
+
+276
+00:09:59,033 --> 00:10:00,700
+and then we're going to use the assert macro
+
+277
+00:10:01,033 --> 00:10:03,900
+to assert that that response equals
+
+278
+00:10:04,033 --> 00:10:06,300
+another hear dock which is our response
+
+279
+00:10:06,766 --> 00:10:08,133
+now you might be wondering
+
+280
+00:10:08,266 --> 00:10:11,166
+what's with these characters at the end of the lines
+
+281
+00:10:11,600 --> 00:10:13,366
+well the http spec
+
+282
+00:10:13,400 --> 00:10:15,833
+actually requires these lines to end
+
+283
+00:10:15,833 --> 00:10:19,066
+in a carriage return line feed which is backslash r
+
+284
+00:10:19,166 --> 00:10:20,133
+backslash n
+
+285
+00:10:20,566 --> 00:10:23,800
+now the hair dock implicitly gives us the backslash n
+
+286
+00:10:23,800 --> 00:10:24,966
+at the end of each line
+
+287
+00:10:25,066 --> 00:10:28,033
+but we have to explicitly add the backslash r
+
+288
+00:10:28,533 --> 00:10:30,866
+so you see that at the end of these lines
+
+289
+00:10:31,166 --> 00:10:32,066
+in the same way
+
+290
+00:10:32,066 --> 00:10:34,066
+the spec also requires
+
+291
+00:10:34,066 --> 00:10:37,233
+backslash r backslash n on the response lines
+
+292
+00:10:37,233 --> 00:10:38,566
+so we've added those here
+
+293
+00:10:39,066 --> 00:10:39,800
+now this is a bit
+
+294
+00:10:39,800 --> 00:10:43,533
+pedantic but the message body this last line here
+
+295
+00:10:43,533 --> 00:10:45,766
+doesn't have to have a backslash r
+
+296
+00:10:45,766 --> 00:10:47,133
+so you don't see one there
+
+297
+00:10:47,433 --> 00:10:49,433
+we didn't want these to get in the way earlier
+
+298
+00:10:49,433 --> 00:10:51,200
+they do kind of look obnoxious
+
+299
+00:10:51,233 --> 00:10:54,266
+but a bit later will send requests from a browser
+
+300
+00:10:54,366 --> 00:10:56,066
+and they'll be in this format
+
+301
+00:10:56,233 --> 00:10:59,300
+so we might as well account for these characters now
+
+302
+00:10:59,866 --> 00:11:01,433
+so let's see if this test works
+
+303
+00:11:02,333 --> 00:11:04,566
+mix test
+
+304
+00:11:05,366 --> 00:11:07,500
+handler test ex
+
+305
+00:11:07,866 --> 00:11:09,400
+and it looks like we have a problem
+
+306
+00:11:10,066 --> 00:11:11,300
+if we scroll up here
+
+307
+00:11:11,900 --> 00:11:14,933
+while we see no match the right side value
+
+308
+00:11:15,866 --> 00:11:16,933
+get wild things
+
+309
+00:11:17,466 --> 00:11:19,166
+and notice we see these
+
+310
+00:11:19,466 --> 00:11:22,766
+backslash r backslash ends throughout here
+
+311
+00:11:23,500 --> 00:11:25,033
+because that's what our request has
+
+312
+00:11:25,133 --> 00:11:27,766
+but that's not what our parser's expecting
+
+313
+00:11:28,233 --> 00:11:29,700
+so we go back over to the parser
+
+314
+00:11:30,633 --> 00:11:31,766
+the very top here
+
+315
+00:11:32,266 --> 00:11:33,566
+we split on
+
+316
+00:11:34,433 --> 00:11:36,766
+slash n well this is actually going to be
+
+317
+00:11:37,233 --> 00:11:39,033
+backslash r backslash n
+
+318
+00:11:39,166 --> 00:11:40,566
+backslash r backslash n
+
+319
+00:11:40,566 --> 00:11:43,166
+that separates the top from the pram strings
+
+320
+00:11:43,266 --> 00:11:44,166
+in the same way
+
+321
+00:11:44,166 --> 00:11:47,966
+all the top lines will have a backslash r backslash n
+
+322
+00:11:48,466 --> 00:11:51,600
+so that fixes the parser but over in the handler
+
+323
+00:11:51,733 --> 00:11:54,633
+we also need to change this format response function
+
+324
+00:11:54,733 --> 00:11:56,400
+to include backslash r
+
+325
+00:11:56,466 --> 00:11:57,833
+at the end of these lines
+
+326
+00:11:59,000 --> 00:12:00,566
+and now our test should pass
+
+327
+00:12:00,600 --> 00:12:01,400
+come down here
+
+328
+00:12:01,666 --> 00:12:04,166
+run it again sure enough they pass
+
+329
+00:12:04,666 --> 00:12:07,533
+already so only seven more tests to write
+
+330
+00:12:07,533 --> 00:12:09,266
+get your fingers ready
+
+331
+00:12:09,633 --> 00:12:10,433
+just kidding
+
+332
+00:12:10,533 --> 00:12:12,233
+we're not going to make you suffer through that
+
+333
+00:12:12,466 --> 00:12:14,733
+we're just going to paste them in and again
+
+334
+00:12:14,733 --> 00:12:17,433
+you can find all the tests in the code bundle
+
+335
+00:12:18,066 --> 00:12:19,733
+so here's the test that we just wrote
+
+336
+00:12:19,733 --> 00:12:21,766
+and then we pasted some tests beneath it
+
+337
+00:12:21,933 --> 00:12:24,666
+so here's one for get slash bears
+
+338
+00:12:25,000 --> 00:12:26,133
+we set up the request
+
+339
+00:12:26,733 --> 00:12:28,800
+we call handle get a response to that
+
+340
+00:12:29,066 --> 00:12:30,466
+and I did this one a little bit differently
+
+341
+00:12:30,466 --> 00:12:32,666
+notice I say expected response equals
+
+342
+00:12:32,666 --> 00:12:33,900
+and then we have a hear dock
+
+343
+00:12:34,300 --> 00:12:36,866
+and then we have the headers we would expect
+
+344
+00:12:37,100 --> 00:12:38,100
+and then the content
+
+345
+00:12:38,100 --> 00:12:39,733
+remembers generated from a template
+
+346
+00:12:39,966 --> 00:12:42,866
+so this is all that template generated content
+
+347
+00:12:43,300 --> 00:12:45,433
+and because that template can have different
+
+348
+00:12:45,433 --> 00:12:46,300
+white space in it
+
+349
+00:12:46,300 --> 00:12:48,033
+and sometimes it's difficult to assert
+
+350
+00:12:48,033 --> 00:12:49,100
+based on white space
+
+351
+00:12:49,333 --> 00:12:50,533
+I wrote a little function down
+
+352
+00:12:50,533 --> 00:12:52,066
+below called remove right space
+
+353
+00:12:52,333 --> 00:12:54,666
+so we just call remove white space on the response
+
+354
+00:12:54,733 --> 00:12:55,866
+and that should equal
+
+355
+00:12:56,166 --> 00:12:58,733
+the equivalent of our expected response
+
+356
+00:12:58,733 --> 00:13:00,133
+and we use the assert macro
+
+357
+00:13:00,200 --> 00:13:01,366
+to make sure that's true
+
+358
+00:13:02,033 --> 00:13:04,833
+and all the other tests work in a similar way
+
+359
+00:13:04,900 --> 00:13:06,133
+there's really nothing new here
+
+360
+00:13:06,233 --> 00:13:07,600
+if it's just one line
+
+361
+00:13:07,600 --> 00:13:08,733
+of a response like this
+
+362
+00:13:08,733 --> 00:13:10,466
+that wasn't generated from a template
+
+363
+00:13:10,600 --> 00:13:13,233
+well then I just use assert on that response
+
+364
+00:13:13,466 --> 00:13:15,400
+but if it's template generated code
+
+365
+00:13:15,533 --> 00:13:18,033
+I use this pattern of removing white space
+
+366
+00:13:18,266 --> 00:13:20,066
+but you can look through here and you'll see that
+
+367
+00:13:20,133 --> 00:13:22,233
+all of them follow the similar style
+
+368
+00:13:22,633 --> 00:13:24,700
+and better yet they should all pass
+
+369
+00:13:26,700 --> 00:13:27,966
+and indeed they do
+
+370
+00:13:28,200 --> 00:13:28,966
+but if you scroll
+
+371
+00:13:28,966 --> 00:13:29,166
+up
+
+372
+00:13:29,166 --> 00:13:31,733
+you might wonder what's with all this output up here
+
+373
+00:13:32,200 --> 00:13:33,400
+well if you recall
+
+374
+00:13:33,433 --> 00:13:37,566
+our pipeline at the top of handler has plugins
+
+375
+00:13:37,633 --> 00:13:39,400
+to log and track requests
+
+376
+00:13:39,833 --> 00:13:42,766
+those functions are in the plugins module
+
+377
+00:13:43,133 --> 00:13:46,433
+and they use io to print out a warning message
+
+378
+00:13:46,566 --> 00:13:48,500
+and log information to the console
+
+379
+00:13:48,933 --> 00:13:49,866
+but perhaps we
+
+380
+00:13:49,866 --> 00:13:50,933
+only want to print this
+
+381
+00:13:50,933 --> 00:13:52,533
+stuff to the console when the app
+
+382
+00:13:52,533 --> 00:13:54,700
+is running in a specific environment
+
+383
+00:13:55,166 --> 00:13:58,033
+yeah mix actually supports three different environments
+
+384
+00:13:58,033 --> 00:14:01,066
+dev test and prod which is short for production
+
+385
+00:14:01,400 --> 00:14:04,333
+de is the default and it switches to test when we use
+
+386
+00:14:04,400 --> 00:14:05,433
+mix test
+
+387
+00:14:05,700 --> 00:14:08,200
+so suppose we only want to see the output of this
+
+388
+00:14:08,200 --> 00:14:10,066
+log function during development
+
+389
+00:14:10,066 --> 00:14:11,433
+while we can change this around
+
+390
+00:14:11,466 --> 00:14:13,433
+and change it to a multiline function here
+
+391
+00:14:16,533 --> 00:14:18,300
+and then we only want this line to run
+
+392
+00:14:18,433 --> 00:14:19,600
+during development
+
+393
+00:14:19,733 --> 00:14:21,433
+so we can put an if statement around here
+
+394
+00:14:21,533 --> 00:14:23,400
+if and you can call mix
+
+395
+00:14:23,566 --> 00:14:26,333
+end that will return the current mix environment
+
+396
+00:14:26,666 --> 00:14:27,900
+if it equals dev
+
+397
+00:14:28,200 --> 00:14:29,700
+we'll go ahead and print that out
+
+398
+00:14:31,733 --> 00:14:33,400
+otherwise it won't and remember
+
+399
+00:14:33,433 --> 00:14:35,533
+because this log functions in a pipeline
+
+400
+00:14:35,533 --> 00:14:37,866
+we always need to return co n
+
+401
+00:14:38,333 --> 00:14:38,466
+oh
+
+402
+00:14:38,466 --> 00:14:41,000
+and I always forget to add the dew at the end of an if
+
+403
+00:14:41,000 --> 00:14:42,200
+just old habit
+
+404
+00:14:42,666 --> 00:14:44,033
+so that takes care of log
+
+405
+00:14:44,033 --> 00:14:46,100
+what about this track function up here
+
+406
+00:14:46,566 --> 00:14:48,733
+well let's say we want to track four of fours
+
+407
+00:14:48,733 --> 00:14:50,566
+in development and in production
+
+408
+00:14:50,633 --> 00:14:52,200
+but not in test
+
+409
+00:14:52,600 --> 00:14:54,166
+so what we can do here is say
+
+410
+00:14:54,600 --> 00:14:58,800
+if mix end does not equal test do
+
+411
+00:15:00,700 --> 00:15:02,533
+put that inside of that if condition
+
+412
+00:15:02,966 --> 00:15:05,233
+and then make sure to always return co and v
+
+413
+00:15:05,700 --> 00:15:06,733
+if we save that away
+
+414
+00:15:07,166 --> 00:15:09,733
+and run our test we should get a lot cleaner output
+
+415
+00:15:10,300 --> 00:15:11,100
+there we go
+
+416
+00:15:11,533 --> 00:15:13,633
+and if we run all of our test well
+
+417
+00:15:13,766 --> 00:15:16,866
+we should have green across the board indeed we do
+

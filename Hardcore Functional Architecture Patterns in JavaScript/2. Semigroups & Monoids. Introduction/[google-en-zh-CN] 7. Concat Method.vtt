@@ -1,0 +1,901 @@
+WEBVTT
+
+1
+00:00:00.280 --> 00:00:05.550
+让我们快速看看连接几个
+Let's just quickly look at what it looks like to concat a couple of
+
+2
+00:00:05.550 --> 00:00:06.310
+函子在一起。
+functors together.
+
+3
+00:00:06.310 --> 00:00:12.551
+因此，如果我写了 Hello，请将它与世界数组连接起来。
+So if I have a write of Hello, concat it with array of world.
+
+4
+00:00:13.810 --> 00:00:16.682
+我将有折叠日志 console.log 的行。
+I shall have rows that fold log console.log.
+
+5
+00:00:16.682 --> 00:00:22.043
+我应该写一篇，否则我就会得到
+I should have a write of or I will just get
+
+6
+00:00:22.043 --> 00:00:27.740
+你好世界，因为我正在折叠它。
+hello world because I'm folding it out.
+
+7
+00:00:28.770 --> 00:00:35.096
+但它实际上是对 Hello world 的写入。
+But what it is is actually a write of Hello world.
+
+8
+00:00:35.096 --> 00:00:38.133
+大家看到了吗？
+Does everybody see that?
+
+9
+00:00:38.133 --> 00:00:45.860
+如果我还剩下 ahhhrgghghhhh 怎么办[笑]。
+What if I have a left of ahhhrgghghhhh [LAUGH].
+
+10
+00:00:45.860 --> 00:00:50.390
+鉴于两者的行为，有人能猜到这里会发生什么吗？
+Does anybody have a guess of what's gonna happen here given either's behaviour?
+
+11
+00:00:50.390 --> 00:00:51.560
+&gt;&gt; 左转。
+&gt;&gt; Just to get a left.
+
+12
+00:00:51.560 --> 00:00:52.660
+&gt;&gt; 没错。
+&gt;&gt; That's right.
+
+13
+00:00:52.660 --> 00:00:54.500
+它会使一切短路。
+It will short circuit everything.
+
+14
+00:00:54.500 --> 00:00:57.490
+如果你在这个巨大的关联连接中的任何地方向左打，
+If you hit a left anywhere in this giant associative concat,
+
+15
+00:00:57.490 --> 00:01:01.550
+如果我们要折叠一个巨大的左派或右派名单，那就是一堆以太。
+if we're gonna fold a giant list of left's or rights a bunch of ethers.
+
+16
+00:01:01.550 --> 00:01:02.870
+如果你打左，
+If you hit a left,
+
+17
+00:01:02.870 --> 00:01:06.130
+它只会将其作为错误返回，例如，我们有一个错误，我们最好告诉您。
+it's just going to return that as an error like, we got an error we better tell you.
+
+18
+00:01:06.130 --> 00:01:07.238
+所以让我们看看。
+So let's see that.
+
+19
+00:01:07.238 --> 00:01:11.030
+我得到了我们的。
+I got our.
+
+20
+00:01:11.030 --> 00:01:12.640
+所以这很整洁。
+So that's pretty neat.
+
+21
+00:01:12.640 --> 00:01:17.360
+我们可以用任务来做到这一点，对，你好任务
+We can do this with task, right, task of Hello
+
+22
+00:01:17.360 --> 00:01:22.910
+猫的任务，残酷的世界。
+cat task of, cruel world.
+
+23
+00:01:22.910 --> 00:01:26.020
+然后我们可以伪造它。
+And then we can forge that.
+
+24
+00:01:27.850 --> 00:01:33.940
+然后我们仍然会并行进入，我们说我们有两个任务。
+And then we'll still get in parallel in, we're saying we have two tasks.
+
+25
+00:01:33.940 --> 00:01:35.790
+他们都在奔跑，他们都将完成。
+They're both running, they're both gonna finish.
+
+26
+00:01:35.790 --> 00:01:38.930
+他们都在做同步的事情，当你完成后，连接结果。
+They're both doing a sync things and when you're done, concat the results.
+
+27
+00:01:39.980 --> 00:01:44.130
+如果我们把它放在一个数组中而不是连接字符串会怎样。
+What if we put that in an array instead of concating the string.
+
+28
+00:01:44.130 --> 00:01:47.130
+您可以在任务内部连接数组，对吗？
+You can concat the array inside the task, right?
+
+29
+00:01:48.270 --> 00:01:49.760
+所以这给了我们不同的行为。
+So that gives us different behavior.
+
+30
+00:01:51.190 --> 00:01:55.930
+但它仍在连接，所以我们可以，我们有一个数组的权利，
+But it's still concating and so then we can, we have a right of an array and
+
+31
+00:01:55.930 --> 00:01:57.890
+我们有一个左边或什么。
+we have a left or whatever.
+
+32
+00:01:57.890 --> 00:02:00.580
+如果我们有一个被拒绝的任务。
+If we have a rejected task.
+
+33
+00:02:00.580 --> 00:02:03.650
+拒绝，它的行为就像左。
+Rejected, it acts like left.
+
+34
+00:02:03.650 --> 00:02:08.698
+因此，如果任何任务失败，哎呀，这些不是相同的数据类型，并且
+So if any of the tasks fail, oops, these aren't the same data type and
+
+35
+00:02:08.698 --> 00:02:13.576
+这很好，因为这是一个不同的输出应该给你
+that's fine because this is a different output should just give you
+
+36
+00:02:13.576 --> 00:02:17.104
+如果您有一个被拒绝的任务，任务上的错误。
+the error on the task if you have a rejected task.
+
+37
+00:02:17.104 --> 00:02:19.867
+这样如果你在外面运行一堆同步的东西
+So that way if you're out there running a bunch of a sync stuff and
+
+38
+00:02:19.867 --> 00:02:23.140
+其中一个失败了，你会得到它作为答案。
+one of them fails, you'll get that back as the the answer.
+
+39
+00:02:23.140 --> 00:02:25.940
+它不会连接，非常像那里的左右行为。
+It won't concat, so very much like right or left behavior there.
+
+40
+00:02:27.140 --> 00:02:32.470
+还有更多，但我想就此打住，对我们正在做的事情有任何疑问。
+There's more but I want to stop here for any questions on what we're doing.
+
+41
+00:02:32.470 --> 00:02:32.970
+[笑]是的。
+[LAUGH] yeah.
+
+42
+00:02:34.000 --> 00:02:39.618
+&gt;&gt; 这是相同的行为 promise.all，我们有一个
+&gt;&gt; Is this the same behavior promise.all, where we have a single
+
+43
+00:02:39.618 --> 00:02:45.648
+链中的失败，结果只是，它被丢弃了。
+failure in the chain and the result is just, it's discarded.
+
+44
+00:02:45.648 --> 00:02:46.536
+&gt;&gt; 没错，
+&gt;&gt; That's right,
+
+45
+00:02:46.536 --> 00:02:51.290
+如果我们现在有一个失败，我们稍后会在这里讨论该怎么做。
+if we have a single failure now, we'll talk about what to do here in a second.
+
+46
+00:02:51.290 --> 00:02:52.350
+我接下来会这样做。
+I'll do that next.
+
+47
+00:02:52.350 --> 00:02:56.260
+如果我们想对此更宽容一点。
+If we want to be a little bit more lenient on that.
+
+48
+00:02:56.260 --> 00:02:59.565
+但是，确实如此，这很有趣。
+But, that is exactly and it's kind of interesting.
+
+49
+00:02:59.565 --> 00:03:01.096
+如果你考虑 promise.all，
+If you think about promise.all,
+
+50
+00:03:01.096 --> 00:03:04.640
+你是说我有一堆在列表中运行的承诺。
+you're saying I have a bunch of promises that are running in a list.
+
+51
+00:03:04.640 --> 00:03:09.470
+最后我真正想要的是，而不是一份承诺清单，
+And really what I want at the end is, instead of a list of promises,
+
+52
+00:03:09.470 --> 00:03:12.900
+一个列表的承诺，我们可以从 traversable 的角度考虑它。
+a promise of a list, and we can think of that in terms of traversable.
+
+53
+00:03:12.900 --> 00:03:17.220
+我们可以说就像在 Promise 之外翻转列表，反之亦然。
+We could say like flip the list on the outside of the promise or vice versa.
+
+54
+00:03:17.220 --> 00:03:18.120
+然后我们开始，
+And there we go,
+
+55
+00:03:18.120 --> 00:03:22.640
+我们在一个承诺中得到一堆结果，而不是一堆承诺的列表。
+we get a bunch of results in one promise instead of a list of a bunch of promises.
+
+56
+00:03:22.640 --> 00:03:25.950
+在这里，我们是说，我想实际上折叠所有这些。
+Here, we're saying, I want to actually fold all those down.
+
+57
+00:03:25.950 --> 00:03:27.670
+我想拿这份承诺清单
+I wanna take this list of promises and
+
+58
+00:03:27.670 --> 00:03:31.990
+我想把它们都结合起来，效果完全一样。
+I wanna combine them all and it's the same exact effect.
+
+59
+00:03:31.990 --> 00:03:35.430
+所以这里发生了什么，但它更强大一点，对吧？
+So what's happening here is, but it's a little bit more powerful, right?
+
+60
+00:03:35.430 --> 00:03:36.680
+因为我们不只是要得到一个清单
+Because we're not just gonna get a list and
+
+61
+00:03:36.680 --> 00:03:39.370
+我们将连接它们，但我们认为合适。
+we're gonna concat them however we see fit.
+
+62
+00:03:39.370 --> 00:03:44.180
+所以你可以用单子来构建你的问题，几乎总是这样，就像
+So you can frame your problem in terms of monads, almost always, it's like
+
+63
+00:03:44.180 --> 00:03:48.780
+最接近函数式编程中的灵丹妙药。
+the closest thing to a silver bullet in functional programming as you can get.
+
+64
+00:03:48.780 --> 00:03:49.770
+引用 Chris Penner [笑]。
+To quote Chris Penner [LAUGH].
+
+65
+00:03:51.230 --> 00:03:57.300
+所以让我们攻击这种情况，好吧，我正在编程。
+So let's attack that case of, all right, I'm programming.
+
+66
+00:03:57.300 --> 00:03:59.780
+我要组合一堆东西。
+I'm gonna combine a bunch of stuff.
+
+67
+00:03:59.780 --> 00:04:05.740
+当我合并时，我宁愿让我们看看，我们正在阅读一堆文件。
+And while I'm combining, I would rather, let's see, we're reading a bunch of files.
+
+68
+00:04:05.740 --> 00:04:10.580
+以及我想要的所有文件，如果有一个丢失并且
+And all my files I want to, if one is missing and
+
+69
+00:04:10.580 --> 00:04:13.740
+它炸了，我只想扔掉它，对吧？
+it blows up, I just want to discard it, right?
+
+70
+00:04:13.740 --> 00:04:16.320
+所以我们可以说，
+So we can say,
+
+71
+00:04:16.320 --> 00:04:22.249
+我们在这里尝试捕获返回读取文件同步或其他内容。
+we have our try catch here that returns us the read file sync or whatever.
+
+72
+00:04:23.700 --> 00:04:28.110
+这将返回给我们一个右或左。
+And this is gonna return us a right or left.
+
+73
+00:04:28.110 --> 00:04:31.393
+如果我正在阅读一大堆文件，我不希望它只是将它短路
+And I don't want it to just short circuit it if I'm reading a whole bunch of files
+
+74
+00:04:31.393 --> 00:04:33.010
+我正在联系他们的所有内容，
+and I'm concting all their contents,
+
+75
+00:04:33.010 --> 00:04:34.881
+如果我遇到错误，我不希望它只是停止。
+I don't want it to just stop if I hit an error.
+
+76
+00:04:34.881 --> 00:04:37.930
+我只是想让它优雅而忘记它。
+I just want it to be graceful and just forget about it.
+
+77
+00:04:37.930 --> 00:04:42.150
+那很优雅，但是，[笑] 忘记它。
+That's graceful but, [LAUGH] forget about it.
+
+78
+00:04:42.150 --> 00:04:44.490
+所以让我们继续这样做。
+So let's go ahead and do this.
+
+79
+00:04:44.490 --> 00:04:49.550
+让我们说，好吧，而不是与另一个权利结合或
+Let's say, well, instead of right combining with another right or
+
+80
+00:04:49.550 --> 00:04:55.010
+左，你去给我左或买。
+left, there you go and give me a left or buy.
+
+81
+00:04:56.470 --> 00:04:59.630
+我要去，我想保持权利。
+I'm gonna, I want to keep the right.
+
+82
+00:04:59.630 --> 00:05:01.260
+所以我们可以通过几种不同的方式来做到这一点。
+So we can do this a couple different ways.
+
+83
+00:05:01.260 --> 00:05:04.680
+有一个名为替代捕获选择的接口。
+There's an interface called alternative the captures choice.
+
+84
+00:05:04.680 --> 00:05:06.630
+Mono 是捕获选择，对吧？
+Mono is capture choice, right?
+
+85
+00:05:06.630 --> 00:05:10.990
+你可以说最大权是幺半群，你可以保留一个或
+You can say maximum right is a monoid, where you can keep one or
+
+86
+00:05:10.990 --> 00:05:13.930
+另一个恒等式是无穷大或负无穷大。
+the other identity being infinity or negative infinity.
+
+87
+00:05:15.570 --> 00:05:19.580
+但是替代接口的想法是我们要选择
+But the idea of the interface of alternative is that we're gonna choose
+
+88
+00:05:19.580 --> 00:05:20.810
+这个或那个。
+this or that one.
+
+89
+00:05:20.810 --> 00:05:25.943
+但是我们可以用半群来做这件事，或者说幺半群，让我们只是
+But we can do this with semigroups by saying or monoids by saying, let's just
+
+90
+00:05:25.943 --> 00:05:31.690
+make，让我们把它包装成另一种类型，我们称之为替代品。
+make, let's just wrap it in another type, let's call it alternative.
+
+91
+00:05:31.690 --> 00:05:33.640
+好的，所以我们有这个选择。
+All right, so we have this alternative.
+
+92
+00:05:33.640 --> 00:05:39.129
+这将持有一个任一 x 而不仅仅是一个 x，好吧。
+And this is gonna be holding an either x not just an x, all right.
+
+93
+00:05:39.129 --> 00:05:41.868
+宝石被称为 ex 以提醒我们，并且
+The jewel is called ex to remind us, and
+
+94
+00:05:41.868 --> 00:05:46.970
+我们将通过说，好吧，好吧，让我们作弊。
+we'll concat that by saying, all right, well, let's just cheat.
+
+95
+00:05:46.970 --> 00:05:52.600
+如果是左边，我知道他们在我的任何一个班级都有这个功能。
+If it is the left, I know they have that function on my either class.
+
+96
+00:05:52.600 --> 00:05:57.180
+我们最终会保留另一个，或者我猜我们。
+We will end up keeping the other one or I guess us.
+
+97
+00:05:57.180 --> 00:05:59.170
+因为如果我们离开了他们也离开了，
+Because if we are left and they are left,
+
+98
+00:05:59.170 --> 00:06:00.900
+我们保留哪个左边真的没有关系，对吧？
+it really doesn't matter which left we keep, right?
+
+99
+00:06:00.900 --> 00:06:03.250
+我们只保留第一个，所以跳过自己。
+We're just gonna keep the first one, so skip ourselves.
+
+100
+00:06:05.070 --> 00:06:08.000
+那么，我们是否可以保留，哎呀，这是其他的。
+So, are we, can keep, oops, this is other.
+
+101
+00:06:09.490 --> 00:06:15.240
+所以如果留下另一个，让我们保持自己，否则，
+So if the other one is left, let's just keep ourselves otherwise,
+
+102
+00:06:15.240 --> 00:06:19.562
+我们要说让我们说
+we're going to say let's say
+
+103
+00:06:19.562 --> 00:06:25.730
+ex.concat other.ex，把所有的都放到一个替代里面，对吧？
+ex.concat other.ex, put that all into inside an alternative, right?
+
+104
+00:06:25.730 --> 00:06:29.380
+因为我们永远不能，它是关闭的，我们不应该在 concat 中逃脱。
+Because we can't ever, it's closed, we shouldn't ever escape in a concat.
+
+105
+00:06:29.380 --> 00:06:30.670
+这是你应该做的第一件事。
+That's the first thing you should do.
+
+106
+00:06:30.670 --> 00:06:31.970
+每当您准备好连接函数时，
+Whenever you're ready to concat functions,
+
+107
+00:06:31.970 --> 00:06:35.330
+确保你没有脱离类型，因为那是错误，
+make sure you're not falling out of the type, because that is error,
+
+108
+00:06:35.330 --> 00:06:36.670
+就像刚刚发生的事情。
+like what just happened.
+
+109
+00:06:36.670 --> 00:06:39.029
+所以让我看看我的逻辑是否正确。
+So let me see if my logic is correct.
+
+110
+00:06:39.029 --> 00:06:42.480
+如果我们这里还有剩余，我们会保留它。
+If we've got a left over here, we're gonna keep it.
+
+111
+00:06:42.480 --> 00:06:44.120
+确实如此，我们要保住自己。
+It does, we're gonna keep ourselves.
+
+112
+00:06:45.530 --> 00:06:49.880
+否则，我们将连接内部。
+Otherwise, we're going to concat the insides.
+
+113
+00:06:49.880 --> 00:06:55.700
+现在我们实际上可以决定是否连接两者的内部或
+Now we can actually decide whether or not to concat the insides of the two or
+
+114
+00:06:55.700 --> 00:07:01.220
+只保留外面的一个，对，我们可以保留第一个成功。
+just keep the outer one, right, we can keep the first success.
+
+115
+00:07:01.220 --> 00:07:04.640
+所以这些是仍然满足界面的选择。
+So these are choices that are still satisfy the interface.
+
+116
+00:07:06.400 --> 00:07:11.487
+但与这些函子幺半群的直觉一致，
+But in keeping with the kind of intuition of these functor monoids,
+
+117
+00:07:11.487 --> 00:07:14.800
+我们要连接两者的内部。
+we're gonna concat the insides of the two.
+
+118
+00:07:14.800 --> 00:07:19.360
+看看我是否做对了，我可能没有，如果有人看到任何问题，请大声说出来。
+See if I get this right, I may not have, if anybody sees any problems shout it out.
+
+119
+00:07:22.020 --> 00:07:26.680
+我们离开了这个计划，这是任何人的猜测。
+We got off the program it's a anybody's guess.
+
+120
+00:07:26.680 --> 00:07:29.566
+所以把这个 x 拿出来并折叠 ID，好吧。
+So get this x out of there and folde ID, all right.
+
+121
+00:07:29.566 --> 00:07:34.870
+添加蓝色 where
+Add by blue where
+
+122
+00:07:34.870 --> 00:07:39.410
+我们无法阅读是另一个。
+we got can't read is left of the other one.
+
+123
+00:07:39.410 --> 00:07:44.859
+那是因为我在这里没有替代方案
+That's because I don't have an alternative here, to alternative
+
+124
+00:07:46.601 --> 00:07:50.380
+好吧，那怎么样？
+All right, so, how's that?
+
+125
+00:07:50.380 --> 00:07:52.310
+好的，所以它保持高，凉爽。
+Okay, so it keeps the high, cool.
+
+126
+00:07:52.310 --> 00:07:59.160
+如果我用 concat an optional 连接这个替代方案怎么办？
+What if I concat an alternative of this with concat an alternative?
+
+127
+00:08:00.700 --> 00:08:04.500
+又是一堆解释。
+Another bunch of explanations.
+
+128
+00:08:04.500 --> 00:08:08.922
+现在用 by 连接它，嘿，做到了，对。
+Now concat at that with the by, hey, did it, right.
+
+129
+00:08:08.922 --> 00:08:11.520
+所以每一个，
+And so every,
+
+130
+00:08:11.520 --> 00:08:15.710
+它只是忽略了这里的左边，它没有，它什么都不做，这很好。
+it just ignores the left here it doesn't, it doesn't do anything, which is nice.
+
+131
+00:08:15.710 --> 00:08:21.810
+所以如果我们利用这种级联嵌套
+So if we're taking advantage of these kind of like this cascading kind of nesting,
+
+132
+00:08:21.810 --> 00:08:25.660
+一切都在那里，在嵌套的某个时刻，你可以说，你知道
+where everything concats down, at some point in the nesting you can say, you know
+
+133
+00:08:25.660 --> 00:08:31.230
+什么，我不会继续向内连接并成为一个很好的嵌套公民。
+what, I'm not going to continue to concat inward and be a nice nested citizen.
+
+134
+00:08:31.230 --> 00:08:33.728
+我将在这里做出决定并选择一个或
+I'm going to make a decision here and choose one or
+
+135
+00:08:33.728 --> 00:08:36.058
+另一种分支我的代码有效。
+the other kind of branch my code effectively.
+
+136
+00:08:36.058 --> 00:08:38.482
+或者我可以像我们在这里做的那样两者都做，
+Or I can do both as we're doing here,
+
+137
+00:08:38.482 --> 00:08:42.170
+如果正确，我们只会连接内部。
+we're only going to concat the inside if it's a right.
+
+138
+00:08:42.170 --> 00:08:46.880
+我想快速将其重写为折叠地图，然后我们将跳转
+I want to rewrite this as a fold map real quick and then we'll jump
+
+139
+00:08:46.880 --> 00:08:51.270
+进入一些练习，我们会回来构建一个小的验证库。
+into some exercises and we'll come back and build a little validation library.
+
+140
+00:08:51.270 --> 00:08:57.090
+但是，是的，所以我希望你在这里获得更多关于完整地图的经验。
+But, yeah, so I want you to get some more experience with full map here.
+
+141
+00:08:57.090 --> 00:08:59.630
+事实证明，这是很多代码，对吧？
+Turns out, this is a lot of code, right?
+
+142
+00:08:59.630 --> 00:09:00.400
+这有点烦人。
+It's kind of annoying.
+
+143
+00:09:01.420 --> 00:09:07.410
+所以我们可以做的是，我将继续并将其放入列表中。
+So what we could do is, I'm gonna go ahead and put this into a list.
+
+144
+00:09:07.410 --> 00:09:14.610
+他们让我的清单不是从一开始就得到的，只是导入它，好吗？
+They have my list don't get from the first thing and just import it, okay?
+
+145
+00:09:14.610 --> 00:09:17.865
+所以我们会有一个嗨的列表。
+So we'll have a list of Hi.
+
+146
+00:09:17.865 --> 00:09:22.294
+还有怎么会
+And how would
+
+147
+00:09:22.294 --> 00:09:28.330
+只是a，b，c。
+just a, b,c.
+
+148
+00:09:28.330 --> 00:09:35.780
+我们要做的是把那些我猜我们做不到的。
+And what we're gonna do is put those I guess we can't do that.
+
+149
+00:09:35.780 --> 00:09:40.437
+我们必须做对a，对b，
+We have to do a right a, right b,
+
+150
+00:09:40.437 --> 00:09:45.454
+和 c 的右边，好吧，c 的左边。
+and a right of c, okay, left of c.
+
+151
+00:09:45.454 --> 00:09:51.620
+现在我们将继续将Map 折叠成替代和
+And now we'll just go ahead and foldMap into alternative and
+
+152
+00:09:51.620 --> 00:09:54.780
+我们可以像reduce一样选择忽略初始值。
+we can choose just like reduce to ignore the initial value.
+
+153
+00:09:54.780 --> 00:09:58.930
+但通常在调用站点，您知道初始值是什么。
+But oftentimes at the calling site, you know what the initial value is.
+
+154
+00:09:58.930 --> 00:10:02.870
+所以你想保证它的安全并提供初始值。
+So you want to keep it safe and provide initial value.
+
+155
+00:10:02.870 --> 00:10:05.460
+所以我的初始值，
+So my initial value,
+
+156
+00:10:05.460 --> 00:10:10.940
+如果我有一堆字符串，我的空元素就是一个空字符串。
+if I have a bunch of strings my empty element is an empty string.
+
+157
+00:10:10.940 --> 00:10:14.936
+要么我的空元素是对的，要么
+And either my empty element is a right and or
+
+158
+00:10:14.936 --> 00:10:20.500
+我想我的中立然后另类持有。
+I guess my neutral and then alternative holding that.
+
+159
+00:10:20.500 --> 00:10:23.290
+所以我们将把所有这些地图折叠成一个替代品
+So we'll fold map all these into an alternative and
+
+160
+00:10:23.290 --> 00:10:25.270
+那么希望这会奏效。
+then hopefully this will work.
+
+161
+00:10:26.830 --> 00:10:30.090
+我们得到了 a 和 b，它连接了内部，万岁。
+And we got a and b, it concats the insides, hooray.
+
+162
+00:10:30.090 --> 00:10:30.700
+有用。
+It works.
+
+163
+00:10:30.700 --> 00:10:33.084
+如果我把它留在这里，我们会得到 a 和 c。
+If I make this left here, we'll get a and c.
+
+164
+00:10:37.037 --> 00:10:39.740
+所以你最终实际上会制作你自己的幺半群。
+So you'll end up actually making your own monoids quite a bit.
+
+165
+00:10:39.740 --> 00:10:42.920
+但这个想法是你最终会制作自己的幺半群
+But the idea is that you'll end up making your own monoids
+
+166
+00:10:42.920 --> 00:10:47.370
+比你要制作自己的粉丝等等要多得多。
+a lot more than you are gonna make your own fanctors and such.
+
+167
+00:10:47.370 --> 00:10:50.240
+所以，知道如何制作这些东西是很好的。
+So there, it's good to know how to make these things.
+
+168
+00:10:50.240 --> 00:10:51.940
+当然，你可以通过一堂课来做到这一点。
+And of course you can make it with a class.
+
+169
+00:10:51.940 --> 00:10:54.330
+你不必在这些小功能中做到，
+You don't have to make it in these little functions,
+
+170
+00:10:54.330 --> 00:10:56.820
+你可以让它更有效率或其他什么。
+you can make it more efficient or whatever.
+
+171
+00:10:57.840 --> 00:10:59.750
+有十几种方法可以做到。
+There's a dozen ways to do it.
+
+172
+00:10:59.750 --> 00:11:02.380
+好的，让我们去。
+Okay, so let's go to.
+
+173
+00:11:02.380 --> 00:11:07.040
+&gt;&gt; 按照你的模式，你会像 MD 一样，那是对的吗？
+&gt;&gt; Following your pattern you would make like an MD and that would be a right?
+
+174
+00:11:07.040 --> 00:11:12.240
+&gt;&gt; 那，是的，你会创建一个，如果你想制作一个幺半群，你必须有 concat。
+&gt;&gt; That, yeah, you'd create a, if you want to make a monoid you have to have concat.
+
+175
+00:11:12.240 --> 00:11:13.520
+而对于半群，
+And for semigroup,
+
+176
+00:11:13.520 --> 00:11:19.040
+你只需要定义一个 concat 方法 empty 就像一个类方法，通常，
+you just have to define a concat method empty is like a class method usually,
+
+177
+00:11:19.040 --> 00:11:22.990
+因为如果它是那个类的一个实例，为什么你会有一个实例。
+because why would you have an instance if it is an instance of that class.
+
+178
+00:11:22.990 --> 00:11:26.370
+所以通常这就是为什么我在类本身上放空的原因。
+So usually that's why I'm kind of putting empty on the class itself.
+
+179
+00:11:29.530 --> 00:11:33.810
+这样它就给了我任何东西的初始价值。
+So that way it gives me my initial value of whatever.
+
+180
+00:11:33.810 --> 00:11:35.681
+所以我们走了。
+So there we go.

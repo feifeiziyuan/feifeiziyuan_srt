@@ -1,0 +1,1440 @@
+1
+00:00:00,166 --> 00:00:02,000
+in the last section we assume that we
+
+2
+00:00:02,000 --> 00:00:04,666
+always get post parameters in the same format
+
+3
+00:00:04,800 --> 00:00:06,666
+but that's not always the case
+
+4
+00:00:06,966 --> 00:00:08,666
+let's have a look at this post request
+
+5
+00:00:08,666 --> 00:00:09,066
+again
+
+6
+00:00:09,066 --> 00:00:12,366
+in the last section we hinted that this content type
+
+7
+00:00:12,366 --> 00:00:13,300
+was kind of important
+
+8
+00:00:13,833 --> 00:00:16,000
+when the content type is set to this value
+
+9
+00:00:16,000 --> 00:00:18,633
+it means that the body is a query string
+
+10
+00:00:18,833 --> 00:00:20,600
+encoded in this name
+
+11
+00:00:20,600 --> 00:00:22,866
+value pair format that we see down here
+
+12
+00:00:23,366 --> 00:00:26,466
+so the content type effectively tells us how to parse
+
+13
+00:00:26,500 --> 00:00:27,700
+the request body
+
+14
+00:00:28,000 --> 00:00:30,800
+now you can also post data encoded differently
+
+15
+00:00:30,900 --> 00:00:33,133
+so it's important to check the content type
+
+16
+00:00:33,133 --> 00:00:34,900
+to determine how to parse the body
+
+17
+00:00:35,133 --> 00:00:37,966
+to do that we need to parse all of these headers
+
+18
+00:00:38,033 --> 00:00:38,600
+and we
+
+19
+00:00:38,600 --> 00:00:41,433
+already have them right now as a list of strings
+
+20
+00:00:41,700 --> 00:00:44,933
+so we've added a bit of logging so that we can see that
+
+21
+00:00:45,300 --> 00:00:48,033
+so here is our headers as a list of strings
+
+22
+00:00:48,333 --> 00:00:52,333
+but transforming this into a map with key value pairs
+
+23
+00:00:52,333 --> 00:00:54,566
+well that would be so much more useful
+
+24
+00:00:55,133 --> 00:00:57,866
+so to set this up over in our co and v struck
+
+25
+00:00:57,966 --> 00:01:00,333
+similar to how we have para as a field
+
+26
+00:01:00,433 --> 00:01:02,700
+and it has a default value of empty map
+
+27
+00:01:02,933 --> 00:01:05,166
+what we want to do the same thing with headers
+
+28
+00:01:05,500 --> 00:01:07,233
+so we'll have a headers field
+
+29
+00:01:07,233 --> 00:01:09,566
+and it'll also default to an empty map
+
+30
+00:01:09,966 --> 00:01:12,466
+and then over in the parse function similar to prams
+
+31
+00:01:12,466 --> 00:01:14,000
+we need to parse our headers
+
+32
+00:01:14,366 --> 00:01:16,000
+so we'll have headers equals
+
+33
+00:01:16,000 --> 00:01:17,466
+and we're going to write a function called
+
+34
+00:01:17,700 --> 00:01:18,566
+parse headers
+
+35
+00:01:18,900 --> 00:01:20,100
+and it's going to pass in
+
+36
+00:01:20,366 --> 00:01:22,966
+header lines which remember is a list of strings
+
+37
+00:01:23,133 --> 00:01:24,100
+then once we have those
+
+38
+00:01:24,100 --> 00:01:27,333
+parsed down when we initialize our co and v struck
+
+39
+00:01:27,466 --> 00:01:29,366
+while we want to set that field headers
+
+40
+00:01:29,900 --> 00:01:32,200
+to be the value of that header's variable
+
+41
+00:01:32,533 --> 00:01:34,700
+so of course we need to define this function
+
+42
+00:01:34,700 --> 00:01:35,666
+and I'll just do this
+
+43
+00:01:35,733 --> 00:01:36,533
+right down here
+
+44
+00:01:38,933 --> 00:01:40,300
+takes in the headers lines
+
+45
+00:01:40,600 --> 00:01:43,500
+and ultimately this is going to need to return a
+
+46
+00:01:43,733 --> 00:01:45,000
+map of the headers
+
+47
+00:01:45,433 --> 00:01:46,500
+so how are we going to do that
+
+48
+00:01:46,700 --> 00:01:48,266
+well let's look at that request again
+
+49
+00:01:48,633 --> 00:01:50,700
+so the conventional way to do this would be to
+
+50
+00:01:50,700 --> 00:01:52,266
+loop through these header lines
+
+51
+00:01:52,266 --> 00:01:53,300
+which is a list
+
+52
+00:01:53,500 --> 00:01:55,966
+pars each line into a key value pair
+
+53
+00:01:55,966 --> 00:01:56,633
+so for example
+
+54
+00:01:56,633 --> 00:01:58,766
+this line the key would be host and the value would be
+
+55
+00:01:58,933 --> 00:01:59,933
+example com
+
+56
+00:02:00,333 --> 00:02:02,966
+and then accumulate those key value pairs
+
+57
+00:02:03,033 --> 00:02:04,066
+in the headers map
+
+58
+00:02:04,366 --> 00:02:05,433
+but here's the thing though
+
+59
+00:02:05,433 --> 00:02:08,466
+there are no conventional looping constructs in elixir
+
+60
+00:02:08,800 --> 00:02:11,266
+but remember in the last section when we saw that
+
+61
+00:02:11,266 --> 00:02:13,766
+list our recursive data structures
+
+62
+00:02:13,833 --> 00:02:17,200
+I've recreated our sex session from the prior video
+
+63
+00:02:17,533 --> 00:02:19,266
+and we started with a list of numbs
+
+64
+00:02:19,266 --> 00:02:21,600
+and remember that we used the head and tail
+
+65
+00:02:21,900 --> 00:02:23,733
+pattern match with that cons operator
+
+66
+00:02:23,966 --> 00:02:25,700
+to traverse through this list
+
+67
+00:02:26,066 --> 00:02:28,433
+so the first time the head had a value of one
+
+68
+00:02:28,666 --> 00:02:30,633
+and then tail was a list itself
+
+69
+00:02:30,933 --> 00:02:33,233
+and then we use tail on the right hand side
+
+70
+00:02:33,533 --> 00:02:35,033
+and then the value of head was two
+
+71
+00:02:35,400 --> 00:02:37,000
+and tail was three four and five
+
+72
+00:02:37,333 --> 00:02:41,400
+and so on all the way down to the point where tail
+
+73
+00:02:41,833 --> 00:02:43,533
+was a one element list
+
+74
+00:02:43,633 --> 00:02:45,866
+we then matched it against that pattern
+
+75
+00:02:46,000 --> 00:02:48,300
+and head was the element five
+
+76
+00:02:48,600 --> 00:02:51,300
+but tail was an empty list
+
+77
+00:02:51,466 --> 00:02:54,300
+so by pattern matching tail each time
+
+78
+00:02:54,600 --> 00:02:57,833
+we recursively walked through each element of the list
+
+79
+00:02:58,200 --> 00:03:00,400
+here's a simple program that does the same thing
+
+80
+00:03:00,466 --> 00:03:02,833
+it's in a standalone file called recurred
+
+81
+00:03:02,833 --> 00:03:05,033
+ex it's not in a mixed project
+
+82
+00:03:05,233 --> 00:03:05,900
+and you can find
+
+83
+00:03:05,900 --> 00:03:07,900
+it in the code bundle if you want to follow along
+
+84
+00:03:08,100 --> 00:03:10,433
+so it just defines a module called recurse
+
+85
+00:03:10,433 --> 00:03:12,600
+it has a function called loopy
+
+86
+00:03:12,866 --> 00:03:15,633
+and then we call loopy down here and we pass it a
+
+87
+00:03:15,666 --> 00:03:17,700
+list of numbers one through five
+
+88
+00:03:18,066 --> 00:03:19,466
+that matches the pattern
+
+89
+00:03:19,466 --> 00:03:21,800
+that's the argument in this loopy function
+
+90
+00:03:22,066 --> 00:03:23,800
+which gives us the head and the tail
+
+91
+00:03:23,800 --> 00:03:25,933
+we print out the head print out the tail
+
+92
+00:03:26,166 --> 00:03:27,433
+and then here's the key part
+
+93
+00:03:27,666 --> 00:03:30,066
+we call loopy on itself here
+
+94
+00:03:30,433 --> 00:03:33,466
+passing in the tail which is that remaining list
+
+95
+00:03:33,600 --> 00:03:36,700
+in other words it's recursive and if we run it
+
+96
+00:03:37,266 --> 00:03:38,500
+well we get the same output
+
+97
+00:03:38,500 --> 00:03:40,666
+we got in ix just in a little bit
+
+98
+00:03:40,666 --> 00:03:41,333
+different format
+
+99
+00:03:41,333 --> 00:03:42,366
+so you see that it's just
+
+100
+00:03:42,566 --> 00:03:44,866
+walking through the list recursively
+
+101
+00:03:45,000 --> 00:03:46,400
+pulling off the head and the tail
+
+102
+00:03:46,666 --> 00:03:47,666
+until finally we get
+
+103
+00:03:47,666 --> 00:03:49,900
+to the point where the tail is an empty list
+
+104
+00:03:50,333 --> 00:03:52,933
+but what about this function clause air
+
+105
+00:03:53,133 --> 00:03:53,933
+well remember
+
+106
+00:03:53,933 --> 00:03:57,466
+the tail of the final element of any list is
+
+107
+00:03:57,633 --> 00:03:59,200
+always an empty list
+
+108
+00:03:59,333 --> 00:04:01,966
+so when it loops with tail being an empty list
+
+109
+00:04:01,966 --> 00:04:03,966
+the pattern doesn't match
+
+110
+00:04:04,433 --> 00:04:04,733
+yeah
+
+111
+00:04:04,733 --> 00:04:07,466
+so we need a function clause that matches that pattern
+
+112
+00:04:07,466 --> 00:04:09,733
+which will effectively terminate the recursion
+
+113
+00:04:09,733 --> 00:04:11,066
+I'm just going to paste one in
+
+114
+00:04:11,366 --> 00:04:12,300
+so it's loopy
+
+115
+00:04:12,800 --> 00:04:14,233
+with an empty list
+
+116
+00:04:14,300 --> 00:04:15,833
+and when this function is called
+
+117
+00:04:15,833 --> 00:04:17,800
+because that pattern matches while we know the worth
+
+118
+00:04:17,800 --> 00:04:19,633
+the end so we just print out done
+
+119
+00:04:20,133 --> 00:04:20,933
+say that away
+
+120
+00:04:21,166 --> 00:04:23,800
+run it again well sure enough it prints out done
+
+121
+00:04:23,833 --> 00:04:25,733
+when we've walked through the entire list
+
+122
+00:04:26,033 --> 00:04:28,000
+so there are three ingredients that make this work
+
+123
+00:04:28,300 --> 00:04:30,933
+the first one is these multi claws functions
+
+124
+00:04:31,233 --> 00:04:33,200
+this is called the terminating claws here
+
+125
+00:04:33,500 --> 00:04:35,700
+the second is we do pattern matching on
+
+126
+00:04:35,900 --> 00:04:37,066
+the head and the tail
+
+127
+00:04:37,466 --> 00:04:39,733
+this is the pattern up until the list is empty
+
+128
+00:04:39,733 --> 00:04:41,833
+and then we match on the empty list
+
+129
+00:04:41,833 --> 00:04:42,800
+to know that we're done
+
+130
+00:04:43,400 --> 00:04:45,866
+and the final ingredient of course is recursion
+
+131
+00:04:45,866 --> 00:04:47,600
+we're looping back on ourself
+
+132
+00:04:48,066 --> 00:04:50,866
+so to loop through the header lines we can recurs
+
+133
+00:04:50,933 --> 00:04:53,533
+the same way with two function clauses
+
+134
+00:04:53,633 --> 00:04:55,533
+that's going to happen over in our parser
+
+135
+00:04:55,933 --> 00:04:58,033
+and right now our parsed headers function
+
+136
+00:04:58,033 --> 00:05:00,066
+takes one argument these header lines
+
+137
+00:05:00,233 --> 00:05:01,066
+but we're going to change this
+
+138
+00:05:01,066 --> 00:05:02,333
+around to match a pattern
+
+139
+00:05:02,466 --> 00:05:03,266
+it's going to be
+
+140
+00:05:04,166 --> 00:05:05,033
+head and tail
+
+141
+00:05:05,733 --> 00:05:08,400
+and then just like with the recursive numbers we need
+
+142
+00:05:08,400 --> 00:05:11,100
+to call the parse headers function as the last
+
+143
+00:05:11,200 --> 00:05:12,466
+line of this function here
+
+144
+00:05:12,666 --> 00:05:14,733
+and we're going to pass in the tail
+
+145
+00:05:15,166 --> 00:05:17,800
+remember just like we did an ix and that program
+
+146
+00:05:17,933 --> 00:05:18,466
+we keep
+
+147
+00:05:18,466 --> 00:05:20,900
+matching on the tail until we get to the end of it
+
+148
+00:05:21,400 --> 00:05:22,233
+and then above this line
+
+149
+00:05:22,233 --> 00:05:23,866
+I'm just going to add a little bit of debug
+
+150
+00:05:23,866 --> 00:05:25,200
+just so we can see what's going on
+
+151
+00:05:30,566 --> 00:05:33,133
+and I'm using the inspect function on these lists
+
+152
+00:05:33,133 --> 00:05:33,400
+just
+
+153
+00:05:33,400 --> 00:05:35,900
+because it'll print out the raw form of these lists
+
+154
+00:05:35,900 --> 00:05:37,833
+and then we also have these labels head and tail
+
+155
+00:05:37,833 --> 00:05:38,633
+around it
+
+156
+00:05:38,833 --> 00:05:41,366
+we also need a second function clause when our
+
+157
+00:05:41,533 --> 00:05:42,866
+list returns empty
+
+158
+00:05:43,600 --> 00:05:44,833
+yeah it's just parse headers
+
+159
+00:05:45,333 --> 00:05:46,700
+it's going to be the empty list
+
+160
+00:05:47,533 --> 00:05:48,966
+and in this case we'll print out
+
+161
+00:05:49,066 --> 00:05:50,533
+done just like we did before
+
+162
+00:05:51,300 --> 00:05:52,466
+so now if we save that away
+
+163
+00:05:53,333 --> 00:05:54,466
+and we recompile
+
+164
+00:05:55,466 --> 00:05:58,066
+we scroll back up just to see what that debug gave us
+
+165
+00:05:58,500 --> 00:06:00,600
+well the first time through the head is
+
+166
+00:06:00,833 --> 00:06:04,833
+this host line and the tail is all the remaining lines
+
+167
+00:06:04,966 --> 00:06:05,900
+then the second time through
+
+168
+00:06:05,900 --> 00:06:07,933
+it's the second thing in the list
+
+169
+00:06:07,966 --> 00:06:09,600
+and the tail is everything else
+
+170
+00:06:09,600 --> 00:06:11,866
+and it just walks through until finally
+
+171
+00:06:12,033 --> 00:06:14,633
+the head is the last line content length
+
+172
+00:06:14,633 --> 00:06:16,666
+and the tail is an empty list
+
+173
+00:06:16,900 --> 00:06:19,866
+and it matches the empty list and we get back done
+
+174
+00:06:20,633 --> 00:06:21,900
+so the next question is
+
+175
+00:06:22,033 --> 00:06:24,100
+what do we want to do for each head and tail
+
+176
+00:06:24,333 --> 00:06:25,333
+well we really don't
+
+177
+00:06:25,333 --> 00:06:26,600
+care about the tail
+
+178
+00:06:26,666 --> 00:06:28,066
+but for each head
+
+179
+00:06:28,266 --> 00:06:30,966
+we want to parse it into a key value pair
+
+180
+00:06:31,233 --> 00:06:33,100
+and we know how to parse a string
+
+181
+00:06:33,133 --> 00:06:35,166
+and match the returned list
+
+182
+00:06:35,766 --> 00:06:37,733
+yeah I'll just do it down below this debugging
+
+183
+00:06:38,000 --> 00:06:39,366
+just give it a little bit of space here
+
+184
+00:06:39,800 --> 00:06:41,766
+our pattern is going to be a key in a value
+
+185
+00:06:42,733 --> 00:06:44,800
+and we'll take string split
+
+186
+00:06:45,733 --> 00:06:46,733
+split the head
+
+187
+00:06:47,200 --> 00:06:49,366
+and the dilemma here is a colon and a space
+
+188
+00:06:49,866 --> 00:06:51,500
+and then I want to add a little bit more logging
+
+189
+00:06:51,500 --> 00:06:52,766
+so I'm just going to copy this
+
+190
+00:06:52,800 --> 00:06:53,500
+and we'll do it
+
+191
+00:06:53,500 --> 00:06:54,966
+after we have the key in the value
+
+192
+00:06:55,066 --> 00:06:56,066
+I'm just going to change these around
+
+193
+00:06:56,066 --> 00:06:57,033
+this will be our key
+
+194
+00:06:59,700 --> 00:07:00,800
+and this will be our value
+
+195
+00:07:02,466 --> 00:07:03,533
+now if we save that away
+
+196
+00:07:04,333 --> 00:07:06,000
+come back over here and recon pilot again
+
+197
+00:07:06,733 --> 00:07:08,200
+and scroll up here
+
+198
+00:07:09,366 --> 00:07:11,466
+all right head host example
+
+199
+00:07:11,466 --> 00:07:13,533
+com and notice we have key
+
+200
+00:07:13,600 --> 00:07:15,900
+well the key is host and the value is example
+
+201
+00:07:15,900 --> 00:07:19,166
+com similarly when we have the head being this
+
+202
+00:07:19,166 --> 00:07:20,300
+user agent line
+
+203
+00:07:20,466 --> 00:07:21,966
+while the key is user agent
+
+204
+00:07:22,133 --> 00:07:23,100
+and the value is
+
+205
+00:07:23,133 --> 00:07:25,033
+whatever the value of that in the header is
+
+206
+00:07:25,366 --> 00:07:29,266
+so we're successfully parsing this string the head
+
+207
+00:07:29,600 --> 00:07:31,433
+into key value pairs
+
+208
+00:07:31,866 --> 00:07:33,700
+so the next thing we want to do is put
+
+209
+00:07:33,766 --> 00:07:36,400
+the key value pairs in the header's map
+
+210
+00:07:36,900 --> 00:07:38,633
+so I'll do that right below this line
+
+211
+00:07:39,800 --> 00:07:41,733
+we'll have variable headers like I did before
+
+212
+00:07:41,733 --> 00:07:43,000
+I took it out a little bit earlier
+
+213
+00:07:43,000 --> 00:07:44,366
+but we'll put it back in here
+
+214
+00:07:44,733 --> 00:07:46,233
+and then we want to make a map
+
+215
+00:07:46,233 --> 00:07:49,333
+so we're going to use the map modules put function
+
+216
+00:07:49,900 --> 00:07:51,933
+we're going to start off with an empty map
+
+217
+00:07:52,433 --> 00:07:55,100
+and then we'll add the key and the value to that map
+
+218
+00:07:55,333 --> 00:07:57,500
+and just to give a little bit more debug
+
+219
+00:07:57,533 --> 00:07:58,800
+we'll do io inspect
+
+220
+00:07:59,100 --> 00:08:00,066
+on those headers
+
+221
+00:08:00,500 --> 00:08:01,633
+so let's run it again
+
+222
+00:08:03,266 --> 00:08:04,833
+so here's the head and tail output
+
+223
+00:08:05,100 --> 00:08:07,800
+here are our key value pairs and then we have a map
+
+224
+00:08:08,300 --> 00:08:09,766
+host is the key example
+
+225
+00:08:09,766 --> 00:08:10,733
+com as the value
+
+226
+00:08:11,033 --> 00:08:13,233
+if we look down at this one here's our head and tail
+
+227
+00:08:13,766 --> 00:08:14,866
+here's the key value
+
+228
+00:08:14,866 --> 00:08:17,633
+and then we have a map with user agent as the key
+
+229
+00:08:17,966 --> 00:08:19,233
+but it's a new map
+
+230
+00:08:19,633 --> 00:08:22,466
+every time yeah this one has one key value
+
+231
+00:08:22,466 --> 00:08:24,000
+this one has one key value
+
+232
+00:08:24,000 --> 00:08:25,400
+if we keep looking through here
+
+233
+00:08:25,600 --> 00:08:27,533
+it's always one key in value
+
+234
+00:08:28,000 --> 00:08:30,533
+we need a way to remember the header's map and add
+
+235
+00:08:30,566 --> 00:08:32,700
+to it each time through the loop
+
+236
+00:08:32,933 --> 00:08:34,833
+because we want all the header information
+
+237
+00:08:34,833 --> 00:08:36,266
+to end up in a single map
+
+238
+00:08:36,600 --> 00:08:39,000
+in other words we need a way to maintain state
+
+239
+00:08:39,033 --> 00:08:41,000
+and there's only one way to do that
+
+240
+00:08:41,066 --> 00:08:42,533
+and that's to take the state
+
+241
+00:08:42,633 --> 00:08:44,000
+a map in our case
+
+242
+00:08:44,000 --> 00:08:46,700
+and pass it as an argument to the recursive function
+
+243
+00:08:47,633 --> 00:08:48,166
+before we do that
+
+244
+00:08:48,166 --> 00:08:50,433
+let's get rid of this debugging just to clean this up
+
+245
+00:08:50,433 --> 00:08:51,566
+so we can see what's going on
+
+246
+00:08:53,066 --> 00:08:53,933
+then we're going to change
+
+247
+00:08:53,933 --> 00:08:56,866
+the function claws to take a second argument
+
+248
+00:08:56,933 --> 00:08:58,200
+and we're going to call it headers
+
+249
+00:08:58,566 --> 00:09:00,133
+and then instead of calling map
+
+250
+00:09:00,233 --> 00:09:03,766
+put passing in an empty map as the first argument here
+
+251
+00:09:04,033 --> 00:09:05,800
+we want to pass in headers
+
+252
+00:09:06,100 --> 00:09:08,366
+because we want to add the key and the value
+
+253
+00:09:08,533 --> 00:09:10,200
+to this header's map
+
+254
+00:09:10,566 --> 00:09:11,900
+then here's the key part
+
+255
+00:09:11,900 --> 00:09:14,300
+when we recursively call parse headers
+
+256
+00:09:14,433 --> 00:09:18,066
+we need to pass in headers as that 2nd argument
+
+257
+00:09:18,500 --> 00:09:21,533
+likewise we need to change our termination claws to
+
+258
+00:09:21,533 --> 00:09:22,433
+also take headers
+
+259
+00:09:22,933 --> 00:09:24,666
+now when this termination claws runs
+
+260
+00:09:24,666 --> 00:09:26,400
+it means worth the end of the list
+
+261
+00:09:26,533 --> 00:09:28,066
+so instead of printing out done
+
+262
+00:09:28,533 --> 00:09:30,800
+we just want to return that headers map
+
+263
+00:09:30,933 --> 00:09:33,266
+and it should have all the key value pairs in it
+
+264
+00:09:33,766 --> 00:09:34,666
+now don't forget
+
+265
+00:09:34,666 --> 00:09:36,733
+we need to update the function call
+
+266
+00:09:36,733 --> 00:09:38,233
+to pass in an empty map
+
+267
+00:09:38,233 --> 00:09:39,600
+as the second argument
+
+268
+00:09:39,600 --> 00:09:41,666
+so we start out with an empty map
+
+269
+00:09:41,933 --> 00:09:43,066
+yeah it's this call right here
+
+270
+00:09:43,066 --> 00:09:44,800
+it's just passing in header lines
+
+271
+00:09:44,800 --> 00:09:47,033
+but we know we have to take two arguments
+
+272
+00:09:47,166 --> 00:09:48,933
+so we're just going to start this off with
+
+273
+00:09:49,200 --> 00:09:50,033
+an empty map
+
+274
+00:09:50,466 --> 00:09:53,000
+so just to walk through this we call parts headers
+
+275
+00:09:53,366 --> 00:09:55,766
+passing in an empty map that comes down here
+
+276
+00:09:55,833 --> 00:09:57,233
+matches head and tail
+
+277
+00:09:57,433 --> 00:09:58,233
+and then
+
+278
+00:09:58,833 --> 00:10:00,566
+we go through there accumulating
+
+279
+00:10:00,600 --> 00:10:03,000
+all the keys and values into this header's map
+
+280
+00:10:03,166 --> 00:10:04,666
+passing it back to itself
+
+281
+00:10:05,033 --> 00:10:06,600
+until finally Bing
+
+282
+00:10:06,866 --> 00:10:10,333
+we get the final header map returned from parse headers
+
+283
+00:10:10,700 --> 00:10:11,966
+so now if we save this away
+
+284
+00:10:12,733 --> 00:10:14,166
+come back over and recompile
+
+285
+00:10:14,733 --> 00:10:15,500
+we'll check it out
+
+286
+00:10:15,500 --> 00:10:18,033
+here's our co and v structure and it has a headers
+
+287
+00:10:18,033 --> 00:10:21,400
+field and the value of that field is a map
+
+288
+00:10:21,466 --> 00:10:23,000
+containing all of our headers
+
+289
+00:10:23,966 --> 00:10:24,100
+now
+
+290
+00:10:24,100 --> 00:10:26,833
+if you've done recursion like this in other languages
+
+291
+00:10:26,833 --> 00:10:29,300
+you might be concerned that recurring this way
+
+292
+00:10:29,500 --> 00:10:32,466
+with a large enough list could consume a lot of memory
+
+293
+00:10:32,533 --> 00:10:34,033
+and blow up the call stack
+
+294
+00:10:34,300 --> 00:10:35,566
+but because the last
+
+295
+00:10:35,700 --> 00:10:38,033
+thing the function does is call itself
+
+296
+00:10:38,233 --> 00:10:41,333
+elixir uses something called tail call optimization
+
+297
+00:10:41,633 --> 00:10:44,266
+no new frames are pushed onto the call stack
+
+298
+00:10:44,466 --> 00:10:46,866
+so it consumes no additional memory
+
+299
+00:10:47,000 --> 00:10:49,800
+in other words this is really efficient in elixir
+
+300
+00:10:50,366 --> 00:10:52,400
+so now that we've collected all the headers
+
+301
+00:10:52,433 --> 00:10:54,933
+we can return to our original problem
+
+302
+00:10:55,333 --> 00:10:58,266
+if the content type matches this
+
+303
+00:10:58,766 --> 00:11:01,033
+then we can proceed with the parsing we
+
+304
+00:11:01,033 --> 00:11:03,100
+already have in parse parts
+
+305
+00:11:03,433 --> 00:11:05,733
+but if not then we'll ignore
+
+306
+00:11:05,766 --> 00:11:09,200
+the request body or the param string altogether
+
+307
+00:11:09,600 --> 00:11:10,233
+and to do that
+
+308
+00:11:10,233 --> 00:11:10,900
+we're going to use
+
+309
+00:11:10,900 --> 00:11:13,166
+multi claws functions in pattern matching
+
+310
+00:11:13,533 --> 00:11:15,100
+so what we'll do is we'll change
+
+311
+00:11:15,133 --> 00:11:16,033
+this function to
+
+312
+00:11:16,033 --> 00:11:18,633
+take the content type as the first argument
+
+313
+00:11:19,533 --> 00:11:21,466
+and that way we can pattern match on it
+
+314
+00:11:21,933 --> 00:11:25,033
+and then when we call parsh para which happens up here
+
+315
+00:11:26,333 --> 00:11:29,166
+well we'll pass it the value that's in the headers map
+
+316
+00:11:29,866 --> 00:11:31,533
+associated with the key
+
+317
+00:11:32,233 --> 00:11:33,133
+content type
+
+318
+00:11:34,466 --> 00:11:37,900
+so if the content type is this application
+
+319
+00:11:38,300 --> 00:11:41,200
+x wow form url encoded
+
+320
+00:11:41,333 --> 00:11:42,966
+well we want to decode it
+
+321
+00:11:42,966 --> 00:11:45,500
+using that I code query function
+
+322
+00:11:45,700 --> 00:11:47,366
+but we also need to define a
+
+323
+00:11:47,366 --> 00:11:50,333
+default clause for all other content types
+
+324
+00:11:51,400 --> 00:11:53,700
+so it's going to be called pars para
+
+325
+00:11:54,066 --> 00:11:56,100
+and we don't really care what the content type is
+
+326
+00:11:56,766 --> 00:11:59,300
+and we don't even care about the param string
+
+327
+00:11:59,833 --> 00:12:01,533
+because if we fall through to this level
+
+328
+00:12:01,800 --> 00:12:04,233
+well we're just going to return an empty map
+
+329
+00:12:04,733 --> 00:12:05,900
+because we're going to match this one
+
+330
+00:12:05,900 --> 00:12:07,433
+and we're going to handle it the way we know how
+
+331
+00:12:07,433 --> 00:12:08,366
+by decoding it
+
+332
+00:12:08,533 --> 00:12:09,766
+but for everything else
+
+333
+00:12:09,933 --> 00:12:11,300
+well we don't know how to deal with that
+
+334
+00:12:11,466 --> 00:12:13,133
+so we're just going to return an empty map
+
+335
+00:12:13,433 --> 00:12:15,533
+now if we save this away it should run just as it did
+
+336
+00:12:15,533 --> 00:12:16,333
+before
+
+337
+00:12:17,400 --> 00:12:18,566
+and indeed it does
+
+338
+00:12:18,800 --> 00:12:21,933
+but let's change the content type of our post request
+
+339
+00:12:22,100 --> 00:12:25,833
+let's make it a multi part slash form data
+
+340
+00:12:26,000 --> 00:12:27,300
+if we run it now
+
+341
+00:12:28,400 --> 00:12:31,833
+we see that the para is empty just as expected
+
+342
+00:12:32,533 --> 00:12:32,733
+yeah
+
+343
+00:12:32,733 --> 00:12:35,133
+this is another content type that web servers handle
+
+344
+00:12:35,133 --> 00:12:36,866
+but it's a lot more complicated and
+
+345
+00:12:36,866 --> 00:12:38,266
+there's really nothing new to teach about
+
+346
+00:12:38,266 --> 00:12:39,766
+elixir by implementing that
+
+347
+00:12:39,800 --> 00:12:41,666
+plus it probably takes a long time to do
+
+348
+00:12:41,866 --> 00:12:43,033
+so I'm just going to set it back
+
+349
+00:12:43,166 --> 00:12:46,633
+and say that we just handle this content type
+
+350
+00:12:47,133 --> 00:12:49,766
+recursion is a basic building block of elixir
+
+351
+00:12:49,766 --> 00:12:51,866
+and you'll see it used extensively
+
+352
+00:12:52,133 --> 00:12:53,766
+but you won't often use it to
+
+353
+00:12:53,766 --> 00:12:56,266
+traverse and process the list as we did
+
+354
+00:12:56,666 --> 00:12:58,566
+yeah this kind of code is so common
+
+355
+00:12:58,566 --> 00:13:01,900
+that the e new module provides convenience functions
+
+356
+00:13:01,966 --> 00:13:03,400
+for manipulating lists
+
+357
+00:13:03,433 --> 00:13:06,200
+providing a really nice abstraction from the details
+
+358
+00:13:06,200 --> 00:13:09,200
+but under the hood the e new functions are implemented
+
+359
+00:13:09,233 --> 00:13:10,266
+using recursion
+
+360
+00:13:10,566 --> 00:13:13,166
+we'll have a look at the e new module coming up next
+

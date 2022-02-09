@@ -1,0 +1,431 @@
+WEBVTT
+
+1
+00:00:00.440 --> 00:00:02.058
+所以接下来的步骤在这里。
+So next steps here.
+
+2
+00:00:02.058 --> 00:00:05.845
+我们将研究函子。
+We're going to look at functors.
+
+3
+00:00:05.845 --> 00:00:11.175
+所以让我们跳到，让我们保存它，然后
+So let's jump over to, let's save that and
+
+4
+00:00:11.175 --> 00:00:17.957
+转到幺半群 2、幺半群 1、0 索引，当然。
+go to monoids 2, monoids 1, 0 indexed, of course.
+
+5
+00:00:17.957 --> 00:00:22.304
+所以函子是幺半群。
+So functors are monoids.
+
+6
+00:00:22.304 --> 00:00:26.613
+好的，我将交替使用幺半群和半群。
+All right, I'm gonna be using monoids and semigroups kind of interchangeably.
+
+7
+00:00:26.613 --> 00:00:29.650
+我真的很了解串联行为。
+I'm really getting at the concatenation behavior.
+
+8
+00:00:29.650 --> 00:00:35.786
+身份是随之而来的一个非常好的属性。
+And identity comes as a very nice property that follows from that.
+
+9
+00:00:35.786 --> 00:00:39.040
+但大多数时候我们非常关心连接。
+But most of the time we care very much about concating.
+
+10
+00:00:39.040 --> 00:00:41.965
+与身份无关。
+Not as much about identity.
+
+11
+00:00:41.965 --> 00:00:43.871
+但它确实有回报。
+But it does pay off.
+
+12
+00:00:43.871 --> 00:00:44.976
+所以很高兴知道。
+So it's good to know.
+
+13
+00:00:44.976 --> 00:00:46.420
+但我会交替使用它。
+But I'm gonna use it interchangeably.
+
+14
+00:00:46.420 --> 00:00:50.262
+所以我们这里有这些函子，ID。
+So we have these functors here, ID.
+
+15
+00:00:50.262 --> 00:00:54.750
+这是函数式编程课程中的盒子。
+This was box in the functional programming class.
+
+16
+00:00:54.750 --> 00:00:56.008
+它是恒等函子。
+It's the identity functor.
+
+17
+00:00:56.008 --> 00:00:57.669
+它什么都不做。
+It just does nothing.
+
+18
+00:00:57.669 --> 00:00:58.894
+任务捕获异步。
+Task capture the async.
+
+19
+00:00:58.894 --> 00:01:03.820
+要么捕获您将拥有的左侧或右侧，通常是错误。
+Either captures the you'll have a left or a right, usually errors.
+
+20
+00:01:04.820 --> 00:01:09.300
+所以如果我放置一个任务，我会从 ID 开始。
+So if I put a task, I'll start with the ID.
+
+21
+00:01:09.300 --> 00:01:12.240
+身份证很容易看。
+ID's easy to look at.
+
+22
+00:01:12.240 --> 00:01:17.629
+让我们抓住其中一些我们在这里定义的有趣的幺半群。
+And let's grab some of these some of these fun monoids that we've defined over here.
+
+23
+00:01:17.629 --> 00:01:19.987
+所以我们有任何东西，还有空的等等。
+So we've got any and all and empty and whatnot.
+
+24
+00:01:19.987 --> 00:01:22.453
+我们只是把它们扔在那里。
+We're gonna just throw them up there.
+
+25
+00:01:22.453 --> 00:01:24.085
+我们走了。
+And there we go.
+
+26
+00:01:24.085 --> 00:01:28.443
+所以我们有一个总和为 2 的 ID。
+So we have an ID of a sum of 2.
+
+27
+00:01:28.443 --> 00:01:35.029
+我实际上可以用总和为 3 的 ID 连接它。
+And I can actually concat that with an ID of sum of 3.
+
+28
+00:01:35.029 --> 00:01:38.410
+我们应该得到一个五之和的 ID。
+And we should get an ID of the sum of five.
+
+29
+00:01:39.790 --> 00:01:45.814
+所以如果 ID 持有的是幺半群，那么它就是幺半群。
+So ID is a monoid if what it's holding is a monoid.
+
+30
+00:01:45.814 --> 00:01:48.384
+就像说黄油手指悬挂式滑翔机。
+Like to say a butter fingered hang glider.
+
+31
+00:01:48.384 --> 00:01:50.690
+它是一个，而它持有一个。
+It is one whilst it holds one.
+
+32
+00:01:50.690 --> 00:01:55.680
+所以通过事实是 如果它只是一个半群
+So via the fact is that If it's just a semigroup,
+
+33
+00:01:55.680 --> 00:01:58.735
+那么 ID 将是一个半群。
+then ID would be a semigroup.
+
+34
+00:01:58.735 --> 00:02:02.121
+是的，它所持有的东西定义了它的行为。
+Right, it's whatever it's holding defines its behavior.
+
+35
+00:02:02.121 --> 00:02:05.738
+所以我们可以说让我们继续看看这是否真的有效。
+So we could say let's go ahead and see if this actually works.
+
+36
+00:02:05.738 --> 00:02:09.164
+你们都十指相扣。
+Fingers crossed y'all.
+
+37
+00:02:09.164 --> 00:02:13.757
+而且我想我现在必须调用extract 才能将其从ID 中取出。
+And I think I have to call extract to get it out of the ID for now.
+
+38
+00:02:13.757 --> 00:02:15.424
+让我们来看看。
+So let's look at that.
+
+39
+00:02:15.424 --> 00:02:19.520
+或者事实上，让我们不要调用提取物，看看它给了我什么。
+Or in fact, let's not call extract and see what it gives me.
+
+40
+00:02:21.000 --> 00:02:23.401
+节点幺半群一。
+Node monoids one.
+
+41
+00:02:23.401 --> 00:02:27.597
+是的，所以我们得到了这种东西，它是一个恒等函子。
+Yeah, so we get this kind of thing, which is an identity functor.
+
+42
+00:02:27.597 --> 00:02:28.810
+只是很难看。
+It's just hard to look at.
+
+43
+00:02:28.810 --> 00:02:31.403
+所以我们将调用extract。
+So we'll call extract.
+
+44
+00:02:31.403 --> 00:02:35.390
+&gt;&gt; 在这种情况下，extract 与上一堂课中的 full 相同吗？
+&gt;&gt; And in this case extract is the same as full in the last class?
+
+45
+00:02:35.390 --> 00:02:37.223
+&gt;&gt; 完全正确。
+&gt;&gt; That's exactly right.
+
+46
+00:02:37.223 --> 00:02:42.180
+我们得到的是一个对象，这可能是错误的。
+And what we've got is an object, which is probably wrong.
+
+47
+00:02:43.670 --> 00:02:45.565
+让我们来看看。
+So let's look at that.
+
+48
+00:02:45.565 --> 00:02:50.998
+让我们看看我的实现是否错误
+And let's just see if I got my implementation wrong of either or
+
+49
+00:02:50.998 --> 00:02:54.060
+如果只是看起来不对。
+if it's just not looking right.
+
+50
+00:02:54.060 --> 00:02:55.113
+让我们折叠。
+Let's do fold.
+
+51
+00:02:55.113 --> 00:02:59.109
+嘿，让我们引入那个有趣的身份功能来折叠它吧？
+Hey, let's bring in that fun identity function to fold it out right?
+
+52
+00:02:59.109 --> 00:03:00.361
+我们称之为 ID。
+We'll call it ID.
+
+53
+00:03:00.361 --> 00:03:04.020
+我们会做 x 和 x，很酷。
+We'll do x and x, cool.
+
+54
+00:03:04.020 --> 00:03:06.194
+折叠 ID，ID。
+Fold ID, ID.
+
+55
+00:03:06.194 --> 00:03:08.040
+好吧，让我们看看这个是否有效。
+All right, let's see if this one works.
+
+56
+00:03:08.040 --> 00:03:09.263
+好的，这个有效。
+Okay, this one works.
+
+57
+00:03:09.263 --> 00:03:10.768
+我只是搞砸了我的身份功能。
+I just messed up my identity function.
+
+58
+00:03:10.768 --> 00:03:13.253
+实际上，看看这是如何实现的会很有趣。
+Actually, this will be kind of fun to see how this is implemented.
+
+59
+00:03:13.253 --> 00:03:15.964
+让我们来看看我们的类型。
+Let's go over to our types.
+
+60
+00:03:15.964 --> 00:03:20.998
+现在，让我们在混乱中寻找身份。
+Now, let's find identity in this chaos.
+
+61
+00:03:20.998 --> 00:03:27.210
+我们是说，我们持有一些东西，x，看看那个。
+And we're saying, we hold something, x, look at that.
+
+62
+00:03:27.210 --> 00:03:29.847
+我没有编程到接口。
+I didn't program to the interface.
+
+63
+00:03:29.847 --> 00:03:34.420
+[笑] 这就是为什么，我们走了，很酷。
+[LAUGH] That's why, here we go, cool.
+
+64
+00:03:34.420 --> 00:03:36.185
+所以正如我们在这里看到的，
+So as we can see here,
+
+65
+00:03:36.185 --> 00:03:41.302
+我们有一个 ID 将它的内脏与另一个连接在一起，对吗？
+we have an ID concating its innards with another one, right?
+
+66
+00:03:41.302 --> 00:03:44.667
+所以它所做的就是说出我拿着的任何东西，
+So what it's doing is saying whatever I'm holding,
+
+67
+00:03:44.667 --> 00:03:49.095
+将那个与另一个连接起来，然后将其提取出来以获得它的 x。
+have that concat with the other one, and extract that out to get its x.
+
+68
+00:03:49.095 --> 00:03:50.752
+然后我们继续
+And then we'll go ahead and
+
+69
+00:03:50.752 --> 00:03:54.580
+将其保留在 ID 内，因为它在组合下已关闭。
+keep it inside the ID because it's closed under composition.
+
+70
+00:03:54.580 --> 00:03:59.320
+所以让我们把它放回 ID、ID 和
+So let's put it back into ID, ID and
+
+71
+00:03:59.320 --> 00:04:05.330
+那么我们应该可以从这里提取出来。
+then we should be able to extract out of here.
+
+72
+00:04:05.330 --> 00:04:07.580
+我们走了，酷。
+There we go, cool.
+
+73
+00:04:07.580 --> 00:04:11.395
+所以这就是通过接口编程的好处，如果你
+So that's the benefit of programming through an interface if you
+
+74
+00:04:11.395 --> 00:04:12.374
+实际上去做。
+actually do it.
+
+75
+00:04:12.374 --> 00:04:20.360
+所以，我们可以在这里做的另一件事是，让这些堆栈尽可能多。
+So, one other thing we can do here is, so these stack as much as we want.
+
+76
+00:04:20.360 --> 00:04:28.997
+对了，我们可以放一个任务权限的ID[笑]。
+Right, we can put an ID of a right of a task [LAUGH].
+
+77
+00:04:28.997 --> 00:04:30.840
+它只是组成。
+And it just composes.
+
+78
+00:04:30.840 --> 00:04:33.283
+它直接会级联，
+It just straight up will cascade,
+
+79
+00:04:33.283 --> 00:04:38.100
+将 this 所持有的任何内容与 this 所持有的内容连接起来。
+concating whatever this is holding with whatever this is holding.
+
+80
+00:04:38.100 --> 00:04:41.743
+关键是，只要我连接相同形状的东西，
+The point is, as long as I'm concating something with the same shape,
+
+81
+00:04:41.743 --> 00:04:45.873
+如果我们回到那个 gobstopper 的例子，我们采用了所有这些不同的效果
+if we go back to that gobstopper example, we took all these different effects and
+
+82
+00:04:45.873 --> 00:04:47.735
+我们把它做成同样的形状。
+we made it into the same shape.
+
+83
+00:04:47.735 --> 00:04:51.272
+这是一种分层类型。
+It's kind of this layered type.
+
+84
+00:04:51.272 --> 00:04:54.647
+我实际上可以将它与另一件事联系起来。
+And I can actually concat that with another thing.
+
+85
+00:04:54.647 --> 00:04:58.806
+它会打开ID，打开右边，打开任务和
+And it will open up the ID, open up the right, open up the task and
+
+86
+00:04:58.806 --> 00:05:00.515
+将太阳凝聚在一起。
+concat the sun together.

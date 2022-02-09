@@ -1,0 +1,1495 @@
+1
+00:00:00,333 --> 00:00:01,633
+我们目前正在使用地图
+we're currently using a map
+
+2
+00:00:01,633 --> 00:00:03,200
+代表我们的谈话
+to represent our conversation
+
+3
+00:00:03,333 --> 00:00:05,300
+和地图是一个通用的数据结构
+and maps are a generic data structure
+
+4
+00:00:05,300 --> 00:00:07,966
+我们可以向地图添加任意键和值
+we can add arbitrary keys and values to maps
+
+5
+00:00:08,100 --> 00:00:11,133
+但我们的谈话有一些隐含的限制
+but our conversation has some implied constraints
+
+6
+00:00:11,233 --> 00:00:14,133
+它有一组带有默认值的固定字段
+it has a fixed set of fields with default values
+
+7
+00:00:14,300 --> 00:00:16,900
+因为它是我们应用程序的中心数据结构
+and since it's the central data structure of our app
+
+8
+00:00:17,100 --> 00:00:19,333
+它流经整个管道
+it flows through the entire pipeline
+
+9
+00:00:19,400 --> 00:00:21,300
+我们想给它更多的结构
+we'd like to give it a bit more structure
+
+10
+00:00:21,366 --> 00:00:23,566
+这正是结构给我们的
+and that's exactly what a structure gives us
+
+11
+00:00:24,366 --> 00:00:25,966
+现在一个结构需要自己生活
+now a structure needs to live in its own
+
+12
+00:00:25,966 --> 00:00:28,433
+模块，我们也会把它放在它自己的文件中
+module and we'll put it in its own file too
+
+13
+00:00:28,466 --> 00:00:31,033
+在 lib 调查下将创建一个新文件
+under lib survey will create a new file
+
+14
+00:00:31,266 --> 00:00:32,766
+我们称之为骗局
+and we'll call it con
+
+15
+00:00:33,100 --> 00:00:33,933
+前任
+ex
+
+16
+00:00:34,666 --> 00:00:37,566
+然后在其中我们将定义我们的 con 模块
+and then inside of that we'll define our co n module
+
+17
+00:00:38,766 --> 00:00:40,233
+服务网络
+service nv
+
+18
+00:00:40,566 --> 00:00:43,600
+然后在我们使用的那个模块中定义一个结构
+then to define a structure within that module we use
+
+19
+00:00:43,700 --> 00:00:44,933
+定义结构
+def structure
+
+20
+00:00:45,200 --> 00:00:47,766
+我们传递给它一个关键字列表，它看起来像这样
+and we pass it a keyword list it looks like this
+
+21
+00:00:48,266 --> 00:00:49,300
+方括号
+square brackets
+
+22
+00:00:49,333 --> 00:00:50,333
+然后在里面
+and then inside of there
+
+23
+00:00:50,333 --> 00:00:52,733
+我们列出这个结构的字段
+we list the fields of this structure
+
+24
+00:00:52,733 --> 00:00:54,300
+所以其中之一是方法
+so one of them is method
+
+25
+00:00:54,466 --> 00:00:55,633
+那是字段的名称
+that's the name of the field
+
+26
+00:00:55,666 --> 00:00:57,200
+然后我们可以给它默认值
+and then we can give it default values
+
+27
+00:00:57,200 --> 00:00:58,766
+这个只是一个空字符串
+this one's just going to be an empty string
+
+28
+00:00:59,400 --> 00:01:00,700
+与路径相同
+same way with path
+
+29
+00:01:01,666 --> 00:01:03,733
+响应体也是空的
+response body is also empty
+
+30
+00:01:04,800 --> 00:01:06,333
+然后我们有一个状态字段
+and then we have a status field
+
+31
+00:01:06,333 --> 00:01:08,100
+我们将默认为 nil
+and we'll default that to nil
+
+32
+00:01:08,666 --> 00:01:09,566
+关键字列表
+keyword lister
+
+33
+00:01:09,566 --> 00:01:12,433
+通常用于将选项传递给函数
+commonly used to pass options to a function
+
+34
+00:01:12,600 --> 00:01:14,900
+或者在这种情况下是一个长生不老药宏
+or in this case an elixir macro
+
+35
+00:01:15,366 --> 00:01:17,366
+因为关键字列表是最后一个
+since the keyword list is the last
+
+36
+00:01:17,633 --> 00:01:18,966
+唯一的论点
+and only argument
+
+37
+00:01:18,966 --> 00:01:21,300
+我们实际上可以删除方括号
+we can actually remove the square brackets
+
+38
+00:01:21,800 --> 00:01:23,500
+那么这个结构的名称是什么
+so what's the name of this structure
+
+39
+00:01:23,533 --> 00:01:26,666
+好吧，它与模块 servey 的名称相同
+well it's the same as the name of the module servey
+
+40
+00:01:26,766 --> 00:01:30,066
+co 和 v 这就是为什么结构必须存在于模块中的原因
+co and v that's why a structure must live in a module
+
+41
+00:01:30,066 --> 00:01:31,266
+你不能定义
+and you can't define
+
+42
+00:01:31,266 --> 00:01:32,500
+不止一次被击中
+more than one struck
+
+43
+00:01:32,566 --> 00:01:34,300
+每个模块，所以让我们保存它
+per module so let's save that
+
+44
+00:01:34,300 --> 00:01:36,000
+离开，我们将启动一个 ix 会话
+away and we'll fire up an ix session
+
+45
+00:01:36,000 --> 00:01:36,700
+只是为了感受
+just to get a feel
+
+46
+00:01:36,700 --> 00:01:38,100
+关于 s 的工作原理
+for how the s works
+
+47
+00:01:38,266 --> 00:01:40,466
+我在顶级调查目录中
+I'm inside of the top level survey directory
+
+48
+00:01:40,466 --> 00:01:42,333
+我将使用修复
+and I'm going to use fix
+
+49
+00:01:42,600 --> 00:01:46,033
+s mix 以便我们将其作为混合应用程序运行
+s mix so that we're running this as a mix application
+
+50
+00:01:46,333 --> 00:01:47,633
+你注意到它解释为
+and you notice it interpreted that
+
+51
+00:01:47,633 --> 00:01:49,066
+模块之外的代码
+code that was outside of the module
+
+52
+00:01:49,066 --> 00:01:49,233
+所以
+so
+
+53
+00:01:49,233 --> 00:01:51,166
+我只是要把它清理干净然后回到顶部
+I'm just going to clean this up and go back to the top
+
+54
+00:01:51,600 --> 00:01:53,366
+所以你可能还记得我们是如何创建地图的
+so you probably remember how we create a map
+
+55
+00:01:53,366 --> 00:01:56,333
+我们只使用百分比，然后像这样的花括号
+we just use per cent and then curly braces like that
+
+56
+00:01:56,800 --> 00:01:59,466
+同样，我们可以创建一个结构
+well similarly we can create a structure
+
+57
+00:02:00,000 --> 00:02:02,233
+通过使用 % 花括号
+by using % curly braces
+
+58
+00:02:02,233 --> 00:02:02,500
+但
+but
+
+59
+00:02:02,500 --> 00:02:04,333
+在他们两个之间，我们把被击中的名字
+between the two of them we put the name of the struck
+
+60
+00:02:04,333 --> 00:02:06,166
+所以这是服务端
+so it's servey co n
+
+61
+00:02:06,633 --> 00:02:08,533
+我们注意到结果是严格的
+and we notice the result is a strict
+
+62
+00:02:08,533 --> 00:02:09,200
+它有这些
+it's got these
+
+63
+00:02:09,200 --> 00:02:12,300
+使用默认值固定其中的字段
+fixed fields inside of it with their default values
+
+64
+00:02:12,566 --> 00:02:14,800
+现在我们也可以创建结构和供应
+now we can also create the structure and supply
+
+65
+00:02:14,800 --> 00:02:17,266
+覆盖这些默认值的值
+values to override those defaults
+
+66
+00:02:17,400 --> 00:02:18,766
+所以如果我们想覆盖方法
+so if we wanted to override method
+
+67
+00:02:18,766 --> 00:02:19,900
+我们只会说方法
+we would just say method
+
+68
+00:02:19,933 --> 00:02:20,733
+会得到
+would be get
+
+69
+00:02:21,000 --> 00:02:24,833
+例如，路径可能是斜线熊
+and maybe the path would be slash bears for example
+
+70
+00:02:25,366 --> 00:02:26,933
+你注意到方法现在是 get
+and you notice the method is now get
+
+71
+00:02:26,933 --> 00:02:28,033
+路径是熊
+and the path is bears
+
+72
+00:02:28,033 --> 00:02:29,800
+然后我们有默认值
+and then we have the default values
+
+73
+00:02:29,800 --> 00:02:31,300
+对于其余字段
+for the remaining fields
+
+74
+00:02:31,600 --> 00:02:35,333
+现在不像地图，我们不能用它来创建结构
+now unlike a map we can't create a structure with
+
+75
+00:02:35,333 --> 00:02:38,433
+不在关键字列表中的字段，例如
+a field that's not in the keyword list like
+
+76
+00:02:38,533 --> 00:02:39,733
+名字是迈克
+name is mike
+
+77
+00:02:40,433 --> 00:02:41,066
+现在你可能会
+now you'd probably
+
+78
+00:02:41,100 --> 00:02:43,133
+永远不要像这样添加虚假字段
+never just add a spurious field like this
+
+79
+00:02:43,166 --> 00:02:44,233
+但如果你像我一样
+but if you're like me
+
+80
+00:02:44,233 --> 00:02:46,700
+那么您可能会错过字段类型
+then you're likely to miss type of field
+
+81
+00:02:46,800 --> 00:02:48,900
+比如你可能忘记了 o 和方法
+like maybe you forget the o and method
+
+82
+00:02:49,466 --> 00:02:50,500
+是的，这里的好处是
+yeah what's nice here is
+
+83
+00:02:50,500 --> 00:02:52,766
+在编译时检查约束
+the constraint is checked at compile time
+
+84
+00:02:52,833 --> 00:02:55,266
+所以拼写错误的字段名称不会漏掉
+so misspelled field names won't slip through
+
+85
+00:02:55,266 --> 00:02:57,733
+例如，现在让我们摆脱所有这些红色
+for example now let's get rid of all this red
+
+86
+00:02:57,733 --> 00:02:59,533
+我们将回到版本
+and we'll just go back to the version
+
+87
+00:02:59,666 --> 00:03:00,933
+拼写正确
+that had this spelled right
+
+88
+00:03:01,533 --> 00:03:03,700
+我们可以访问结构的字段
+and we can access fields of the structure
+
+89
+00:03:03,700 --> 00:03:05,333
+就像访问地图一样
+just like accessing a map
+
+90
+00:03:05,633 --> 00:03:06,900
+使用点符号
+using dot notation
+
+91
+00:03:06,900 --> 00:03:08,266
+所以如果我们想看看方法
+so if we want to look at the method
+
+92
+00:03:08,500 --> 00:03:09,800
+或者我们想看看路径
+or we want to look at the path
+
+93
+00:03:09,900 --> 00:03:11,700
+嗯，这是熟悉的点符号
+well it's the familiar dot notation
+
+94
+00:03:11,700 --> 00:03:12,733
+我们习惯了地图
+we're used to with a map
+
+95
+00:03:13,133 --> 00:03:16,466
+但与地图不同，方括号语法不起作用
+but unlike maps the square bracket syntax won't work
+
+96
+00:03:16,633 --> 00:03:17,733
+所以我们尝试这样做
+so we try to do this
+
+97
+00:03:18,866 --> 00:03:20,200
+好吧，我们收到一条错误消息
+well we get an error message
+
+98
+00:03:20,400 --> 00:03:23,400
+所以你可以说结构具有更严格的访问权限
+so you can say that structures have stricter access
+
+99
+00:03:23,400 --> 00:03:25,533
+因为他们不允许动态访问
+since they don't allow dynamic access
+
+100
+00:03:25,533 --> 00:03:27,633
+像地图一样使用方括号
+using square brackets like maps do
+
+101
+00:03:27,800 --> 00:03:30,700
+例如，我们仍然在 ix 中加载我们的地图
+for example we still have our map loaded up in ix here
+
+102
+00:03:30,800 --> 00:03:32,633
+如果我想尝试访问
+and if I would try to access
+
+103
+00:03:33,033 --> 00:03:35,000
+该地图的年龄键
+the age key of that map
+
+104
+00:03:35,566 --> 00:03:36,866
+好吧，它只是返回 nil
+well it just returns nil
+
+105
+00:03:37,000 --> 00:03:38,300
+但是如果我们尝试做同样的事情
+but if we try to do the same
+
+106
+00:03:38,333 --> 00:03:40,266
+与我们的合作和 v 发生的事情
+thing with our co and v struck
+
+107
+00:03:40,733 --> 00:03:43,633
+好吧，我们得到了一个实际的错误，而不是返回 nil
+well we get an actual error rather than returning nil
+
+108
+00:03:43,800 --> 00:03:46,100
+所以再次受到打击，我们得到编译时检查
+so again with a struck we get compile time checking
+
+109
+00:03:46,133 --> 00:03:47,800
+这通常可以节省你的培根
+which often saves your bacon
+
+110
+00:03:48,300 --> 00:03:51,300
+现在更新结构类似于更新地图
+now updating a structure is similar to updating a map
+
+111
+00:03:51,566 --> 00:03:52,166
+例如
+for example
+
+112
+00:03:52,166 --> 00:03:55,566
+假设我们想将状态码更新为 200
+let's say we wanted to update the status code to 200
+
+113
+00:03:55,833 --> 00:03:58,366
+我们将使用这种熟悉的语法，我们说 co 和 v
+we'll use this familiar syntax we say co and v
+
+114
+00:03:58,766 --> 00:04:01,966
+一个竖线，然后是 200 的状态
+a vertical bar and then status of 200
+
+115
+00:04:02,633 --> 00:04:04,500
+然后我们看到状态已经更新
+then we see the status has been updated
+
+116
+00:04:04,800 --> 00:04:07,700
+那么我们也可以模式匹配struts
+it follows then that we can also pattern match struts
+
+117
+00:04:07,700 --> 00:04:10,433
+所以我让我的 co 和 v 开始了
+so I have my co and v struck on the
+
+118
+00:04:10,466 --> 00:04:11,333
+右侧
+right hand side
+
+119
+00:04:11,666 --> 00:04:13,266
+我想在左边写一个图案
+and I want to write a pattern on the left hand
+
+120
+00:04:13,266 --> 00:04:14,300
+与之匹配的一面
+side that matches it
+
+121
+00:04:14,466 --> 00:04:15,900
+好吧，这将是服务
+well it would be servey
+
+122
+00:04:16,433 --> 00:04:19,833
+co 和 v 如果我只是使用方法作为 get
+co and v and if I just use method as get
+
+123
+00:04:21,100 --> 00:04:21,933
+看起来像那样
+looks like that
+
+124
+00:04:22,833 --> 00:04:26,833
+好吧，那会匹配，因为这是一个打击
+well that'll match because this is a co n struck
+
+125
+00:04:26,966 --> 00:04:28,533
+它肯定有一个
+and it certainly has a
+
+126
+00:04:28,633 --> 00:04:31,100
+值为 get 的字段方法
+field method with a value of get
+
+127
+00:04:31,166 --> 00:04:32,500
+我们不在乎里面还有什么
+and we don't care what else is in there
+
+128
+00:04:32,500 --> 00:04:34,433
+因为记得在左边
+because remember on the left hand side
+
+129
+00:04:34,666 --> 00:04:37,300
+我们不必提供所有字段来匹配
+we don't have to give all the fields to get a match
+
+130
+00:04:37,700 --> 00:04:41,300
+以同样的方式，我们可以将其与状态相匹配
+in the same way we could match it against a status
+
+131
+00:04:41,966 --> 00:04:44,133
+例如 200
+of 200 for example
+
+132
+00:04:45,100 --> 00:04:46,066
+毫不奇怪
+and no surprise
+
+133
+00:04:46,100 --> 00:04:48,800
+我们还可以在模式匹配中提取值
+we can also extract values in the pattern match
+
+134
+00:04:48,800 --> 00:04:49,966
+正如我们已经了解到的
+as we've already learned
+
+135
+00:04:50,166 --> 00:04:52,533
+是的，我将在那里使用变量方法
+yeah I'll just use the variable method right there
+
+136
+00:04:52,766 --> 00:04:53,700
+那是一场比赛
+and that's a match
+
+137
+00:04:53,700 --> 00:04:56,166
+如果我们很好地查看方法，它就会绑定到字符串
+and if we look at method well it's bound to the string
+
+138
+00:04:56,166 --> 00:04:59,400
+get so 使用结构感觉很像使用地图
+get so using a structure feels a lot like using a map
+
+139
+00:04:59,400 --> 00:05:01,333
+实际上是一个严格的例子
+and in fact a strict instance
+
+140
+00:05:01,366 --> 00:05:03,466
+只是一种特殊的地图
+is just a special kind of map
+
+141
+00:05:03,800 --> 00:05:06,533
+具有一组厚实的键和默认值
+with a thick set of keys and default values
+
+142
+00:05:06,566 --> 00:05:08,633
+我们可以测试一下里面有一个函数
+and we can kind of test that there's a function in
+
+143
+00:05:08,633 --> 00:05:10,233
+灵药叫做是图
+elixir called is map
+
+144
+00:05:10,433 --> 00:05:13,133
+如果我们通过 co 和 v 它肯定会返回
+if we pass at co and v it returns sure enough
+
+145
+00:05:13,700 --> 00:05:14,300
+所以它遵循
+so it follows
+
+146
+00:05:14,300 --> 00:05:16,433
+那么如果我们回到这里的表格
+then if we were to go back to this form here
+
+147
+00:05:16,733 --> 00:05:19,033
+我们在右边被击中的地方
+where we've got a struck on the right
+
+148
+00:05:19,500 --> 00:05:21,600
+但是我们在左边删除它
+but then we remove this on the left
+
+149
+00:05:21,600 --> 00:05:23,866
+所以这只是一张普通的旧地图
+so that this is just a plain old map
+
+150
+00:05:24,866 --> 00:05:28,300
+好吧，那会匹配，因为我们知道一个结构
+well that'll match because we know that a structure
+
+151
+00:05:28,500 --> 00:05:31,100
+是地图，这是左侧的地图
+is a map and this is a map on the left hand side
+
+152
+00:05:31,433 --> 00:05:33,966
+它有一个方法键和一个 get 值
+it has a key of method and a value of get
+
+153
+00:05:34,166 --> 00:05:36,300
+这个结构肯定有
+which this structure certainly has
+
+154
+00:05:36,466 --> 00:05:37,600
+所以这是一场比赛
+and so that's a match
+
+155
+00:05:37,933 --> 00:05:39,033
+那么反过来呢
+so what about the converse
+
+156
+00:05:39,033 --> 00:05:41,833
+如果我们在左侧有这个严格的模式
+if we have this strict pattern on the left hand side
+
+157
+00:05:42,133 --> 00:05:43,900
+然后在右手边
+and then over here on the right hand side
+
+158
+00:05:44,033 --> 00:05:45,833
+如果我们给它一张普通的旧地图
+if we just give it a plain old map
+
+159
+00:05:46,100 --> 00:05:47,733
+有关键方法的
+that has the key method
+
+160
+00:05:48,100 --> 00:05:49,066
+和价值得到
+and the value get
+
+161
+00:05:49,933 --> 00:05:52,733
+那不匹配，因为地图
+well that doesn't match because a map
+
+162
+00:05:53,300 --> 00:05:54,766
+不是结构
+isn't a structure
+
+163
+00:05:55,400 --> 00:05:56,533
+所以这里有什么大不了的
+so what's the big deal here
+
+164
+00:05:56,533 --> 00:05:58,600
+地图是我们真正关心的结构
+maps are structures do we really care
+
+165
+00:05:59,066 --> 00:06:02,433
+我们确实这样做了，因为通过对结构进行模式匹配
+indeed we do because by pattern matching on a structure
+
+166
+00:06:02,433 --> 00:06:03,266
+我们可以肯定
+we can be sure
+
+167
+00:06:03,266 --> 00:06:06,000
+我们一直在使用预期的地图类型
+we're always working with the expected type of map
+
+168
+00:06:06,200 --> 00:06:07,666
+不只是任何旧地图
+not just any old map
+
+169
+00:06:07,833 --> 00:06:10,500
+这使我们的应用程序代码更加健壮
+which makes our application code more robust
+
+170
+00:06:11,066 --> 00:06:12,033
+所以回到我们的应用程序
+so back in our app
+
+171
+00:06:12,066 --> 00:06:12,833
+让我们先改变
+let's first change
+
+172
+00:06:12,866 --> 00:06:15,166
+地图是如何在我们的解析器中初始化的
+how the map is initialized in our parser
+
+173
+00:06:15,533 --> 00:06:16,033
+是的 现在
+yeah right now
+
+174
+00:06:16,033 --> 00:06:18,966
+我们只是将它初始化为一个普通的老长生不老药地图
+we're just initializing it as a plain old elixir map
+
+175
+00:06:19,166 --> 00:06:21,966
+但我们希望它是一个印章和vs
+but we want it to be a seal and v s
+
+176
+00:06:22,400 --> 00:06:23,500
+我们只是要把它移下来
+we're just going to move that down
+
+177
+00:06:23,833 --> 00:06:25,100
+然后因为我们提供了
+and then because we provided
+
+178
+00:06:25,100 --> 00:06:26,566
+这些的默认值
+default values for these
+
+179
+00:06:26,566 --> 00:06:28,600
+我们定义结构时的两个字段
+two fields when we define the structure
+
+180
+00:06:28,600 --> 00:06:29,933
+好吧，我们不需要在这里这样做
+well we don't need to do this here
+
+181
+00:06:30,000 --> 00:06:32,166
+所以基本上我们要做的就是
+so basically what we're going to do is just
+
+182
+00:06:32,200 --> 00:06:34,000
+覆盖方法路径
+override the method path
+
+183
+00:06:34,000 --> 00:06:36,133
+方法路径变量中的任何内容
+with whatever's in the method path variables
+
+184
+00:06:36,300 --> 00:06:39,233
+所以你可能会认为这就像一个类型化的地图
+so you might think of this as like a typed map
+
+185
+00:06:39,566 --> 00:06:40,533
+如果我们把它保存起来
+if we save that away
+
+186
+00:06:40,733 --> 00:06:43,266
+如果我们说重新编译，然后回到 ix
+then back over an ix if we say recompile
+
+187
+00:06:44,200 --> 00:06:44,366
+好
+well
+
+188
+00:06:44,366 --> 00:06:46,866
+你可能会惊讶地发现它仍然有效
+you might be surprised to see that that still works
+
+189
+00:06:47,200 --> 00:06:49,233
+那是因为如果我们看一下 handler
+and that's because if we look at handler
+
+190
+00:06:49,400 --> 00:06:51,466
+以及我们管道中的所有这些功能
+and all these functions in our pipeline
+
+191
+00:06:51,566 --> 00:06:53,366
+拿这张普通的旧地图
+that take this plain old map
+
+192
+00:06:53,633 --> 00:06:54,300
+虽然我们知道
+while we know
+
+193
+00:06:54,300 --> 00:06:57,166
+如果这是右侧的结构
+that if this is a structure on the right hand side
+
+194
+00:06:57,366 --> 00:07:00,033
+它将匹配左侧的地图
+it will match a map on the left hand side
+
+195
+00:07:00,600 --> 00:07:01,733
+返回并解析
+back over and parser
+
+196
+00:07:01,733 --> 00:07:04,300
+我们需要在其他地方引用这个结构
+we'll need to refer to this structure in other places
+
+197
+00:07:04,300 --> 00:07:05,133
+这很乏味
+and it's tedious
+
+198
+00:07:05,133 --> 00:07:06,300
+打字调查
+to type survey
+
+199
+00:07:06,533 --> 00:07:07,800
+每次都骗
+con every time
+
+200
+00:07:08,333 --> 00:07:11,466
+所以我们可以为这个名字设置一个别名
+so instead we can set up an alias for the name
+
+201
+00:07:11,933 --> 00:07:15,933
+要在模块顶部执行此操作，我们只需使用别名
+to do that at the top of the module we just use alias
+
+202
+00:07:16,500 --> 00:07:18,233
+我们想给服务起别名
+we want to alias the serve
+
+203
+00:07:18,833 --> 00:07:21,333
+v 模块，然后我们可以给它一个名字
+v module and then we can give it a name
+
+204
+00:07:21,333 --> 00:07:24,033
+我们说冒号是一个选项
+we say as colon that's an option
+
+205
+00:07:24,033 --> 00:07:26,300
+我们想把它称为
+and we want to refer to it as just
+
+206
+00:07:26,400 --> 00:07:30,333
+co 和 v 然后在这里我们可以删除这个前缀
+co and v and then down here we can remove this prefix
+
+207
+00:07:30,800 --> 00:07:31,966
+定义别名
+defining aliases
+
+208
+00:07:31,966 --> 00:07:34,200
+这种方式太常见了，有一条捷径
+this way is so common that there's a shortcut
+
+209
+00:07:34,200 --> 00:07:36,900
+如果我们放弃煤炭和期权
+if we drop the as coal and option
+
+210
+00:07:37,033 --> 00:07:39,700
+然后我们得到一个别名，它是名称的最后一部分
+then we get an alias that's the last part of the name
+
+211
+00:07:40,433 --> 00:07:41,366
+那应该可以
+and that should work
+
+212
+00:07:41,966 --> 00:07:42,833
+它确实
+and it does
+
+213
+00:07:43,900 --> 00:07:45,300
+建模的好处之一
+one of the benefits of modeling
+
+214
+00:07:45,300 --> 00:07:48,700
+与地图相比，我们的谈话令人震惊
+our conversation is a struck as compared to a map is
+
+215
+00:07:48,700 --> 00:07:51,333
+我们可以确保管道中的所有功能
+we can ensure that all the functions in our pipeline
+
+216
+00:07:51,600 --> 00:07:53,266
+总是得到预期的类型
+always get the expected type
+
+217
+00:07:53,366 --> 00:07:55,766
+换句话说，我们得到了类型安全
+in other words we get type safety
+
+218
+00:07:56,366 --> 00:07:58,133
+让我们开始我们的插件模块
+let's start on our plugins module
+
+219
+00:07:58,200 --> 00:08:01,333
+首先，我们将别名 service co 和 v
+in first we're going to alias service co and v
+
+220
+00:08:01,366 --> 00:08:03,300
+所以我们不必使用完整的前缀
+so we don't have to use the full prefix
+
+221
+00:08:03,766 --> 00:08:05,800
+然后在这里而不是一张普通的旧地图
+and then down here instead of a plain old map
+
+222
+00:08:05,800 --> 00:08:08,433
+我们希望它是一个合作和 v 打击
+we want it to be a co and v struck
+
+223
+00:08:08,966 --> 00:08:10,533
+我们想在这里做同样的事情
+and we want to do the same thing here
+
+224
+00:08:10,533 --> 00:08:13,500
+请注意，我们并不真正关心这个结构中的内容
+notice we don't really care what's in this structure
+
+225
+00:08:13,600 --> 00:08:16,700
+所以一种方法就是说 c
+so a way to do that is just to say c
+
+226
+00:08:16,933 --> 00:08:19,766
+然后只打开关闭花括号等于
+and then just open close curly braces equals
+
+227
+00:08:19,766 --> 00:08:23,000
+这保证这是一个cnv袭击
+and that guarantees that this is a cnv struck
+
+228
+00:08:23,066 --> 00:08:24,433
+我们不在乎里面有什么
+we don't care what's inside of it
+
+229
+00:08:24,433 --> 00:08:26,966
+但我们确实关心它是那个类型的地图
+but we do care that it's that typed map
+
+230
+00:08:28,400 --> 00:08:29,700
+我们会继续改变这个
+we'll go ahead and change this one
+
+231
+00:08:30,366 --> 00:08:31,900
+我们会在这里做同样的事情
+and we'll do the same thing down here
+
+232
+00:08:34,233 --> 00:08:35,200
+我会接受的
+and I'll just take that
+
+233
+00:08:35,200 --> 00:08:37,200
+我们想做同样的事情
+and we want to do this exact same thing
+
+234
+00:08:37,466 --> 00:08:40,400
+对于日志，现在这些功能将
+for log so now these functions will
+
+235
+00:08:40,533 --> 00:08:44,433
+仅当此参数为 rco 和 b 时才匹配
+only match if this argument is rco and b struck
+
+236
+00:08:44,733 --> 00:08:47,033
+如果是普通的旧地图，它们将不匹配
+they won't match if it's a plain old map
+
+237
+00:08:47,200 --> 00:08:49,266
+把它放在这里也很清楚
+and putting this here also makes it clear
+
+238
+00:08:49,266 --> 00:08:51,400
+就在你看功能头的时候
+just when you look at the function head
+
+239
+00:08:51,533 --> 00:08:55,100
+这些函数只接受 co 和 v 实例
+that these functions only accept co and v instances
+
+240
+00:08:55,400 --> 00:08:57,966
+所以在某种程度上它是一种文档形式
+so in a way it's sort of a form of documentation
+
+241
+00:08:58,633 --> 00:09:01,866
+我们需要在处理程序模块中进行类似的更改
+we need to make similar changes in the handler module
+
+242
+00:09:02,466 --> 00:09:04,433
+再次，我们将从别名开始
+again we'll start by aliasing it
+
+243
+00:09:05,733 --> 00:09:08,566
+然后我们需要在这里更新路由模式
+and then we'll need to update the route patterns here
+
+244
+00:09:09,366 --> 00:09:10,700
+所以这将是 co 和 v
+so this is going to be co and v
+
+245
+00:09:10,700 --> 00:09:12,100
+我只是要复制这个
+and I'm just going to copy this
+
+246
+00:09:12,166 --> 00:09:13,466
+因为我们有一些这样的
+because we have a few of these
+
+247
+00:09:13,466 --> 00:09:14,766
+我们必须把它粘贴到
+we've got to paste this into
+
+248
+00:09:17,833 --> 00:09:18,833
+然后在下面
+and then down below
+
+249
+00:09:18,833 --> 00:09:21,366
+我们也有这种格式的响应
+we also have this format response
+
+250
+00:09:21,533 --> 00:09:23,033
+我们希望这样
+and we want that to be
+
+251
+00:09:24,033 --> 00:09:25,900
+只是任何 co 和 v 袭击
+just any co and v struck
+
+252
+00:09:25,966 --> 00:09:28,166
+如果我们把它保存起来应该仍然有效
+if we save that away should still work
+
+253
+00:09:28,966 --> 00:09:31,066
+现在通常结构是
+now it's common for a structure to be the
+
+254
+00:09:31,166 --> 00:09:32,933
+只有在模块中定义的东西
+only thing defined within a module
+
+255
+00:09:32,933 --> 00:09:34,533
+这就是我们现在所拥有的
+and that's what we have right now
+
+256
+00:09:34,700 --> 00:09:36,733
+但是，当您开始建模实体时
+however when you start modeling entities
+
+257
+00:09:36,733 --> 00:09:38,366
+您的域作为结构
+of your domain as structures
+
+258
+00:09:38,366 --> 00:09:40,033
+就像我们在谈话中所做的那样
+as we did with the conversation
+
+259
+00:09:40,200 --> 00:09:42,633
+您通常最终会定义同步的功能
+you often end up defining functions that go hand
+
+260
+00:09:42,633 --> 00:09:44,033
+与被击中的人牵手
+in hand with the struck
+
+261
+00:09:44,033 --> 00:09:45,533
+定义那些是有意义的
+and it makes sense to define those
+
+262
+00:09:45,533 --> 00:09:46,766
+功能相同
+functions in the same
+
+263
+00:09:46,800 --> 00:09:48,133
+被击中的模块
+module as the struck
+
+264
+00:09:48,333 --> 00:09:49,333
+作为一个简单的例子
+as a simple example
+
+265
+00:09:49,333 --> 00:09:51,700
+如果我们看一下这个格式响应函数
+if we look at this format response function
+
+266
+00:09:51,933 --> 00:09:54,966
+我们在这里解释了这个字符串
+we have this string right here being interpreted
+
+267
+00:09:55,066 --> 00:09:56,300
+它有两个部分
+and there's two parts to it
+
+268
+00:09:56,433 --> 00:09:56,566
+好
+well
+
+269
+00:09:56,566 --> 00:09:59,333
+我们可以通过在 co 中定义一个函数来整理它
+we can tidy that up by defining a function in the co
+
+270
+00:09:59,333 --> 00:10:02,800
+和返回完整状态字符串的 v 模块
+and v module that returns the full status string
+
+271
+00:10:03,033 --> 00:10:04,300
+所以我要把它从这里删掉
+so I'm just going to cut this out of here
+
+272
+00:10:04,300 --> 00:10:05,600
+我们希望它看起来像这样
+and we want it to look like this
+
+273
+00:10:06,266 --> 00:10:07,566
+在 co 和 v 模块上
+on the co and v module
+
+274
+00:10:07,566 --> 00:10:09,300
+我们希望能够调用一个函数
+we want to be able to call a function
+
+275
+00:10:09,466 --> 00:10:13,300
+完整状态，然后我们将传入 co 和 v
+full status and then we'll just pass in co and v
+
+276
+00:10:13,533 --> 00:10:15,100
+那么如果我们继续
+then if we go over to that
+
+277
+00:10:15,200 --> 00:10:17,100
+定义了我们的结构的模块
+module that has our structure defined
+
+278
+00:10:17,400 --> 00:10:19,133
+好吧，我们可以向下添加功能
+well we can add functions down
+
+279
+00:10:19,133 --> 00:10:22,300
+在这里，我们可以在这里定义我们的完整状态函数
+here so we can define our full status function here
+
+280
+00:10:23,633 --> 00:10:25,033
+这只会返回一个
+and this is just going to return a
+
+281
+00:10:25,033 --> 00:10:27,433
+连接的字符串，我只是要粘贴
+concatenated string and I'm just going to paste in
+
+282
+00:10:27,433 --> 00:10:28,900
+我从那里切下来的东西
+what I cut from over there
+
+283
+00:10:29,133 --> 00:10:30,633
+所以它只是插值
+so it just interpolates
+
+284
+00:10:30,700 --> 00:10:32,700
+这两件事的状态和原因
+those two things the status and the reason
+
+285
+00:10:32,933 --> 00:10:35,066
+并返回一个完整的状态字符串
+and returns a full status string
+
+286
+00:10:35,200 --> 00:10:36,233
+现在让它工作
+now for this to work
+
+287
+00:10:36,233 --> 00:10:39,066
+它需要调用这个状态原因函数
+it needs to call this status reason function
+
+288
+00:10:39,233 --> 00:10:41,633
+所以我们也需要将它从处理程序中移过来
+so we need to move it over from handler as well
+
+289
+00:10:42,966 --> 00:10:44,466
+我们就从这里拿过来
+we'll just grab it from over here
+
+290
+00:10:47,033 --> 00:10:48,366
+然后把它贴在这里
+and then just paste it down here
+
+291
+00:10:48,566 --> 00:10:50,566
+我们会把它作为一个私有函数
+and we'll keep it as a private function
+
+292
+00:10:50,566 --> 00:10:52,366
+因为它只被这个函数调用
+since it's only called by this function
+
+293
+00:10:52,433 --> 00:10:54,166
+我们真的不需要暴露这个
+and we don't really need to expose this
+
+294
+00:10:54,166 --> 00:10:55,566
+作为公共职能
+as a public function
+
+295
+00:10:55,833 --> 00:10:58,633
+所以现在我们有一个定义一个打击的模块
+so now we have a module that defines one struck
+
+296
+00:10:58,733 --> 00:10:59,833
+和两个功能
+and two functions
+
+297
+00:11:00,266 --> 00:11:01,800
+幸运的是它仍然有效
+and thankfully it still works
+
+298
+00:11:02,233 --> 00:11:02,766
+我们会看到另一个
+we'll see another
+
+299
+00:11:02,766 --> 00:11:05,000
+即将发布的视频中的结构示例
+example of a structure in an upcoming video
+

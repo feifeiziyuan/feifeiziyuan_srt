@@ -1,0 +1,631 @@
+WEBVTT
+
+1
+00:00:00.275 --> 00:00:05.053
+现在我们已经定义了其中的一些，我要走了
+Now that we've defined a few of these, I'm gonna go
+
+2
+00:00:05.053 --> 00:00:10.171
+进一步解释一下这是如何作为幺半群工作的。
+a little further and explain how this works as a monoid.
+
+3
+00:00:10.171 --> 00:00:12.389
+然后我们将看到它如何应用于函子。
+And then we'll see how it applies to functors.
+
+4
+00:00:12.389 --> 00:00:15.999
+然后我们会做一些练习并在它们上面建立一个小库。
+And then we'll do some exercises and build a little library on them.
+
+5
+00:00:15.999 --> 00:00:21.154
+但是幺半群只是一个半群，
+But monoids are just a semigroup,
+
+6
+00:00:21.154 --> 00:00:24.353
+有身份，所以
+with an identity, so
+
+7
+00:00:24.353 --> 00:00:29.507
+幺半群是一个半群，幺半群，
+a monoid is a semigroup, monoid,
+
+8
+00:00:29.507 --> 00:00:35.397
+半群，加上一个身份，好吗？
+semigroup, plus an identity, okay?
+
+9
+00:00:35.397 --> 00:00:38.488
+你问了身份函数。
+And you asked about the identity function.
+
+10
+00:00:38.488 --> 00:00:40.439
+这是一个身份函数。
+Here's an identity function.
+
+11
+00:00:40.439 --> 00:00:43.354
+我们将在界面中称这个为空，但是
+We're going to call this one empty in the interface, but
+
+12
+00:00:43.354 --> 00:00:45.126
+这只是一个身份函数。
+it's just an identity function.
+
+13
+00:00:45.126 --> 00:00:50.381
+所以产品，如果我称它为空将是一个。
+So products, if I call it empty will be one.
+
+14
+00:00:50.381 --> 00:00:51.332
+以及原因
+And the reason for
+
+15
+00:00:51.332 --> 00:00:55.017
+也就是说，如果我将任何东西乘以一，我就会得到那个东西，对吗？
+that is if I multiply anything plus one I get that thing back, right?
+
+16
+00:00:55.017 --> 00:00:57.782
+我必须把它放在一个产品中。
+I have to put it in a product.
+
+17
+00:00:57.782 --> 00:00:58.765
+我们走了。
+There we go.
+
+18
+00:00:58.765 --> 00:01:01.807
+让我们看看这里是如何工作的。
+Let's see how that works down here.
+
+19
+00:01:01.807 --> 00:01:07.283
+所以如果我有我的产品，concat products 10，
+So if I have my products, concat products 10,
+
+20
+00:01:07.283 --> 00:01:11.032
+我要把产品 10 拿出来。
+I'm gonna get product 10 out.
+
+21
+00:01:11.032 --> 00:01:14.996
+这只是一个身份函数。
+It's just an identity function.
+
+22
+00:01:14.996 --> 00:01:22.411
+因此，我可以说 product.empty，而不是专门用于 1。
+And so instead of being specialized to 1, I can say product.empty.
+
+23
+00:01:22.411 --> 00:01:25.342
+现在，我可以用 10 和
+Now, I can concat that with 10 and
+
+24
+00:01:25.342 --> 00:01:30.043
+我正在编程一个接口，而不是一个特定的值。
+I am programming to an interface, not a specific value.
+
+25
+00:01:30.043 --> 00:01:31.387
+让我们对 sum 做同样的事情。
+Let's do the same thing for sum.
+
+26
+00:01:31.387 --> 00:01:33.986
+sum 的身份是什么？
+What's the identity for sum?
+
+27
+00:01:33.986 --> 00:01:39.763
+我会说 sums.empty 函数的总和为零，对吗？
+I'll say sums.empty function is sum of zero, right?
+
+28
+00:01:39.763 --> 00:01:41.046
+这就是身份。
+So that'll be the identity.
+
+29
+00:01:41.046 --> 00:01:43.390
+如果我将其与任何其他总和联系起来，我会得到零。
+If I concat that with any other sum, I get zero.
+
+30
+00:01:43.390 --> 00:01:44.534
+为什么这很重要？
+Why does this matter?
+
+31
+00:01:44.534 --> 00:01:48.468
+有没有人对为什么身份在这里很重要有任何猜测？
+Does anybody have any guesses on why the identity matters here?
+
+32
+00:01:48.468 --> 00:01:49.798
+&gt;&gt; 空值。
+&gt;&gt; Null values.
+
+33
+00:01:49.798 --> 00:01:51.449
+&gt;&gt; 完全正确。
+&gt;&gt; That's exactly right.
+
+34
+00:01:51.449 --> 00:01:55.032
+Kaylee 定理有一些很酷的东西，你可以部分应用
+There's some cool stuff with Kaylee's theorem where you can partially apply
+
+35
+00:01:55.032 --> 00:01:58.575
+一切以他的身份，并获得这些很酷的懒惰功能等等。
+everything with his identity and get these cool lazy functions and whatnot.
+
+36
+00:01:58.575 --> 00:02:04.975
+但主要是在我们的日常生活中，如果我要遍历一个列表并将其缩小，
+But mainly In our day to day, if I was to run through a list and reduce it down,
+
+37
+00:02:04.975 --> 00:02:11.082
+如果我没有起始值，我将得到一个空值或未定义值。
+if I don't have a starting value, I'm gonna get a null or an undefined.
+
+38
+00:02:11.082 --> 00:02:16.456
+但是如果我有一个起始值，这两个对应于reduce。
+But if I have a starting value, these these two correspond to reduce.
+
+39
+00:02:16.456 --> 00:02:18.063
+让我们来看看。
+So let's take a look at that.
+
+40
+00:02:18.063 --> 00:02:21.461
+所以我们有一个包含 1, 2, 3, 4, 5 的列表。
+So we have a list of 1, 2, 3, 4, 5.
+
+41
+00:02:21.461 --> 00:02:24.346
+我们减少了。
+And we reduce that.
+
+42
+00:02:24.346 --> 00:02:28.764
+我们得到累加器和每个数字。
+And we get the accumulator and each number.
+
+43
+00:02:28.764 --> 00:02:34.162
+让我们继续说我会把这个数字加起来。
+And let's just go ahead and say I will put the number in a sum.
+
+44
+00:02:34.162 --> 00:02:36.682
+我将把它连接起来，
+And I'm going to concat that with,
+
+45
+00:02:36.682 --> 00:02:40.637
+我将从那里的累加器连接数开始。
+I'll start with the accumulator concat number there.
+
+46
+00:02:40.637 --> 00:02:42.073
+好，太棒了。
+Okay, great.
+
+47
+00:02:42.073 --> 00:02:48.581
+所以这里将要发生的事情是有希望的，我们将得到所有这些数字的总和。
+So what's gonna happen here is hopefully, we'll get the sum of all these numbers.
+
+48
+00:02:48.581 --> 00:02:51.465
+让我们运行它。
+And let's run that.
+
+49
+00:02:51.465 --> 00:02:52.652
+好吧，我们不会。
+All right, we won't.
+
+50
+00:02:52.652 --> 00:02:56.263
+[笑] 看到 at.concat 不是一个函数。
+[LAUGH] See at.concat is not a function.
+
+51
+00:02:56.263 --> 00:02:58.302
+好吧，我想它不会开始。
+All right, I guess it doesn't start.
+
+52
+00:02:58.302 --> 00:03:01.629
+&gt;&gt; 您必须将 sum 作为次要参数并减少。
+&gt;&gt; You gottta put sum as the secondary argument and reduce.
+
+53
+00:03:01.629 --> 00:03:03.664
+是的，这行不通。
+Yeah, it's not gonna work.
+
+54
+00:03:03.664 --> 00:03:05.331
+好吧，让我们去做吧。
+Well, let's do it.
+
+55
+00:03:05.331 --> 00:03:06.235
+让我们把它们都放在这里。
+Let's put them all over here.
+
+56
+00:03:06.235 --> 00:03:08.555
+让我们把它们映射成一个总和。
+Let's just map them into a sum.
+
+57
+00:03:08.555 --> 00:03:10.320
+然后我们将减少它们。
+And then we'll reduce them all.
+
+58
+00:03:10.320 --> 00:03:11.852
+这很有意义。
+That makes a lot of sense.
+
+59
+00:03:11.852 --> 00:03:15.535
+好的，现在我们有一堆总和。
+Okay, so now we have a bunch of sums.
+
+60
+00:03:15.535 --> 00:03:17.066
+大家都很开心。
+Everybody's happy.
+
+61
+00:03:17.066 --> 00:03:21.866
+但是我们会在这里看到，我们没有给 reduce 它的空值。
+But we'll see here that we're not giving reduce its empty value.
+
+62
+00:03:21.866 --> 00:03:24.287
+我们只是给它一个清单。
+We're just giving it a list.
+
+63
+00:03:24.287 --> 00:03:26.407
+所以在这种情况下的总和列表。
+So a list of sums in this case.
+
+64
+00:03:26.407 --> 00:03:27.655
+我们得到 15 个。
+And we get 15.
+
+65
+00:03:27.655 --> 00:03:32.242
+但是如果我们给它一个空列表，会发生什么？
+But if we give it an empty list, what's gonna happen?
+
+66
+00:03:32.242 --> 00:03:35.631
+简直要炸了
+It's just gonna blow up.
+
+67
+00:03:35.631 --> 00:03:42.367
+原因是减少了没有初始值的空数组。
+And the reason for that is reduce of an empty array with no initial value.
+
+68
+00:03:42.367 --> 00:03:43.787
+所以我们没有什么可以返回的。
+So we have nothing to return.
+
+69
+00:03:43.787 --> 00:03:46.420
+如果我们给它一个一无所有的清单，我们将一无所获。
+If we give it a list of nothing, we have nothing in return.
+
+70
+00:03:46.420 --> 00:03:50.008
+但是如果我们给它一个列表，我们从 sum.empty 开始。
+But if we give it a list, we start with sum.empty.
+
+71
+00:03:50.008 --> 00:03:50.652
+我们走了。
+There we go.
+
+72
+00:03:50.652 --> 00:03:53.548
+我们实际上可以取回 0。
+We can actually get 0 back.
+
+73
+00:03:53.548 --> 00:03:59.413
+所以我们有一种方法可以在我们的程序中使用一个表示好的初始值，
+So we have a way to proceed in our program with an initial value that says okay,
+
+74
+00:03:59.413 --> 00:04:03.836
+即使我们现在没有任何数据要处理，
+even though we didn't have any data to process right now,
+
+75
+00:04:03.836 --> 00:04:07.199
+我们仍然可以为您提供某种价值。
+we can still provide you some kind of value.
+
+76
+00:04:07.199 --> 00:04:08.472
+你可以继续。
+And you can continue on.
+
+77
+00:04:08.472 --> 00:04:11.586
+所以就像这里的空值一样爆炸。
+So just blowing up being like here's a null.
+
+78
+00:04:11.586 --> 00:04:16.568
+所以，我们可以在这里做一件事，这确实发生了
+So, one thing we can do here, this actually happens
+
+79
+00:04:16.568 --> 00:04:21.563
+相当多的是，我们想把东西放到幺半群中。
+quite a bit is that we want to put stuff into a monoid.
+
+80
+00:04:21.563 --> 00:04:23.279
+然后调用 concat。
+And then call concat.
+
+81
+00:04:23.279 --> 00:04:24.543
+并从空开始。
+And start with empty.
+
+82
+00:04:24.543 --> 00:04:28.823
+这整件事几乎是多余的。
+This whole thing is almost redundant.
+
+83
+00:04:28.823 --> 00:04:31.931
+这实际上是我总结整个列表的方式，对吗？
+This is actually how I would sum up a whole list, right?
+
+84
+00:04:31.931 --> 00:04:35.043
+这是我如何获得整个列表的产品。
+Here's how I would get the products of a whole list.
+
+85
+00:04:35.043 --> 00:04:36.928
+我只是把它全部放在一个产品中。
+I just put it all into a product.
+
+86
+00:04:36.928 --> 00:04:38.874
+然后我会浏览一个列表并得到它们的产品。
+And then I'd run through a list and get the product of them.
+
+87
+00:04:38.874 --> 00:04:42.942
+如果我有一堆真假真假怎么办？
+What if I have a bunch of true, false, true?
+
+88
+00:04:42.942 --> 00:04:46.791
+让我把它放到下一行，这样你就可以看到发生了什么。
+Let me break this onto the next line so you can see what's going on.
+
+89
+00:04:46.791 --> 00:04:50.022
+但好吧，让我们继续
+But all right, let's go ahead and
+
+90
+00:04:50.022 --> 00:04:55.159
+将它们放入任何并说嘿，有没有空的？
+put those into an any and say hey does any have an empty?
+
+91
+00:04:55.159 --> 00:04:56.549
+让我们来看看。
+Let's see.
+
+92
+00:04:56.549 --> 00:04:58.946
+什么可以作为任何人的身份？
+What would act as identity for any?
+
+93
+00:04:58.946 --> 00:05:03.317
+如果我说任何真连接任何假，
+If I said any true concat any false,
+
+94
+00:05:03.317 --> 00:05:06.826
+这将返回任何 true。
+that would return any true.
+
+95
+00:05:06.826 --> 00:05:10.409
+好的，所以这有点像右侧的身份，任何虚假。
+All right, so that acts kind of like an identity on the right side, any false.
+
+96
+00:05:10.409 --> 00:05:16.655
+如果我说 any false concat any true 那将是右侧的任何 true。
+If I said any false concat any true that would be any true on the right side.
+
+97
+00:05:16.655 --> 00:05:21.129
+好的，那么任何虚假或虚假呢？
+Okay, so what about any false any false?
+
+98
+00:05:21.129 --> 00:05:22.238
+&gt;&gt; 那将是错误的。
+&gt;&gt; That would be false.
+
+99
+00:05:22.238 --> 00:05:23.192
+&gt;&gt; 那将是错误的。
+&gt;&gt; That would be false.
+
+100
+00:05:23.192 --> 00:05:27.884
+好的，因此，如果这是
+Okay, so therefore, if this was
+
+101
+00:05:27.884 --> 00:05:33.089
+空我会得到任何假的，假的。
+empty I would get any false, false.
+
+102
+00:05:33.089 --> 00:05:35.159
+没错，真假。
+Yep, true and false.
+
+103
+00:05:35.159 --> 00:05:38.532
+抱歉，我只是在脑子里想出这个真值表。
+Sorry, I'm just working this truth tables out in my head.
+
+104
+00:05:38.532 --> 00:05:39.665
+所以让我们试试看。
+So let's try that.
+
+105
+00:05:39.665 --> 00:05:47.337
+我会说 any.empty 是一个函数加上任何错误。
+I would say any.empty is a function plus any false.
+
+106
+00:05:47.337 --> 00:05:52.523
+因此，如果您在此过程中遇到任何 true，它会将其返回。
+So if you hit any trues along the way, it'll return it back.
+
+107
+00:05:52.523 --> 00:05:54.339
+但这充当了身份。
+But this acts as an identity.
+
+108
+00:05:54.339 --> 00:05:56.660
+如果我再给它任何真假，任何真回。
+If I give it any true and false again any true back.
+
+109
+00:05:56.660 --> 00:06:00.050
+如果我给它任何虚假的虚假得到任何虚假的回报，身份。
+If I give it any false false get any false back, identity.
+
+110
+00:06:00.050 --> 00:06:02.702
+很酷，所以我们有。
+Cool, so we have that.
+
+111
+00:06:02.702 --> 00:06:08.630
+我们也可以用 and 做所有事情。
+We can alternatively do all with the and.
+
+112
+00:06:08.630 --> 00:06:13.605
+创建，然后这将是全部。
+Create, and then this will be all.
+
+113
+00:06:13.605 --> 00:06:17.919
+让我们继续为所有人定义一个空的。
+Let's go ahead and define an empty for all.
+
+114
+00:06:17.919 --> 00:06:21.329
+而这恰恰相反。，都是如此。
+And that would just be opposite., all true.
+
+115
+00:06:21.329 --> 00:06:24.897
+如果有什么是假的，它只会翻转开关并且是假的。
+And if anything is false, it will just flip the switch and be false.
+
+116
+00:06:24.897 --> 00:06:28.663
+所以现在我们可以减少这个，说这些是真的吗？
+So now we can reduce this, say are any of these true?
+
+117
+00:06:28.663 --> 00:06:31.814
+这是一次又一次完全相同的模板，对吗？
+And this is the same exact template again and again and again, right?
+
+118
+00:06:31.814 --> 00:06:37.050
+如果我们运行这个，我们会得到 true，因为它们中的任何一个都是 true。
+If we run this, we get true because any of them are true.
+
+119
+00:06:37.050 --> 00:06:37.990
+他们所有人呢？
+How about all of them?
+
+120
+00:06:37.990 --> 00:06:39.674
+他们都是真的吗？
+Are all of them true?
+
+121
+00:06:39.674 --> 00:06:41.930
+这不是真的。
+That's not true.
+
+122
+00:06:41.930 --> 00:06:42.812
+那是假的。
+That's false.
+
+123
+00:06:42.812 --> 00:06:44.007
+里面有假货。
+There's a false in there.
+
+124
+00:06:44.007 --> 00:06:44.885
+我们摆脱它。
+We get rid of it.
+
+125
+00:06:44.885 --> 00:06:46.714
+那么它们都会是真的。
+Then they will all be true.
+
+126
+00:06:46.714 --> 00:06:47.214
+伟大的。
+Great.

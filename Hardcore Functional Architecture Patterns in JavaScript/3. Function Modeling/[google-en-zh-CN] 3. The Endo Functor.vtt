@@ -1,0 +1,406 @@
+WEBVTT
+
+1
+00:00:00.020 --> 00:00:02.210
+让我们做一个不同类型的函数。
+Let's do a different type of function.
+
+2
+00:00:02.210 --> 00:00:07.369
+摆脱这些东西并专注于，如果我们宁愿而不是
+Get rid of this stuff and focus on, what if we would rather instead of
+
+3
+00:00:07.369 --> 00:00:12.710
+通过运行两者然后组合结果来组合函数，
+combining functions by running both and then combining the results,
+
+4
+00:00:12.710 --> 00:00:18.073
+这是串联因素背后的一种正常直觉。
+which is kind of the normal intuition behind concatenating factors.
+
+5
+00:00:18.073 --> 00:00:23.295
+我们可以做的是像函数组合这样的组合作为串联。
+We can do is make a composition like function composition as concatenation.
+
+6
+00:00:23.295 --> 00:00:30.191
+所以我有一件事情，我想去上边惊呼，对吧？
+So I have like a thing where I want to go to upper and exclaim, right?
+
+7
+00:00:30.191 --> 00:00:35.351
+我只想喜欢折叠地图，我想合并。
+And I just wanna like fold map that and I want to combine.
+
+8
+00:00:35.351 --> 00:00:37.613
+我希望它同时做这两件事。
+I want it to do both of those things.
+
+9
+00:00:37.613 --> 00:00:39.345
+所以让我们这样做。
+So let's do that.
+
+10
+00:00:39.345 --> 00:00:42.204
+为此，我们将制作一种名为 Endo 的类型。
+And for that, we're gonna make a type called Endo.
+
+11
+00:00:42.204 --> 00:00:47.819
+如果有人早些时候看到我的 Snoop Dogg 幻灯片，
+That was if anybody saw my Snoop Dogg slide earlier,
+
+12
+00:00:47.819 --> 00:00:51.297
+但是 [笑] 我们有 Endo.empty。
+but [LAUGH] we have Endo.empty.
+
+13
+00:00:51.297 --> 00:00:53.910
+好吧，那会做什么呢？
+All right, so what would that do?
+
+14
+00:00:53.910 --> 00:00:59.430
+这将为我提供一个函数，当我使用字符串 hello 运行它时，
+That would provide me a function that when I run it with my string hello,
+
+15
+00:00:59.430 --> 00:01:03.450
+我应该得到 HELLO 所有的资本。
+I should get HELLO all capital.
+
+16
+00:01:03.450 --> 00:01:05.745
+它有一个先操作然后解释。
+It's got a first to operate and then explain.
+
+17
+00:01:05.745 --> 00:01:09.000
+它只会运行一系列功能和新组合。
+It;s just gonna run through a pipeline of functions and new composition.
+
+18
+00:01:09.000 --> 00:01:14.590
+现在，它被称为 Endo 的原因很奇怪是因为
+Now, the reason it's called Endo which is weird is because
+
+19
+00:01:14.590 --> 00:01:21.260
+这仅适用于自同态，这意味着它仅适用于类型 a 到 a，
+this only works with endomorphisms meaning it only works from types a to a,
+
+20
+00:01:21.260 --> 00:01:25.890
+在这种情况下，字符串到字符串或任务到任务或
+in this case string to string or task to task or
+
+21
+00:01:25.890 --> 00:01:30.290
+无论它有什么，它都有与输出相同类型的输入。
+whatever to whatever it has this have the same type of input as output.
+
+22
+00:01:30.290 --> 00:01:34.570
+原因是因为现在我们知道我们可以
+And the reason for that is because now we know we can just
+
+23
+00:01:34.570 --> 00:01:38.850
+编写它们，而不会遇到它们不编写的任何类型问题 [笑]。
+compose them without running into any type problems where they don't compose [LAUGH].
+
+24
+00:01:38.850 --> 00:01:42.250
+所以这只是有点绕开说，好吧，如果他们总是那种类型，相同
+So this just kinda skirts that and says, okay, if they're always the type, same
+
+25
+00:01:42.250 --> 00:01:45.860
+输入的类型是输出，我们只需将其穿线，它们将始终组成。
+type of input is output, we'll just thread it through and they'll always compose.
+
+26
+00:01:45.860 --> 00:01:47.259
+让我们写远藤。
+Let's write Endo.
+
+27
+00:01:50.665 --> 00:01:52.395
+嘟嘟嘟嘟嘟嘟。
+Doo doo doo doo doo doo.
+
+28
+00:01:52.395 --> 00:01:57.179
+如果我们有时间，我们会再谈一谈。
+And if we have time we'll talk about one more.
+
+29
+00:01:57.179 --> 00:02:01.260
+不过暂时应该没问题。
+But this should be fine for now.
+
+30
+00:02:01.260 --> 00:02:07.828
+所以我们有了 Endo，让我们不用担心映射链和任何事情。
+So we have Endo, let's not worry about mapping chain and anything.
+
+31
+00:02:07.828 --> 00:02:12.281
+实际上，你不能映射Endo，endo是一个字符串到字符串或一天或一天的函数
+In fact, you can't map Endo, endo is a function from string to string or a day or
+
+32
+00:02:12.281 --> 00:02:15.320
+进入 int 或任何它总是相同的类型。
+into int or whatever it's always the same type.
+
+33
+00:02:15.320 --> 00:02:19.840
+如果我尝试使用地图更改第二种类型，如果我在地图中返回我的值
+If I tried to change the second type with map if I returned my value in the map over
+
+34
+00:02:19.840 --> 00:02:23.370
+它会打破我所拥有的一切，它不再是 Endo。
+it then it would break everything I would have it would not be Endo anymore.
+
+35
+00:02:23.370 --> 00:02:24.605
+所以它不是函子。
+So it is not a functor.
+
+36
+00:02:27.311 --> 00:02:30.114
+在这之后我必须要谈一件事。
+I do have to talk about one thing after this.
+
+37
+00:02:30.114 --> 00:02:32.822
+不要让我忘记。
+Don't let me forget.
+
+38
+00:02:32.822 --> 00:02:39.090
+[笑] 我们在谈论逆映射和逆变函子。
+[LAUGH] We're talking about contra map and contravariant functors.
+
+39
+00:02:39.090 --> 00:02:43.150
+所以，我们没有关于 Endo 的地图，但我们可以说，就像其他地图一样，我们会
+So, we don't have map on Endo, but we can say, just like the other ones we'll
+
+40
+00:02:43.150 --> 00:02:48.300
+说与 Endo 和 x 而不是同时运行并连接结果。
+say with Endo and x instead of running both and concatenate the results.
+
+41
+00:02:48.300 --> 00:02:54.190
+我将运行另一个，然后用另一个的结果运行我的。
+I will run the other one and then run mine with the result of the other one.
+
+42
+00:02:54.190 --> 00:02:57.090
+凉爽的。我们必须扔掉这个
+Cool. We'll have to throw this
+
+43
+00:02:57.090 --> 00:02:59.425
+在一个小清单 哇。
+in a little list Wow.
+
+44
+00:02:59.425 --> 00:03:05.086
+[笑] .List 来自 immutable js 的列表是扩展和
+[LAUGH] .List list from immutable j s are extensions and
+
+45
+00:03:05.086 --> 00:03:10.995
+我们将向下折叠 Endo，我们没有 Endo.empty，
+we'll foldMap down Endo, we don't have Endo.empty,
+
+46
+00:03:10.995 --> 00:03:14.700
+Endo.empty 会是什么样子？
+what would Endo.empty look like?
+
+47
+00:03:14.700 --> 00:03:18.660
+我们有一个 Endo，下一步是什么？
+We have an Endo, what's next?
+
+48
+00:03:20.560 --> 00:03:23.010
+X 是 Id，这行得通吗？
+X be Id, does that work?
+
+49
+00:03:23.010 --> 00:03:23.510
+那么会发生什么？
+So what happens?
+
+50
+00:03:25.059 --> 00:03:29.295
+[声音] 哦，我要给你看结果，但它也应该说远藤，
+[SOUND] Op, and I'm gonna show you the result, but also it should say Endo,
+
+51
+00:03:29.295 --> 00:03:31.460
+它里面应该有一个字符串，对吧？
+it should have a string in it, right?
+
+52
+00:03:31.460 --> 00:03:33.588
+你这样做吗？
+Do you do that?
+
+53
+00:03:33.588 --> 00:03:37.070
+我们走了。
+There we go.
+
+54
+00:03:37.070 --> 00:03:37.625
+那看起来更好。
+That looks better.
+
+55
+00:03:37.625 --> 00:03:41.090
+[笑] 好的，所以我们有了结果。
+[LAUGH] All right, so we have a result.
+
+56
+00:03:41.090 --> 00:03:43.650
+我们将把地图折叠起来。
+And we'll fold map this thing down.
+
+57
+00:03:44.840 --> 00:03:48.510
+然后我们将运行它。
+And then we'll run it.
+
+58
+00:03:48.510 --> 00:03:49.600
+是的，就在这里。
+Yeah, right down here.
+
+59
+00:03:51.840 --> 00:03:53.540
+我们将控制该日志。
+And we'll console that log.
+
+60
+00:03:53.540 --> 00:03:54.040
+结果。
+The result.
+
+61
+00:03:56.391 --> 00:04:00.821
+不知道如何有效地做到这一点，我们一无所获。
+Don't know how to do this efficiently and we get nothing.
+
+62
+00:04:00.821 --> 00:04:03.060
+天哪，这不好。
+Goodness, that's not good.
+
+63
+00:04:03.060 --> 00:04:04.690
+这里发生了什么事？
+What's happening here?
+
+64
+00:04:04.690 --> 00:04:09.210
+所以原来是空的，我怀疑是我们的问题。
+So the original empty, I'm suspecting is our problem.
+
+65
+00:04:10.660 --> 00:04:13.820
+让我们继续并专注于此。
+Let's go ahead and focus on that.
+
+66
+00:04:13.820 --> 00:04:18.930
+所以它需要一个空字符串原始 Endo 需要一个空字符串。
+So it takes an empty string original Endo takes an empty string.
+
+67
+00:04:18.930 --> 00:04:22.430
+然后当我们在这个东西上运行它时，
+And then when we run it on this thing,
+
+68
+00:04:22.430 --> 00:04:26.130
+我认为它在这里忽略了它的参数，只返回一个空字符串。
+I think it ignores its argument right here and just returns an empty string.
+
+69
+00:04:26.130 --> 00:04:29.660
+所以也许，那是错误的
+So perhaps, that was wrong and
+
+70
+00:04:29.660 --> 00:04:33.480
+我们会说 empty 接受这个，我们会看看那里会发生什么，好吧。
+we'll say empty takes this and we'll see what happens there, okay.
+
+71
+00:04:33.480 --> 00:04:36.104
+这样可行。我必须澄清这一点
+That works. I have to clarify this one and
+
+72
+00:04:36.104 --> 00:04:42.019
+回到你身边，因为我很困惑，但至少它是有效的。
+come back to you because I'm getting confused, but at least it's working.
+
+73
+00:04:42.019 --> 00:04:47.750
+所以这里的重点是我们通过组合将所有这些组合起来。
+So the point here is that we're combining all these by composition.
+
+74
+00:04:47.750 --> 00:04:51.610
+并且我们在我们的内部运行另一个是我们的无关紧要
+And it kind of doesn't matter that we're running the other one inside ours are ours
+
+75
+00:04:51.610 --> 00:04:52.810
+在另一个里面。
+inside the other.
+
+76
+00:04:52.810 --> 00:04:54.970
+就像我们这样做一样。
+Like if we did it this way.
+
+77
+00:04:57.430 --> 00:05:00.160
+顺序有点无关紧要。
+The order kinda doesn't matter.
+
+78
+00:05:00.160 --> 00:05:03.530
+但是然后我们回到我们的空方法，对吗？
+But then we go back to our empty method, right?
+
+79
+00:05:04.820 --> 00:05:09.410
+我们这样做的地方我试图解释这就是为什么 empty 没有参数的原因。
+Where we do that I'm trying to make of that's why empty takes no arguments.
+
+80
+00:05:09.410 --> 00:05:10.380
+这很有意义。
+That makes a lot of sense.
+
+81
+00:05:10.380 --> 00:05:11.450
+我们走了。这样就清楚了。
+There we go. So that clears that up.

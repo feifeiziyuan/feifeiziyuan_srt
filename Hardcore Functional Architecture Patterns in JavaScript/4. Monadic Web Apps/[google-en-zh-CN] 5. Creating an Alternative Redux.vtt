@@ -1,0 +1,426 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.958
+我们要做一个 Todo 应用，但这个应用不是 Todon，
+We're gonna make a Todo app, but this app is Todon't,
+
+2
+00:00:04.958 --> 00:00:08.981
+我们会有想要停止的习惯。
+we're gonna have habits that we wanna stop.
+
+3
+00:00:08.981 --> 00:00:15.035
+如果我们运行它，它会打开一个小的 webpack 服务器并且
+And if we run this, it's gonna open up a little web pack server and
+
+4
+00:00:15.035 --> 00:00:18.980
+我们有 Todo 应用模板欢呼。
+we have The Todo app template hurray.
+
+5
+00:00:18.980 --> 00:00:23.540
+因此，如果您查看该应用程序，它只是用于
+So if you look at the app, it's just the standard template for
+
+6
+00:00:23.540 --> 00:00:28.031
+人们为他们的框架共享的 Todo 应用程序。
+the Todo app that people share around for their frameworks.
+
+7
+00:00:28.031 --> 00:00:32.637
+我不想让人们不得不知道 React 进入这个领域，所以
+And I didn't want people to have to know React coming into this, so
+
+8
+00:00:32.637 --> 00:00:37.243
+如果你在这里查看这个包，我们有我们的标准 HTML 包
+if you look at this package here, we have our standard HTML package
+
+9
+00:00:37.243 --> 00:00:41.714
+这只是在样式表或 HTML 文件中加载包。
+that's just loading the bundle in a style sheet, or HTML file.
+
+10
+00:00:41.714 --> 00:00:45.932
+但是我们也有这个 UI 文件夹，这是整个 UI，
+But then we also have this UI folder and this is the entire UI,
+
+11
+00:00:45.932 --> 00:00:52.090
+它只是几个组件，我不想让您担心。
+it's just a couple of components, and I don't want you to have to worry about it.
+
+12
+00:00:52.090 --> 00:00:56.884
+所以我只想说几件事，这样你就不必再看这个了。
+So I just wanna call out a couple things so you don't have to look at this anymore.
+
+13
+00:00:56.884 --> 00:01:01.423
+所以我们有我们的初始渲染应用程序，它采用初始状态和
+So we have our initial render app which takes an initial state and
+
+14
+00:01:01.423 --> 00:01:03.920
+一个调度函数。
+a dispatch function.
+
+15
+00:01:03.920 --> 00:01:10.223
+所以我可以调出这个应用程序并让它重新渲染。
+So I'm able to kinda call out of this app and have it rerender.
+
+16
+00:01:10.223 --> 00:01:15.475
+所以当我们进入调度函数时，它会被一个事件调用，
+So when we go into the dispatch function, this gets called with an event,
+
+17
+00:01:15.475 --> 00:01:18.864
+所以这不是 Redux，它非常像 Redux，
+so this is not Redux, it's very Redux-like,
+
+18
+00:01:18.864 --> 00:01:23.547
+这将被一个事件和一个有效载荷，一些数据调用。
+that's gonna get called with an event and a payload, some data.
+
+19
+00:01:23.547 --> 00:01:28.699
+所以我们使用索引创建、销毁和查看，
+So we get create, destroy with an index and view okay,
+
+20
+00:01:28.699 --> 00:01:35.755
+这些是我们仅有的事件，我们在这里有几个组件，
+those are the only events we have, we've got a couple components in here,
+
+21
+00:01:35.755 --> 00:01:41.591
+并且对于这里的应用程序的其余部分来说真的不重要。
+and should really be not important to the rest of the app here.
+
+22
+00:01:41.591 --> 00:01:45.881
+但我只想提一下，这就是在这里，你不需要了解 React。
+But I just wanted to mention that this is here and you don't need to know React.
+
+23
+00:01:45.881 --> 00:01:48.550
+但是我们将在 app 下使用 state 和 dispatch。
+But we're gonna cover under app with state and dispatch.
+
+24
+00:01:50.260 --> 00:01:54.180
+好的，回到索引，我们要在这里做什么
+Okay, back to index, what we're gonna do here
+
+25
+00:01:54.180 --> 00:01:58.599
+就像我们之前对建模函数所做的一样。
+is much like we did earlier with modeling functions.
+
+26
+00:01:58.599 --> 00:02:03.846
+我们要模拟这种还原过程，
+We're gonna model this kind of reduction process,
+
+27
+00:02:03.846 --> 00:02:11.620
+因此，如果我启动应用程序，然后调用一些东西，则什么也不会发生。
+so if I start off the app, and I call some stuff, nothing is happening.
+
+28
+00:02:11.620 --> 00:02:16.218
+所以当我们在这里被调用时，让我们继续记录，
+So let's go ahead and log when we get called here,
+
+29
+00:02:16.218 --> 00:02:20.831
+我们将 console.log 操作和有效负载。
+we'll console.log the action and the payload.
+
+30
+00:02:26.603 --> 00:02:29.748
+这是一天中我无法打字的时间
+It's that time of day where I can't type, and
+
+31
+00:02:29.748 --> 00:02:33.800
+我必须在这里返回一些状态，可能是什么？
+I have to return some state here as, probably what is it?
+
+32
+00:02:33.800 --> 00:02:39.889
+它期待返回所以事实上，让我把这个状态称为
+It's expecting to return so in fact, let me just call this state so
+
+33
+00:02:39.889 --> 00:02:43.821
+我们做这件事后它不会爆炸。
+it doesn't blow up after we do this thing.
+
+34
+00:02:43.821 --> 00:02:48.870
+所以我们有状态，我们会返回状态好的，
+So we have state and we're gonna return state okay,
+
+35
+00:02:48.870 --> 00:02:52.540
+所以当我真的在这里做某事时
+so when I actually do something here,
+
+36
+00:02:52.540 --> 00:02:58.063
+它说动作是创建，有效载荷被命名为 sdf。
+it says the action is create and the payload is named sdf.
+
+37
+00:02:58.063 --> 00:03:03.763
+好吧，酷，我们可以这样做，一整天，我们得到这个动作，所以
+All right, cool, we could do this, all day long, we get this action so
+
+38
+00:03:03.763 --> 00:03:07.865
+让我们构建一个小的创建操作来开始。
+let's build a little create action just to start.
+
+39
+00:03:07.865 --> 00:03:15.090
+创建，我们暂时只在这里硬编码创建。
+Create and we're just gonna hard code create in here for the time being.
+
+40
+00:03:15.090 --> 00:03:19.031
+所以这将需要有效载荷和状态，
+So that would take the payload and the state,
+
+41
+00:03:19.031 --> 00:03:23.905
+有效载荷中的状态，有效载荷就是这个名字，所以
+state in the payload and the payload being this name, so
+
+42
+00:03:23.905 --> 00:03:29.936
+我想这是我们习惯的名字，所以我们就叫这个习惯吧。
+I guess this is the name of our habit, so let's just call this habit.
+
+43
+00:03:29.936 --> 00:03:34.565
+好的，我们要做的是对象分配，
+All right, and what we're gonna do is object assign,
+
+44
+00:03:34.565 --> 00:03:38.490
+我们将用习惯返回新状态，
+we're gonna return new state with the habit,
+
+45
+00:03:38.490 --> 00:03:46.370
+太好了，我们要用我们刚刚给它的这个习惯来覆盖以前的习惯。
+great we're gonna overwrite the previous habits with this one that we just gave it.
+
+46
+00:03:46.370 --> 00:03:51.581
+所以我们用有效载荷调用 create 和
+And so we call create with the payload and
+
+47
+00:03:51.581 --> 00:03:56.035
+状态，你只需返回那个。
+the state, you just return that.
+
+48
+00:03:56.035 --> 00:03:59.020
+酷，美好的时光。
+Cool, good times.
+
+49
+00:03:59.020 --> 00:04:03.626
+让我们看看会发生什么，我应该提到的一件事是我们
+Let's see what happens, one thing I should should mention is we
+
+50
+00:04:03.626 --> 00:04:08.327
+必须再次渲染应用程序，就在此处使用新状态，好吗？
+have to render the app again, right here with the new state, okay?
+
+51
+00:04:08.327 --> 00:04:13.144
+那么为什么我们不做一点事件循环来开始呢？
+So why don't we make a little bit of an event loop just to start off?
+
+52
+00:04:13.144 --> 00:04:17.819
+我们把这个小事件叫做 appLoop，
+Let's call this little event, it's called appLoop,
+
+53
+00:04:17.819 --> 00:04:22.991
+取一个初始状态，然后我们会做这种事情，
+take an initial state, and then we'll do this kind of thing,
+
+54
+00:04:22.991 --> 00:04:26.300
+我们将称之为 appLoop，对吗？
+and we'll call this appLoop, right?
+
+55
+00:04:26.300 --> 00:04:30.592
+所以它只是循环并呈现新状态调用我们的新状态
+So it just loops around and renders the new the new state calls our
+
+56
+00:04:30.592 --> 00:04:35.442
+函数再次启动，然后我们可以摆脱这个状态变量和
+function starts again, and then we can get rid of this state variable and
+
+57
+00:04:35.442 --> 00:04:38.168
+只需将其称为应用程序循环即可启动它。
+just call it an app loop, to kick it off.
+
+58
+00:04:38.168 --> 00:04:40.200
+好的，你在我身边吗？
+Okay, are you with me?
+
+59
+00:04:41.330 --> 00:04:46.237
+好的，让我们运行它并说，嗨，嘿，
+All right, let's run this and say, hi, hey,
+
+60
+00:04:46.237 --> 00:04:52.631
+如果我点击它，它现在很酷，它消失了，这很有趣。
+there it is cool now if I click it, it goes away that's fun.
+
+61
+00:04:52.631 --> 00:04:58.562
+因为我们没有创建，所以停止记录事件，
+Because we don't have a create, so stop logging the event,
+
+62
+00:04:58.562 --> 00:05:03.930
+在这里，如果我们再次记录它，请记录操作和有效负载。
+here, if we log it again, log the action and payload.
+
+63
+00:05:06.923 --> 00:05:11.417
+我们得到的是，如果我单击删除，我们将使用索引进行销毁，
+We get is if I click the Delete we'll get a destroy with the index,
+
+64
+00:05:11.417 --> 00:05:15.618
+如果我单击实际标题，我将获得索引视图。
+if I click the actual title, I'll get a view with the index.
+
+65
+00:05:15.618 --> 00:05:20.659
+这些是我们现在要在这个应用程序中处理的仅有的三个事件。
+And those are the only three events we're going to handle in this app right now.
+
+66
+00:05:20.659 --> 00:05:25.790
+所以，我想我会把它们留在里面，所以我想我们已经
+So, I guess I'll leave those in for a second, so I guess we had
+
+67
+00:05:25.790 --> 00:05:32.270
+构建另一个小路由器，所以我们要在动作上做路由。
+build another little router, so what we gonna do route on the action.
+
+68
+00:05:32.270 --> 00:05:36.781
+我们只是将该函数称为状态负载，所以
+We'll just call that function the state payload, so
+
+69
+00:05:36.781 --> 00:05:42.594
+再弄个小路由器，const route router，route [LAUGH] route，
+get a little router again, const route router, route [LAUGH] route,
+
+70
+00:05:42.594 --> 00:05:46.821
+路由器，路由=。
+router, route =.
+
+71
+00:05:46.821 --> 00:05:52.038
+那些是我们得到的三个函数或者我们得到的三个动作，
+Those were the three functions that we got or the three actions we got,
+
+72
+00:05:52.038 --> 00:05:55.940
+我们只是将它们存根，因此 destroy 需要一个索引。
+we'll just stub them out so destroy takes an index.
+
+73
+00:05:57.710 --> 00:06:01.585
+我们将不理会它
+And we'll just leave that alone for
+
+74
+00:06:01.585 --> 00:06:06.362
+现在让我们清除它和视图，所以
+now let's just clear it out and the view, so
+
+75
+00:06:06.362 --> 00:06:14.772
+这不是采用索引，而是采用带有索引属性的有效载荷，对吗？
+this is not take in index this takes a payload with an index property, right?
+
+76
+00:06:14.772 --> 00:06:21.080
+所以我必须解构才能得到那个索引，不清楚为什么会这样？
+So I'll have to destructure to get at that index, it's not clear why that's working?
+
+77
+00:06:21.080 --> 00:06:26.371
+好的，然后我们将继续查看这件事并
+Okay, and then we'll go ahead and view the thing and
+
+78
+00:06:26.371 --> 00:06:31.420
+我们只想将当前索引设置为该索引，
+we just wanna set the current index to that index,
+
+79
+00:06:31.420 --> 00:06:34.318
+因为它们被称为索引。
+cuz they're called index.
+
+80
+00:06:34.318 --> 00:06:40.657
+我们想将页面设置为显示，我认为这称为显示，我们会弄清楚的。
+And we wanna set the page to show, I think it's called show we'll figure it out.
+
+81
+00:06:40.657 --> 00:06:45.473
+太好了，看起来我们已经完成了，[笑] 看看会发生什么，AB，但是
+Great, looks like we're done, [LAUGH] see what happens, A B, but
+
+82
+00:06:45.473 --> 00:06:51.290
+我们一次只保存一个我们实际上并没有附加任何东西。
+we're only saving one at a time we're not actually appending anything.
+
+83
+00:06:51.290 --> 00:06:56.816
+如果我点击它嘿它说显示C，那很好，如果我删除怎么办？
+If I click it hey it says showing C, that's good, what if I do delete?
+
+84
+00:06:58.789 --> 00:07:00.776
+它清除了它，我猜，[笑]所以
+It clears it out, I guess, [LAUGH] so
+
+85
+00:07:00.776 --> 00:07:04.500
+我认为我们必须做的第一件事实际上是附加这个东西。
+I think the first thing we have to do is actually append this thing.

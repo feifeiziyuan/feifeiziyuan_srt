@@ -1,0 +1,1800 @@
+1
+00:00:00,166 --> 00:00:02,000
+在上一节中，我们假设我们
+in the last section we assume that we
+
+2
+00:00:02,000 --> 00:00:04,666
+总是以相同的格式获取 post 参数
+always get post parameters in the same format
+
+3
+00:00:04,800 --> 00:00:06,666
+但情况并非总是如此
+but that's not always the case
+
+4
+00:00:06,966 --> 00:00:08,666
+让我们看看这个帖子请求
+let's have a look at this post request
+
+5
+00:00:08,666 --> 00:00:09,066
+再次
+again
+
+6
+00:00:09,066 --> 00:00:12,366
+在上一节中，我们暗示了这种内容类型
+in the last section we hinted that this content type
+
+7
+00:00:12,366 --> 00:00:13,300
+有点重要
+was kind of important
+
+8
+00:00:13,833 --> 00:00:16,000
+当内容类型设置为此值时
+when the content type is set to this value
+
+9
+00:00:16,000 --> 00:00:18,633
+这意味着正文是一个查询字符串
+it means that the body is a query string
+
+10
+00:00:18,833 --> 00:00:20,600
+以这个名字编码
+encoded in this name
+
+11
+00:00:20,600 --> 00:00:22,866
+我们在这里看到的值对格式
+value pair format that we see down here
+
+12
+00:00:23,366 --> 00:00:26,466
+所以内容类型有效地告诉我们如何解析
+so the content type effectively tells us how to parse
+
+13
+00:00:26,500 --> 00:00:27,700
+请求正文
+the request body
+
+14
+00:00:28,000 --> 00:00:30,800
+现在您还可以发布不同编码的数据
+now you can also post data encoded differently
+
+15
+00:00:30,900 --> 00:00:33,133
+所以检查内容类型很重要
+so it's important to check the content type
+
+16
+00:00:33,133 --> 00:00:34,900
+确定如何解析body
+to determine how to parse the body
+
+17
+00:00:35,133 --> 00:00:37,966
+为此，我们需要解析所有这些标头
+to do that we need to parse all of these headers
+
+18
+00:00:38,033 --> 00:00:38,600
+和我们
+and we
+
+19
+00:00:38,600 --> 00:00:41,433
+现在已经将它们作为字符串列表
+already have them right now as a list of strings
+
+20
+00:00:41,700 --> 00:00:44,933
+所以我们添加了一些日志记录以便我们可以看到
+so we've added a bit of logging so that we can see that
+
+21
+00:00:45,300 --> 00:00:48,033
+所以这是我们的标题作为字符串列表
+so here is our headers as a list of strings
+
+22
+00:00:48,333 --> 00:00:52,333
+但是将其转换为具有键值对的映射
+but transforming this into a map with key value pairs
+
+23
+00:00:52,333 --> 00:00:54,566
+那会更有用
+well that would be so much more useful
+
+24
+00:00:55,133 --> 00:00:57,866
+所以要在我们的合作和 v 中进行设置
+so to set this up over in our co and v struck
+
+25
+00:00:57,966 --> 00:01:00,333
+类似于我们如何将 para 作为一个字段
+similar to how we have para as a field
+
+26
+00:01:00,433 --> 00:01:02,700
+它有一个空地图的默认值
+and it has a default value of empty map
+
+27
+00:01:02,933 --> 00:01:05,166
+我们想对标题做同样的事情
+what we want to do the same thing with headers
+
+28
+00:01:05,500 --> 00:01:07,233
+所以我们会有一个 headers 字段
+so we'll have a headers field
+
+29
+00:01:07,233 --> 00:01:09,566
+它也将默认为空地图
+and it'll also default to an empty map
+
+30
+00:01:09,966 --> 00:01:12,466
+然后在类似于 prams 的 parse 函数中结束
+and then over in the parse function similar to prams
+
+31
+00:01:12,466 --> 00:01:14,000
+我们需要解析我们的标题
+we need to parse our headers
+
+32
+00:01:14,366 --> 00:01:16,000
+所以我们会有标题等于
+so we'll have headers equals
+
+33
+00:01:16,000 --> 00:01:17,466
+我们将编写一个名为
+and we're going to write a function called
+
+34
+00:01:17,700 --> 00:01:18,566
+解析标头
+parse headers
+
+35
+00:01:18,900 --> 00:01:20,100
+它会通过
+and it's going to pass in
+
+36
+00:01:20,366 --> 00:01:22,966
+记住的标题行是字符串列表
+header lines which remember is a list of strings
+
+37
+00:01:23,133 --> 00:01:24,100
+那么一旦我们有了这些
+then once we have those
+
+38
+00:01:24,100 --> 00:01:27,333
+当我们初始化我们的 co 和 v 时解析下来
+parsed down when we initialize our co and v struck
+
+39
+00:01:27,466 --> 00:01:29,366
+而我们要设置该字段标题
+while we want to set that field headers
+
+40
+00:01:29,900 --> 00:01:32,200
+作为该标头变量的值
+to be the value of that header's variable
+
+41
+00:01:32,533 --> 00:01:34,700
+所以我们当然需要定义这个函数
+so of course we need to define this function
+
+42
+00:01:34,700 --> 00:01:35,666
+我就这样做
+and I'll just do this
+
+43
+00:01:35,733 --> 00:01:36,533
+就在这里
+right down here
+
+44
+00:01:38,933 --> 00:01:40,300
+接受标题行
+takes in the headers lines
+
+45
+00:01:40,600 --> 00:01:43,500
+最终这将需要返回一个
+and ultimately this is going to need to return a
+
+46
+00:01:43,733 --> 00:01:45,000
+标头图
+map of the headers
+
+47
+00:01:45,433 --> 00:01:46,500
+那么我们将如何做到这一点
+so how are we going to do that
+
+48
+00:01:46,700 --> 00:01:48,266
+好吧，让我们再看看那个请求
+well let's look at that request again
+
+49
+00:01:48,633 --> 00:01:50,700
+所以这样做的传统方法是
+so the conventional way to do this would be to
+
+50
+00:01:50,700 --> 00:01:52,266
+遍历这些标题行
+loop through these header lines
+
+51
+00:01:52,266 --> 00:01:53,300
+这是一个列表
+which is a list
+
+52
+00:01:53,500 --> 00:01:55,966
+将每一行解析为一个键值对
+pars each line into a key value pair
+
+53
+00:01:55,966 --> 00:01:56,633
+所以例如
+so for example
+
+54
+00:01:56,633 --> 00:01:58,766
+这一行的键是主机，值是
+this line the key would be host and the value would be
+
+55
+00:01:58,933 --> 00:01:59,933
+示例 com
+example com
+
+56
+00:02:00,333 --> 00:02:02,966
+然后累积那些键值对
+and then accumulate those key value pairs
+
+57
+00:02:03,033 --> 00:02:04,066
+在标题图中
+in the headers map
+
+58
+00:02:04,366 --> 00:02:05,433
+但事情就是这样
+but here's the thing though
+
+59
+00:02:05,433 --> 00:02:08,466
+长生不老药中没有传统的循环结构
+there are no conventional looping constructs in elixir
+
+60
+00:02:08,800 --> 00:02:11,266
+但请记住在上一节中我们看到
+but remember in the last section when we saw that
+
+61
+00:02:11,266 --> 00:02:13,766
+列出我们的递归数据结构
+list our recursive data structures
+
+62
+00:02:13,833 --> 00:02:17,200
+我已经从之前的视频中重新创建了我们的性爱会话
+I've recreated our sex session from the prior video
+
+63
+00:02:17,533 --> 00:02:19,266
+我们从一个麻木列表开始
+and we started with a list of numbs
+
+64
+00:02:19,266 --> 00:02:21,600
+记住我们使用了头部和尾部
+and remember that we used the head and tail
+
+65
+00:02:21,900 --> 00:02:23,733
+与该 cons 运算符的模式匹配
+pattern match with that cons operator
+
+66
+00:02:23,966 --> 00:02:25,700
+遍历这个列表
+to traverse through this list
+
+67
+00:02:26,066 --> 00:02:28,433
+所以头第一次有一个值
+so the first time the head had a value of one
+
+68
+00:02:28,666 --> 00:02:30,633
+然后 tail 本身就是一个列表
+and then tail was a list itself
+
+69
+00:02:30,933 --> 00:02:33,233
+然后我们在右边使用tail
+and then we use tail on the right hand side
+
+70
+00:02:33,533 --> 00:02:35,033
+然后 head 的值为 2
+and then the value of head was two
+
+71
+00:02:35,400 --> 00:02:37,000
+尾巴是三四和五
+and tail was three four and five
+
+72
+00:02:37,333 --> 00:02:41,400
+依此类推，一直到尾巴的地方
+and so on all the way down to the point where tail
+
+73
+00:02:41,833 --> 00:02:43,533
+是一个元素列表
+was a one element list
+
+74
+00:02:43,633 --> 00:02:45,866
+然后我们将它与该模式匹配
+we then matched it against that pattern
+
+75
+00:02:46,000 --> 00:02:48,300
+头是元素五
+and head was the element five
+
+76
+00:02:48,600 --> 00:02:51,300
+但 tail 是一个空列表
+but tail was an empty list
+
+77
+00:02:51,466 --> 00:02:54,300
+所以每次通过模式匹配尾部
+so by pattern matching tail each time
+
+78
+00:02:54,600 --> 00:02:57,833
+我们递归遍历列表的每个元素
+we recursively walked through each element of the list
+
+79
+00:02:58,200 --> 00:03:00,400
+这是一个做同样事情的简单程序
+here's a simple program that does the same thing
+
+80
+00:03:00,466 --> 00:03:02,833
+它在一个名为 recurred 的独立文件中
+it's in a standalone file called recurred
+
+81
+00:03:02,833 --> 00:03:05,033
+例如，它不在一个混合项目中
+ex it's not in a mixed project
+
+82
+00:03:05,233 --> 00:03:05,900
+你可以找到
+and you can find
+
+83
+00:03:05,900 --> 00:03:07,900
+如果您想跟随它在代码包中
+it in the code bundle if you want to follow along
+
+84
+00:03:08,100 --> 00:03:10,433
+所以它只定义了一个名为 recurse 的模块
+so it just defines a module called recurse
+
+85
+00:03:10,433 --> 00:03:12,600
+它有一个叫做 loopy 的函数
+it has a function called loopy
+
+86
+00:03:12,866 --> 00:03:15,633
+然后我们在这里调用 loopy 并传递给它
+and then we call loopy down here and we pass it a
+
+87
+00:03:15,666 --> 00:03:17,700
+数字一到五的列表
+list of numbers one through five
+
+88
+00:03:18,066 --> 00:03:19,466
+匹配模式
+that matches the pattern
+
+89
+00:03:19,466 --> 00:03:21,800
+这就是这个循环函数中的参数
+that's the argument in this loopy function
+
+90
+00:03:22,066 --> 00:03:23,800
+这给了我们头部和尾部
+which gives us the head and the tail
+
+91
+00:03:23,800 --> 00:03:25,933
+我们打印出头部 打印出尾部
+we print out the head print out the tail
+
+92
+00:03:26,166 --> 00:03:27,433
+然后这是关键部分
+and then here's the key part
+
+93
+00:03:27,666 --> 00:03:30,066
+我们在这里称自己为 loopy
+we call loopy on itself here
+
+94
+00:03:30,433 --> 00:03:33,466
+传入尾部，这是剩余的列表
+passing in the tail which is that remaining list
+
+95
+00:03:33,600 --> 00:03:36,700
+换句话说，它是递归的，如果我们运行它
+in other words it's recursive and if we run it
+
+96
+00:03:37,266 --> 00:03:38,500
+好吧，我们得到相同的输出
+well we get the same output
+
+97
+00:03:38,500 --> 00:03:40,666
+我们很快就进入了 ix
+we got in ix just in a little bit
+
+98
+00:03:40,666 --> 00:03:41,333
+不同的格式
+different format
+
+99
+00:03:41,333 --> 00:03:42,366
+所以你看到它只是
+so you see that it's just
+
+100
+00:03:42,566 --> 00:03:44,866
+递归遍历列表
+walking through the list recursively
+
+101
+00:03:45,000 --> 00:03:46,400
+拔掉头和尾巴
+pulling off the head and the tail
+
+102
+00:03:46,666 --> 00:03:47,666
+直到最后我们得到
+until finally we get
+
+103
+00:03:47,666 --> 00:03:49,900
+到尾巴是空列表的程度
+to the point where the tail is an empty list
+
+104
+00:03:50,333 --> 00:03:52,933
+但是这个函数子句呢？
+but what about this function clause air
+
+105
+00:03:53,133 --> 00:03:53,933
+记得很好
+well remember
+
+106
+00:03:53,933 --> 00:03:57,466
+任何列表的最后一个元素的尾部是
+the tail of the final element of any list is
+
+107
+00:03:57,633 --> 00:03:59,200
+总是一个空列表
+always an empty list
+
+108
+00:03:59,333 --> 00:04:01,966
+所以当它循环时 tail 是一个空列表
+so when it loops with tail being an empty list
+
+109
+00:04:01,966 --> 00:04:03,966
+模式不匹配
+the pattern doesn't match
+
+110
+00:04:04,433 --> 00:04:04,733
+是的
+yeah
+
+111
+00:04:04,733 --> 00:04:07,466
+所以我们需要一个匹配该模式的函数子句
+so we need a function clause that matches that pattern
+
+112
+00:04:07,466 --> 00:04:09,733
+这将有效地终止递归
+which will effectively terminate the recursion
+
+113
+00:04:09,733 --> 00:04:11,066
+我只贴一张
+I'm just going to paste one in
+
+114
+00:04:11,366 --> 00:04:12,300
+所以它是循环的
+so it's loopy
+
+115
+00:04:12,800 --> 00:04:14,233
+有一个空列表
+with an empty list
+
+116
+00:04:14,300 --> 00:04:15,833
+以及何时调用此函数
+and when this function is called
+
+117
+00:04:15,833 --> 00:04:17,800
+因为当我们知道价值时，该模式匹配
+because that pattern matches while we know the worth
+
+118
+00:04:17,800 --> 00:04:19,633
+结束，所以我们只是打印完成
+the end so we just print out done
+
+119
+00:04:20,133 --> 00:04:20,933
+说吧
+say that away
+
+120
+00:04:21,166 --> 00:04:23,800
+再次运行它确定它打印出来完成
+run it again well sure enough it prints out done
+
+121
+00:04:23,833 --> 00:04:25,733
+当我们浏览了整个列表时
+when we've walked through the entire list
+
+122
+00:04:26,033 --> 00:04:28,000
+所以有三种成分可以使这项工作
+so there are three ingredients that make this work
+
+123
+00:04:28,300 --> 00:04:30,933
+第一个是这些多爪功能
+the first one is these multi claws functions
+
+124
+00:04:31,233 --> 00:04:33,200
+这在这里被称为终止爪
+this is called the terminating claws here
+
+125
+00:04:33,500 --> 00:04:35,700
+第二个是我们做模式匹配
+the second is we do pattern matching on
+
+126
+00:04:35,900 --> 00:04:37,066
+头和尾
+the head and the tail
+
+127
+00:04:37,466 --> 00:04:39,733
+这是直到列表为空的模式
+this is the pattern up until the list is empty
+
+128
+00:04:39,733 --> 00:04:41,833
+然后我们在空列表上匹配
+and then we match on the empty list
+
+129
+00:04:41,833 --> 00:04:42,800
+知道我们已经完成了
+to know that we're done
+
+130
+00:04:43,400 --> 00:04:45,866
+最后的成分当然是递归
+and the final ingredient of course is recursion
+
+131
+00:04:45,866 --> 00:04:47,600
+我们在循环自己
+we're looping back on ourself
+
+132
+00:04:48,066 --> 00:04:50,866
+所以要遍历标题行，我们可以递归
+so to loop through the header lines we can recurs
+
+133
+00:04:50,933 --> 00:04:53,533
+两个函数子句的方式相同
+the same way with two function clauses
+
+134
+00:04:53,633 --> 00:04:55,533
+这将在我们的解析器中发生
+that's going to happen over in our parser
+
+135
+00:04:55,933 --> 00:04:58,033
+现在我们解析的标头函数
+and right now our parsed headers function
+
+136
+00:04:58,033 --> 00:05:00,066
+这些标题行接受一个参数
+takes one argument these header lines
+
+137
+00:05:00,233 --> 00:05:01,066
+但我们要改变这一点
+but we're going to change this
+
+138
+00:05:01,066 --> 00:05:02,333
+围绕以匹配模式
+around to match a pattern
+
+139
+00:05:02,466 --> 00:05:03,266
+这将是
+it's going to be
+
+140
+00:05:04,166 --> 00:05:05,033
+首尾
+head and tail
+
+141
+00:05:05,733 --> 00:05:08,400
+然后就像我们需要的递归数一样
+and then just like with the recursive numbers we need
+
+142
+00:05:08,400 --> 00:05:11,100
+最后调用解析头函数
+to call the parse headers function as the last
+
+143
+00:05:11,200 --> 00:05:12,466
+这个函数的行在这里
+line of this function here
+
+144
+00:05:12,666 --> 00:05:14,733
+我们将在尾部通过
+and we're going to pass in the tail
+
+145
+00:05:15,166 --> 00:05:17,800
+记得就像我们做了一个 ix 和那个程序
+remember just like we did an ix and that program
+
+146
+00:05:17,933 --> 00:05:18,466
+我们保持
+we keep
+
+147
+00:05:18,466 --> 00:05:20,900
+在尾部匹配，直到我们到达它的末尾
+matching on the tail until we get to the end of it
+
+148
+00:05:21,400 --> 00:05:22,233
+然后在这条线上
+and then above this line
+
+149
+00:05:22,233 --> 00:05:23,866
+我只是要添加一点调试
+I'm just going to add a little bit of debug
+
+150
+00:05:23,866 --> 00:05:25,200
+这样我们就可以看到发生了什么
+just so we can see what's going on
+
+151
+00:05:30,566 --> 00:05:33,133
+我在这些列表中使用了检查功能
+and I'm using the inspect function on these lists
+
+152
+00:05:33,133 --> 00:05:33,400
+只是
+just
+
+153
+00:05:33,400 --> 00:05:35,900
+因为它会打印出这些列表的原始形式
+because it'll print out the raw form of these lists
+
+154
+00:05:35,900 --> 00:05:37,833
+然后我们也有这些标签头和尾
+and then we also have these labels head and tail
+
+155
+00:05:37,833 --> 00:05:38,633
+周围
+around it
+
+156
+00:05:38,833 --> 00:05:41,366
+当我们的
+we also need a second function clause when our
+
+157
+00:05:41,533 --> 00:05:42,866
+列表返回空
+list returns empty
+
+158
+00:05:43,600 --> 00:05:44,833
+是的，它只是解析标题
+yeah it's just parse headers
+
+159
+00:05:45,333 --> 00:05:46,700
+这将是一个空列表
+it's going to be the empty list
+
+160
+00:05:47,533 --> 00:05:48,966
+在这种情况下，我们将打印出
+and in this case we'll print out
+
+161
+00:05:49,066 --> 00:05:50,533
+就像我们以前做的一样
+done just like we did before
+
+162
+00:05:51,300 --> 00:05:52,466
+所以现在如果我们把它保存起来
+so now if we save that away
+
+163
+00:05:53,333 --> 00:05:54,466
+我们重新编译
+and we recompile
+
+164
+00:05:55,466 --> 00:05:58,066
+我们向上滚动只是为了看看那个调试给了我们什么
+we scroll back up just to see what that debug gave us
+
+165
+00:05:58,500 --> 00:06:00,600
+那么第一次通过头部是
+well the first time through the head is
+
+166
+00:06:00,833 --> 00:06:04,833
+这个主机线和尾巴是所有剩余的线
+this host line and the tail is all the remaining lines
+
+167
+00:06:04,966 --> 00:06:05,900
+然后第二次通过
+then the second time through
+
+168
+00:06:05,900 --> 00:06:07,933
+这是列表中的第二件事
+it's the second thing in the list
+
+169
+00:06:07,966 --> 00:06:09,600
+尾巴就是一切
+and the tail is everything else
+
+170
+00:06:09,600 --> 00:06:11,866
+它只是走过直到最后
+and it just walks through until finally
+
+171
+00:06:12,033 --> 00:06:14,633
+head 是最后一行内容长度
+the head is the last line content length
+
+172
+00:06:14,633 --> 00:06:16,666
+并且尾部是一个空列表
+and the tail is an empty list
+
+173
+00:06:16,900 --> 00:06:19,866
+它与空列表匹配，我们重新完成
+and it matches the empty list and we get back done
+
+174
+00:06:20,633 --> 00:06:21,900
+所以下一个问题是
+so the next question is
+
+175
+00:06:22,033 --> 00:06:24,100
+我们想对每个头部和尾部做什么
+what do we want to do for each head and tail
+
+176
+00:06:24,333 --> 00:06:25,333
+好吧，我们真的没有
+well we really don't
+
+177
+00:06:25,333 --> 00:06:26,600
+关心尾巴
+care about the tail
+
+178
+00:06:26,666 --> 00:06:28,066
+但对于每个头
+but for each head
+
+179
+00:06:28,266 --> 00:06:30,966
+我们想把它解析成一个键值对
+we want to parse it into a key value pair
+
+180
+00:06:31,233 --> 00:06:33,100
+我们知道如何解析字符串
+and we know how to parse a string
+
+181
+00:06:33,133 --> 00:06:35,166
+并匹配返回的列表
+and match the returned list
+
+182
+00:06:35,766 --> 00:06:37,733
+是的，我会在这个调试下面做
+yeah I'll just do it down below this debugging
+
+183
+00:06:38,000 --> 00:06:39,366
+在这里给它一点空间
+just give it a little bit of space here
+
+184
+00:06:39,800 --> 00:06:41,766
+我们的模式将成为价值的关键
+our pattern is going to be a key in a value
+
+185
+00:06:42,733 --> 00:06:44,800
+我们将进行字符串拆分
+and we'll take string split
+
+186
+00:06:45,733 --> 00:06:46,733
+劈头
+split the head
+
+187
+00:06:47,200 --> 00:06:49,366
+这里的难题是冒号和空格
+and the dilemma here is a colon and a space
+
+188
+00:06:49,866 --> 00:06:51,500
+然后我想添加更多的日志记录
+and then I want to add a little bit more logging
+
+189
+00:06:51,500 --> 00:06:52,766
+所以我要复制这个
+so I'm just going to copy this
+
+190
+00:06:52,800 --> 00:06:53,500
+我们会做的
+and we'll do it
+
+191
+00:06:53,500 --> 00:06:54,966
+在我们拥有值中的键之后
+after we have the key in the value
+
+192
+00:06:55,066 --> 00:06:56,066
+我只是要改变这些
+I'm just going to change these around
+
+193
+00:06:56,066 --> 00:06:57,033
+这将是我们的关键
+this will be our key
+
+194
+00:06:59,700 --> 00:07:00,800
+这将是我们的价值
+and this will be our value
+
+195
+00:07:02,466 --> 00:07:03,533
+现在如果我们把它保存起来
+now if we save that away
+
+196
+00:07:04,333 --> 00:07:06,000
+回到这里再次侦察飞行员
+come back over here and recon pilot again
+
+197
+00:07:06,733 --> 00:07:08,200
+并在此处向上滚动
+and scroll up here
+
+198
+00:07:09,366 --> 00:07:11,466
+好的头主机示例
+all right head host example
+
+199
+00:07:11,466 --> 00:07:13,533
+com 并注意我们有密钥
+com and notice we have key
+
+200
+00:07:13,600 --> 00:07:15,900
+好吧，关键是主机，价值是示例
+well the key is host and the value is example
+
+201
+00:07:15,900 --> 00:07:19,166
+com 同样，当我们有这个头时
+com similarly when we have the head being this
+
+202
+00:07:19,166 --> 00:07:20,300
+用户代理线
+user agent line
+
+203
+00:07:20,466 --> 00:07:21,966
+而关键是用户代理
+while the key is user agent
+
+204
+00:07:22,133 --> 00:07:23,100
+值是
+and the value is
+
+205
+00:07:23,133 --> 00:07:25,033
+无论标头中的值是什么
+whatever the value of that in the header is
+
+206
+00:07:25,366 --> 00:07:29,266
+所以我们成功地解析了这个字符串的头部
+so we're successfully parsing this string the head
+
+207
+00:07:29,600 --> 00:07:31,433
+成键值对
+into key value pairs
+
+208
+00:07:31,866 --> 00:07:33,700
+所以接下来我们要做的就是放
+so the next thing we want to do is put
+
+209
+00:07:33,766 --> 00:07:36,400
+标头映射中的键值对
+the key value pairs in the header's map
+
+210
+00:07:36,900 --> 00:07:38,633
+所以我会在这条线下面做
+so I'll do that right below this line
+
+211
+00:07:39,800 --> 00:07:41,733
+我们将像以前一样拥有可变标题
+we'll have variable headers like I did before
+
+212
+00:07:41,733 --> 00:07:43,000
+我早一点把它拿出来了
+I took it out a little bit earlier
+
+213
+00:07:43,000 --> 00:07:44,366
+但我们会把它放回这里
+but we'll put it back in here
+
+214
+00:07:44,733 --> 00:07:46,233
+然后我们想制作一张地图
+and then we want to make a map
+
+215
+00:07:46,233 --> 00:07:49,333
+所以我们将使用地图模块的放置功能
+so we're going to use the map modules put function
+
+216
+00:07:49,900 --> 00:07:51,933
+我们将从一张空地图开始
+we're going to start off with an empty map
+
+217
+00:07:52,433 --> 00:07:55,100
+然后我们将键和值添加到该映射
+and then we'll add the key and the value to that map
+
+218
+00:07:55,333 --> 00:07:57,500
+只是为了多一点调试
+and just to give a little bit more debug
+
+219
+00:07:57,533 --> 00:07:58,800
+我们会做 io 检查
+we'll do io inspect
+
+220
+00:07:59,100 --> 00:08:00,066
+在那些标题上
+on those headers
+
+221
+00:08:00,500 --> 00:08:01,633
+所以让我们再次运行它
+so let's run it again
+
+222
+00:08:03,266 --> 00:08:04,833
+所以这是头部和尾部输出
+so here's the head and tail output
+
+223
+00:08:05,100 --> 00:08:07,800
+这是我们的键值对，然后我们有一个映射
+here are our key value pairs and then we have a map
+
+224
+00:08:08,300 --> 00:08:09,766
+主机是关键示例
+host is the key example
+
+225
+00:08:09,766 --> 00:08:10,733
+com 作为值
+com as the value
+
+226
+00:08:11,033 --> 00:08:13,233
+如果我们低头看这个，这是我们的头和尾
+if we look down at this one here's our head and tail
+
+227
+00:08:13,766 --> 00:08:14,866
+这是关键值
+here's the key value
+
+228
+00:08:14,866 --> 00:08:17,633
+然后我们有一个以用户代理为键的地图
+and then we have a map with user agent as the key
+
+229
+00:08:17,966 --> 00:08:19,233
+但这是一张新地图
+but it's a new map
+
+230
+00:08:19,633 --> 00:08:22,466
+每次是的，这个都有一个关键值
+every time yeah this one has one key value
+
+231
+00:08:22,466 --> 00:08:24,000
+这个有一个关键值
+this one has one key value
+
+232
+00:08:24,000 --> 00:08:25,400
+如果我们继续看这里
+if we keep looking through here
+
+233
+00:08:25,600 --> 00:08:27,533
+它始终是价值的一个关键
+it's always one key in value
+
+234
+00:08:28,000 --> 00:08:30,533
+我们需要一种方法来记住标题的映射并添加
+we need a way to remember the header's map and add
+
+235
+00:08:30,566 --> 00:08:32,700
+每次通过循环
+to it each time through the loop
+
+236
+00:08:32,933 --> 00:08:34,833
+因为我们想要所有的头信息
+because we want all the header information
+
+237
+00:08:34,833 --> 00:08:36,266
+最终出现在一张地图中
+to end up in a single map
+
+238
+00:08:36,600 --> 00:08:39,000
+换句话说，我们需要一种维护状态的方法
+in other words we need a way to maintain state
+
+239
+00:08:39,033 --> 00:08:41,000
+只有一种方法可以做到这一点
+and there's only one way to do that
+
+240
+00:08:41,066 --> 00:08:42,533
+那就是采取国家
+and that's to take the state
+
+241
+00:08:42,633 --> 00:08:44,000
+在我们的例子中是一张地图
+a map in our case
+
+242
+00:08:44,000 --> 00:08:46,700
+并将其作为参数传递给递归函数
+and pass it as an argument to the recursive function
+
+243
+00:08:47,633 --> 00:08:48,166
+在我们这样做之前
+before we do that
+
+244
+00:08:48,166 --> 00:08:50,433
+让我们摆脱这个调试只是为了清理它
+let's get rid of this debugging just to clean this up
+
+245
+00:08:50,433 --> 00:08:51,566
+所以我们可以看到发生了什么
+so we can see what's going on
+
+246
+00:08:53,066 --> 00:08:53,933
+然后我们要改变
+then we're going to change
+
+247
+00:08:53,933 --> 00:08:56,866
+函数抓住第二个参数
+the function claws to take a second argument
+
+248
+00:08:56,933 --> 00:08:58,200
+我们将把它称为标题
+and we're going to call it headers
+
+249
+00:08:58,566 --> 00:09:00,133
+然后而不是调用地图
+and then instead of calling map
+
+250
+00:09:00,233 --> 00:09:03,766
+在这里传入一个空地图作为第一个参数
+put passing in an empty map as the first argument here
+
+251
+00:09:04,033 --> 00:09:05,800
+我们想传入标题
+we want to pass in headers
+
+252
+00:09:06,100 --> 00:09:08,366
+因为我们要添加键和值
+because we want to add the key and the value
+
+253
+00:09:08,533 --> 00:09:10,200
+到这个标题的地图
+to this header's map
+
+254
+00:09:10,566 --> 00:09:11,900
+那么这是关键部分
+then here's the key part
+
+255
+00:09:11,900 --> 00:09:14,300
+当我们递归调用解析头时
+when we recursively call parse headers
+
+256
+00:09:14,433 --> 00:09:18,066
+我们需要传入标题作为第二个参数
+we need to pass in headers as that 2nd argument
+
+257
+00:09:18,500 --> 00:09:21,533
+同样，我们需要将终止爪更改为
+likewise we need to change our termination claws to
+
+258
+00:09:21,533 --> 00:09:22,433
+也拿标题
+also take headers
+
+259
+00:09:22,933 --> 00:09:24,666
+现在当这个终止爪运行时
+now when this termination claws runs
+
+260
+00:09:24,666 --> 00:09:26,400
+这意味着值得列表的末尾
+it means worth the end of the list
+
+261
+00:09:26,533 --> 00:09:28,066
+所以不是打印出来
+so instead of printing out done
+
+262
+00:09:28,533 --> 00:09:30,800
+我们只想返回该标题映射
+we just want to return that headers map
+
+263
+00:09:30,933 --> 00:09:33,266
+它应该包含所有的键值对
+and it should have all the key value pairs in it
+
+264
+00:09:33,766 --> 00:09:34,666
+现在不要忘记
+now don't forget
+
+265
+00:09:34,666 --> 00:09:36,733
+我们需要更新函数调用
+we need to update the function call
+
+266
+00:09:36,733 --> 00:09:38,233
+传入一个空地图
+to pass in an empty map
+
+267
+00:09:38,233 --> 00:09:39,600
+作为第二个论点
+as the second argument
+
+268
+00:09:39,600 --> 00:09:41,666
+所以我们从一张空地图开始
+so we start out with an empty map
+
+269
+00:09:41,933 --> 00:09:43,066
+是的，这里就是这个电话
+yeah it's this call right here
+
+270
+00:09:43,066 --> 00:09:44,800
+它只是传入标题行
+it's just passing in header lines
+
+271
+00:09:44,800 --> 00:09:47,033
+但我们知道我们必须接受两个论点
+but we know we have to take two arguments
+
+272
+00:09:47,166 --> 00:09:48,933
+所以我们要从这个开始
+so we're just going to start this off with
+
+273
+00:09:49,200 --> 00:09:50,033
+空地图
+an empty map
+
+274
+00:09:50,466 --> 00:09:53,000
+所以只是为了通过这个我们称之为部件标题
+so just to walk through this we call parts headers
+
+275
+00:09:53,366 --> 00:09:55,766
+传入一张从这里下来的空地图
+passing in an empty map that comes down here
+
+276
+00:09:55,833 --> 00:09:57,233
+匹配头部和尾部
+matches head and tail
+
+277
+00:09:57,433 --> 00:09:58,233
+接着
+and then
+
+278
+00:09:58,833 --> 00:10:00,566
+我们经过那里积累
+we go through there accumulating
+
+279
+00:10:00,600 --> 00:10:03,000
+此标头映射中的所有键和值
+all the keys and values into this header's map
+
+280
+00:10:03,166 --> 00:10:04,666
+把它传回给自己
+passing it back to itself
+
+281
+00:10:05,033 --> 00:10:06,600
+直到最后 Bing
+until finally Bing
+
+282
+00:10:06,866 --> 00:10:10,333
+我们得到从解析头返回的最终头映射
+we get the final header map returned from parse headers
+
+283
+00:10:10,700 --> 00:10:11,966
+所以现在如果我们把它保存起来
+so now if we save this away
+
+284
+00:10:12,733 --> 00:10:14,166
+回来重新编译
+come back over and recompile
+
+285
+00:10:14,733 --> 00:10:15,500
+我们会检查一下
+we'll check it out
+
+286
+00:10:15,500 --> 00:10:18,033
+这是我们的 co 和 v 结构，它有一个标题
+here's our co and v structure and it has a headers
+
+287
+00:10:18,033 --> 00:10:21,400
+字段，该字段的值是一个地图
+field and the value of that field is a map
+
+288
+00:10:21,466 --> 00:10:23,000
+包含我们所有的标题
+containing all of our headers
+
+289
+00:10:23,966 --> 00:10:24,100
+现在
+now
+
+290
+00:10:24,100 --> 00:10:26,833
+如果你用其他语言做过这样的递归
+if you've done recursion like this in other languages
+
+291
+00:10:26,833 --> 00:10:29,300
+您可能会担心以这种方式反复出现
+you might be concerned that recurring this way
+
+292
+00:10:29,500 --> 00:10:32,466
+足够大的列表可能会消耗大量内存
+with a large enough list could consume a lot of memory
+
+293
+00:10:32,533 --> 00:10:34,033
+并炸毁调用堆栈
+and blow up the call stack
+
+294
+00:10:34,300 --> 00:10:35,566
+但因为最后
+but because the last
+
+295
+00:10:35,700 --> 00:10:38,033
+该函数所做的就是调用自己
+thing the function does is call itself
+
+296
+00:10:38,233 --> 00:10:41,333
+Elixir 使用了一种叫做尾调用优化的东西
+elixir uses something called tail call optimization
+
+297
+00:10:41,633 --> 00:10:44,266
+没有新的帧被推入调用堆栈
+no new frames are pushed onto the call stack
+
+298
+00:10:44,466 --> 00:10:46,866
+所以它不会消耗额外的内存
+so it consumes no additional memory
+
+299
+00:10:47,000 --> 00:10:49,800
+换句话说，这在长生不老药中真的很有效
+in other words this is really efficient in elixir
+
+300
+00:10:50,366 --> 00:10:52,400
+所以现在我们已经收集了所有的标题
+so now that we've collected all the headers
+
+301
+00:10:52,433 --> 00:10:54,933
+我们可以回到我们原来的问题
+we can return to our original problem
+
+302
+00:10:55,333 --> 00:10:58,266
+如果内容类型与此匹配
+if the content type matches this
+
+303
+00:10:58,766 --> 00:11:01,033
+然后我们可以继续我们的解析
+then we can proceed with the parsing we
+
+304
+00:11:01,033 --> 00:11:03,100
+已经有解析部分
+already have in parse parts
+
+305
+00:11:03,433 --> 00:11:05,733
+但如果不是那么我们将忽略
+but if not then we'll ignore
+
+306
+00:11:05,766 --> 00:11:09,200
+请求正文或参数字符串
+the request body or the param string altogether
+
+307
+00:11:09,600 --> 00:11:10,233
+并做到这一点
+and to do that
+
+308
+00:11:10,233 --> 00:11:10,900
+我们将使用
+we're going to use
+
+309
+00:11:10,900 --> 00:11:13,166
+模式匹配中的多爪函数
+multi claws functions in pattern matching
+
+310
+00:11:13,533 --> 00:11:15,100
+所以我们要做的就是改变
+so what we'll do is we'll change
+
+311
+00:11:15,133 --> 00:11:16,033
+这个函数
+this function to
+
+312
+00:11:16,033 --> 00:11:18,633
+将内容类型作为第一个参数
+take the content type as the first argument
+
+313
+00:11:19,533 --> 00:11:21,466
+这样我们就可以对其进行模式匹配
+and that way we can pattern match on it
+
+314
+00:11:21,933 --> 00:11:25,033
+然后当我们在这里调用 parsh para 时
+and then when we call parsh para which happens up here
+
+315
+00:11:26,333 --> 00:11:29,166
+好吧，我们将把标题映射中的值传递给它
+well we'll pass it the value that's in the headers map
+
+316
+00:11:29,866 --> 00:11:31,533
+与密钥相关联
+associated with the key
+
+317
+00:11:32,233 --> 00:11:33,133
+内容类型
+content type
+
+318
+00:11:34,466 --> 00:11:37,900
+所以如果内容类型是这个应用程序
+so if the content type is this application
+
+319
+00:11:38,300 --> 00:11:41,200
+x wow form url 编码
+x wow form url encoded
+
+320
+00:11:41,333 --> 00:11:42,966
+好吧，我们想解码它
+well we want to decode it
+
+321
+00:11:42,966 --> 00:11:45,500
+使用我编码查询功能
+using that I code query function
+
+322
+00:11:45,700 --> 00:11:47,366
+但我们还需要定义一个
+but we also need to define a
+
+323
+00:11:47,366 --> 00:11:50,333
+所有其他内容类型的默认子句
+default clause for all other content types
+
+324
+00:11:51,400 --> 00:11:53,700
+所以它会被称为pars para
+so it's going to be called pars para
+
+325
+00:11:54,066 --> 00:11:56,100
+我们并不真正关心内容类型是什么
+and we don't really care what the content type is
+
+326
+00:11:56,766 --> 00:11:59,300
+我们甚至不关心参数字符串
+and we don't even care about the param string
+
+327
+00:11:59,833 --> 00:12:01,533
+因为如果我们跌到这个水平
+because if we fall through to this level
+
+328
+00:12:01,800 --> 00:12:04,233
+好吧，我们只是要返回一个空地图
+well we're just going to return an empty map
+
+329
+00:12:04,733 --> 00:12:05,900
+因为我们要匹配这个
+because we're going to match this one
+
+330
+00:12:05,900 --> 00:12:07,433
+我们将以我们知道的方式处理它
+and we're going to handle it the way we know how
+
+331
+00:12:07,433 --> 00:12:08,366
+通过解码它
+by decoding it
+
+332
+00:12:08,533 --> 00:12:09,766
+但对于其他一切
+but for everything else
+
+333
+00:12:09,933 --> 00:12:11,300
+好吧，我们不知道如何处理
+well we don't know how to deal with that
+
+334
+00:12:11,466 --> 00:12:13,133
+所以我们只是要返回一个空地图
+so we're just going to return an empty map
+
+335
+00:12:13,433 --> 00:12:15,533
+现在如果我们把它保存起来，它应该像以前一样运行
+now if we save this away it should run just as it did
+
+336
+00:12:15,533 --> 00:12:16,333
+前
+before
+
+337
+00:12:17,400 --> 00:12:18,566
+确实如此
+and indeed it does
+
+338
+00:12:18,800 --> 00:12:21,933
+但是让我们改变我们的 post 请求的内容类型
+but let's change the content type of our post request
+
+339
+00:12:22,100 --> 00:12:25,833
+让它成为一个多部分斜线表单数据
+let's make it a multi part slash form data
+
+340
+00:12:26,000 --> 00:12:27,300
+如果我们现在运行它
+if we run it now
+
+341
+00:12:28,400 --> 00:12:31,833
+我们看到 para 和预期的一样是空的
+we see that the para is empty just as expected
+
+342
+00:12:32,533 --> 00:12:32,733
+是的
+yeah
+
+343
+00:12:32,733 --> 00:12:35,133
+这是 Web 服务器处理的另一种内容类型
+this is another content type that web servers handle
+
+344
+00:12:35,133 --> 00:12:36,866
+但它要复杂得多
+but it's a lot more complicated and
+
+345
+00:12:36,866 --> 00:12:38,266
+真的没有什么新东西可以教
+there's really nothing new to teach about
+
+346
+00:12:38,266 --> 00:12:39,766
+灵丹妙药通过实施
+elixir by implementing that
+
+347
+00:12:39,800 --> 00:12:41,666
+再加上它可能需要很长时间才能完成
+plus it probably takes a long time to do
+
+348
+00:12:41,866 --> 00:12:43,033
+所以我要把它放回去
+so I'm just going to set it back
+
+349
+00:12:43,166 --> 00:12:46,633
+并说我们只处理这种内容类型
+and say that we just handle this content type
+
+350
+00:12:47,133 --> 00:12:49,766
+递归是长生不老药的基本组成部分
+recursion is a basic building block of elixir
+
+351
+00:12:49,766 --> 00:12:51,866
+你会看到它被广泛使用
+and you'll see it used extensively
+
+352
+00:12:52,133 --> 00:12:53,766
+但你不会经常用它来
+but you won't often use it to
+
+353
+00:12:53,766 --> 00:12:56,266
+像我们一样遍历和处理列表
+traverse and process the list as we did
+
+354
+00:12:56,666 --> 00:12:58,566
+是的，这种代码很常见
+yeah this kind of code is so common
+
+355
+00:12:58,566 --> 00:13:01,900
+e 新模块提供了便利的功能
+that the e new module provides convenience functions
+
+356
+00:13:01,966 --> 00:13:03,400
+用于操作列表
+for manipulating lists
+
+357
+00:13:03,433 --> 00:13:06,200
+从细节中提供一个非常好的抽象
+providing a really nice abstraction from the details
+
+358
+00:13:06,200 --> 00:13:09,200
+但在底层实现了 e 新功能
+but under the hood the e new functions are implemented
+
+359
+00:13:09,233 --> 00:13:10,266
+使用递归
+using recursion
+
+360
+00:13:10,566 --> 00:13:13,166
+我们将看看接下来即将推出的 e 新模块
+we'll have a look at the e new module coming up next
+

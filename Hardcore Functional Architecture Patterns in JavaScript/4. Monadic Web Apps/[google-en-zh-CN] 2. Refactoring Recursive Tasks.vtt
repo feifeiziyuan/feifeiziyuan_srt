@@ -1,0 +1,1061 @@
+WEBVTT
+
+1
+00:00:00.605 --> 00:00:04.290
+这是我们的草图，让我们看看这些函数的类型。
+This is our sketch, and let's look at the type of these functions.
+
+2
+00:00:04.290 --> 00:00:09.111
+所以现在我有了一个函数，它返回一个任务，
+So now I have a thing that's a function, it returns a task,
+
+3
+00:00:09.111 --> 00:00:12.109
+它不需要任何东西并返回一个任务。
+it takes nothing and returns a task.
+
+4
+00:00:12.109 --> 00:00:16.908
+持有另一个接受任务的函数，持有另一个
+Holding another function that takes a task, holding another
+
+5
+00:00:16.908 --> 00:00:22.089
+接受任务的函数，我们在这里得到了这种递归类型。
+function that takes a task, we've got this recursive type here.
+
+6
+00:00:22.089 --> 00:00:26.218
+所以这很有趣，这个怎么样？
+So that's interesting, how about this one?
+
+7
+00:00:26.218 --> 00:00:31.630
+同样的事情，它是一个返回任务的函数
+Same exact thing, it's a function that returns a task that's
+
+8
+00:00:31.630 --> 00:00:37.056
+持有一个返回任务的函数，和 start 一样，好吗？
+holding a function returning a task, same with start, okay?
+
+9
+00:00:37.056 --> 00:00:40.580
+如果我们决定调用这些东西怎么办。
+What if we decide to call these things.
+
+10
+00:00:40.580 --> 00:00:44.611
+现在，我们知道会发生什么。
+Now, we know what happens.
+
+11
+00:00:44.611 --> 00:00:50.632
+现在它是一个返回任务的函数。
+Now it's a function that returns a task.
+
+12
+00:00:50.632 --> 00:00:54.800
+我省略了错误方面。
+I'm omitting the error side.
+
+13
+00:00:54.800 --> 00:00:56.798
+就像任务就像错误和总和一样。
+Like task is like error and sum value.
+
+14
+00:00:56.798 --> 00:01:00.818
+所以让我们只关注任务持有什么，任务持有另一个
+So let's just focus on what the task is holding though, task is holding another
+
+15
+00:01:00.818 --> 00:01:04.428
+任务，它持有另一个任务，它持有另一个任务。
+task, which is holding another task, which is holding another task.
+
+16
+00:01:04.428 --> 00:01:11.276
+但这是菜单，当我们在函数中调用它时，是的，成为任务，对吗？
+But this is menu, when we call it in the function, yeah, becomes the task, right?
+
+17
+00:01:11.276 --> 00:01:16.910
+所以它是测试保持任务的递归数据结构。
+So it's a recursive data structure of test holding tasks.
+
+18
+00:01:16.910 --> 00:01:22.854
+所以我碰巧知道如果我们专注于任务，那是一回事。
+So I happen to know if we specialize task, that's one thing.
+
+19
+00:01:22.854 --> 00:01:27.035
+但是如果我们把它变成任何旧的 monad，我们就明白了吗？
+But if we turn this into any old monad, we get we get that right?
+
+20
+00:01:27.035 --> 00:01:32.370
+如果我们拿 unit 说它需要任何回报，
+And if we take unit and say it takes any a returns that,
+
+21
+00:01:32.370 --> 00:01:38.430
+我们可以开始以不同的方式看待这些类型，对吗？
+we can start to look at thes types in different ways, right?
+
+22
+00:01:39.750 --> 00:01:45.668
+有一种叫做 Fix 的类型。
+There's a type called Fix.
+
+23
+00:01:45.668 --> 00:01:52.062
+让我们看看我们是否可以，嗯，修复的类型就像修复 f，
+Let's see if we can, well, the type of fix is like Fix f,
+
+24
+00:01:52.062 --> 00:01:57.939
+f (Fix f)，所以我们可以说，f 是某个函子。
+f (Fix f), so we can do and say, f is some functor.
+
+25
+00:01:57.939 --> 00:02:00.072
+所以在这种情况下，它就像任务。
+So in this case, it's like Task.
+
+26
+00:02:00.072 --> 00:02:04.318
+然后就是任务（修复任务）。
+And then it would be Task (Fix Task).
+
+27
+00:02:04.318 --> 00:02:12.175
+而修复点只是承诺我们会在某个时候结束。
+And the fix point just kinda promises we're gonna hit a end at some point.
+
+28
+00:02:12.175 --> 00:02:17.850
+我们将找到这个函子的固定点。
+We'll hit a fix point of this functor.
+
+29
+00:02:17.850 --> 00:02:18.913
+您可以继续向下递归，直到它最终结束。
+You can keep recursing down until it finally ends.
+
+30
+00:02:18.913 --> 00:02:20.394
+所以这是一个选择。
+So that's an option.
+
+31
+00:02:20.394 --> 00:02:27.465
+但是我知道的关于修复的一件事是我们今天没有谈论这个。
+But one thing I do know about fix is we didn't talk about this today.
+
+32
+00:02:27.465 --> 00:02:28.351
+我只是在看类型。
+I'm just looking at the types.
+
+33
+00:02:28.351 --> 00:02:33.464
+但我现在要排除修复的原因是因为它
+But the reason I'm gonna rule out fix right now is because it
+
+34
+00:02:33.464 --> 00:02:40.017
+必须持有一个 traversable 才能在其中做一些实际的 monadic 东西。
+must hold a traversable to be able to do some actual monadic stuff inside it.
+
+35
+00:02:40.017 --> 00:02:42.156
+因为 task 是一个 monad 而不是一个函子，
+And since task is a monad and not a functor,
+
+36
+00:02:42.156 --> 00:02:44.290
+我们将把它用作一个 monad。
+we're gonna be using it as a monad.
+
+37
+00:02:44.290 --> 00:02:50.810
+我要后退了，但事实证明 fix 有一个非常近的亲戚叫 free。
+I'm gonna back away, but turns out fix has a very close relative called free.
+
+38
+00:02:52.010 --> 00:02:53.910
+那是一个单子。
+And that is a monad.
+
+39
+00:02:53.910 --> 00:02:56.513
+成为 monad 是一件很幸福的事情。
+And it's very happy to be a monad.
+
+40
+00:02:56.513 --> 00:02:58.138
+这就是递归类型。
+And it's this recursive type.
+
+41
+00:02:58.138 --> 00:03:03.850
+所以它要么是这种递归类型的自由 monad 要么是纯的。
+And so it's either this recursive type of a free monad or pure.
+
+42
+00:03:03.850 --> 00:03:09.839
+所以马上，看看函数的类型，
+So right off the bat, looking at the type of the function,
+
+43
+00:03:09.839 --> 00:03:13.749
+我能意识到，如果我抬头看，
+I can just realize that if I go look up,
+
+44
+00:03:13.749 --> 00:03:17.674
+让我们来看看修复函子的类型。
+let's go look at type of fix functor.
+
+45
+00:03:17.674 --> 00:03:20.819
+我们要看看 Haskell 的这个。
+We're gonna look at Haskell for this one.
+
+46
+00:03:20.819 --> 00:03:21.998
+对不起，Elle，选择这个数据修复。
+Sorry, Elle, select this one data fix.
+
+47
+00:03:21.998 --> 00:03:23.425
+是的。
+Yeah.
+
+48
+00:03:23.425 --> 00:03:26.260
+所以它只是一个递归函数。
+So it's just a recursive function.
+
+49
+00:03:26.260 --> 00:03:30.006
+我们只是每次都在外面拍这个固定的构造函数，所以
+And we just slap this fixed constructor on the outside each time, so
+
+50
+00:03:30.006 --> 00:03:31.855
+我们可以继续递归。
+that we can continue to recurse.
+
+51
+00:03:31.855 --> 00:03:36.253
+我们实际上编写了 catamorphism，就像为我们运行我们的应用程序一样。
+And we actually write catamorphism that just like runs our app for us.
+
+52
+00:03:36.253 --> 00:03:41.913
+如果我看看 Haskell 中的自由 monad，
+And if I look at the free monads in Haskell,
+
+53
+00:03:41.913 --> 00:03:46.945
+我不知道哪里有免费的控件，
+I don't know where the control free,
+
+54
+00:03:46.945 --> 00:03:50.731
+这是一件非常相似的事情。
+it's a very similar thing.
+
+55
+00:03:50.731 --> 00:03:55.463
+他们把它笼统地拿出来，算了。
+They brought it out into a generalized, forget it.
+
+56
+00:03:55.463 --> 00:03:58.510
+不过是同一种类型。
+It's the same type, though.
+
+57
+00:03:58.510 --> 00:04:03.310
+它有这个递归结构，他们刚刚在接口中释放了 monad，所以
+It's got this recursive structure, they've just made monad free in interface so
+
+58
+00:04:03.310 --> 00:04:04.680
+很难看到。
+it's hard to see.
+
+59
+00:04:04.680 --> 00:04:05.300
+好的。
+Okay.
+
+60
+00:04:05.300 --> 00:04:07.510
+所以让我们回到我们的类型。
+So let's get back to our types.
+
+61
+00:04:07.510 --> 00:04:09.039
+所以我一开始就知道，
+So I know that right off the bat,
+
+62
+00:04:09.039 --> 00:04:11.596
+我有一个与自由 monad 兼容的类型。
+I have a type that's compatible with the free monad.
+
+63
+00:04:11.596 --> 00:04:15.768
+但让我们现在就坚持任务
+But let's just stick with task right now for
+
+64
+00:04:15.768 --> 00:04:19.726
+funsies 并构建最初的东西。
+funsies and build out the initial stuff.
+
+65
+00:04:19.726 --> 00:04:23.054
+我什至不知道，也许这有效。
+I don't even know, maybe this works.
+
+66
+00:04:23.054 --> 00:04:26.422
+让我们试一试。 [笑] 我们必须以某种方式运行我们的应用程序，
+Let's give it a shot. [LAUGH] We have to run our app somehow,
+
+67
+00:04:26.422 --> 00:04:27.077
+对？
+right?
+
+68
+00:04:27.077 --> 00:04:30.412
+所以让我们构建一个小小的 runApp 函数。
+So let's build a little runApp function.
+
+69
+00:04:30.412 --> 00:04:38.004
+我们运行它的方式是我们会说， runApp(start) 作为我们的初始点。
+And the way we would run this is we would say, runApp(start) as our initial point.
+
+70
+00:04:39.005 --> 00:04:42.200
+现在我们正在决定是否要调用这些任务或
+Now we're making a decision whether or not we wanna call these tasks or
+
+71
+00:04:42.200 --> 00:04:43.619
+在这里传递延续。
+pass the continuations here.
+
+72
+00:04:43.619 --> 00:04:45.434
+让我们继续，从延续开始。
+Let's go ahead and start with the continuations.
+
+73
+00:04:45.434 --> 00:04:47.184
+我觉得那更有趣一点。
+I think that's a little bit more fun.
+
+74
+00:04:47.184 --> 00:04:50.432
+我现在真的不知道有什么区别。
+I don't really know what the difference is at the moment.
+
+75
+00:04:50.432 --> 00:04:54.648
+但我们只是要传递延续而不是实际任务。
+But we're just gonna be passing continuations instead of the actual tasks.
+
+76
+00:04:54.648 --> 00:05:00.042
+这样我就得到了这个函数，如果我把这个函数称为一个任务，那么
+So that way I get this function, if I call the function outcomes a task, so
+
+77
+00:05:00.042 --> 00:05:05.786
+f().fork(console.error) 或者我们将得到的是一个延续。
+f().fork(console.error) or what we're gonna get is a continuation.
+
+78
+00:05:05.786 --> 00:05:10.472
+所以你可以用它运行应用程序。
+So you can run the app with that.
+
+79
+00:05:11.550 --> 00:05:14.270
+好吧，我会将它直接传递给 runApp。
+Well I'll pass it right into runApp.
+
+80
+00:05:14.270 --> 00:05:15.490
+我们走了。
+There we go.
+
+81
+00:05:15.490 --> 00:05:16.120
+所以有一个循环。
+So there's a loop.
+
+82
+00:05:16.120 --> 00:05:19.490
+因此，无论何时发生任何事情，它都会分叉任务并
+So anytime anything happens, it'll fork the task and
+
+83
+00:05:19.490 --> 00:05:22.429
+用它持有的任何东西再次运行应用程序。
+run the app again with whatever it was holding.
+
+84
+00:05:22.429 --> 00:05:26.355
+所以让我们试试那个节点
+So let's try that out node
+
+85
+00:05:26.355 --> 00:05:31.180
+博客/index.js，当然。
+blog/index.js, of course.
+
+86
+00:05:31.180 --> 00:05:38.288
+[笑] 如果你没有注意到，我在这一切中的第一步就是炸毁。
+[LAUGH] My first step in all of this is to blow up, if you haven't noticed.
+
+87
+00:05:38.288 --> 00:05:45.009
+[笑] 所以它正在寻找我有路径情况的类型，以及 db.
+[LAUGH] So it'sooking for types I got a path situation, and db.
+
+88
+00:05:45.009 --> 00:05:51.898
+所以只是在这件事本身上工作。
+So just working in that thing itself.
+
+89
+00:05:51.898 --> 00:05:55.230
+好吧，酷。不要管那个。
+All right, cool. Nevermind that.
+
+90
+00:05:55.230 --> 00:05:56.710
+所以在这里我们被要求提供我的名字。
+So here we are asked for my name.
+
+91
+00:05:56.710 --> 00:06:00.255
+布莱恩，你今天想去哪里？
+Brian, where do you wanna go today?
+
+92
+00:06:00.255 --> 00:06:02.870
+这很好。
+This is nice.
+
+93
+00:06:02.870 --> 00:06:03.710
+创建作者。
+CreateAuthor.
+
+94
+00:06:05.090 --> 00:06:06.554
+那是她的名字，布莱恩。
+That's her name, Brian.
+
+95
+00:06:06.554 --> 00:06:07.423
+[笑] 好的，太好了。
+[LAUGH] All right, great.
+
+96
+00:06:07.423 --> 00:06:09.377
+我的意思是，它正在工作。
+I mean, it's working.
+
+97
+00:06:09.377 --> 00:06:13.153
+让我们多写一点这个东西。
+Let's write a little bit more of this thing.
+
+98
+00:06:16.388 --> 00:06:23.321
+让我们说，让我们做我们的写功能。
+Let's say, let's do our write function.
+
+99
+00:06:23.321 --> 00:06:24.728
+好吧，我们会写的，全部。
+Well, we'll do write, all.
+
+100
+00:06:24.728 --> 00:06:28.809
+我们将完成这两个，这样我们就可以写一篇小博文了
+We'll finish those two out so we can actually make a little blog post and
+
+101
+00:06:28.809 --> 00:06:30.657
+实际上让我们做最新的。
+actually let's do the latest.
+
+102
+00:06:30.657 --> 00:06:33.325
+让我们不要做所有的事情，所以最新的和写的。
+Let's not do all, so latest and write.
+
+103
+00:06:33.325 --> 00:06:36.253
+那么 write 是什么样子的呢？
+So what does write looks like?
+
+104
+00:06:39.527 --> 00:06:43.408
+你的写作会要求
+Your write is gonna ask for
+
+105
+00:06:43.408 --> 00:06:47.646
+标题，也许吧？
+the title, maybe, right?
+
+106
+00:06:47.646 --> 00:06:51.863
+然后在我们给它命名之后，
+And then after we give it the title,
+
+107
+00:06:51.863 --> 00:06:55.385
+我们必须跳到那个。
+we have to kinda skip to that.
+
+108
+00:06:55.385 --> 00:06:58.760
+我们得再问一遍。所以我要锁链，我要问
+We have to ask it again. So I'm gonna chain, I'm wanna ask for
+
+109
+00:06:58.760 --> 00:06:59.553
+身体。
+the body.
+
+110
+00:06:59.553 --> 00:07:05.009
+然后从那里，我们可以链接起来，我们就有了身体。
+And then from there, we can chain over and we have the body.
+
+111
+00:07:05.009 --> 00:07:11.965
+对不起，然后我们将把标题和正文都包起来。
+Excuse me, and then we'll have the title and the body all wrapped up.
+
+112
+00:07:11.965 --> 00:07:15.383
+让我们把它再放到一个构造函数中，也许，
+Let's put that into a constructor again composed, maybe,
+
+113
+00:07:15.383 --> 00:07:18.943
+而不是在那里动态创建数据类型。
+instead of having just creating data types on the fly in there.
+
+114
+00:07:18.943 --> 00:07:21.229
+好的，整洁。
+All right, neat.
+
+115
+00:07:21.229 --> 00:07:25.838
+然后我们把它链接起来，我们实际映射它，因为我们会
+And then we just chain over that where we actually map over it cuz we will be
+
+116
+00:07:25.838 --> 00:07:27.662
+持有延续。
+holding the continuation.
+
+117
+00:07:27.662 --> 00:07:29.730
+所以现在我们有一个帖子。
+So now we have a post.
+
+118
+00:07:29.730 --> 00:07:30.527
+对不起，我忘记保存帖子了。
+I'm sorry, I forgot to save the post.
+
+119
+00:07:30.527 --> 00:07:32.022
+让我们继续保存这篇文章。
+Let's go ahead and save this post.
+
+120
+00:07:34.253 --> 00:07:38.916
+所以保存PostTable，我们
+So save PostTable and we're
+
+121
+00:07:38.916 --> 00:07:43.971
+将传递给那个。
+gonna pass in the post to that.
+
+122
+00:07:43.971 --> 00:07:45.637
+然后我们不关心帖子。
+And then we don't care about the post.
+
+123
+00:07:45.637 --> 00:07:48.002
+我们只需要写完之后会发生什么。
+We're just gonna go what happens after write.
+
+124
+00:07:48.002 --> 00:07:49.850
+那么最新。
+So latest.
+
+125
+00:07:49.850 --> 00:07:51.923
+好的，很好，最新的。
+Okay, great, latest.
+
+126
+00:07:51.923 --> 00:07:55.048
+再说一遍，我不知道这是否有效。
+Now again, I don't know if this works.
+
+127
+00:07:55.048 --> 00:07:55.746
+我希望它有效。
+I hope it works.
+
+128
+00:07:55.746 --> 00:07:56.850
+我认为它有效。
+I think it works.
+
+129
+00:07:56.850 --> 00:07:57.906
+我们可能必须做到这一点。
+We have to probably make this.
+
+130
+00:07:57.906 --> 00:07:58.877
+让我们做到这一点。
+Let's make that.
+
+131
+00:07:58.877 --> 00:08:02.347
+所以我们需要一个 PostTable。
+So we need a PostTable.
+
+132
+00:08:02.347 --> 00:08:04.732
+我可以给它字符串，但是
+I could just give it strings, but
+
+133
+00:08:04.732 --> 00:08:09.417
+我们有点想在一个地方定义一些可变的表名
+we're kinda wanna define some changeable table names in one spot
+
+134
+00:08:09.417 --> 00:08:14.202
+不必到处更改它们，而是更新。
+instead of having to change them all over the place, the updates.
+
+135
+00:08:14.202 --> 00:08:16.074
+我们曾经在我们的身体里称谓
+And we ever title in our body and
+
+136
+00:08:16.074 --> 00:08:19.900
+我们将再次将其包装在标题和正文中。
+we'll just again just wrap it in a title and body.
+
+137
+00:08:19.900 --> 00:08:24.684
+我认为我们有一些时间之后的下一步是
+And I think one of our next steps after this we have some time was
+
+138
+00:08:24.684 --> 00:08:29.379
+使用我们制作的有趣的小验证库来验证它。
+validate it with our fun little validation library we made.
+
+139
+00:08:29.379 --> 00:08:32.491
+伟大的。但我更关心转弯
+Great. But I'm more concerned about turning
+
+140
+00:08:32.491 --> 00:08:36.139
+这东西变成了最好的架构应用程序，对吧？
+this thing into the best architected app, right?
+
+141
+00:08:36.139 --> 00:08:38.685
+我现在不太在意这些小细节。
+I don't really care so much about the little details at the moment.
+
+142
+00:08:38.685 --> 00:08:41.410
+那么最新的，最新的是什么样子的？
+So latest, what does latest look like?
+
+143
+00:08:41.410 --> 00:08:43.902
+这个很有趣。
+This one's interesting.
+
+144
+00:08:43.902 --> 00:08:48.506
+我想我们每次都必须得到所有。
+I guess we have to get all everytime.
+
+145
+00:08:48.506 --> 00:08:49.409
+这有点有趣。
+That's a little interesting.
+
+146
+00:08:49.409 --> 00:08:54.020
+我们可能不得不喜欢缓存结果或向其中传递一些内容。
+We might have to like cache the results or pass something into it.
+
+147
+00:08:54.020 --> 00:08:54.970
+让我们来看看。
+Let's look at that.
+
+148
+00:08:54.970 --> 00:08:57.875
+我们首先说我们会得到所有（PostTable）。
+We'll start by saying we'll get all(PostTable).
+
+149
+00:08:59.170 --> 00:09:05.110
+然后我会得到最后一个因为我们很便宜[笑]。
+And then I'll just get the last cuz we're cheap [LAUGH].
+
+150
+00:09:05.110 --> 00:09:07.301
+帖子然后我不知道。
+Posts and then I don't know.
+
+151
+00:09:07.301 --> 00:09:10.214
+让我们为此引入兰达 [笑]。
+Let's just bring in randa for that [LAUGH].
+
+152
+00:09:10.214 --> 00:09:12.253
+最后来自兰达，为什么不呢？
+Last from randa, why not?
+
+153
+00:09:12.253 --> 00:09:16.099
+为什么我们在 JavaScript 中不能使用它？
+Why isn't it available to us in JavaScript?
+
+154
+00:09:16.099 --> 00:09:18.567
+我不确定。
+I'm not sure.
+
+155
+00:09:18.567 --> 00:09:19.451
+好的。
+Okay.
+
+156
+00:09:19.451 --> 00:09:22.177
+我们不会链接，我们会映射获取最后一个帖子。
+We're not gonna chain, we're gonna map get the last post.
+
+157
+00:09:22.177 --> 00:09:28.287
+然后我想我们想以一种或另一种方式为屏幕格式化。
+And then I guess we wanna format that's for the screen in one way or another.
+
+158
+00:09:28.287 --> 00:09:29.841
+我们将继续打印。
+And we're gonna go ahead and print that.
+
+159
+00:09:29.841 --> 00:09:34.948
+好的，所以它是 print(formatPost) 你知道吗？
+All right, so it's print(formatPost) you know what?
+
+160
+00:09:34.948 --> 00:09:36.527
+首先我们将映射格式，然后我们将映射打印。
+First we'll map format, then we'll map print.
+
+161
+00:09:36.527 --> 00:09:39.682
+事实上，如果你想链接印刷品，
+And actually if you wanna chain the print,
+
+162
+00:09:39.682 --> 00:09:43.287
+因为打印一个具有破坏性的函数。
+cuz prints a function that will be destructive.
+
+163
+00:09:43.287 --> 00:09:47.829
+最后，我们必须映射延续。
+And finally, we have to map the continuation.
+
+164
+00:09:47.829 --> 00:09:50.768
+在我们最新的之后会发生什么？
+What happens after our latest?
+
+165
+00:09:50.768 --> 00:09:51.718
+我想我们回到菜单。凉爽的。
+I guess we go back to menu. Cool.
+
+166
+00:09:51.718 --> 00:09:52.798
+函数式编程，你们都不难。
+Functional programming, y'all it's no hard.
+
+167
+00:09:52.798 --> 00:09:57.574
+[笑] 所以让我们继续完成 formatPost 和
+[LAUGH] So let's go ahead and finish the formatPost and
+
+168
+00:09:57.574 --> 00:10:03.000
+打印功能，我想我们可能有一些工作。
+the print function and I think we might have a thing working.
+
+169
+00:10:04.610 --> 00:10:09.155
+缺点格式Post。
+Cons formatPost.
+
+170
+00:10:09.155 --> 00:10:11.479
+现在，这不属于这里。
+Now, this does not belong here.
+
+171
+00:10:11.479 --> 00:10:13.039
+我们有点像控制器，对吧？
+We're kind of in a controller, right?
+
+172
+00:10:13.039 --> 00:10:15.314
+我不想在我的控制器中间格式化帖子。
+I don't wanna be formatting posts in the middle of my controller.
+
+173
+00:10:15.314 --> 00:10:18.187
+我只是把它写在这里，然后我们会移动它。
+I'm just gonna write it here and then we'll move it.
+
+174
+00:10:18.187 --> 00:10:20.442
+但是搬东西很便宜。
+But moving stuff is cheap.
+
+175
+00:10:20.442 --> 00:10:28.190
+人们开始构建他们的文件夹结构、对象和东西。
+People get so into architecting their folder structures and objects and stuff.
+
+176
+00:10:28.190 --> 00:10:31.670
+我怀疑这是因为他们没有制造任何便携的东西。
+And I have a suspicion it's because they're not making anything portable.
+
+177
+00:10:31.670 --> 00:10:34.487
+我们所有的东西都是便携式的，您只需复制、粘贴和移动它等等。
+All of our stuff is portable, you just copy and paste and move it and whatever.
+
+178
+00:10:34.487 --> 00:10:38.510
+所以对我们来说，把所有东西都扔在这里并
+So it's much less of an issue for us to just throw everything here and
+
+179
+00:10:38.510 --> 00:10:42.053
+然后再组织起来，事后看来是 2020 年，对吗？
+then organize it later and hindsight is 2020, right?
+
+180
+00:10:42.053 --> 00:10:47.102
+好的，formatPost 发个帖子然后
+All right, formatPost takes a post and
+
+181
+00:10:47.102 --> 00:10:54.140
+让我们继续，只是它是 post.title 和
+let's just go ahead and just it's the post.title and
+
+182
+00:10:54.140 --> 00:10:57.511
+post.body 一点。
+the post.body a little.
+
+183
+00:10:57.511 --> 00:11:01.590
+我有点喜欢标题新行正文。
+I little bit like title new line body.
+
+184
+00:11:01.590 --> 00:11:02.260
+凉爽的？
+Cool?
+
+185
+00:11:02.260 --> 00:11:03.910
+我们很冷静，我们很好？
+We cool with that, we're good?
+
+186
+00:11:04.980 --> 00:11:06.317
+有人吗？
+Anybody?
+
+187
+00:11:06.317 --> 00:11:08.091
+[笑] 好的，最后一张是印刷品。
+[LAUGH] All right, last one is print.
+
+188
+00:11:08.091 --> 00:11:09.375
+让我们打印。
+Let's make print.
+
+189
+00:11:09.375 --> 00:11:14.169
+这将需要一些字符串。
+And that will take some string.
+
+190
+00:11:14.169 --> 00:11:18.831
+我们要做一个 Task(rej, res) 和
+And we're just gonna make a Task(rej, res) and
+
+191
+00:11:18.831 --> 00:11:23.604
+res(console.log)，它不是字符串。
+res(console.log), which is nothing string.
+
+192
+00:11:23.604 --> 00:11:24.766
+了不起。
+Terrific.
+
+193
+00:11:24.766 --> 00:11:30.178
+好的，复制那个。
+Okay, copy that.
+
+194
+00:11:30.178 --> 00:11:32.467
+我知道我知道。那里，那里。
+I know, I know. There, there.
+
+195
+00:11:32.467 --> 00:11:35.030
+很酷，所以看看会发生什么。
+Cool, so see what happens.
+
+196
+00:11:35.030 --> 00:11:38.331
+名称？
+Name?
+
+197
+00:11:38.331 --> 00:11:40.270
+布莱恩。
+Brian.
+
+198
+00:11:40.270 --> 00:11:41.110
+你想去哪里？
+Where do you wanna go?
+
+199
+00:11:41.110 --> 00:11:41.643
+你今天想去哪里？
+Where do you wanna go today?
+
+200
+00:11:41.643 --> 00:11:43.176
+我们写怎么样。
+How about we write.
+
+201
+00:11:43.176 --> 00:11:44.756
+标题。
+Title.
+
+202
+00:11:44.756 --> 00:11:47.625
+好的，第一次发帖。
+Okay, First Post.
+
+203
+00:11:47.625 --> 00:11:49.292
+身体。
+Body.
+
+204
+00:11:49.292 --> 00:11:56.824
+大家好，我很兴奋，这是我的博客 [笑]。
+Hello y'all, I'm so excited, this is my blog [LAUGH].
+
+205
+00:11:56.824 --> 00:11:58.978
+所以我只是想玩得开心。
+So I'm just gonna have fun with this.
+
+206
+00:11:58.978 --> 00:12:06.017
+好的，是的，我认为它有效。
+Okay, and yeah, I think it works.
+
+207
+00:12:06.017 --> 00:12:09.350
+所以它要求标题，要求正文。
+So it asks for the title, asks for the body.
+
+208
+00:12:09.350 --> 00:12:12.980
+然后它写了标题和正文，新行。
+And then it wrote the title and the body, the new line.
+
+209
+00:12:12.980 --> 00:12:14.161
+很难说[笑]发生了什么。
+It’s just hard to tell [LAUGH] what happened.
+
+210
+00:12:14.161 --> 00:12:17.904
+所以也许我们会在我们的格式上做更多的工作。
+So maybe we will work a little bit more on our formatting.
+
+211
+00:12:17.904 --> 00:12:19.524
+但这一切都会过去的。
+But it’s all going.
+
+212
+00:12:19.524 --> 00:12:20.024
+好的。
+All right.

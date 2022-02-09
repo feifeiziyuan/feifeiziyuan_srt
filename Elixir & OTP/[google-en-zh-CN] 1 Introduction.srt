@@ -1,0 +1,250 @@
+1
+00:00:00,433 --> 00:00:00,966
+嘿伙计
+hey folks
+
+2
+00:00:00,966 --> 00:00:02,966
+迈克和妮可和务实的工作室
+mike and nicole here with the pragmatic studio
+
+3
+00:00:03,233 --> 00:00:04,700
+你可以做很多很酷的事情
+you could do a bunch of cool things
+
+4
+00:00:04,700 --> 00:00:06,366
+使用 Elixir 编程语言
+with the elixir programming language
+
+5
+00:00:06,533 --> 00:00:09,100
+从使用 Phoenix 框架构建 Web 应用程序
+from building web apps using the Phoenix framework
+
+6
+00:00:09,266 --> 00:00:11,533
+在网络设备上嵌入代码
+to embedding code on network devices
+
+7
+00:00:11,633 --> 00:00:13,133
+并且很想向右跳
+and is tempting just to jump right
+
+8
+00:00:13,133 --> 00:00:14,600
+进入这些并希望最好
+into these and hope for the best
+
+9
+00:00:14,800 --> 00:00:17,366
+但是elixir是一种功能并发语言
+but elixir is a functional concurrent language
+
+10
+00:00:17,366 --> 00:00:18,366
+它需要一个
+and it requires a
+
+11
+00:00:18,366 --> 00:00:20,866
+进入这些新世界的不同思维方式
+different way of thinking to enter these new worlds
+
+12
+00:00:20,933 --> 00:00:21,566
+在本课程中
+in this course
+
+13
+00:00:21,566 --> 00:00:24,133
+您将学习如何自信地使用 elixir 进行开发
+you'll learn how to develop with elixir confidently
+
+14
+00:00:24,200 --> 00:00:25,300
+平稳沉降
+for smooth settling
+
+15
+00:00:41,466 --> 00:00:43,966
+现在，如果您来自 oo 编程背景
+now if you're coming from an oo programming background
+
+16
+00:00:43,966 --> 00:00:46,966
+过渡到函数式编程可以
+making the transition to functional programming can
+
+17
+00:00:47,000 --> 00:00:48,033
+颠簸
+be a bumpy ride
+
+18
+00:00:48,333 --> 00:00:49,300
+但好在
+but the good thing is
+
+19
+00:00:49,366 --> 00:00:51,600
+这不是会让你失望的语法
+it isn't the syntax that's going to throw you
+
+20
+00:00:51,766 --> 00:00:53,733
+事实上，如果你是一名 Ruby 程序员
+in fact if you're a ruby programmer
+
+21
+00:00:53,733 --> 00:00:56,900
+很多长生不老药的语法会让人感觉很熟悉
+a lot of elixir syntax is going to feel familiar
+
+22
+00:00:57,133 --> 00:00:58,833
+不同的是你的想法
+what's different is how you think
+
+23
+00:00:58,833 --> 00:01:00,266
+关于 o 中的编程
+about programming in o
+
+24
+00:01:00,266 --> 00:01:03,066
+您正在考虑的程序围绕对象进行
+programs you're thinking revolves around objects
+
+25
+00:01:03,066 --> 00:01:05,600
+您可以通过调用方法来修改其状态
+whose state you can modify by calling methods
+
+26
+00:01:05,866 --> 00:01:08,200
+但在长生不老药中，所有数据都是不可变的
+but in elixir all data is immutable
+
+27
+00:01:08,300 --> 00:01:11,566
+所以你会更多地考虑转换数据
+so you think more in terms of transforming data
+
+28
+00:01:11,566 --> 00:01:12,600
+带功能
+with functions
+
+29
+00:01:13,300 --> 00:01:15,433
+http web 服务器非常棒
+an http web server is a great
+
+30
+00:01:15,433 --> 00:01:17,633
+灵药做事方式的例子
+example of the elixir way of doing things
+
+31
+00:01:17,833 --> 00:01:18,566
+在高水平
+at a high level
+
+32
+00:01:18,566 --> 00:01:20,600
+Web 服务器只接受一个请求，然后
+a web server just takes a request and
+
+33
+00:01:20,600 --> 00:01:22,633
+通过一系列的转变
+through some series of transformations
+
+34
+00:01:22,633 --> 00:01:24,000
+产生响应
+produces a response
+
+35
+00:01:24,066 --> 00:01:24,833
+事实证明
+and it turns out
+
+36
+00:01:24,833 --> 00:01:27,333
+构建一个简单的 Web 服务器非常棒
+that building a simple web server is a great
+
+37
+00:01:27,333 --> 00:01:28,633
+学习灵药的方法
+way to learn elixir
+
+38
+00:01:28,700 --> 00:01:29,833
+因为它需要我们
+as it requires us
+
+39
+00:01:29,833 --> 00:01:30,633
+使用一个整体
+to use a whole
+
+40
+00:01:30,633 --> 00:01:34,066
+一堆长生不老药特性和功能设计概念
+bunch of elixir features and functional design concepts
+
+41
+00:01:34,300 --> 00:01:35,666
+并通过逐步建立
+and by incrementally building
+
+42
+00:01:35,666 --> 00:01:36,933
+这个应用程序贯穿整个课程
+this app throughout the course
+
+43
+00:01:37,233 --> 00:01:39,766
+您将获得使用 elixir 的实践经验
+you'll gain practical experience with elixir
+
+44
+00:01:39,866 --> 00:01:42,333
+并了解所有部分如何组合在一起
+and learn how all the pieces fit together
+
+45
+00:01:42,333 --> 00:01:44,500
+开发一个完整的长生不老药应用程序
+to develop a complete elixir app
+
+46
+00:01:45,133 --> 00:01:46,033
+作为额外的奖励
+as an added bonus
+
+47
+00:01:46,033 --> 00:01:48,233
+如果您打算使用 Phoenix Web 框架
+if you're planning to use the Phoenix web framework
+
+48
+00:01:48,233 --> 00:01:49,033
+你会有更好的
+you'll have a better
+
+49
+00:01:49,100 --> 00:01:50,533
+了解它的设计方式
+understanding of how it's designed
+
+50
+00:01:50,733 --> 00:01:53,233
+所以事不宜迟，让我们开始吧
+so without further delay let's get started
+

@@ -1,0 +1,691 @@
+WEBVTT
+
+1
+00:00:00.122 --> 00:00:02.645
+好的，所以我们要去验证，
+All right, so we're gonna go to validation,
+
+2
+00:00:02.645 --> 00:00:05.566
+我们要快速制作一个验证库。
+we're gonna make a validation library right quick.
+
+3
+00:00:05.566 --> 00:00:10.311
+[笑] 所以我只是用所有这些幺半群来打击你。
+[LAUGH] So I just kind of pummeled you with all these monoids.
+
+4
+00:00:10.311 --> 00:00:12.040
+但是你可以看到它是如何暗示建筑的，对吧？
+But you can see how it hints at architecture, right?
+
+5
+00:00:12.040 --> 00:00:14.254
+我们可以开始说，
+We're able to start to say like,
+
+6
+00:00:14.254 --> 00:00:19.870
+我们的应用程序类型是一个异步错误处理的东西，或者是一个类似报告的东西。
+our type of app is an async error handling thing or it's a report like thing.
+
+7
+00:00:19.870 --> 00:00:22.469
+在这种情况下，我们将围绕验证进行架构。
+And in this case, we're gonna do architecture around validation.
+
+8
+00:00:22.469 --> 00:00:25.880
+所以我们会说验证是一种组合。
+So we're gonna say validations are a thing that combined.
+
+9
+00:00:25.880 --> 00:00:31.433
+从根本上说，如果我有一个验证和
+Fundamentally, if I have a validation and
+
+10
+00:00:31.433 --> 00:00:37.295
+比方说，isPresent 和我做那个检查和
+let's say, isPresent and I do that check and
+
+11
+00:00:37.295 --> 00:00:43.937
+我想将它与另一个像 isEmail 连接起来。
+I wanna concat that with another one like isEmail.
+
+12
+00:00:43.937 --> 00:00:50.511
+我们拿一些对象，我们会说 object.name 和 object.email。
+We take some objects and we'll take say object.name and object.email.
+
+13
+00:00:50.511 --> 00:00:55.746
+我应该得到的是，组合错误或
+What I should get is, either the combined errors or
+
+14
+00:00:55.746 --> 00:01:00.278
+原来的对象，对，选择。
+the original object, right, the choice.
+
+15
+00:01:00.278 --> 00:01:05.276
+所以，我们想建立一些结合了一堆验证和礼物的东西
+So, we wanna build something that combines a bunch of validations and presents
+
+16
+00:01:05.276 --> 00:01:10.211
+我带着他们所有的错误或一个成功的对象通过了挑战。
+me with all their errors or a successful object that got through the gauntlet.
+
+17
+00:01:10.211 --> 00:01:13.441
+所以让我们尝试构建这个，
+So let's try to build this,
+
+18
+00:01:13.441 --> 00:01:18.294
+我要慢慢来，问问题。
+and I'm going to go slow, ask questions.
+
+19
+00:01:18.294 --> 00:01:25.510
+但是，我们已经开始了，我们想要结束什么？
+But, we're already gonna kind of start with, what do we want to end up with?
+
+20
+00:01:26.560 --> 00:01:28.922
+我认为一个不错的 API 就是这个。
+And I think a nice API would be this.
+
+21
+00:01:28.922 --> 00:01:35.316
+我们会说验证就是我们有名字的东西
+We'll say validations is this thing where we have name
+
+22
+00:01:35.316 --> 00:01:41.250
+isPresent、电子邮件、isEmail 等。
+isPresent, an email, isEmail, and so on.
+
+23
+00:01:41.250 --> 00:01:45.837
+所以我们会说我们会更进一步。
+So we'll say like we'll take it further.
+
+24
+00:01:45.837 --> 00:01:51.889
+我们可以说，好吧，我想用 isPresent 连接它，对吧？
+We could say, well, I wanna concat that with also isPresent, right?
+
+25
+00:01:51.889 --> 00:01:55.319
+我们会在结束之前做到这一点。
+We'll do that before the end.
+
+26
+00:01:55.319 --> 00:01:59.681
+但我们的想法是我们提供一个对象键值，我希望验证
+But the idea is that we provide an object key value and I want the validation to
+
+27
+00:01:59.681 --> 00:02:04.132
+对应于密钥，我希望能够组合和编写验证。
+correspond to the key and I wanna be able to combine and compose validations.
+
+28
+00:02:04.132 --> 00:02:07.745
+每个人都了解问题的框架吗，我们正在努力做什么？
+Is everybody understand the framing of the problem, what we are trying to do?
+
+29
+00:02:07.745 --> 00:02:10.160
+对此有任何疑问，是吗？
+Any questions on that, yep?
+
+30
+00:02:10.160 --> 00:02:14.220
+&gt;&gt; 这个，如果我们把它换成不同的语言，
+&gt;&gt; This, if we were to take it into different language,
+
+31
+00:02:14.220 --> 00:02:17.710
+只是不同类型的对象，对吗？
+would just be a different type of objects, right?
+
+32
+00:02:17.710 --> 00:02:18.309
+&gt;&gt; 是的，没错。
+&gt;&gt; Yeah, exactly.
+
+33
+00:02:18.309 --> 00:02:18.887
+&gt;&gt; 好的。
+&gt;&gt; Okay.
+
+34
+00:02:18.887 --> 00:02:22.215
+&gt;&gt; 它可以只是命名为巴黎，我只是想能够提供，
+&gt;&gt; It could just be named Paris, I just wanna be able to provide,
+
+35
+00:02:22.215 --> 00:02:25.860
+这是我想要运行此验证的属性。
+this is the attribute I wanna run this validation on.
+
+36
+00:02:25.860 --> 00:02:29.400
+我们想做一些事情，比如验证验证。
+And we wanna do something maybe like validate validations.
+
+37
+00:02:29.400 --> 00:02:34.386
+[笑] 然后我们会给它一些对象
+[LAUGH] And then we'll give it some object and
+
+38
+00:02:34.386 --> 00:02:40.950
+我们希望得到我们的对象或一堆错误。
+we hope to get our object back or a bunch of errors.
+
+39
+00:02:40.950 --> 00:02:44.487
+好的，让我们继续编写 isPresent。
+All right, so let's go ahead and write isPresent.
+
+40
+00:02:46.354 --> 00:02:49.020
+而且，实际上你知道什么，没关系。
+And, actually you know what, nevermind.
+
+41
+00:02:49.020 --> 00:02:52.690
+在我们做任何其他事情之前，让我们先写这个验证。
+Let's go ahead and write this validate first before we do anything else.
+
+42
+00:02:52.690 --> 00:02:55.954
+我喜欢从颜色开始，对吧？
+I like to start at the color, right?
+
+43
+00:02:55.954 --> 00:03:00.480
+所以我要创造，所以我们已经有了这个东西。
+So I'm gonna create, so we already have this thing.
+
+44
+00:03:00.480 --> 00:03:02.975
+现在让我们简化它，我们稍后再做。
+Let's simplify it for now and we'll do this later.
+
+45
+00:03:02.975 --> 00:03:06.180
+但我们说，事实上，让我们从两者的 isPresent 开始。
+But we say, in fact, let's just start with isPresent on both.
+
+46
+00:03:07.430 --> 00:03:10.440
+所以我们有一个非常简单的用例，我们将从调用代码开始
+So we have a very simple use case, we're gonna start with the calling code and
+
+47
+00:03:10.440 --> 00:03:12.720
+我们的工作方式备份。
+kind of work our way back up.
+
+48
+00:03:12.720 --> 00:03:15.760
+所以我们的对象有一个名字。
+So we have our object that has a name.
+
+49
+00:03:15.760 --> 00:03:19.237
+还有，布赖恩和一封电子邮件，以及
+And, brian and an email, and
+
+50
+00:03:19.237 --> 00:03:23.417
+那将是 brian@brian.com。
+that would be brian@brian.com.
+
+51
+00:03:23.417 --> 00:03:25.091
+好的，太好了。
+All right, great.
+
+52
+00:03:25.091 --> 00:03:26.853
+我们将验证这一点。
+And we'll validate that.
+
+53
+00:03:26.853 --> 00:03:31.135
+所以这将是我们的回应，我们会继续
+So it will be our response and we'll go ahead and
+
+54
+00:03:31.135 --> 00:03:34.999
+console.log 无论响应是什么。
+console.log whatever that response is.
+
+55
+00:03:34.999 --> 00:03:36.440
+好的，太好了。
+All right, great.
+
+56
+00:03:37.460 --> 00:03:43.555
+所以我们必须去写验证，所以让我们这样做。
+So we have to go write validate, so let's do that.
+
+57
+00:03:43.555 --> 00:03:50.270
+验证是键值的规范，对吗？
+And validations is the specification of key values, right?
+
+58
+00:03:51.310 --> 00:03:55.820
+所以这就像我们的规范对象，我想，我不知道。
+So that'll be like our spec object, I guess, I don't know.
+
+59
+00:03:55.820 --> 00:03:59.233
+我的名字很糟糕，只是称为我们的规范。
+I'm terrible at names, just called our spec.
+
+60
+00:03:59.233 --> 00:04:02.300
+[笑] 然后我们有一个对象。
+[LAUGH] And then we have an object.
+
+61
+00:04:03.800 --> 00:04:05.920
+我们称之为记录或其他什么。
+We call it a record or whatever.
+
+62
+00:04:05.920 --> 00:04:10.230
+然后我们想做的是在规范上说 object.keys。
+And then what we wanna do is say object.keys on the spec.
+
+63
+00:04:10.230 --> 00:04:17.766
+所以对于这些名字中的每一个，好吧，如果我们 foldMap 会怎样，对吗？
+So for each of these names, well, what if we foldMap that, right?
+
+64
+00:04:17.766 --> 00:04:23.600
+我们将把所有东西都组合起来，所以从一个列表和 foldMap 开始。
+We're gonna be combining everything, so start that in a list and foldMap here.
+
+65
+00:04:23.600 --> 00:04:27.910
+我们相当肯定我们现在要 foldMap 这就是我这样做的原因。
+We're fairly certain we're gonna foldMap right now is why I'm doing this.
+
+66
+00:04:27.910 --> 00:04:28.800
+所以带入清单。
+So bring in list.
+
+67
+00:04:30.840 --> 00:04:37.619
+List=require immutable-ext。
+List=require immutable-ext.
+
+68
+00:04:37.619 --> 00:04:41.410
+我们将它们折叠成什么？
+And what are we folding mapping them into?
+
+69
+00:04:41.410 --> 00:04:43.700
+好吧，我们为什么不从一个开始，对吧，
+Well, why don't we start with an either, right,
+
+70
+00:04:43.700 --> 00:04:45.210
+任何一种都已经为我们做到了这一点。
+either kind of already does this for us.
+
+71
+00:04:45.210 --> 00:04:46.790
+我们不必写任何东西。
+We don't have to write anything.
+
+72
+00:04:46.790 --> 00:04:49.521
+所以让我们从我们的类型中引入。
+So let's go bring in either from our types.
+
+73
+00:04:53.747 --> 00:04:55.042
+我很喜欢这种行为，
+I do love this behavior,
+
+74
+00:04:55.042 --> 00:04:59.040
+它就像告诉我我在文件夹结构中的确切位置。
+it's like tells me exactly where I am in the folder structure.
+
+75
+00:04:59.040 --> 00:05:00.990
+这是值得的痛苦。
+It's worth the pain.
+
+76
+00:05:00.990 --> 00:05:02.610
+所以，好吧，所以
+So, okay, so
+
+77
+00:05:02.610 --> 00:05:07.740
+我们有一个要么，我们将从要么中拉出右边的左边。
+we have an either and we'll pull out the left in the right from the either.
+
+78
+00:05:07.740 --> 00:05:10.190
+所以我们可以随意使用它们。
+So we have those at our disposal.
+
+79
+00:05:10.190 --> 00:05:16.068
+太好了，所以我们要做的就是说我们从任意一个开始作为我们的空。
+Great, so we're gonna do is say we're start with either of right as our empty.
+
+80
+00:05:16.068 --> 00:05:21.046
+然后我们将从任何一个对象开始作为我们的初始
+And then we'll start with either of the object as our initial
+
+81
+00:05:21.046 --> 00:05:25.542
+初始对象，对，然后我们的初始为空。
+initial object, right, and then our initial empty.
+
+82
+00:05:25.542 --> 00:05:30.116
+因为我们想要么返回对象的权利，要么
+Because we wanna either return the right of the object or
+
+83
+00:05:30.116 --> 00:05:35.579
+剩下一堆错误，然后我们将接收每个键。
+a left of a bunch of errors, and then we're gonna take in each key.
+
+84
+00:05:35.579 --> 00:05:39.337
+让我们稍微扩展一下，去掉卷发，
+Let's just kind of expand this out for a second, get rid of the curlies,
+
+85
+00:05:39.337 --> 00:05:40.147
+别担心。
+don't worry.
+
+86
+00:05:40.147 --> 00:05:46.646
+[笑] 然后我们在这里要做的是说，所以如果我们调用规范键，
+[LAUGH] And then what we'll do here is say, so if we call the spec key,
+
+87
+00:05:46.646 --> 00:05:51.680
+这将从那个对象中取出这个东西，对吧？
+that will get this thing out of that object, right?
+
+88
+00:05:51.680 --> 00:05:57.530
+规范键是名称，我可以得到作为验证的值。
+The spec keys are the names and I can get the value which is the validation out.
+
+89
+00:05:57.530 --> 00:06:02.330
+我们将对对象键运行验证，对吗？
+And we'll run the validation on the object key, right?
+
+90
+00:06:02.330 --> 00:06:06.450
+很酷，这应该会回报我们。
+Cool, and that should return us.
+
+91
+00:06:06.450 --> 00:06:08.400
+我们可以这样说，好吧，如果这是真的，
+We could say something like, well, if it's true,
+
+92
+00:06:08.400 --> 00:06:12.750
+我们会返回一个 Right 这个值，对吧？
+we'll return a Right of this value, right?
+
+93
+00:06:12.750 --> 00:06:15.370
+所以这个对象的权利，每个人都很好，它奏效了。
+So right of the object, everybody's good, it worked.
+
+94
+00:06:15.370 --> 00:06:22.168
+否则，我们会给你一个左边的嘿嘿，让我们只是为了
+Otherwise, we'll return you a left of hey, let's just for
+
+95
+00:06:22.168 --> 00:06:28.049
+屏幕的缘故，我们会说关键，男孩，关键坏了。
+the screen sake, we'll say key, boy, key bad.
+
+96
+00:06:28.049 --> 00:06:32.266
+[笑] 来了。
+[LAUGH] Here we go.
+
+97
+00:06:32.266 --> 00:06:34.487
+我们要从那个开始，看看它在哪里结束。
+We're gonna start with that, see where it ends up.
+
+98
+00:06:34.487 --> 00:06:35.760
+好吧，我要摆脱这些。
+Okay, I'm gonna get rid of these.
+
+99
+00:06:35.760 --> 00:06:41.919
+所以现在我们要返回一个要么你要么可以猫所以事情很好。
+So now we're returning an either and you either can cats so things are good.
+
+100
+00:06:41.919 --> 00:06:45.796
+我会写 isPresent，我们会说，我不知道它需要一个 x 和
+And I'll write isPresent, we'll say, I don't know it takes an x and
+
+101
+00:06:45.796 --> 00:06:47.120
+它只是不是 X 射线。
+it's just not X-ray.
+
+102
+00:06:48.920 --> 00:06:51.610
+很酷，生活很美好。
+Cool, life is good.
+
+103
+00:06:51.610 --> 00:06:53.480
+让我们看看发生了什么。
+Let's see what happens.
+
+104
+00:06:53.480 --> 00:06:58.160
+如果我运行这个，节点库验证，
+If I run this, node lib validations,
+
+105
+00:06:58.160 --> 00:07:01.970
+当然我已经在lib中了。
+of course I'm already in lib.
+
+106
+00:07:01.970 --> 00:07:03.982
+为什么我要离开 lib 然后回来？
+Why would I leave lib and come back?
+
+107
+00:07:03.982 --> 00:07:05.145
+已经到了。
+It's already right here.
+
+108
+00:07:05.145 --> 00:07:06.021
+好吧，酷。
+All right, cool.
+
+109
+00:07:06.021 --> 00:07:07.260
+但是这里发生了什么？
+But what happened here?
+
+110
+00:07:07.260 --> 00:07:07.760
+为什么是人？
+Why is it man?
+
+111
+00:07:09.618 --> 00:07:12.151
+[声音] Concat 不是函数，
+[SOUND] Concat is not a function,
+
+112
+00:07:12.151 --> 00:07:16.478
+权利必须持有必须连接的东西。
+right must be holding something that must be concatenate.
+
+113
+00:07:16.478 --> 00:07:17.740
+那不是我们想要的。
+That's not we want.
+
+114
+00:07:17.740 --> 00:07:20.830
+我们不想将对象与带有对象的对象连接起来，对吗？
+We don't wanna concatenate objects with objects wiht objects, right?
+
+115
+00:07:22.170 --> 00:07:25.490
+所以我们在这里要做出一些决定，我们实际上可以
+So we have a few decisions here to make, we can actually
+
+116
+00:07:25.490 --> 00:07:30.830
+首先使用另一个我没有提到的幺半群，[笑] 或作为一个半群。
+use another monoid that I didn't mention called first, [LAUGH] or as a semigroup.
+
+117
+00:07:30.830 --> 00:07:32.708
+因为我们不能做那个幺半群。
+Because we can't make that monoid.
+
+118
+00:07:32.708 --> 00:07:35.863
+但是我们可以说，我们将首先使用这个对象，
+But we could say, we'll use this object first,
+
+119
+00:07:35.863 --> 00:07:38.121
+那总是只需要第一个。
+that always just takes the first one.
+
+120
+00:07:38.121 --> 00:07:39.708
+然后是我的工作。
+And then my work.
+
+121
+00:07:39.708 --> 00:07:43.050
+我可以继续做到这一点，所以它总是保持第一件事。
+I can go ahead and make that so it always keep the first thing.
+
+122
+00:07:43.050 --> 00:07:47.001
+但我会马上告诉你，这里发生的事情是 Left 只是
+But I'll tell you right off the bat, what's happening here is Left is just
+
+123
+00:07:47.001 --> 00:07:50.550
+当它达到第一次验证时会短路。
+gonna short circuit when it hits the first validation.
+
+124
+00:07:50.550 --> 00:07:51.470
+我们不希望那样。
+And we don't want that.
+
+125
+00:07:51.470 --> 00:07:54.350
+我们希望它收集错误，对吗？
+We want it to collect the errors, right?
+
+126
+00:07:54.350 --> 00:07:59.703
+即使我们在这里放了一个数组，而且
+Even if we put an array here, And
+
+127
+00:07:59.703 --> 00:08:03.206
+我们实际上可以证明这一点，而不是使用 First，
+we can actually demonstrate this instead of using First,
+
+128
+00:08:03.206 --> 00:08:06.530
+我只是把它放在数组中，因为一个数组连接。
+I'll just put this in array because an array concats.
+
+129
+00:08:06.530 --> 00:08:09.200
+事实上，它被称为自由幺半群，因为你
+In fact, it's called the free monoids because you
+
+130
+00:08:09.200 --> 00:08:10.830
+总是可以在那里拍东西。
+can always slap something in there.
+
+131
+00:08:12.910 --> 00:08:21.770
+所以，它最终给了我们一个，如果我们停止这样做，就把它折叠起来。
+So, it does end up giving us a either and if we stop doing this, just fold it out.
+
+132
+00:08:21.770 --> 00:08:25.693
+给它，我会写任何函数。
+Give it, I'll write any functions.
+
+133
+00:08:25.693 --> 00:08:29.196
+我们会得到console.log，抱歉。
+We would get the console.log, sorry.
+
+134
+00:08:33.814 --> 00:08:36.600
+所以我们在这里取得了很多成功。
+So we get a bunch of successes here.
+
+135
+00:08:36.600 --> 00:08:40.702
+如果我删除一个，说名字不好。
+If I remove one, say name bad.
+
+136
+00:08:40.702 --> 00:08:44.441
+[笑] 但如果我把这两个都去掉，我们就不会被命名为坏的
+[LAUGH] But if I remove both, we won't get named bad and
+
+137
+00:08:44.441 --> 00:08:47.528
+电子邮件不好，我们只收到第一个，对吗？
+email bad we just get the first one, right?
+
+138
+00:08:47.528 --> 00:08:49.818
+如果我收到另一个邮件，邮件就会变差。
+And if I get the other one will get email bad.

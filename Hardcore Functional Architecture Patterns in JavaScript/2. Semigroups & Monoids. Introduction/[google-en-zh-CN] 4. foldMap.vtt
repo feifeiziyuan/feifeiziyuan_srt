@@ -1,0 +1,161 @@
+WEBVTT
+
+1
+00:00:00.090 --> 00:00:03.612
+好的，我们已经定义了一个模板
+Okay, so we've defined a template for
+
+2
+00:00:03.612 --> 00:00:07.570
+列出一些事情并将它们组合起来。
+taking a list of things and combining them.
+
+3
+00:00:07.570 --> 00:00:13.530
+我们将调用该函数折叠，实际上折叠地图。
+We're going to call that function fold, actually fold map.
+
+4
+00:00:13.530 --> 00:00:19.840
+我们将把它映射成一个类型，然后通过 concat 将它折叠起来。
+We're gonna take this, map it into a type and then fold it down via concat.
+
+5
+00:00:19.840 --> 00:00:24.748
+所以我不想在这里评价折叠地图。
+So I don't wanna rate fold map here.
+
+6
+00:00:24.748 --> 00:00:27.374
+我只是要把它从图书馆带来。
+I'm just gonna bring it in from a library.
+
+7
+00:00:27.374 --> 00:00:29.700
+所以我们称这个为const。
+So we'll call this const.
+
+8
+00:00:29.700 --> 00:00:31.697
+我的意思是，我们基本上只是做了右折叠地图，
+I mean, we essentially just did right fold map,
+
+9
+00:00:31.697 --> 00:00:33.805
+我们只需要传入这种类型和那种类型。
+we'll just have to pass in this type and that type.
+
+10
+00:00:33.805 --> 00:00:37.162
+但我要继续说清单。
+But I'm just gonna go ahead and say list.
+
+11
+00:00:37.162 --> 00:00:43.479
+我们将需要 immutable-ext。
+We're gonna require immutable-ext.
+
+12
+00:00:43.479 --> 00:00:46.696
+不可变分机。
+Immutable-ext.
+
+13
+00:00:46.696 --> 00:00:47.800
+凉爽的。
+Cool.
+
+14
+00:00:47.800 --> 00:00:49.926
+这定义了列表中的完整地图，
+And that defines full map on the list,
+
+15
+00:00:49.926 --> 00:00:52.857
+因为我们不能在数组上调用完整映射，对吗？
+because we can't call full map on an array, right?
+
+16
+00:00:52.857 --> 00:00:56.950
+所以我只是使用列表来调用完整的地图。
+So I'm just using the list to be able to call full map.
+
+17
+00:00:58.290 --> 00:00:59.715
+现在我不需要这些了。
+And now I don't need any of this.
+
+18
+00:00:59.715 --> 00:01:03.430
+[笑] 我只想说把它全部放进去，完整地映射它。
+[LAUGH] I'm just gonna say put it into all, full map it.
+
+19
+00:01:03.430 --> 00:01:04.320
+伟大的。
+Great.
+
+20
+00:01:04.320 --> 00:01:07.520
+提供所有这些空的可能会有所帮助
+And it's probably helpful to provide all that empty
+
+21
+00:01:08.710 --> 00:01:11.300
+因为那样我们就会有一个起始值。
+because then we'll have a starting value.
+
+22
+00:01:12.680 --> 00:01:16.140
+我们将其称为 toJS，因为它是不可变的。
+And we'll call it toJS because it's immutable.
+
+23
+00:01:16.140 --> 00:01:19.023
+美好时光。
+Good times.
+
+24
+00:01:19.023 --> 00:01:19.790
+并运行这个。
+And run this.
+
+25
+00:01:21.190 --> 00:01:25.940
+再一次，它不是找到不可变的，toJS 不是一个函数。
+Again, it's not findking immutable, toJS is not a function.
+
+26
+00:01:27.262 --> 00:01:29.214
+因为它正在将它从列表中折叠出来。
+Because it's folding it out of the list.
+
+27
+00:01:29.214 --> 00:01:30.180
+这有点意思。
+That's kind of interesting.
+
+28
+00:01:30.180 --> 00:01:30.893
+它正在消耗它，对吧？
+It's consuming it, right?
+
+29
+00:01:30.893 --> 00:01:34.841
+它把它变成了一个全部，所以我们把列表减少到一个全部
+It's turning it into an all, so we reduced the list into an all so
+
+30
+00:01:34.841 --> 00:01:37.194
+我们实际上不必调用 toJS。
+we don't actually have to call toJS.
+
+31
+00:01:37.194 --> 00:01:38.694
+凉爽的。
+Cool.
+
+32
+00:01:38.694 --> 00:01:40.672
+仍然有效。
+Still works.

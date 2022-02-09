@@ -1,0 +1,356 @@
+WEBVTT
+
+1
+00:00:00.240 --> 00:00:04.560
+我想开始谈论功能或
+I wanna start off talking about function or
+
+2
+00:00:04.560 --> 00:00:09.380
+Mona Transformers 通过谈论函子组合。
+Mona Transformers by talking about functor composition.
+
+3
+00:00:10.900 --> 00:00:13.780
+所以我们这里有一个表示 compose 的类型。
+So what we have here is a type that says compose.
+
+4
+00:00:13.780 --> 00:00:19.590
+我要买另外两种 F 型和 G 型，然后我会给你一个新的 M 型。
+I'm gonna take two other types F and G and I'm gonna return you a new type M.
+
+5
+00:00:20.830 --> 00:00:25.610
+如果我想在 M 中放一些东西，我们会将它放在 G、F 和 M 中。
+And if I wanna put something in M, we'll put it in the G, in the F, and in the M.
+
+6
+00:00:26.740 --> 00:00:29.590
+如果我想映射，我会映射到 g，然后映射到 f，
+And if I wanna map, I'll map over the g, and map over the f,
+
+7
+00:00:29.590 --> 00:00:31.740
+并将其保存在 M 中。
+and keep that in the M.
+
+8
+00:00:31.740 --> 00:00:34.660
+酷，好吧，让我们看看这是如何工作的。
+Cool, all right, let's see how this works.
+
+9
+00:00:34.660 --> 00:00:39.225
+我可以说，好吧，我让我们称之为 TaskEither。
+I can say, well, I have let's call a TaskEither.
+
+10
+00:00:40.380 --> 00:00:42.230
+我会作曲。
+And I'll make a compose.
+
+11
+00:00:42.230 --> 00:00:45.541
+我会撰写（任务，要么），好吗？
+And I'll Compose(Task, Either), okay?
+
+12
+00:00:45.541 --> 00:00:47.970
+我想在 TaskEither 中放入一些东西。
+I wanna put something in a TaskEither.
+
+13
+00:00:47.970 --> 00:00:51.390
+因此，无论是在内部还是外部，这都是一项任务。
+So it's a task on the outside either on the inside.
+
+14
+00:00:51.390 --> 00:00:52.000
+那就对了。
+That's right.
+
+15
+00:00:52.000 --> 00:00:58.110
+那么我们会说 TaskEither of, to。
+So then we'll say TaskEither of, to.
+
+16
+00:00:58.110 --> 00:01:04.931
+给自己一些空间将映射到我们有一到两次，
+Give myself some space will map over that we have a to two times,
+
+17
+00:01:04.931 --> 00:01:12.023
+10 将再次映射它，只是为了有趣的 2 或这个 10 20。
+10 will map over it again just for funsies two or this 10 20.
+
+18
+00:01:12.023 --> 00:01:15.080
+[笑] 天哪。
+[LAUGH] Goodness.
+
+19
+00:01:15.080 --> 00:01:17.280
+所以我们得到了 20 &lt;&gt; 20 + 1。
+So we got twenty &lt;&gt; twenty + 1.
+
+20
+00:01:18.738 --> 00:01:25.050
+好的，然后我们要分叉这个，因为这也不是一项任务。
+All right, and then we're going to fork this, because it is not a task either.
+
+21
+00:01:25.050 --> 00:01:26.790
+它是 TaskEither 的组合。
+It's a compose of TaskEither.
+
+22
+00:01:26.790 --> 00:01:31.572
+所以我们实际上必须把它从组合中取出来。
+So we actually have to get it out of the the compose.
+
+23
+00:01:31.572 --> 00:01:33.970
+现在我已经展示了几次提取物。
+Now I've shown extract a few times.
+
+24
+00:01:33.970 --> 00:01:38.364
+对于你们这些新折叠之类的人，提取物来自，
+And for those of you who new fold and such, extract is coming from,
+
+25
+00:01:38.364 --> 00:01:42.622
+它不接受函数，然后将其传递给函数。
+it does not take the function and then pass that to the function.
+
+26
+00:01:42.622 --> 00:01:47.552
+你把它拿出来，它是普通广告的一部分
+You just get it out and it's part of the common ad
+
+27
+00:01:47.552 --> 00:01:52.370
+界面，但这只是其中的一部分。
+interface, but it's only one piece of that.
+
+28
+00:01:53.420 --> 00:01:59.660
+好的，所以我们可以从 compose 中提取出我们的 TaskEither。
+Okay, so we can extract out of the compose to get our TaskEither.
+
+29
+00:01:59.660 --> 00:02:06.327
+一旦我们调用这个 console.error 然后我们在那里得到两者之一，
+And once we call this console.error and then we get the either in there,
+
+30
+00:02:06.327 --> 00:02:12.690
+然后我们可以将两者之一折叠到 console.log，console.log。
+then we could fold out the either to a console.log, console.log.
+
+31
+00:02:12.690 --> 00:02:16.310
+不错，棒棒哒
+All right, terrific.
+
+32
+00:02:16.310 --> 00:02:17.840
+人们看到这是如何运作的。
+People see how this is working.
+
+33
+00:02:17.840 --> 00:02:21.940
+我的任务之一是映射其中的值，并且
+I have a task of either of mapping over the value inside of it and
+
+34
+00:02:21.940 --> 00:02:25.270
+从撰写中取出。
+to take out of the compose.
+
+35
+00:02:25.270 --> 00:02:28.940
+所以我得到了我的任务，然后我运行了它，并且任务被持有，所以
+So I get my task, and then I run that, and the task is holding either, so
+
+36
+00:02:28.940 --> 00:02:30.580
+然后我得到我的。
+then I get my either.
+
+37
+00:02:30.580 --> 00:02:33.370
+但在我的整个计算过程中，
+But during my whole computation,
+
+38
+00:02:33.370 --> 00:02:37.380
+我真的不必在意，我不必在整个地方都绘制地图。
+I didn't really have to care, I didn't have to map map all over the place.
+
+39
+00:02:37.380 --> 00:02:39.730
+我的一张地图只为我做了两张地图。
+My one map just did both maps for me.
+
+40
+00:02:41.450 --> 00:02:46.500
+所以如果我运行它transformers/0，我们得到21，完美。
+So if I run it transformers/0, we got 21, perfect.
+
+41
+00:02:47.680 --> 00:02:51.133
+所以函子可以毫不费力地组合起来。
+And so functors compose effortlessly.
+
+42
+00:02:51.133 --> 00:02:52.840
+任何函子都只是与其他人组合。
+Any functor just composes with others.
+
+43
+00:02:52.840 --> 00:02:54.900
+事实上，你可以用 compose 来组合它，
+In fact, you can compose it with compose,
+
+44
+00:02:54.900 --> 00:02:58.960
+我可以说我可以用那个组合身份等等，它是关联的。
+I could say I could compose identity with that and so on, and it's associative.
+
+45
+00:02:58.960 --> 00:03:01.520
+我们实际上有一个恒等函子，不是吗？
+And we actually have an identity functor don't we?
+
+46
+00:03:01.520 --> 00:03:06.760
+所以实际上函子本身用于形式类别，它们的作用类似于函数。
+So actually functors themselves for form category where they act like functions.
+
+47
+00:03:06.760 --> 00:03:08.740
+你可以组合它们并且你有一个身份和
+You can compose them and you have an identity and
+
+48
+00:03:08.740 --> 00:03:14.500
+然后他们提供了这种从功能中一键点击的功能。
+then they provide this whole kind of one click up from functions.
+
+49
+00:03:14.500 --> 00:03:18.197
+这是一个完整的合成工具包。
+It's a whole composition toolkit.
+
+50
+00:03:18.197 --> 00:03:23.200
+但我们不会走得太远，事情会变得棘手。
+But we're not gonna go too far into it, where things get hairy.
+
+51
+00:03:23.200 --> 00:03:28.550
+如果我确实链接，我必须以某种方式提供一个 TaskEither。
+If I do chain I have to somehow provide a TaskEither.
+
+52
+00:03:28.550 --> 00:03:30.790
+所以我也进入了这个
+So I get into this too and
+
+53
+00:03:30.790 --> 00:03:36.560
+我必须处理创建另一个任务来链接它。
+I have to deal with creating another task either to chain that.
+
+54
+00:03:36.560 --> 00:03:39.940
+这不是机械的。
+And that is not mechanical.
+
+55
+00:03:39.940 --> 00:03:40.920
+这并不总是奏效。
+That doesn't always work.
+
+56
+00:03:40.920 --> 00:03:43.030
+你不能只写两个 mon 广告。
+You can't just compose two mon ads.
+
+57
+00:03:43.030 --> 00:03:45.060
+并期待它为我们连锁。
+And just expect it to chain for us.
+
+58
+00:03:45.060 --> 00:03:49.938
+我们不能在这里写一个有意义的链，在 compose 中。
+We can't write a chain that makes sense here, in compose.
+
+59
+00:03:49.938 --> 00:03:54.596
+每个人都明白这个事实吗，也许不是为什么，但至少
+Does everybody understand that fact, maybe not why but at least
+
+60
+00:03:54.596 --> 00:04:00.252
+有一个事实说我们不能在这里写一个平面地图或一个链。
+there's a fact that says we cannot write a flat map or a chain in here.
+
+61
+00:04:00.252 --> 00:04:07.020
+我们对每一种蒙泰克，每一种类型都有意义
+And we make sense like for each montaic, kind of each type
+
+62
+00:04:07.020 --> 00:04:13.490
+如果您不符合类型，则有自己的方式来指定地图和链。
+has its own way to specify map and chain if you're gonna fall out of the type.
+
+63
+00:04:13.490 --> 00:04:16.580
+你必须知道细节，这就是你的
+You have to know about the details and this you just it just
+
+64
+00:04:16.580 --> 00:04:19.740
+立即为您备份，这样您就可以随时映射地图，一切都很好。
+bottles it right back up for you so you can always map map and you're fine.
+
+65
+00:04:20.790 --> 00:04:24.820
+所以我们不能把这些东西串联起来。
+So we cannot chain these these things.
+
+66
+00:04:24.820 --> 00:04:26.350
+那我们该怎么办？
+So what are we gonna do?
+
+67
+00:04:26.350 --> 00:04:32.020
+我们看到我们可以，我们可以将任务组合成一个幺半群和
+We saw we could, we can kind of combine task and either into a monoid and
+
+68
+00:04:32.020 --> 00:04:35.480
+只是说喜欢，我只是要继续结合我的地图我的任务食者和
+just say like, I'm just gonna keep combining my map my task eaters and
+
+69
+00:04:35.480 --> 00:04:39.110
+通过串联处理其中的内容。
+work with the stuff inside it through concatenation.
+
+70
+00:04:39.110 --> 00:04:43.850
+但通常你会想要映射和链接，所以你可以运行
+But typically you're going to want to map and chain, so you could run
+
+71
+00:04:43.850 --> 00:04:49.261
+其上的功能组合，而不仅仅是结合他们的见解。
+a composition of functions over it instead of just combining their insights.

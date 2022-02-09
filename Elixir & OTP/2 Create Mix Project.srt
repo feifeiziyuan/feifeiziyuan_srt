@@ -1,0 +1,1024 @@
+1
+00:00:00,333 --> 00:00:02,400
+so our first step is to create an elixir project
+
+2
+00:00:02,400 --> 00:00:03,700
+and get some code running
+
+3
+00:00:03,766 --> 00:00:04,666
+and no surprise
+
+4
+00:00:04,666 --> 00:00:07,733
+elixir has conventions for organizing projects and
+
+5
+00:00:07,733 --> 00:00:10,566
+great tooling to automate project tasks
+
+6
+00:00:10,866 --> 00:00:12,266
+to create a new elixir project
+
+7
+00:00:12,266 --> 00:00:14,800
+we use the mix command that we say mix new
+
+8
+00:00:14,800 --> 00:00:17,800
+and the navar project is going to be see
+
+9
+00:00:18,400 --> 00:00:21,266
+and it generated a few files and directories there
+
+10
+00:00:21,400 --> 00:00:23,466
+we'll look at those in just a minute now
+
+11
+00:00:23,466 --> 00:00:26,233
+the mix tool lets us automate common project tasks
+
+12
+00:00:26,233 --> 00:00:28,566
+sort of like ruby's rake tool
+
+13
+00:00:28,633 --> 00:00:30,700
+in fact if you just want to see all the tasks you do
+
+14
+00:00:30,733 --> 00:00:32,966
+mix help and it lists all those out
+
+15
+00:00:32,966 --> 00:00:35,700
+so we did the mix new to create a new elixir project
+
+16
+00:00:35,966 --> 00:00:38,100
+but there's a load of tasks in here for
+
+17
+00:00:38,233 --> 00:00:39,633
+just common things you want to do
+
+18
+00:00:39,633 --> 00:00:41,200
+around your elixir project
+
+19
+00:00:41,700 --> 00:00:43,200
+so I'm just going to change directory
+
+20
+00:00:43,300 --> 00:00:43,766
+into that
+
+21
+00:00:43,766 --> 00:00:46,333
+survey project directory and then open it up in
+
+22
+00:00:46,333 --> 00:00:47,133
+my editor
+
+23
+00:00:47,933 --> 00:00:49,500
+let's take a quick peek at the lightweight
+
+24
+00:00:49,500 --> 00:00:50,200
+directory structure
+
+25
+00:00:50,200 --> 00:00:51,933
+that the mix new command created
+
+26
+00:00:51,933 --> 00:00:53,666
+we've got a con directory
+
+27
+00:00:53,800 --> 00:00:55,400
+which contains one file configurable
+
+28
+00:00:55,400 --> 00:00:58,066
+exs and this file is responsible for
+
+29
+00:00:58,066 --> 00:00:59,200
+configuring the application
+
+30
+00:00:59,200 --> 00:01:00,133
+no surprise here
+
+31
+00:01:00,500 --> 00:01:02,133
+most of it is comments and
+
+32
+00:01:02,133 --> 00:01:03,500
+it's pretty rare that you have to drop
+
+33
+00:01:03,500 --> 00:01:04,733
+into this and change anything
+
+34
+00:01:04,900 --> 00:01:06,000
+we'll return back to this
+
+35
+00:01:06,000 --> 00:01:07,766
+as we need it later on in the course
+
+36
+00:01:08,333 --> 00:01:09,566
+and we've got a live directory
+
+37
+00:01:09,566 --> 00:01:11,566
+this is where our application code is going to live
+
+38
+00:01:11,733 --> 00:01:13,233
+and generated a survey
+
+39
+00:01:13,233 --> 00:01:15,133
+ex file which we'll look at in just a second
+
+40
+00:01:15,533 --> 00:01:17,800
+we also have a test directory which no surprise
+
+41
+00:01:18,133 --> 00:01:20,733
+has some test inside of those some generated tests
+
+42
+00:01:21,133 --> 00:01:22,700
+again we'll look at those a little bit later
+
+43
+00:01:23,033 --> 00:01:24,900
+and then we have this mix exs
+
+44
+00:01:25,133 --> 00:01:27,133
+and this is where we configure our project
+
+45
+00:01:27,133 --> 00:01:28,233
+and its dependencies
+
+46
+00:01:28,333 --> 00:01:29,000
+we'll have to add
+
+47
+00:01:29,000 --> 00:01:30,600
+a dependency a little bit later on in the course
+
+48
+00:01:30,600 --> 00:01:32,166
+so we'll come back to this file as well
+
+49
+00:01:32,600 --> 00:01:35,066
+now don't let the two file extensions dot
+
+50
+00:01:35,066 --> 00:01:37,833
+ex and dot exs throw you
+
+51
+00:01:38,000 --> 00:01:40,366
+both types of files contain elixir code
+
+52
+00:01:40,533 --> 00:01:44,000
+dot ex files are meant to be compiled and then run
+
+53
+00:01:44,266 --> 00:01:45,833
+whereas dot sex
+
+54
+00:01:45,833 --> 00:01:48,666
+files are effectively interpreted like scripts
+
+55
+00:01:48,733 --> 00:01:50,000
+thus the trailing s
+
+56
+00:01:50,400 --> 00:01:52,666
+most of the time though you'll just use the
+
+57
+00:01:52,666 --> 00:01:53,900
+ex extension
+
+58
+00:01:54,266 --> 00:01:56,566
+and that's exactly the extension we have on this serbia
+
+59
+00:01:56,566 --> 00:01:58,366
+ex because it's application code
+
+60
+00:01:58,366 --> 00:02:00,300
+and all of our application code is going to have a
+
+61
+00:02:00,300 --> 00:02:03,100
+ex extension so I'm just going to remove these comments
+
+62
+00:02:03,100 --> 00:02:04,933
+so we can focus on the code
+
+63
+00:02:05,100 --> 00:02:08,133
+and elixir code is always organized in name module
+
+64
+00:02:08,133 --> 00:02:10,933
+so the file starts by defining a module here
+
+65
+00:02:10,933 --> 00:02:11,900
+which is just a name
+
+66
+00:02:11,933 --> 00:02:14,300
+space for functions it uses def module
+
+67
+00:02:14,366 --> 00:02:16,266
+then the name of the module is see
+
+68
+00:02:16,266 --> 00:02:18,033
+notice that it starts with an uppercase character
+
+69
+00:02:18,533 --> 00:02:20,200
+and all module names and elixir use
+
+70
+00:02:20,200 --> 00:02:21,533
+camel case similar to
+
+71
+00:02:21,733 --> 00:02:23,533
+ruby classes and modules
+
+72
+00:02:24,033 --> 00:02:25,300
+then inside of the module we have a
+
+73
+00:02:25,300 --> 00:02:26,900
+name function called hello
+
+74
+00:02:26,900 --> 00:02:27,166
+and
+
+75
+00:02:27,166 --> 00:02:29,833
+the function names are lowercase with underscores or
+
+76
+00:02:29,833 --> 00:02:33,200
+snake case and these are similar to ruby method names
+
+77
+00:02:33,233 --> 00:02:33,566
+and
+
+78
+00:02:33,566 --> 00:02:36,533
+all name functions must be defined inside of a module
+
+79
+00:02:36,766 --> 00:02:38,100
+if you're a ruby programmer
+
+80
+00:02:38,100 --> 00:02:39,533
+this should look fairly familiar
+
+81
+00:02:39,533 --> 00:02:41,133
+but one thing that might trip you up
+
+82
+00:02:41,133 --> 00:02:43,300
+that at least a trip to me up was trying to remember
+
+83
+00:02:43,300 --> 00:02:44,466
+to type the dew
+
+84
+00:02:44,600 --> 00:02:44,866
+yeah
+
+85
+00:02:44,866 --> 00:02:47,533
+I always forget these dues on the ends of these lines
+
+86
+00:02:47,533 --> 00:02:49,266
+so that's just something to keep in mind
+
+87
+00:02:49,700 --> 00:02:52,033
+and this hello function is currently returning an
+
+88
+00:02:52,033 --> 00:02:54,400
+atom which is like a symbol in ruby
+
+89
+00:02:54,566 --> 00:02:55,666
+so it's the atom world
+
+90
+00:02:56,033 --> 00:02:57,233
+and adam is just a
+
+91
+00:02:57,300 --> 00:02:59,700
+name whose value is the same as its name or
+
+92
+00:02:59,900 --> 00:03:00,866
+a constant
+
+93
+00:03:00,900 --> 00:03:03,633
+let's just have it return a proper greeting here
+
+94
+00:03:03,800 --> 00:03:05,900
+so we'll use an elixir string which is double quotes
+
+95
+00:03:05,900 --> 00:03:08,266
+no surprise and then we can use string interpolation
+
+96
+00:03:08,266 --> 00:03:09,266
+just like in ruby
+
+97
+00:03:09,266 --> 00:03:10,466
+if we wanted to say hello
+
+98
+00:03:10,566 --> 00:03:12,766
+some name and then we could pass that name in
+
+99
+00:03:13,100 --> 00:03:14,933
+as an argument to the hello function
+
+100
+00:03:15,466 --> 00:03:16,600
+then to call a function
+
+101
+00:03:16,766 --> 00:03:17,600
+we're going to come down
+
+102
+00:03:17,633 --> 00:03:19,833
+outside of this module and I'm going to use io
+
+103
+00:03:19,833 --> 00:03:21,833
+that's a module name that's built into elixir
+
+104
+00:03:22,066 --> 00:03:22,800
+use puts
+
+105
+00:03:22,800 --> 00:03:24,866
+which should be familiar if you're a ruby programmer
+
+106
+00:03:25,033 --> 00:03:26,333
+and then we use the module name
+
+107
+00:03:26,366 --> 00:03:27,500
+which is serving in this case
+
+108
+00:03:27,500 --> 00:03:28,833
+and the name of the function hello
+
+109
+00:03:28,966 --> 00:03:30,600
+and then we'll just pass it elixir
+
+110
+00:03:31,100 --> 00:03:32,300
+so defining modules
+
+111
+00:03:32,300 --> 00:03:32,933
+and functions
+
+112
+00:03:32,933 --> 00:03:33,766
+and then calling those
+
+113
+00:03:33,766 --> 00:03:35,766
+functions on the modules is pretty straightforward
+
+114
+00:03:36,266 --> 00:03:36,766
+obviously
+
+115
+00:03:36,766 --> 00:03:38,566
+the next thing we want to do is to run our code
+
+116
+00:03:38,566 --> 00:03:39,300
+and to do that
+
+117
+00:03:39,300 --> 00:03:41,633
+we're going to need to compile our elixir files
+
+118
+00:03:41,866 --> 00:03:42,766
+to bike code
+
+119
+00:03:42,766 --> 00:03:45,733
+and then run that bike code on the up virtual machine
+
+120
+00:03:46,033 --> 00:03:48,566
+now the early virtual machine is like 20 years old
+
+121
+00:03:48,600 --> 00:03:50,433
+so you can imagine what we're going to have to
+
+122
+00:03:50,433 --> 00:03:51,233
+go through
+
+123
+00:03:51,333 --> 00:03:53,966
+just to print out hello elixir to the console
+
+124
+00:03:54,333 --> 00:03:56,633
+make files cross compilers
+
+125
+00:03:56,900 --> 00:03:59,433
+the good news is once we get past this point
+
+126
+00:03:59,433 --> 00:04:01,066
+it's all downhill from here
+
+127
+00:04:01,633 --> 00:04:02,533
+just kidding
+
+128
+00:04:02,933 --> 00:04:05,266
+elixir makes it really easy to run our code
+
+129
+00:04:05,733 --> 00:04:07,966
+so the first way to run an elixir file is using the
+
+130
+00:04:07,966 --> 00:04:08,966
+elixir command
+
+131
+00:04:09,000 --> 00:04:10,433
+and our serbia
+
+132
+00:04:10,433 --> 00:04:12,266
+ex file is down in the lip directory
+
+133
+00:04:12,266 --> 00:04:14,033
+so I just give it a relative path there
+
+134
+00:04:14,666 --> 00:04:16,800
+and we see we get hello elixir no surprise
+
+135
+00:04:17,333 --> 00:04:18,866
+but this is pretty cool when you think about it
+
+136
+00:04:18,866 --> 00:04:20,866
+because the file got compiled in memory
+
+137
+00:04:20,866 --> 00:04:22,600
+into bike code and then it was run
+
+138
+00:04:22,633 --> 00:04:24,100
+on the early virtual machine
+
+139
+00:04:24,566 --> 00:04:27,466
+now our file lives in the mixed project directory under
+
+140
+00:04:27,466 --> 00:04:30,200
+lib but you can create a one off elixir file
+
+141
+00:04:30,200 --> 00:04:31,000
+anywhere you want
+
+142
+00:04:31,133 --> 00:04:32,800
+and run it using the electric command
+
+143
+00:04:32,800 --> 00:04:34,966
+it doesn't have to be in a mixed project directory
+
+144
+00:04:34,966 --> 00:04:35,766
+like we have it here
+
+145
+00:04:36,000 --> 00:04:37,500
+but unless it's a one off file
+
+146
+00:04:37,500 --> 00:04:40,333
+I always put my code in a mixed project directory
+
+147
+00:04:40,333 --> 00:04:40,766
+because I usually
+
+148
+00:04:40,766 --> 00:04:41,933
+end up with multiple files
+
+149
+00:04:41,933 --> 00:04:43,700
+and that's just the proper way to do it
+
+150
+00:04:44,266 --> 00:04:46,100
+I can also run this back in sublime
+
+151
+00:04:46,100 --> 00:04:48,233
+I've got it set up if I do apple b
+
+152
+00:04:48,666 --> 00:04:51,033
+I get the output there it's hello elixir
+
+153
+00:04:51,300 --> 00:04:52,966
+and this is just set up to
+
+154
+00:04:53,000 --> 00:04:55,400
+run the elixir command on the current file
+
+155
+00:04:55,466 --> 00:04:56,633
+and I'm going to use this approach
+
+156
+00:04:56,633 --> 00:04:57,700
+at least for the first
+
+157
+00:04:57,700 --> 00:04:58,466
+part of the course
+
+158
+00:04:58,466 --> 00:04:59,533
+just so you don't have to watch
+
+159
+00:04:59,533 --> 00:05:00,666
+me switch back and forth
+
+160
+00:05:00,666 --> 00:05:02,300
+between the command line and the editor
+
+161
+00:05:02,300 --> 00:05:04,600
+and it's just the easy way to get the results quickly
+
+162
+00:05:05,266 --> 00:05:06,433
+another way to run our app
+
+163
+00:05:06,433 --> 00:05:09,800
+is to use a luxor's interactive shell fix
+
+164
+00:05:09,833 --> 00:05:11,933
+yeah this is similar to ruby's irb
+
+165
+00:05:12,066 --> 00:05:13,233
+and we could just type in
+
+166
+00:05:13,233 --> 00:05:15,200
+any expression and get its result
+
+167
+00:05:15,200 --> 00:05:17,200
+so you type sex
+
+168
+00:05:17,400 --> 00:05:18,200
+just like that
+
+169
+00:05:18,366 --> 00:05:20,266
+and it'll evaluate any expression
+
+170
+00:05:20,266 --> 00:05:22,300
+no surprise you can also call
+
+171
+00:05:22,333 --> 00:05:24,366
+any built in modules like string
+
+172
+00:05:24,400 --> 00:05:26,533
+and the function reverse for example
+
+173
+00:05:27,500 --> 00:05:30,100
+but what happens if we try our survey module and
+
+174
+00:05:30,100 --> 00:05:31,133
+call our hello
+
+175
+00:05:31,400 --> 00:05:32,800
+passing in my name
+
+176
+00:05:33,400 --> 00:05:35,700
+well it says survey hello is undefined
+
+177
+00:05:35,800 --> 00:05:37,900
+the module survey is not available
+
+178
+00:05:38,033 --> 00:05:40,966
+and that's because by default index doesn't know about
+
+179
+00:05:41,100 --> 00:05:42,166
+this survey file
+
+180
+00:05:42,333 --> 00:05:44,833
+so one way to compile it and load it is using the c
+
+181
+00:05:44,833 --> 00:05:45,633
+function
+
+182
+00:05:45,733 --> 00:05:48,300
+then we just give it a string which is the relative
+
+183
+00:05:48,300 --> 00:05:49,966
+path to the file we want to run
+
+184
+00:05:51,733 --> 00:05:54,266
+and you notice we immediately got hello elixir
+
+185
+00:05:54,500 --> 00:05:55,333
+so this compiled
+
+186
+00:05:55,333 --> 00:05:58,366
+the file in memory and then loaded the survey module
+
+187
+00:05:58,466 --> 00:05:59,166
+into the session
+
+188
+00:05:59,166 --> 00:05:59,566
+and then
+
+189
+00:05:59,566 --> 00:06:01,766
+any code that's outside of the module is interpreted
+
+190
+00:06:01,766 --> 00:06:04,733
+so this code right here that prints out hello elixir
+
+191
+00:06:04,766 --> 00:06:05,500
+got interpreted
+
+192
+00:06:05,500 --> 00:06:07,533
+which is why we see the output right here
+
+193
+00:06:08,033 --> 00:06:08,600
+to get out of
+
+194
+00:06:08,600 --> 00:06:10,433
+if you can hit control c
+
+195
+00:06:10,433 --> 00:06:12,533
+and this is going to open up the brake menu
+
+196
+00:06:12,633 --> 00:06:14,300
+and then you can either type a
+
+197
+00:06:14,433 --> 00:06:16,533
+right here to get out of this session
+
+198
+00:06:16,533 --> 00:06:17,733
+or as most people do
+
+199
+00:06:17,800 --> 00:06:19,300
+you just hit control c again
+
+200
+00:06:19,466 --> 00:06:22,466
+so to get out of if it's basically two control cs
+
+201
+00:06:23,066 --> 00:06:25,200
+there's a shortcut to starting fix and
+
+202
+00:06:25,266 --> 00:06:26,066
+loading up a file
+
+203
+00:06:26,066 --> 00:06:27,900
+you can just use it and then give it
+
+204
+00:06:27,900 --> 00:06:29,866
+the name of the file relative path
+
+205
+00:06:29,866 --> 00:06:30,900
+again as an argument
+
+206
+00:06:31,066 --> 00:06:33,100
+and again the file is compiled in memory
+
+207
+00:06:33,100 --> 00:06:34,700
+and the series modules is loaded
+
+208
+00:06:34,700 --> 00:06:35,833
+into the runtime and then
+
+209
+00:06:35,833 --> 00:06:37,933
+any code that's outside of the module is interpreted
+
+210
+00:06:37,933 --> 00:06:39,533
+which is why we see this right here
+
+211
+00:06:39,966 --> 00:06:41,100
+so that's a shortcut to
+
+212
+00:06:41,100 --> 00:06:44,066
+opening six and then using the c function to compile it
+
+213
+00:06:44,100 --> 00:06:44,766
+and to get out of this
+
+214
+00:06:44,766 --> 00:06:46,566
+I'm just going to hit control c twice
+
+215
+00:06:47,300 --> 00:06:48,000
+one final
+
+216
+00:06:48,000 --> 00:06:51,566
+way to run code in six is to start the ix session with
+
+217
+00:06:51,566 --> 00:06:54,566
+a s option and then mix
+
+218
+00:06:55,733 --> 00:06:57,533
+and then it says it compiled the file
+
+219
+00:06:57,533 --> 00:06:58,566
+we got the output
+
+220
+00:06:58,566 --> 00:07:00,633
+because it interpreted this line up here again
+
+221
+00:07:00,966 --> 00:07:04,000
+when you start it with the dash s mix option
+
+222
+00:07:04,000 --> 00:07:05,833
+it knows about the project so
+
+223
+00:07:05,933 --> 00:07:07,266
+we're in an ix session
+
+224
+00:07:07,266 --> 00:07:09,566
+in the context of our application
+
+225
+00:07:09,733 --> 00:07:11,666
+so we can go ahead and use our module survey
+
+226
+00:07:11,666 --> 00:07:12,766
+hello for example
+
+227
+00:07:13,566 --> 00:07:14,833
+I tend to use this approach
+
+228
+00:07:14,866 --> 00:07:15,066
+because
+
+229
+00:07:15,066 --> 00:07:17,400
+it compiled and loads all the modules in the project
+
+230
+00:07:17,400 --> 00:07:20,166
+and we can interact with any of the application code
+
+231
+00:07:20,266 --> 00:07:21,800
+so you don't have to compile it or
+
+232
+00:07:22,000 --> 00:07:23,833
+load item with a specific file
+
+233
+00:07:23,933 --> 00:07:25,966
+you've got access to everything you need right here
+
+234
+00:07:26,633 --> 00:07:29,333
+so let's look at what happens when we need to recompile
+
+235
+00:07:29,366 --> 00:07:33,233
+let's say we change our code from hello to howdy
+
+236
+00:07:33,566 --> 00:07:34,733
+if I save that away here
+
+237
+00:07:34,733 --> 00:07:36,700
+in sublime I can hit appleby again
+
+238
+00:07:36,800 --> 00:07:38,333
+we get back howdy elixir
+
+239
+00:07:38,766 --> 00:07:39,166
+down here
+
+240
+00:07:39,166 --> 00:07:42,400
+if I'm still in an ix session I can use the r function
+
+241
+00:07:42,400 --> 00:07:43,966
+and then give it the name of a module
+
+242
+00:07:43,966 --> 00:07:45,500
+in this case our module is see
+
+243
+00:07:46,000 --> 00:07:49,533
+and that recompile and reloads the given module
+
+244
+00:07:49,533 --> 00:07:51,666
+you see we get a little bit of warning here saying
+
+245
+00:07:51,833 --> 00:07:53,466
+we're redefining that module
+
+246
+00:07:53,566 --> 00:07:55,666
+and then it recompiled reloaded it
+
+247
+00:07:55,833 --> 00:07:56,900
+and we see that we've got
+
+248
+00:07:56,900 --> 00:07:59,266
+howdy elixir because it interpreted that line again
+
+249
+00:07:59,400 --> 00:08:02,466
+so now if we say low mic it says howdy mic
+
+250
+00:08:02,966 --> 00:08:04,366
+so I'm going to go ahead and comment out this
+
+251
+00:08:04,366 --> 00:08:05,100
+line right here
+
+252
+00:08:05,100 --> 00:08:06,300
+so it doesn't get interpreted
+
+253
+00:08:06,300 --> 00:08:08,966
+every time we load up our project and ix going forward
+
+254
+00:08:09,533 --> 00:08:11,666
+so now we have a project and a jumping off point
+
+255
+00:08:11,666 --> 00:08:12,933
+from which to build our web
+
+256
+00:08:12,933 --> 00:08:16,766
+server next up we'll handle our first http request
+

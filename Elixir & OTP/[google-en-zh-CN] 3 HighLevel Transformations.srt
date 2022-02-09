@@ -1,0 +1,1255 @@
+1
+00:00:00,233 --> 00:00:01,133
+所以我们准备开始
+so we're ready to start
+
+2
+00:00:01,133 --> 00:00:02,000
+处理请求
+handling requests
+
+3
+00:00:02,000 --> 00:00:04,133
+我们需要一个可以定义的新模块
+and we'll need a new module where we can define
+
+4
+00:00:04,133 --> 00:00:05,266
+这样做的功能
+functions to do that
+
+5
+00:00:05,633 --> 00:00:07,500
+那么我们把这个模块文件放在哪里
+so where do we put this module file
+
+6
+00:00:07,533 --> 00:00:09,533
+这就是约定的力量
+well that's the power of conventions
+
+7
+00:00:09,533 --> 00:00:11,266
+我们不必随意决定
+we don't have to arbitrarily decide
+
+8
+00:00:12,133 --> 00:00:14,533
+我们知道我们的应用程序代码位于 lib 目录中
+we know our application code lives in the lib directory
+
+9
+00:00:14,533 --> 00:00:15,766
+按照惯例
+and by convention
+
+10
+00:00:15,966 --> 00:00:17,533
+我们需要创建一个子目录
+we need to create a subdirectory
+
+11
+00:00:17,533 --> 00:00:19,566
+在与项目同名的lib下
+under lib with the same name as the project
+
+12
+00:00:19,566 --> 00:00:21,666
+所以我要在lib下新建一个文件夹
+so I'm going to create a new folder under lib
+
+13
+00:00:21,800 --> 00:00:23,233
+我们项目的名称是服务
+and the name of our project is service
+
+14
+00:00:23,233 --> 00:00:24,500
+所以我会有一个文件夹或
+so I'm going to have a folder or
+
+15
+00:00:24,500 --> 00:00:25,566
+名为调查的目录
+directory called survey
+
+16
+00:00:25,733 --> 00:00:28,333
+然后我们将我们的应用程序代码放入
+and then we put our application code inside of
+
+17
+00:00:28,466 --> 00:00:29,500
+那个目录
+that directory
+
+18
+00:00:29,533 --> 00:00:31,366
+所以在这里我要创建一个新文件
+so here I'm going to create a new file
+
+19
+00:00:32,066 --> 00:00:33,400
+我们将称它为处理程序
+we're going to call it handler
+
+20
+00:00:33,400 --> 00:00:36,733
+ex 和 this 否则我们将编写我们的第一个模块
+ex and this or we'll write our first module
+
+21
+00:00:37,133 --> 00:00:38,400
+所以我们使用 def 模块
+so we use def module
+
+22
+00:00:38,400 --> 00:00:41,733
+该模块的名称将是调查点
+the name of this module is going to be survey dot
+
+23
+00:00:41,733 --> 00:00:42,566
+按照惯例
+by convention
+
+24
+00:00:42,566 --> 00:00:45,233
+该模块的名称间隔在
+the module is name spaced inside of the
+
+25
+00:00:45,233 --> 00:00:47,266
+请参阅与
+see module which is the same as the
+
+26
+00:00:47,566 --> 00:00:50,033
+目录名称我们在 lib 中获得了我们的代码，请参见
+directory name we've got our code inside of lib see
+
+27
+00:00:50,333 --> 00:00:51,966
+所以这里的模块将被调用
+so the module here is going to be called
+
+28
+00:00:51,966 --> 00:00:54,133
+服务点，我们将其称为处理程序
+serve dot and we're going to call it handler
+
+29
+00:00:55,333 --> 00:00:56,900
+好吧，让我们看第一个
+okay so let's look at the first
+
+30
+00:00:56,933 --> 00:00:59,266
+我们要处理的http请求
+http request we want to handle
+
+31
+00:00:59,600 --> 00:01:00,733
+现在我要把它粘贴进去
+now I'm just going to paste this in
+
+32
+00:01:00,733 --> 00:01:02,166
+因为作为多行
+because as multiple lines
+
+33
+00:01:02,200 --> 00:01:03,166
+你可以找到
+and you can find
+
+34
+00:01:03,166 --> 00:01:05,133
+这些在代码包中，因此您可以将它们粘贴到
+these in the code bundle so you can paste them into
+
+35
+00:01:05,133 --> 00:01:06,266
+如果你跟着
+if you're following along
+
+36
+00:01:06,800 --> 00:01:09,400
+http请求有多行
+http requests have multiple lines
+
+37
+00:01:09,400 --> 00:01:11,133
+所以我们使用了长生不老药
+so we've used an elixir hair
+
+38
+00:01:11,133 --> 00:01:11,400
+码头
+dock
+
+39
+00:01:11,400 --> 00:01:15,066
+这让我们可以跨多行格式化一个字符串
+which lets us format a string across multiple lines
+
+40
+00:01:15,066 --> 00:01:18,000
+发坞以三重双引号开头
+hair docks start with a triple double quote
+
+41
+00:01:18,100 --> 00:01:20,633
+然后是结尾的三重双引号
+and then the ending triple double quote
+
+42
+00:01:20,633 --> 00:01:22,400
+必须在自己的线上
+must be on its own line
+
+43
+00:01:22,866 --> 00:01:25,166
+因此，如果您不熟悉原始 http 请求
+so if you're new to seeing a raw http request
+
+44
+00:01:25,166 --> 00:01:26,600
+它有三个部分
+it has three parts
+
+45
+00:01:26,733 --> 00:01:29,200
+这里的第一部分称为他们的请求行
+the first part here is called their request line
+
+46
+00:01:29,400 --> 00:01:32,066
+这是我们想要获取资源的方法
+this is the method we want to get a resource
+
+47
+00:01:32,200 --> 00:01:34,266
+这是上路
+this is the path upon
+
+48
+00:01:34,400 --> 00:01:35,733
+执行请求的对象
+which to perform the request
+
+49
+00:01:35,733 --> 00:01:38,033
+所以我们得到了野生动物资源
+so we're getting the wild things resource
+
+50
+00:01:38,033 --> 00:01:40,233
+然后这是他粒子
+and then this is the he particle
+
+51
+00:01:40,733 --> 00:01:42,766
+那么第二部分是一个列表
+then the second part is a list of
+
+52
+00:01:42,766 --> 00:01:44,433
+标头或键值对
+headers or key value pairs
+
+53
+00:01:44,433 --> 00:01:46,300
+我们有钥匙，这里是主机
+we have the key which is host here
+
+54
+00:01:46,533 --> 00:01:48,000
+然后值是示例
+and then the value is example
+
+55
+00:01:48,000 --> 00:01:51,133
+com 所以这是被请求资源的主机
+com so that's the host of the resource being requested
+
+56
+00:01:51,200 --> 00:01:53,500
+用户代理是软件
+the user agent is the software
+
+57
+00:01:53,733 --> 00:01:55,833
+通常是发出请求的浏览器
+typically a browser making the request
+
+58
+00:01:56,100 --> 00:01:58,200
+然后这个接受行指定媒体
+and then this accept line specifies the media
+
+59
+00:01:58,200 --> 00:01:59,866
+响应可接受的类型
+types acceptable for the response
+
+60
+00:01:59,900 --> 00:02:02,700
+在这种情况下，它是通配符，所以它基本上会接受
+in this case it's wild card so it'll accept basically
+
+61
+00:02:02,700 --> 00:02:03,500
+任何事物
+anything
+
+62
+00:02:03,600 --> 00:02:06,266
+那么这里有一个重要的空行
+then there's an important blank line right here
+
+63
+00:02:06,433 --> 00:02:08,433
+分隔标题
+separating the headers
+
+64
+00:02:08,833 --> 00:02:11,366
+来自可选的实际主体
+from the actual body which is optional
+
+65
+00:02:11,366 --> 00:02:12,466
+我们这里没有尸体
+we don't have a body here
+
+66
+00:02:12,633 --> 00:02:15,533
+但是主体通常用于传递表单参数
+but a body is typically used to pass form parameters
+
+67
+00:02:15,533 --> 00:02:17,433
+我们会看到这样的身体，当我们
+and we'll see a body like that when we
+
+68
+00:02:17,433 --> 00:02:19,233
+实际上稍后处理一个发布请求
+actually handle a post request a bit later
+
+69
+00:02:19,800 --> 00:02:21,633
+这是我们想要发回的响应
+and here's the response we want to send back
+
+70
+00:02:21,866 --> 00:02:24,366
+现在一个http响应也有三个部分
+now an http response also has three parts
+
+71
+00:02:24,366 --> 00:02:26,366
+它从状态行开始
+it starts with the status line
+
+72
+00:02:26,533 --> 00:02:28,366
+其中包括 http 版本
+which includes the http version
+
+73
+00:02:28,566 --> 00:02:31,166
+在这种情况下状态码 200 然后是
+the status code 200 in this case and then a
+
+74
+00:02:31,166 --> 00:02:32,133
+理由短语
+reason phrase
+
+75
+00:02:32,700 --> 00:02:34,266
+然后我们有我们的响应头
+then we have our response headers
+
+76
+00:02:34,266 --> 00:02:36,100
+这些又是键值对
+these are again key value pairs
+
+77
+00:02:36,133 --> 00:02:37,933
+这是body的媒体类型
+this one is the media type of the body
+
+78
+00:02:37,933 --> 00:02:38,933
+在这种情况下
+in which case it's
+
+79
+00:02:39,033 --> 00:02:41,466
+文本 html 因为我们要发回 html
+text html because we're sending back html
+
+80
+00:02:41,633 --> 00:02:44,166
+然后内容长度是正文的大小
+and then content length is the size of the body
+
+81
+00:02:44,300 --> 00:02:47,233
+然后有一个空行分隔这些标题
+then there's a blank line which separates those headers
+
+82
+00:02:47,300 --> 00:02:48,633
+从一个可选的身体
+from an optional body
+
+83
+00:02:48,633 --> 00:02:49,333
+我们有一个身体
+and we have a body
+
+84
+00:02:49,333 --> 00:02:51,366
+在这种情况下，因为我们要发回 html
+in this case because we're sending back html
+
+85
+00:02:51,433 --> 00:02:53,700
+我们只是在老虎上发回熊线
+and we're just sending back bears lines on tigers
+
+86
+00:02:53,966 --> 00:02:55,933
+现在我们正在使用动物和我们的领域
+now we're using animals and our domain
+
+87
+00:02:56,033 --> 00:02:57,300
+只是为了让它有趣
+just to make it fun
+
+88
+00:02:57,566 --> 00:03:00,566
+但有时人们希望例子更真实
+but sometimes folks want examples to be more realistic
+
+89
+00:03:00,766 --> 00:03:02,700
+所以请随意替换
+so please feel free to substitute in
+
+90
+00:03:02,700 --> 00:03:04,833
+产品或做事或
+products or to dos or
+
+91
+00:03:04,833 --> 00:03:06,466
+任何让你觉得有趣的事
+whatever feels fun for you
+
+92
+00:03:06,533 --> 00:03:08,433
+在您的回复正文中
+in the body of your response
+
+93
+00:03:09,133 --> 00:03:12,266
+在高层次上，我们接下来需要处理这个请求
+at a high level we need to handle this request next
+
+94
+00:03:12,333 --> 00:03:13,766
+所以让我们先写一个
+so let's start by writing a
+
+95
+00:03:13,766 --> 00:03:14,800
+句柄函数
+handle function
+
+96
+00:03:14,800 --> 00:03:17,266
+这将最终改变请求
+that will ultimately transform the request
+
+97
+00:03:17,466 --> 00:03:18,566
+回应
+to a response
+
+98
+00:03:18,766 --> 00:03:20,200
+我们将在我们的模块中做到这一点
+we'll do that up in our module
+
+99
+00:03:20,200 --> 00:03:22,500
+我们将定义一个名为句柄的函数
+we'll define a function called handle
+
+100
+00:03:22,500 --> 00:03:23,533
+它需要一个请求
+it'll take a request
+
+101
+00:03:23,533 --> 00:03:24,966
+这将是请求字符串
+that's going to be the request string
+
+102
+00:03:25,500 --> 00:03:26,700
+我们只是要离开那个身体
+and we're just going to leave the body that
+
+103
+00:03:26,700 --> 00:03:27,733
+功能暂时空白
+function blank for now
+
+104
+00:03:28,200 --> 00:03:30,833
+然后在模块本身的下方下方
+then down below outside of the module itself
+
+105
+00:03:31,400 --> 00:03:32,566
+我们会继续打电话的
+we'll go ahead and call that
+
+106
+00:03:32,566 --> 00:03:35,000
+我们可以说我们的反应将等于
+we could say our response is going to be equal to
+
+107
+00:03:35,000 --> 00:03:36,233
+电话调查
+calling survey
+
+108
+00:03:36,500 --> 00:03:38,833
+处理程序，即模块的名称
+handler that's the name of the module
+
+109
+00:03:39,233 --> 00:03:40,533
+函数名是句柄
+name of the function is handle
+
+110
+00:03:40,600 --> 00:03:41,933
+然后传入请求
+and then pass in the request
+
+111
+00:03:41,933 --> 00:03:43,333
+我们有我们的要求在这里
+we've got our request up here
+
+112
+00:03:43,800 --> 00:03:46,033
+存储在请求变量中
+stored in the request variable
+
+113
+00:03:46,200 --> 00:03:47,400
+然后我们就打印
+and then we'll just print
+
+114
+00:03:47,400 --> 00:03:48,200
+出去
+out
+
+115
+00:03:48,433 --> 00:03:50,933
+io 给我们回复
+io to put us the response
+
+116
+00:03:52,000 --> 00:03:52,900
+灵药真的有
+elixir has really
+
+117
+00:03:52,900 --> 00:03:54,666
+改变了我对编程的看法
+changed the way I think about programming
+
+118
+00:03:54,666 --> 00:03:55,666
+而不是考虑
+instead of thinking about
+
+119
+00:03:55,666 --> 00:03:58,133
+对象和调用这些对象的方法来改变
+objects and calling methods on those objects to change
+
+120
+00:03:58,133 --> 00:04:00,566
+他们现在的状态我认为更多的是
+their state now I think more in terms of
+
+121
+00:04:00,566 --> 00:04:02,766
+用函数转换数据
+transforming data with functions
+
+122
+00:04:03,133 --> 00:04:04,600
+在这种情况下，我们有一个要求
+in this case we have a request
+
+123
+00:04:04,600 --> 00:04:06,566
+并通过一系列的转变
+and through a series of transformations
+
+124
+00:04:06,566 --> 00:04:08,200
+我们想把它变成一个回应
+we want to turn it into a response
+
+125
+00:04:08,200 --> 00:04:10,266
+这就是网络服务器所做的
+and that's really what a web server does
+
+126
+00:04:10,400 --> 00:04:12,733
+我们的网络服务器将制作三个
+and our web server is going to make three
+
+127
+00:04:12,933 --> 00:04:14,600
+高层转换
+high level transformations
+
+128
+00:04:14,600 --> 00:04:17,533
+每个转换步骤都是一个函数
+each transformation step will be a function
+
+129
+00:04:17,733 --> 00:04:18,966
+那么让我们来看看那些
+so let's take a look at those
+
+130
+00:04:19,766 --> 00:04:20,700
+所以我要粘贴那些
+so I'm going to paste in those
+
+131
+00:04:20,700 --> 00:04:22,766
+函数，所以我们可以专注于这个概念
+functions so we can focus on the concept
+
+132
+00:04:22,866 --> 00:04:23,900
+不是语法
+not the syntax
+
+133
+00:04:23,900 --> 00:04:25,966
+最初我们会回到语法
+initially we'll come back to the syntax though
+
+134
+00:04:26,166 --> 00:04:28,566
+pars 函数转换请求环
+the pars function transforms a request ring
+
+135
+00:04:28,666 --> 00:04:30,200
+成键值对
+into a key value pair
+
+136
+00:04:30,300 --> 00:04:31,866
+现在这是一张长生不老药地图
+now this is an elixir map
+
+137
+00:04:31,866 --> 00:04:34,400
+这类似于哈希和红宝石或
+which is similar to a hash and ruby or an
+
+138
+00:04:34,533 --> 00:04:35,900
+javascript中的对象
+object in javascript
+
+139
+00:04:36,033 --> 00:04:38,133
+我们将在下一节中查看详细信息
+and we'll look at the details in the next section
+
+140
+00:04:38,300 --> 00:04:40,066
+我们只是设置了获取方法
+we just set the method to get
+
+141
+00:04:40,266 --> 00:04:42,200
+削减野物的路径
+the path to slash wild things
+
+142
+00:04:42,600 --> 00:04:44,466
+然后我们有一个响应体
+and then we've got a response body which
+
+143
+00:04:44,666 --> 00:04:46,100
+开始只会是空的
+starting off is just going to be empty
+
+144
+00:04:46,366 --> 00:04:48,366
+我们将这张地图称为对话
+and we'll refer to this map as the conversation
+
+145
+00:04:48,366 --> 00:04:49,600
+因为它代表了一个非常
+since it represents a very
+
+146
+00:04:49,600 --> 00:04:52,200
+浏览器和我们的服务器之间的简短对话
+short conversation between a browser and our server
+
+147
+00:04:52,300 --> 00:04:54,666
+我们将简写为 come
+and we'll just abbreviate it as come
+
+148
+00:04:54,933 --> 00:04:55,533
+显然
+and obviously
+
+149
+00:04:55,533 --> 00:04:57,200
+我们将需要解析请求
+we're going to need to parse the requesting
+
+150
+00:04:57,333 --> 00:04:58,133
+进入那张地图
+into that map
+
+151
+00:04:58,900 --> 00:05:01,566
+然后路由函数转换该地图
+the route function then transforms that map
+
+152
+00:05:01,600 --> 00:05:03,333
+进入一个新的地图，也有
+into a new map that also has
+
+153
+00:05:03,333 --> 00:05:04,633
+响应体
+a response body
+
+154
+00:05:04,700 --> 00:05:06,666
+所以如果我们看一下它的响应体
+so if we look at the response body its bears
+
+155
+00:05:06,666 --> 00:05:07,700
+狮子和老虎
+lions and tigers
+
+156
+00:05:08,000 --> 00:05:10,566
+因为这是对请求的适当响应
+because that's the appropriate response for a request
+
+157
+00:05:10,566 --> 00:05:12,266
+愿意
+to wiling
+
+158
+00:05:12,900 --> 00:05:14,400
+所以我们需要拿地图
+so we're going to need to take the map
+
+159
+00:05:14,400 --> 00:05:17,266
+作为该函数的参数的 co 和 v
+co and v that comes in as an argument to this function
+
+160
+00:05:17,433 --> 00:05:18,233
+接着
+and then
+
+161
+00:05:18,333 --> 00:05:21,500
+还添加了一个响应主体，更多地填写了地图
+also add a response body filling out the map even more
+
+162
+00:05:22,200 --> 00:05:24,966
+然后我们在这里有我们的格式响应函数
+and then we have our format response function down here
+
+163
+00:05:25,133 --> 00:05:26,700
+现在它会采取最终的地图
+now it's going to take the final map
+
+164
+00:05:26,700 --> 00:05:29,233
+那是作为参数出现的 co 和 v
+that's co and v that's coming in as an argument
+
+165
+00:05:29,233 --> 00:05:30,466
+并改造它
+and transform it
+
+166
+00:05:30,533 --> 00:05:33,066
+转换为有效的 http 响应字符串
+into a valid http response string
+
+167
+00:05:33,200 --> 00:05:34,966
+所以我们需要获取值
+so we're going to need to get the values
+
+168
+00:05:34,966 --> 00:05:37,233
+从地图中创建
+from the map in order to create
+
+169
+00:05:37,500 --> 00:05:38,566
+这个响应字符串
+this response string
+
+170
+00:05:39,033 --> 00:05:41,133
+所以因为我们里面已经有一个响应字符串
+so because we've already got a response string inside
+
+171
+00:05:41,133 --> 00:05:42,966
+我们的格式响应函数在这里
+of our format response function here
+
+172
+00:05:43,133 --> 00:05:44,566
+我只是要删除这个
+I'm just going to remove this
+
+173
+00:05:44,566 --> 00:05:46,500
+预期的响应变量在这里
+expected response variable down here
+
+174
+00:05:46,500 --> 00:05:47,366
+因为我们不需要它
+because we don't need it
+
+175
+00:05:47,966 --> 00:05:50,700
+所以我们有转换函数
+so we have the transformation functions
+
+176
+00:05:50,700 --> 00:05:52,766
+我们现在需要正确称呼他们
+we now need to call them in the right
+
+177
+00:05:52,800 --> 00:05:54,966
+我们的句柄函数中的序列
+sequence in our handle function
+
+178
+00:05:55,200 --> 00:05:57,000
+所以让我们依次看一下
+so let's walk through this sequentially
+
+179
+00:05:57,000 --> 00:05:58,166
+我们将接受这个请求
+we're going to take this request
+
+180
+00:05:58,166 --> 00:06:00,500
+ring 我们将把它传递给 parse
+ring and we're going to pass it into parse
+
+181
+00:06:01,066 --> 00:06:02,033
+什么会回来
+what's going to come back
+
+182
+00:06:02,133 --> 00:06:04,566
+是部分填充的地图
+is a map that's partially filled out
+
+183
+00:06:04,566 --> 00:06:06,000
+我们称之为传达
+we're going to call it convey
+
+184
+00:06:06,000 --> 00:06:07,633
+它缺少响应主体
+it's missing a response body
+
+185
+00:06:07,800 --> 00:06:11,000
+然后我们想将该映射传递给路由函数
+then we want to pass that map to the route function
+
+186
+00:06:11,233 --> 00:06:13,233
+这将填写响应正文
+which is going to fill in the response body
+
+187
+00:06:13,233 --> 00:06:16,233
+我们想在 con 中捕获结果
+and we want to capture the result of that in con
+
+188
+00:06:16,233 --> 00:06:19,300
+所以我们每次都在转换 con
+so we're just transforming con each time through
+
+189
+00:06:19,300 --> 00:06:21,000
+这里填写更多数据
+here filling out more data
+
+190
+00:06:21,566 --> 00:06:23,933
+然后最后我们想拿那张最终的地图
+then finally we want to take that final map
+
+191
+00:06:23,933 --> 00:06:25,933
+并将其传递给格式化响应
+and pass it to format response
+
+192
+00:06:27,233 --> 00:06:29,500
+这将基于生成我们的响应字符串
+which will generate our response string based on
+
+193
+00:06:29,533 --> 00:06:31,100
+最终地图中有什么
+what's in the final map
+
+194
+00:06:31,333 --> 00:06:32,466
+因为这是最后一次
+and because this is the last
+
+195
+00:06:32,466 --> 00:06:33,933
+我们句柄函数中的表达式
+expression in our handle function
+
+196
+00:06:33,933 --> 00:06:36,133
+该响应字符串将隐式返回
+that response string will get implicitly returned
+
+197
+00:06:36,133 --> 00:06:37,266
+通过句柄函数
+by the handle function
+
+198
+00:06:38,266 --> 00:06:39,200
+现在这将工作
+now this will work
+
+199
+00:06:39,233 --> 00:06:40,266
+但是有一个更简洁的
+but there's a more concise
+
+200
+00:06:40,266 --> 00:06:42,333
+和惯用的方式来表示这一点
+and idiomatic way to represent this
+
+201
+00:06:42,333 --> 00:06:43,966
+使用 elixir 的管道运算符
+using elixir's pipe operator
+
+202
+00:06:43,966 --> 00:06:45,266
+所以我只想评论这些
+so I'm just going to comment these out
+
+203
+00:06:45,700 --> 00:06:47,400
+让我们将其表示为管道
+and let's express this as a pipeline
+
+204
+00:06:47,633 --> 00:06:48,733
+我们将接受请求
+we're going to take the request
+
+205
+00:06:50,000 --> 00:06:52,200
+将其导入解析函数
+pipe it into the parse function
+
+206
+00:06:52,200 --> 00:06:53,166
+所以这里会发生什么
+so what's going to happen here
+
+207
+00:06:53,166 --> 00:06:54,966
+请求是否会通过
+is the request is going to get past
+
+208
+00:06:54,966 --> 00:06:57,633
+作为 parse 函数的参数
+as an argument to the parse function which just has
+
+209
+00:06:57,900 --> 00:07:00,366
+一个参数，然后是该函数的结果
+one argument then the result of that function
+
+210
+00:07:00,366 --> 00:07:01,933
+这是我们的对话地图
+which is our conversation map
+
+211
+00:07:02,000 --> 00:07:03,866
+我们想将它传递给路由函数
+we want to pass that to the route function
+
+212
+00:07:03,866 --> 00:07:04,900
+所以我们只是管它
+so we just pipe that
+
+213
+00:07:04,966 --> 00:07:07,000
+再往里走一点
+a little bit further into route
+
+214
+00:07:07,300 --> 00:07:08,833
+这将返回一张地图
+that's going to return a map
+
+215
+00:07:08,833 --> 00:07:11,266
+我们最终想要传入的地图
+our final map which we then want to pass into
+
+216
+00:07:11,300 --> 00:07:12,466
+格式响应
+format response
+
+217
+00:07:14,466 --> 00:07:15,533
+所以在这样的管道中
+so in a pipeline like this
+
+218
+00:07:15,533 --> 00:07:17,466
+左边函数的结果
+the result of the function on the left
+
+219
+00:07:17,500 --> 00:07:18,866
+作为第一个通过
+is passed as the first
+
+220
+00:07:18,866 --> 00:07:20,466
+右边函数的参数
+argument to the function on the right
+
+221
+00:07:20,700 --> 00:07:21,800
+现在在这种特殊情况下
+now in this particular case
+
+222
+00:07:21,800 --> 00:07:23,766
+我们所有的函数都只接受一个参数
+all of our functions only take one argument
+
+223
+00:07:23,766 --> 00:07:26,133
+但请记住，它总是作为
+but just remember that it's always passed as the
+
+224
+00:07:26,300 --> 00:07:27,666
+函数的第一个参数
+first argument to the function
+
+225
+00:07:27,933 --> 00:07:29,100
+我们可以让它阅读更多
+and we can make it read more
+
+226
+00:07:29,100 --> 00:07:31,300
+像一个转换步骤列表
+like a list of transformation steps by
+
+227
+00:07:31,300 --> 00:07:32,933
+把每一步都放在自己的位置上
+putting each step on its own line
+
+228
+00:07:33,933 --> 00:07:35,533
+就这样把它们放在那里
+just put those down there like that
+
+229
+00:07:36,133 --> 00:07:38,066
+如果我运行它，就把它保存起来
+save that away if I run it
+
+230
+00:07:38,466 --> 00:07:40,133
+我们看到了预期的反应
+and we see the expected response
+
+231
+00:07:40,133 --> 00:07:41,166
+所以我们知道我们有
+so we know that we've got
+
+232
+00:07:41,166 --> 00:07:42,800
+基本管道都设置好了
+the basic pipeline all set up
+
+233
+00:07:43,766 --> 00:07:46,433
+所以我们在这里所做的是使用管道
+so what we've done here is use a pipeline
+
+234
+00:07:46,533 --> 00:07:48,966
+基本上给我们一个大纲
+to basically give us an outline of our program
+
+235
+00:07:48,966 --> 00:07:50,466
+或我们程序的外壳
+or a shell of our program
+
+236
+00:07:50,566 --> 00:07:50,766
+这
+the
+
+237
+00:07:50,766 --> 00:07:53,000
+我们想要完成的转型步骤
+transformation steps that we want to take it through
+
+238
+00:07:53,166 --> 00:07:55,733
+我们在这里转换请求
+we're transforming the request here
+
+239
+00:07:56,300 --> 00:07:57,633
+回应
+into a response
+
+240
+00:07:57,800 --> 00:07:58,966
+这是最后一件事
+which is the final thing
+
+241
+00:07:59,133 --> 00:08:01,666
+通过一系列显式变换
+through a series of explicit transformations
+
+242
+00:08:01,666 --> 00:08:04,800
+通过将每个函数的结果传递到下一个
+by piping the result of each function into the next
+
+243
+00:08:05,200 --> 00:08:06,400
+现在，如果你要做出改变
+now if you're making a change
+
+244
+00:08:06,400 --> 00:08:09,166
+从面向对象编程到函数式编程
+from oo programming to functional programming
+
+245
+00:08:09,166 --> 00:08:11,533
+最大的不同之一是学会思考
+one of the big differences is learning to think
+
+246
+00:08:11,533 --> 00:08:13,666
+在转换数据方面
+in terms of transforming data
+
+247
+00:08:13,800 --> 00:08:15,166
+我们会看到很多
+and we're going to see a lot
+
+248
+00:08:15,166 --> 00:08:17,733
+在整个课程中更多的例子
+more examples of this throughout the course up
+
+249
+00:08:17,733 --> 00:08:20,500
+接下来我们具体来看看如何解析
+next we're specifically going to look at how to parse
+
+250
+00:08:20,500 --> 00:08:21,666
+请求字符串
+the request string
+
+251
+00:08:21,833 --> 00:08:22,633
+进去
+into them out
+

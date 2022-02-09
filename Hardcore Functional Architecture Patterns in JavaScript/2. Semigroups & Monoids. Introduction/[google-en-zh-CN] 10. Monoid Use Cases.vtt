@@ -1,0 +1,436 @@
+WEBVTT
+
+1
+00:00:00.060 --> 00:00:07.310
+我想向你展示一些我从未被记录过的演讲中的例子。
+I wanna show you some examples from a talk I gave that never got recorded.
+
+2
+00:00:07.310 --> 00:00:09.364
+我认为这很酷。
+And I think this is kinda cool to see.
+
+3
+00:00:09.364 --> 00:00:12.559
+而不是我坐在屏幕前把所有这些都写出来，
+Instead of me sitting here at a screen and writing all these out,
+
+4
+00:00:12.559 --> 00:00:15.000
+我只是要指出一些实际的用例。
+I'm just gonna point out some actual use cases.
+
+5
+00:00:16.320 --> 00:00:18.100
+所以在这里，我们有 getAppAlerts，对吗？
+So here, we have getAppAlerts, right?
+
+6
+00:00:18.100 --> 00:00:19.400
+和 getDirectMessages。
+And getDirectMessages.
+
+7
+00:00:19.400 --> 00:00:25.000
+它们都返回警报数组和 JSON 之类的消息。
+They're both returning the arrays of alerts and messages like JSON.
+
+8
+00:00:25.000 --> 00:00:30.900
+我实际上可以将所有这些承诺和回应结合起来。
+And I can actually just combine all those promises, responses.
+
+9
+00:00:30.900 --> 00:00:34.584
+在纯函数设置中，您将使用任务而不是承诺。
+In a pure functional setting, you'd be using task instead of promise.
+
+10
+00:00:34.584 --> 00:00:37.483
+只需说 concat，我们就可以轻松地在 promise 上编写 concat
+We can easily write concat on promise by just saying concat
+
+11
+00:00:37.483 --> 00:00:41.450
+无论这个承诺持有什么，无论那个人持有什么。
+whatever this promise is holding with whatever that one's holding.
+
+12
+00:00:41.450 --> 00:00:45.720
+然后，我们能够组合两个 API 调用和
+And then, we get the ability to combine two API calls and
+
+13
+00:00:45.720 --> 00:00:47.920
+get 可以收集他们所有的结果。
+get can collect all their results.
+
+14
+00:00:47.920 --> 00:00:48.550
+我们能做到这一点。
+We can do that.
+
+15
+00:00:48.550 --> 00:00:51.460
+它是关联的，并且是封闭的，因此我们可以并行执行此操作。
+It's associative, and it's closed, so we can do that in parallel.
+
+16
+00:00:51.460 --> 00:00:53.730
+我们可以把它分块，我们可以一次访问一堆服务器
+We can chunk it, we can hit a bunch of servers at once and
+
+17
+00:00:53.730 --> 00:00:55.440
+带着所有的结果回来。
+come back with all the results.
+
+18
+00:00:55.440 --> 00:00:55.940
+映射减少。
+MapReduce.
+
+19
+00:00:58.463 --> 00:01:03.259
+同样，我之前没有提到这一点，
+In the same vein, I didn't mention this earlier,
+
+20
+00:01:03.259 --> 00:01:09.220
+但 map 是一种定义半组或对象的方法。
+but map is a way to define a semi-group or on a object.
+
+21
+00:01:09.220 --> 00:01:14.870
+它的工作方式是，如果你看这里，我们会得到一个帖子。
+And the way it would work is if you look here, we’re gonna go get a post.
+
+22
+00:01:14.870 --> 00:01:18.200
+我们在核心函数式编程课程中做了这个例子，我们
+We did this example on the hardcore functional programming class where we
+
+23
+00:01:19.760 --> 00:01:22.210
+去从服务器上得到一个帖子，我们把它拿回来了，然后
+went and got a post from the server, we got it back, and
+
+24
+00:01:22.210 --> 00:01:25.520
+然后我们从服务器收到评论，我们想将它们分配给帖子。
+then we got comments from the server and we wanted to assign them to the post.
+
+25
+00:01:25.520 --> 00:01:27.290
+嗯，这就是一行。
+Well, this is going that in one line.
+
+26
+00:01:28.445 --> 00:01:32.540
+getPost 将 JSON 作为地图实例返回，对吗？
+getPost returns JSON as a map instance, right?
+
+27
+00:01:32.540 --> 00:01:38.002
+所以这就像 map 是一个对象，它将合并为一个 concat。
+So it's like map is an object and it will merge as a concat.
+
+28
+00:01:38.002 --> 00:01:42.560
+如果它在某个键上遇到合并冲突，它只会合并合并冲突。
+And if it hits a merge conflict on a key, it'll just concat the merge conflict.
+
+29
+00:01:42.560 --> 00:01:47.460
+所以你最终得到的是这种地图合并情况，我们
+So what you end up having is this kind of map merge situation where we
+
+30
+00:01:47.460 --> 00:01:52.201
+只需通过调用 concat 即可为我们的博客文章分配评论。
+just assigned comments to our blog post just by calling concat.
+
+31
+00:01:53.441 --> 00:01:55.311
+每个人都看到它是如何工作的吗？
+Does everybody see how that works?
+
+32
+00:01:55.311 --> 00:01:58.400
+我的意思是，我只是有点想看看这些小例子。
+I mean, I'm just kinda gonna glaze over a bunch of these little examples.
+
+33
+00:01:58.400 --> 00:02:03.560
+但如果你问我和其他人，这非常有用。
+But it's pretty useful if you ask me and everyone else.
+
+34
+00:02:03.560 --> 00:02:05.820
+所以这是一个tryCatch。
+So here's a tryCatch.
+
+35
+00:02:05.820 --> 00:02:08.180
+我们在核心函数式编程课程中看到了这一点。
+We saw this in the hardcore functional programming class.
+
+36
+00:02:08.180 --> 00:02:09.740
+我们要读取文件同步。
+We're gonna read file sync.
+
+37
+00:02:09.740 --> 00:02:13.482
+公平地说，这并不纯粹，但是
+This isn't pure, to be fair, but
+
+38
+00:02:13.482 --> 00:02:19.557
+它显示了我们要说的 readFileSync 的例子。
+it shows the example of we're gonna say readFileSync.
+
+39
+00:02:19.557 --> 00:02:25.159
+它只会将所有内容与完整地图连接在一起。
+And it's gonna just concat all their contents here with the full map.
+
+40
+00:02:25.159 --> 00:02:28.281
+它会读取所有这些文件并连接所有内容，太棒了。
+It'll read all these files and concat all the contents, awesome.
+
+41
+00:02:28.281 --> 00:02:32.940
+如果它们中的任何一个爆炸，我们就从左边走。
+And if any of them blow up, we will just get the left.
+
+42
+00:02:32.940 --> 00:02:34.450
+我没有那个例子。
+I don't have that example.
+
+43
+00:02:34.450 --> 00:02:35.900
+它只会告诉你错误。
+It'll just show you the error.
+
+44
+00:02:35.900 --> 00:02:36.760
+正如我们之前看到的，
+And as we saw before,
+
+45
+00:02:36.760 --> 00:02:42.540
+我们可以用另一种类型包装，以优雅地做出不同的决定。
+we can wrap either in another type to kinda gracefully make different decisions.
+
+46
+00:02:42.540 --> 00:02:48.830
+所以这里是同样的事情，异步，几乎没有任何变化，对吧？
+So here's the same thing, async, and almost nothing changes, right?
+
+47
+00:02:48.830 --> 00:02:53.373
+我们刚才说promisify读取文件，既然我们在这里说promise，
+We just said promisify the read file, and since we're saying promise here,
+
+48
+00:02:53.373 --> 00:02:56.360
+它有一个 concat 方法，它会做完全相同的事情，但异步。
+it has a concat method, it will do the exact same thing, but async.
+
+49
+00:02:56.360 --> 00:03:01.405
+除了我提供给它的幺半群或半群之外，我没有改变任何东西。
+And I changed nothing other than the monoid or semi-group I provided it with.
+
+50
+00:03:01.405 --> 00:03:05.523
+而且你可以看到空的，它只是 Promise.resolve 空字符串。
+And you can see the empty, it's just Promise.resolve empty string.
+
+51
+00:03:05.523 --> 00:03:10.519
+因此，我们在这种情况下有一个幺半群，空字符串和一个承诺
+So therefore, we have a monoid in the situation, empty string, and a promise
+
+52
+00:03:10.519 --> 00:03:15.458
+持有空字符串将是此特定工作流程的空方法。
+holding empty string would be the empty method of this particular workflow.
+
+53
+00:03:17.442 --> 00:03:25.660
+在这里，让我们看看，读取一个文件并获取一个数组。
+Here, we have, let's see, read a file and get an array.
+
+54
+00:03:25.660 --> 00:03:27.440
+与字符串的工作方式完全相同。
+Works the exact same way as the strings.
+
+55
+00:03:27.440 --> 00:03:28.969
+它只会组合所有数组。
+It'll just combine all the arrays.
+
+56
+00:03:31.470 --> 00:03:33.992
+这是进行空检查的示例。
+Here's an example of doing a null check.
+
+57
+00:03:33.992 --> 00:03:36.480
+所以现在，我们正在串联这些东西，对吧？
+So now, we're cascading these things, right?
+
+58
+00:03:36.480 --> 00:03:40.760
+我们说好的，我想进去，我想读取所有这些文件，异步。
+We're saying okay, I wanna go in there, I wanna read all these files, async.
+
+59
+00:03:40.760 --> 00:03:43.450
+我想得到他们所有的内容，我想把它们分成几个词。
+I wanna get all their contents, I wanna split them into words.
+
+60
+00:03:43.450 --> 00:03:45.612
+所以我们有所有这些数组，我要连接所有这些数组。
+So we have all these arrays, I'm gonna concat all those arrays.
+
+61
+00:03:45.612 --> 00:03:50.180
+但如果我得到一个空值，我只想停下来。
+But if I get a null, I just wanna stop.
+
+62
+00:03:50.180 --> 00:03:54.710
+[笑] 否则，一切顺利，一切都很好。
+[LAUGH] Otherwise, everything worked out and everything's good.
+
+63
+00:03:55.710 --> 00:03:58.060
+那是强大的。
+That's powerful.
+
+64
+00:03:58.060 --> 00:03:58.775
+这就是力量。
+This is power.
+
+65
+00:03:58.775 --> 00:04:06.560
+[笑] 所以让我们再看几个例子，然后我们将构建一些东西。
+[LAUGH] So let's see couple more examples, and then we'll build some stuff.
+
+66
+00:04:06.560 --> 00:04:12.340
+在这里，我们获得了一堆配置并将它们从文件中组合起来。
+Here, we have getting a bunch of configs and combining them from files.
+
+67
+00:04:13.450 --> 00:04:14.360
+这是一个很好的。
+Here's a good one.
+
+68
+00:04:14.360 --> 00:04:17.160
+所以这是一种典型的用例。
+So this is kind of a typical use case here.
+
+69
+00:04:17.160 --> 00:04:19.960
+所以我们要做的是遍历 DOM 树。
+So we're gonna do is we're gonna walk over the DOM tree.
+
+70
+00:04:19.960 --> 00:04:26.710
+我做了一个树函子斜线可折叠的幺半群。
+I made a tree functor slash foldable monoid.
+
+71
+00:04:26.710 --> 00:04:33.320
+我所做的是说我的报告是一张地图，它会得到元素计数。
+And what I've done is say my report is a map, and it's gonna get the element count.
+
+72
+00:04:33.320 --> 00:04:37.210
+这是在玩弄这样一个事实，如果我是一个类型并且我完全持有
+And this is playing off the fact that if I'm a type and I'm holding entirely
+
+73
+00:04:37.210 --> 00:04:43.450
+幺半群，那么我可以连接，因为我所有的部分也是幺半群。
+monoids, then I can concat just because all my pieces are also monoids.
+
+74
+00:04:43.450 --> 00:04:46.220
+那么地图所做的只是合并，对吗？
+So what map does is just merge, right?
+
+75
+00:04:46.220 --> 00:04:51.340
+如果它击中相同的键，它将合并这些作为合并冲突解决方案。
+And if it hits the same key, it combines those as the merge conflict resolution.
+
+76
+00:04:51.340 --> 00:04:55.247
+所以它要做的是遍历整个 DOM 树
+So what it's gonna do is run through the entire DOM tree and
+
+77
+00:04:55.247 --> 00:04:59.331
+获取每个元素、每个类名、每个标签和最大值。
+get every element, every class name, every tag, and max.
+
+78
+00:04:59.331 --> 00:05:01.851
+而且每一种都有不同的组合方式，并且
+And each one has a different way to combine, and
+
+79
+00:05:01.851 --> 00:05:05.266
+它将在整个树的一个循环中给我一份完整的报告。
+it will give me an entire report in one loop over the entire tree.
+
+80
+00:05:05.266 --> 00:05:10.205
+哪个规则[笑]，对吧？
+Which rules [LAUGH], right?
+
+81
+00:05:10.205 --> 00:05:14.511
+我已经为 DOM 树处理做过几次不同的事情。
+I've done this a few different times for DOM tree processing.
+
+82
+00:05:14.511 --> 00:05:18.347
+如果我们想要超级花哨，如果我有一堆文件和
+And if we wanna get super fancy, what if I have a bunch of documents and
+
+83
+00:05:18.347 --> 00:05:21.206
+我想折叠那个列表并获得关于它的报告？
+I wanna fold down that list and get reports on that?
+
+84
+00:05:21.206 --> 00:05:23.280
+还有一层，对吧？
+There's one extra layer, right?
+
+85
+00:05:23.280 --> 00:05:27.630
+我不只是在做一个 DOM 树，我现在正在做整个网站并得到一份报告
+I'm not just doing one DOM tree, I'm doing the entire site now and getting a report
+
+86
+00:05:27.630 --> 00:05:32.280
+在所有元素、类、标签和边界 regs 的最大高度上。
+on all the elements, classes, tags, and the max height of the bounding regs.
+
+87
+00:05:32.280 --> 00:05:35.360
+所以，再次，超级强大。
+So that is, again, super powerful.

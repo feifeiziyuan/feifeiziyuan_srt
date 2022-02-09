@@ -1,0 +1,1385 @@
+1
+00:00:00,400 --> 00:00:03,666
+在上一个视频中，我们使用 fix 是客户端进程
+in the previous video we used fix is the client process
+
+2
+00:00:03,700 --> 00:00:06,266
+向质押服务器进程发送消息
+to send messages to the pledge server process
+
+3
+00:00:06,400 --> 00:00:09,300
+我们通过添加一些来模仿我们在性方面所做的事情
+we've mimicked what we did in sex by adding some
+
+4
+00:00:09,300 --> 00:00:12,100
+质押服务器底部的代码
+code to the bottom of pledge server ex
+
+5
+00:00:12,200 --> 00:00:14,333
+它在质押服务器模块之外
+it's outside of the pledge server module
+
+6
+00:00:14,400 --> 00:00:15,500
+就在这里
+just right down here
+
+7
+00:00:16,266 --> 00:00:18,266
+除了 larry moan curly
+and in addition to larry moan curly
+
+8
+00:00:18,333 --> 00:00:19,933
+我们又增加了两个承诺
+we've added two more pledges
+
+9
+00:00:19,933 --> 00:00:21,833
+共五项承诺
+for a total of five pledges
+
+10
+00:00:22,066 --> 00:00:24,133
+然后我们发送消息以获取最近的承诺
+then we send a message to get the recent pledges
+
+11
+00:00:24,133 --> 00:00:25,766
+我们有一个接收块
+and we've got a receive block
+
+12
+00:00:25,866 --> 00:00:26,900
+捡起那些
+that picks those up
+
+13
+00:00:27,300 --> 00:00:28,266
+如果我们运行它
+and if we run that
+
+14
+00:00:29,366 --> 00:00:31,633
+果然我们有五项承诺
+well sure enough we have our five pledges
+
+15
+00:00:31,933 --> 00:00:35,033
+所以在这种情况下，我们有两个进程进行通信
+so in this context we have two processes communicating
+
+16
+00:00:35,166 --> 00:00:38,833
+所有这些代码都在质押服务器模块之外
+all this code outside of the pledge server module
+
+17
+00:00:38,833 --> 00:00:41,633
+这里将在客户端进程中运行
+right here is going to run in the client process
+
+18
+00:00:41,800 --> 00:00:43,633
+然后服务器进程是这样的
+and then the server process is this
+
+19
+00:00:43,633 --> 00:00:45,300
+产生的监听循环
+listen loop that gets spawned
+
+20
+00:00:46,166 --> 00:00:48,166
+好的，现在我们要封装
+okay so now we want to encapsulate
+
+21
+00:00:48,166 --> 00:00:50,733
+创建和获得最近的承诺
+creating and getting recent pledges
+
+22
+00:00:50,733 --> 00:00:52,800
+在这些注释功能中
+in these commented functions right here
+
+23
+00:00:53,266 --> 00:00:55,333
+所以让我们从第一个箱子承诺开始吧
+so let's just start with this first one crate pledge
+
+24
+00:00:57,100 --> 00:00:57,700
+所以现在
+so right now
+
+25
+00:00:57,700 --> 00:00:59,933
+它将承诺发送到外部服务
+it's sending the pledge to the external service
+
+26
+00:00:59,933 --> 00:01:01,233
+然后兑现
+and then cashing it
+
+27
+00:01:01,366 --> 00:01:03,700
+但这发生在我们的内部
+but that happens up inside of our
+
+28
+00:01:03,733 --> 00:01:06,033
+在服务器进程中运行的监听循环
+listen loop which runs in the server process
+
+29
+00:01:06,166 --> 00:01:06,966
+就在这儿
+right here
+
+30
+00:01:07,766 --> 00:01:10,366
+那么创建质押功能需要做什么
+so what the create pledge function needs to do
+
+31
+00:01:10,500 --> 00:01:13,400
+只是向我们的服务器进程发送消息
+is just send a message to our server process
+
+32
+00:01:13,766 --> 00:01:14,733
+送入坑
+send to a pit
+
+33
+00:01:15,033 --> 00:01:16,066
+消息是
+and the message is
+
+34
+00:01:16,500 --> 00:01:17,466
+创建承诺
+create pledge
+
+35
+00:01:18,533 --> 00:01:19,933
+名称和金额
+name and amount
+
+36
+00:01:20,600 --> 00:01:21,366
+并让它发挥作用
+and for that to work
+
+37
+00:01:21,366 --> 00:01:23,133
+我们将不得不传入 pid
+we're going to have to pass in the pid
+
+38
+00:01:23,133 --> 00:01:24,000
+我们将把它作为
+we'll pass it in as the
+
+39
+00:01:24,000 --> 00:01:25,400
+这个函数的第一个参数
+first argument to this function
+
+40
+00:01:25,700 --> 00:01:27,800
+所以这将在客户端进程中运行
+so this is going to run in the client process
+
+41
+00:01:27,933 --> 00:01:28,733
+接着
+and then
+
+42
+00:01:28,733 --> 00:01:31,000
+这部分将在服务器进程中运行
+this part is going to run in the server process
+
+43
+00:01:31,366 --> 00:01:33,966
+现在在这里我们可以调用我们的 crate 质押函数
+down here now we can call our crate pledge function
+
+44
+00:01:35,933 --> 00:01:37,133
+所以我们称之为质押服务器
+so we call pledge server
+
+45
+00:01:38,233 --> 00:01:39,133
+创建承诺
+create pledge
+
+46
+00:01:40,500 --> 00:01:42,166
+第一个参数必须是 pid
+the first argument needs to be the pid
+
+47
+00:01:42,166 --> 00:01:45,100
+服务器进程，由 spawn 返回
+of the server process and that was returned by spawn
+
+48
+00:01:45,100 --> 00:01:47,133
+所以我们已经有了一个 pid 变量
+so we have a pid variable already
+
+49
+00:01:48,700 --> 00:01:49,500
+就这样
+just like that
+
+50
+00:01:49,700 --> 00:01:50,633
+我们把它存起来
+we save that away
+
+51
+00:01:51,233 --> 00:01:52,766
+好吧，它就像以前一样工作
+well it works just like it did before
+
+52
+00:01:53,600 --> 00:01:55,633
+现在让我们实现最近的承诺功能
+now let's implement the recent pledges function
+
+53
+00:01:55,633 --> 00:01:56,566
+我要拿
+and I'm going to take
+
+54
+00:01:56,566 --> 00:01:58,033
+这段代码和我们一起
+this code here with us
+
+55
+00:01:58,300 --> 00:01:59,200
+让我们就在这里
+let's right up here
+
+56
+00:01:59,566 --> 00:02:00,633
+我们会不寻常的
+we'll uncommon it
+
+57
+00:02:01,400 --> 00:02:02,900
+和那个函数的主体
+and the body of that function
+
+58
+00:02:03,000 --> 00:02:04,266
+我们需要做两件事
+we need to do two things
+
+59
+00:02:04,633 --> 00:02:07,100
+我们需要向服务器进程发送消息
+we need to send a message to the server process
+
+60
+00:02:07,133 --> 00:02:10,066
+然后立即等待回复消息
+and then immediately wait for a response message back
+
+61
+00:02:10,166 --> 00:02:11,133
+从该服务器
+from that server
+
+62
+00:02:11,433 --> 00:02:13,533
+所以这个功能也需要走坑
+so this function also needs to take a pit
+
+63
+00:02:14,100 --> 00:02:16,266
+我们将向该 pid 发送消息
+we'll send to that pid the message
+
+64
+00:02:16,300 --> 00:02:19,733
+最近的承诺告诉它发送回复给我们
+recent pledges telling it a send the reply back to us
+
+65
+00:02:20,166 --> 00:02:20,933
+然后我们会
+and then we'll
+
+66
+00:02:20,933 --> 00:02:22,933
+有一个收到承诺的收据
+have a receive which picks up the pledges
+
+67
+00:02:22,933 --> 00:02:24,933
+而不是在这里做 io 和 spec
+and instead of doing io and spec right here
+
+68
+00:02:25,200 --> 00:02:27,033
+我只想回报承诺
+I just want to return the pledges
+
+69
+00:02:27,166 --> 00:02:29,266
+所以因为这个模式匹配
+and so because this pattern matches
+
+70
+00:02:29,766 --> 00:02:30,566
+我们运行它
+we run this it
+
+71
+00:02:30,566 --> 00:02:32,966
+给我们承诺，这隐含地是
+gives us the pledges and that's implicitly going to be
+
+72
+00:02:32,966 --> 00:02:35,000
+函数的返回值
+the return value of the function
+
+73
+00:02:35,466 --> 00:02:36,400
+最近的承诺
+recent pledges
+
+74
+00:02:36,966 --> 00:02:39,766
+现在要记住的一点是，虽然罪
+now something to keep in mind here is although the sin
+
+75
+00:02:39,766 --> 00:02:41,200
+是同步发送
+is a synchronous sending
+
+76
+00:02:41,200 --> 00:02:43,233
+消息始终是同步的
+a message is always a synchronous
+
+77
+00:02:43,433 --> 00:02:45,500
+接收是阻塞调用
+receive is a blocking call
+
+78
+00:02:45,500 --> 00:02:47,800
+它将等待服务器的响应
+it's going to wait for a response from the server
+
+79
+00:02:47,966 --> 00:02:49,800
+所以这个函数作为一个整体
+so this function as a whole
+
+80
+00:02:50,100 --> 00:02:52,000
+将是同步的
+is going to be synchronous
+
+81
+00:02:52,500 --> 00:02:55,833
+所以现在在这里我们可以用
+so now down here we can replace all this with
+
+82
+00:02:56,300 --> 00:02:57,300
+质押服务器
+pledge server
+
+83
+00:02:58,233 --> 00:02:59,400
+最近的承诺
+recent pledges
+
+84
+00:03:00,600 --> 00:03:01,566
+通过那个pid
+passing that pid
+
+85
+00:03:01,566 --> 00:03:03,466
+这将归还给我们的承诺
+and that's going to return to us the pledges
+
+86
+00:03:03,466 --> 00:03:05,000
+我只是要使用 io
+and I'm just going to use io
+
+87
+00:03:05,166 --> 00:03:07,433
+检查返回列表
+inspect to inspect the returned list
+
+88
+00:03:07,800 --> 00:03:08,600
+把它存起来
+save that away
+
+89
+00:03:08,833 --> 00:03:11,766
+再次运行它，我们仍然看到所有五个承诺
+run it again and we still see all five pledges
+
+90
+00:03:12,233 --> 00:03:14,466
+但我们只想得到最近的承诺
+but we only want to get recent pledges
+
+91
+00:03:14,466 --> 00:03:16,033
+我们会说这是最后一个
+which we'll say is the last
+
+92
+00:03:16,033 --> 00:03:17,400
+三项承诺或
+three pledges or
+
+93
+00:03:17,566 --> 00:03:19,566
+列表中的前三个承诺
+the first three pledges in the list
+
+94
+00:03:20,466 --> 00:03:22,000
+我们会在这里解决这个问题
+we'll fix that up here
+
+95
+00:03:22,466 --> 00:03:24,600
+当我们得到一个我们想要采取的新承诺时
+when we get a new pledge we want to take
+
+96
+00:03:24,600 --> 00:03:26,566
+最近的两项承诺
+the two most recent pledges
+
+97
+00:03:26,566 --> 00:03:29,666
+并将新的承诺添加到列表的头部
+and add the new pledge to the head of the list
+
+98
+00:03:29,700 --> 00:03:32,166
+使新状态有三个承诺
+so that the new state has three pledges
+
+99
+00:03:32,266 --> 00:03:34,233
+为此，我们将在此处添加一行
+so to do that we'll add a line here
+
+100
+00:03:34,300 --> 00:03:36,033
+假设最近的承诺
+let's say most recent pledges
+
+101
+00:03:37,366 --> 00:03:40,166
+并且menu模块有take功能
+and the menu module has a take function
+
+102
+00:03:40,266 --> 00:03:43,100
+我们想从状态中获取列表
+we want to take from the state that's a list
+
+103
+00:03:43,300 --> 00:03:45,133
+最近的两项承诺
+the two most recent pledges
+
+104
+00:03:45,400 --> 00:03:48,066
+所以这会给我们一个最多有的列表
+so that's going to give us a list that has at most
+
+105
+00:03:48,333 --> 00:03:49,700
+里面有两个元素
+two elements inside of it
+
+106
+00:03:49,800 --> 00:03:50,800
+然后我们想把
+and then we want to put
+
+107
+00:03:50,800 --> 00:03:52,800
+新的承诺在该清单的首位
+the new pledge at the head of that list
+
+108
+00:03:52,800 --> 00:03:54,500
+这是我们要添加的新承诺
+so here's the new pledge that we're adding
+
+109
+00:03:54,700 --> 00:03:56,733
+我们将把它添加到这个列表中
+we're going to add it to this list
+
+110
+00:03:56,800 --> 00:03:58,466
+这最多会给我们
+and that's going to give us at most
+
+111
+00:03:58,666 --> 00:03:59,933
+列表中的三个元素
+three elements in the list
+
+112
+00:04:00,366 --> 00:04:01,166
+把它存起来
+save that away
+
+113
+00:04:01,633 --> 00:04:02,433
+再次运行它
+run it again
+
+114
+00:04:02,566 --> 00:04:05,500
+果然我们有优雅的雏菊和卷曲的
+and sure enough we've got grace daisy and curly
+
+115
+00:04:06,366 --> 00:04:08,266
+所以现在我们已经开始运行了，我们感觉真的
+so now that we have this running and we feel really
+
+116
+00:04:08,266 --> 00:04:09,333
+舒服
+comfortable with it
+
+117
+00:04:09,333 --> 00:04:11,833
+我们可以删除调试语句
+we can remove the debug statements
+
+118
+00:04:11,833 --> 00:04:14,600
+或打印到屏幕上的 put as 语句
+or the put as statements that print out to the screen
+
+119
+00:04:16,133 --> 00:04:18,900
+那里也将删除等待消息
+there and also will remove waiting for message
+
+120
+00:04:19,400 --> 00:04:21,233
+但这确实让我们想知道
+but that does leave us wondering
+
+121
+00:04:21,433 --> 00:04:24,433
+如果发送到外部服务失败怎么办
+what if sending to the external service fails
+
+122
+00:04:24,433 --> 00:04:26,800
+客户如何知道质押是否成功
+how will the client know if the pledge was successfully
+
+123
+00:04:26,800 --> 00:04:27,666
+创建与否
+created or not
+
+124
+00:04:27,866 --> 00:04:30,266
+客户进程想知道这一点
+the client process would like to know about that
+
+125
+00:04:30,833 --> 00:04:32,766
+所以我们需要发送消息
+so we need to send a message
+
+126
+00:04:32,766 --> 00:04:33,066
+背部
+back
+
+127
+00:04:33,066 --> 00:04:36,433
+向客户端进程指示成功或失败
+to the client process indicating a success or failure
+
+128
+00:04:36,666 --> 00:04:38,400
+我们实际上知道如何做到这一点
+and we actually know how to do that
+
+129
+00:04:38,966 --> 00:04:41,466
+是的，我们只需要包含客户的 pid
+yeah we just need to include the client's pid
+
+130
+00:04:41,500 --> 00:04:42,800
+在消息中
+in the message
+
+131
+00:04:43,200 --> 00:04:44,533
+所以这将是发件人
+so this will be the sender
+
+132
+00:04:44,866 --> 00:04:47,666
+然后我们需要回复那个发件人
+and then we need to reply back to that sender
+
+133
+00:04:47,900 --> 00:04:49,766
+所以一旦我们弄清楚了新的状态
+so once we have the new state figured out
+
+134
+00:04:49,900 --> 00:04:50,833
+我们会说发送
+we'll say send
+
+135
+00:04:51,300 --> 00:04:52,233
+给发件人
+to the sender
+
+136
+00:04:53,133 --> 00:04:55,266
+我们会给它一个消息标签响应
+we'll give it a message tag response
+
+137
+00:04:55,833 --> 00:04:58,566
+然后我们要发回这个 id 变量
+and then we're going to send back this id variable
+
+138
+00:04:59,133 --> 00:04:59,666
+再一次，那只是
+again that's just
+
+139
+00:04:59,666 --> 00:05:02,166
+创建的质押的一些唯一标识符
+some unique identifier for the pledge that was created
+
+140
+00:05:02,633 --> 00:05:03,566
+那么我们需要改变
+then we need to change
+
+141
+00:05:03,566 --> 00:05:05,433
+这在这里创建质押功能
+this create pledge function right here
+
+142
+00:05:05,900 --> 00:05:08,066
+所以它需要将自己作为第一个发送
+so it needs to send self as the first
+
+143
+00:05:08,100 --> 00:05:09,866
+此消息元组的元素
+element of this message tuple
+
+144
+00:05:10,166 --> 00:05:11,300
+然后就像
+and then just like
+
+145
+00:05:11,400 --> 00:05:12,666
+最近的承诺
+recent pledges
+
+146
+00:05:12,700 --> 00:05:14,133
+它需要等待响应
+it needs to wait for a response
+
+147
+00:05:14,133 --> 00:05:16,333
+所以我就在那里复制那个接收块
+so I'll just copy that receive block right there
+
+148
+00:05:16,800 --> 00:05:18,066
+而不是承诺
+instead of pledges
+
+149
+00:05:18,100 --> 00:05:19,233
+这实际上将是
+this is actually going to be
+
+150
+00:05:19,233 --> 00:05:20,666
+我们就称它为这个状态
+we'll just call it this status
+
+151
+00:05:23,100 --> 00:05:25,366
+现在两个函数都是同步的
+and now both functions are synchronous
+
+152
+00:05:25,966 --> 00:05:27,566
+然后在底部，因为
+then down at the bottom because
+
+153
+00:05:27,700 --> 00:05:29,900
+这些现在返回一个状态
+these now return a status
+
+154
+00:05:30,266 --> 00:05:31,600
+好吧，我将添加一个 io
+well I'll just add an io
+
+155
+00:05:31,600 --> 00:05:33,566
+检查所有这些行的前面
+inspect to the front of all those lines
+
+156
+00:05:35,666 --> 00:05:36,666
+现在如果我们运行它
+and now if we run it
+
+157
+00:05:36,866 --> 00:05:39,266
+我们所看到的我们实际上得到了承诺 4 6 9
+what we see we actually get pledge 4 6 9
+
+158
+00:05:39,366 --> 00:05:41,800
+以及针对不同承诺的不同唯一 ID
+and different unique ids for different pledges
+
+159
+00:05:41,800 --> 00:05:43,866
+所以我们得到了他们被创建的迹象
+so we get an indication that they were created
+
+160
+00:05:43,966 --> 00:05:46,000
+然后最后我们看到我们最近的承诺
+and then the end we see our recent pledges
+
+161
+00:05:47,333 --> 00:05:48,633
+当我们在制作函数时
+while we're making functions
+
+162
+00:05:48,666 --> 00:05:50,533
+让我们包装或封装
+let's wrap or encapsulate
+
+163
+00:05:50,566 --> 00:05:52,766
+在名为 start 的函数中生成
+the spawn in a function named start
+
+164
+00:05:53,466 --> 00:05:55,333
+我喜欢把它放在模块的顶部
+I like to put it at the top of the module here
+
+165
+00:05:56,533 --> 00:05:57,466
+我们称之为开始
+we'll call it start
+
+166
+00:05:58,266 --> 00:05:59,700
+现在我们有粘贴了
+now there's paste in what we have
+
+167
+00:06:00,000 --> 00:06:01,966
+但在那之前我要打印出来放我们
+but before that I'm going to print out put us
+
+168
+00:06:03,000 --> 00:06:04,233
+启动 pled 服务器
+starting the pled server
+
+169
+00:06:06,300 --> 00:06:08,033
+好的，那么我们要生成质押服务器
+all right then we want to spawn the pledge server
+
+170
+00:06:08,033 --> 00:06:09,133
+我需要使用服务
+I need to use serve
+
+171
+00:06:09,133 --> 00:06:10,833
+保证服务器在那里监听循环
+pledge server there to listen loop
+
+172
+00:06:10,866 --> 00:06:12,066
+和以前一样
+just the same as before
+
+173
+00:06:12,966 --> 00:06:14,333
+然后在客户端下
+and then down in the client
+
+174
+00:06:14,400 --> 00:06:15,433
+我们可以这样做
+we can just do this
+
+175
+00:06:17,233 --> 00:06:18,733
+血液服务器启动
+blood server start
+
+176
+00:06:19,500 --> 00:06:20,633
+这同样有效
+and that works just as well
+
+177
+00:06:21,633 --> 00:06:23,600
+现在可以了，但这是一个巧妙的技巧
+now that works but here's a neat trick
+
+178
+00:06:23,600 --> 00:06:26,466
+如果在某个时候我们决定改变
+if at some point down the road we decide to change
+
+179
+00:06:26,700 --> 00:06:29,566
+我们在这里使用的模块的名称
+the name of the module which we use right here
+
+180
+00:06:30,166 --> 00:06:33,033
+那么我们需要记住改变这个产卵线
+then we'll need to remember to change this spawn line
+
+181
+00:06:33,300 --> 00:06:34,733
+使这更灵活
+to make this more flexible
+
+182
+00:06:34,766 --> 00:06:37,466
+我们可以使用下划线下划线模块
+we can use underscore underscore module
+
+183
+00:06:37,500 --> 00:06:38,666
+下划线 下划线
+underscore underscore
+
+184
+00:06:38,833 --> 00:06:42,566
+并且在编译时这将被替换或扩展
+and at compile time this will get replaced or expanded
+
+185
+00:06:42,700 --> 00:06:44,600
+带有当前模块的名称
+with the name of the current module
+
+186
+00:06:44,800 --> 00:06:47,133
+在这种情况下，请参见 dot plug server
+which is see dot plug server in this case
+
+187
+00:06:48,100 --> 00:06:49,233
+这仍然有效
+and that still works
+
+188
+00:06:49,733 --> 00:06:52,333
+所以现在如果我们看看下面的客户端代码
+so now if we take a look at the client code down here
+
+189
+00:06:52,866 --> 00:06:53,500
+好吧，我们看到了
+well we see that
+
+190
+00:06:53,500 --> 00:06:55,900
+更容易扮演客户的角色
+it's easier to play the role of a client
+
+191
+00:06:55,933 --> 00:06:57,000
+它不需要
+it doesn't require
+
+192
+00:06:57,000 --> 00:06:59,366
+任何有关消息结构的知识
+any knowledge of how messages are structured
+
+193
+00:06:59,366 --> 00:07:00,700
+或来回发送
+or sent back and forth
+
+194
+00:07:00,700 --> 00:07:02,766
+客户端和服务器进程之间
+between the client and server processes
+
+195
+00:07:03,033 --> 00:07:04,566
+这意味着我们可以改变
+and that means we can change
+
+196
+00:07:04,566 --> 00:07:07,133
+服务器进程的内部细节
+the internal details of the server process
+
+197
+00:07:07,333 --> 00:07:08,900
+不影响客户端代码
+without affecting the client code
+
+198
+00:07:09,400 --> 00:07:10,166
+一件事你可能
+one thing you probably
+
+199
+00:07:10,166 --> 00:07:11,900
+虽然注意到了这个客户端代码
+noticed about this client code though
+
+200
+00:07:11,900 --> 00:07:13,433
+是我们必须通过pid
+is that we have to pass the pid
+
+201
+00:07:13,433 --> 00:07:14,900
+到每个功能
+to each of the functions
+
+202
+00:07:15,033 --> 00:07:16,900
+因为我们只打算拥有一个
+and since we only plan to have one
+
+203
+00:07:16,900 --> 00:07:19,466
+在任何给定时间运行的质押服务器进程
+pledge server process running at any given time
+
+204
+00:07:19,833 --> 00:07:22,400
+绕过坑有点多余
+passing the pit around kind of feels redundant
+
+205
+00:07:22,833 --> 00:07:24,366
+是的，客户端界面会很多
+yeah the client interface would be a lot
+
+206
+00:07:24,400 --> 00:07:25,833
+如果我们可以删除更简单
+simpler if we could remove
+
+207
+00:07:25,833 --> 00:07:27,300
+所有对 pid 的引用
+all references to the pid
+
+208
+00:07:27,533 --> 00:07:28,833
+所以我们想摆脱那些
+so we'd like to get rid of those
+
+209
+00:07:29,466 --> 00:07:31,366
+以及最近的承诺
+and also right here for recent pledges
+
+210
+00:07:31,666 --> 00:07:34,100
+但问题是客户端将如何运作
+but then the question is how would the client functions
+
+211
+00:07:34,200 --> 00:07:35,933
+知道在哪里发送他们的信息
+know where to send their messages
+
+212
+00:07:36,033 --> 00:07:36,833
+事实证明
+well it turns out
+
+213
+00:07:36,833 --> 00:07:39,866
+很容易注册我们的服务器进程 pid
+it's easy to register our server processes pid
+
+214
+00:07:40,300 --> 00:07:41,533
+以任意名称
+under an arbitrary name
+
+215
+00:07:41,900 --> 00:07:43,200
+然后使用那个名字
+and then use that name
+
+216
+00:07:43,300 --> 00:07:45,100
+向服务器发送消息时
+when sending messages to the server
+
+217
+00:07:45,433 --> 00:07:47,333
+我们将在我们的开始函数中做到这一点
+and we'll do that up in our start function
+
+218
+00:07:48,200 --> 00:07:49,800
+在流程模块上
+on the process module
+
+219
+00:07:49,800 --> 00:07:51,466
+有一个函数叫寄存器
+there's a function called register
+
+220
+00:07:52,200 --> 00:07:53,333
+它需要一个 pid
+it takes a pid
+
+221
+00:07:53,600 --> 00:07:56,700
+然后它需要一个名字，名字必须是一个原子
+and then it takes a name and the name must be an atom
+
+222
+00:07:56,700 --> 00:07:58,066
+我要使用质押
+I'm going to use pledge
+
+223
+00:07:58,100 --> 00:08:00,400
+下划线服务器，但这完全是任意的
+underscore server but this is totally arbitrary
+
+224
+00:08:00,600 --> 00:08:02,966
+是的，如果另一个错误将引发
+and yes an error will be raised if another
+
+225
+00:08:02,966 --> 00:08:05,533
+进程已经注册了同名
+process has already registered with the same name
+
+226
+00:08:06,033 --> 00:08:07,833
+然后我们还将返回 pid
+and then we'll also return the pid
+
+227
+00:08:07,833 --> 00:08:09,900
+以防万一来电者想要它
+just in case the caller wants it so
+
+228
+00:08:09,900 --> 00:08:12,033
+现在我们已经注册了我们的服务器进程
+now that we have our server process registered
+
+229
+00:08:12,033 --> 00:08:12,733
+在这个名字下
+under this name
+
+230
+00:08:12,733 --> 00:08:14,066
+这里插件服务器
+here plug server
+
+231
+00:08:14,300 --> 00:08:16,466
+在这些功能中，例如创建质押
+down in these functions like create pledge
+
+232
+00:08:16,466 --> 00:08:18,633
+我们可以删除 pid 作为参数
+we can remove the pid as an argument
+
+233
+00:08:19,000 --> 00:08:19,833
+然后当我们打电话时
+and then when we call
+
+234
+00:08:19,833 --> 00:08:21,433
+发送而不是发送到 pid
+send instead of sending to the pid
+
+235
+00:08:21,600 --> 00:08:23,700
+我们可以发送到服务器的名称
+we can send to the name of the server
+
+236
+00:08:24,533 --> 00:08:27,433
+以同样的方式，我们可以从最近的承诺中删除 pid
+in the same way we can remove pid from recent pledges
+
+237
+00:08:28,800 --> 00:08:30,533
+然后我们就发送到那个名字
+and then we just send to that name
+
+238
+00:08:32,033 --> 00:08:33,400
+很酷，仍然有效
+cool that still works
+
+239
+00:08:34,266 --> 00:08:36,566
+现在这样做的一个缺点是如果你决定改变
+now one downside of this is if you decide to change
+
+240
+00:08:36,566 --> 00:08:37,766
+路上的名字
+the name down the road
+
+241
+00:08:37,800 --> 00:08:39,600
+很容易忘记改变
+it's easy to forget to change
+
+242
+00:08:39,600 --> 00:08:40,266
+一次出现
+one occurrence
+
+243
+00:08:40,266 --> 00:08:41,966
+所以你可能记得改变这个
+so you might remember to change this one
+
+244
+00:08:42,000 --> 00:08:43,166
+但不是这个
+but then not this one
+
+245
+00:08:43,533 --> 00:08:44,866
+所以这是另一个技巧
+so here's another trick
+
+246
+00:08:44,900 --> 00:08:46,800
+我们可以使用模块属性
+we can use a module attribute
+
+247
+00:08:46,800 --> 00:08:48,466
+这样注册的名字就是
+so that the registered name is
+
+248
+00:08:48,533 --> 00:08:49,433
+只在一处
+only in one place
+
+249
+00:08:49,900 --> 00:08:52,133
+现在我将在名称处使用模块属性
+now I'll use the module attribute at name
+
+250
+00:08:52,166 --> 00:08:53,333
+那只是我编造的
+that's just something I made up
+
+251
+00:08:53,333 --> 00:08:55,433
+这是相当传统的，但你可以称之为
+it's fairly conventional but you could call this
+
+252
+00:08:55,433 --> 00:08:56,700
+如果需要，进程名称
+process name if you wanted
+
+253
+00:08:56,700 --> 00:08:58,400
+这只是一个任意名称
+it's just an arbitrary name
+
+254
+00:08:58,733 --> 00:09:00,233
+然后我们将与之关联
+and then we'll associate with that
+
+255
+00:09:00,533 --> 00:09:02,033
+atom质押服务器
+the atom pledge server
+
+256
+00:09:02,633 --> 00:09:04,533
+所以基本上我们现在只有一个概念
+so basically we just have a concept now
+
+257
+00:09:04,933 --> 00:09:06,700
+然后我们可以使用 at name
+and then we can use at name
+
+258
+00:09:07,300 --> 00:09:08,833
+引用注册名称
+to reference the registered name
+
+259
+00:09:08,833 --> 00:09:10,466
+所以我们要注册我们的pid
+so we're going to register our pid
+
+260
+00:09:10,933 --> 00:09:12,233
+以 pled 服务器的名义
+under the name pled server
+
+261
+00:09:12,833 --> 00:09:15,000
+然后我们必须确保也改变这些
+and then we have to make sure to also change these
+
+262
+00:09:15,166 --> 00:09:16,433
+这将是名字
+this is going to be at name
+
+263
+00:09:16,800 --> 00:09:18,133
+这个也一样
+and so will this one
+
+264
+00:09:19,333 --> 00:09:21,433
+但它的美妙之处在于你不必改变
+but the beauty of this is you don't have to change
+
+265
+00:09:21,433 --> 00:09:23,566
+如果您想更改名称，这些在路上
+these down the road if you want to change the name of
+
+266
+00:09:23,566 --> 00:09:24,133
+你的过程
+your process
+
+267
+00:09:24,133 --> 00:09:26,333
+您只需在此处更改这一行
+you just change it on this one line right here
+
+268
+00:09:26,433 --> 00:09:27,633
+一切都流过
+and everything flows through
+
+269
+00:09:28,266 --> 00:09:30,000
+所以保存它应该可以工作
+so save that away it should work
+
+270
+00:09:30,166 --> 00:09:31,433
+果然如此
+and sure enough it does
+
+271
+00:09:32,433 --> 00:09:33,433
+现在在继续之前
+now before moving on
+
+272
+00:09:33,433 --> 00:09:33,966
+我们会评论
+we'll comment
+
+273
+00:09:33,966 --> 00:09:36,266
+质押服务器模块底部的代码
+the code at the bottom of the pledge server module
+
+274
+00:09:36,266 --> 00:09:36,900
+因为我们只是
+since we're just
+
+275
+00:09:36,900 --> 00:09:39,466
+用它来踢质押服务器的轮胎
+using it to kick the tires of the pledge server
+
+276
+00:09:39,533 --> 00:09:41,400
+我们也不希望这段代码运行
+and we also don't want this code to run
+
+277
+00:09:41,666 --> 00:09:44,266
+当我们在下一节中启动时
+when we fire up in in the next section
+

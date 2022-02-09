@@ -1,0 +1,1830 @@
+1
+00:00:00,466 --> 00:00:03,033
+你准备好迎接另一个顶级行为了吗
+are you ready for another top behavior
+
+2
+00:00:03,200 --> 00:00:04,866
+带上主管
+bring on the supervisors
+
+3
+00:00:05,333 --> 00:00:06,200
+这一点
+at this point
+
+4
+00:00:06,200 --> 00:00:07,833
+我们有kickstarter流程
+we have the kickstarter process
+
+5
+00:00:07,833 --> 00:00:09,600
+链接到 Web 服务器进程
+link to the web server process
+
+6
+00:00:09,600 --> 00:00:11,733
+所以如果网络服务器进程崩溃
+so if the web server process crashes
+
+7
+00:00:11,733 --> 00:00:14,733
+现在启动了一个新的 Web 服务器进程
+a new web server process is kick started now
+
+8
+00:00:14,733 --> 00:00:16,533
+不像http服务器
+unlike http server
+
+9
+00:00:16,533 --> 00:00:18,800
+质押服务器和传感器服务器
+the pledge server and sensor server
+
+10
+00:00:18,800 --> 00:00:21,600
+是顶级服务器进程
+are top gen server processes
+
+11
+00:00:21,666 --> 00:00:23,066
+因此我们可以使用另一个
+we can therefore use another
+
+12
+00:00:23,066 --> 00:00:26,166
+顶级行为调用主管开始
+top behavior called supervisor to start
+
+13
+00:00:26,500 --> 00:00:29,633
+如果它们崩溃，监视并重新启动这些进程
+monitor and restart these processes if they crash
+
+14
+00:00:29,966 --> 00:00:32,533
+将任命我们的服务主管
+will name ours services supervisor
+
+15
+00:00:32,700 --> 00:00:34,733
+主管就像妈妈的手
+a supervisor is like a mother hand
+
+16
+00:00:34,766 --> 00:00:36,800
+谁监视其他进程
+who watches over other processes
+
+17
+00:00:36,800 --> 00:00:38,800
+通常被称为她的孩子
+commonly refer to as her children
+
+18
+00:00:39,066 --> 00:00:42,833
+是的，一个高级主管可以监督一个
+that's right an top supervisor can supervise one
+
+19
+00:00:43,233 --> 00:00:45,433
+或更多的性别过程
+or more gender processes
+
+20
+00:00:45,433 --> 00:00:47,933
+我们稍后会看到可以监督
+and as we'll see a bit later can supervise
+
+21
+00:00:48,166 --> 00:00:50,033
+其他主管进程
+other supervisor processes
+
+22
+00:00:50,266 --> 00:00:53,833
+高层主管可以支持多种策略
+top supervisors can support a variety of strategies
+
+23
+00:00:53,833 --> 00:00:56,966
+必要时重启子进程
+for restarting the child processes if necessary
+
+24
+00:00:57,200 --> 00:00:59,866
+一种共同的策略是一种适用于所有人的策略
+one common strategy is one for all
+
+25
+00:00:59,866 --> 00:01:02,466
+这意味着如果一个进程终止
+which means if one process terminates
+
+26
+00:01:02,466 --> 00:01:04,700
+主管将终止所有
+the supervisor will terminate all
+
+27
+00:01:04,700 --> 00:01:05,700
+其他孩子
+the other children
+
+28
+00:01:05,700 --> 00:01:07,933
+并在他们的位置开始新的流程
+and start new processes in their place
+
+29
+00:01:08,466 --> 00:01:09,433
+在我们的例子中
+in our case
+
+30
+00:01:09,433 --> 00:01:12,233
+因为子进程不依赖于
+since the child processes aren't dependent on
+
+31
+00:01:12,233 --> 00:01:15,633
+彼此我们将使用一对一的重启策略
+each other we'll use the one for one restart strategy
+
+32
+00:01:15,833 --> 00:01:18,700
+这意味着如果子进程终止
+which means if a child process terminates
+
+33
+00:01:18,833 --> 00:01:20,733
+仅重新启动该过程
+only that process is restarted
+
+34
+00:01:21,000 --> 00:01:21,500
+毕竟
+after all
+
+35
+00:01:21,500 --> 00:01:24,500
+我们不需要重新启动这两个进程
+there's no need for us to restart both processes
+
+36
+00:01:24,633 --> 00:01:25,800
+让我们开始吧
+so let's get started
+
+37
+00:01:26,433 --> 00:01:27,766
+让我们创建模块
+let's create the module
+
+38
+00:01:29,000 --> 00:01:31,366
+文件名是服务主管
+name of the file is services supervisor
+
+39
+00:01:36,966 --> 00:01:38,400
+这个名字没有魔法
+and there's no magic to this name
+
+40
+00:01:38,400 --> 00:01:39,966
+这里服务主管
+here services supervisor
+
+41
+00:01:39,966 --> 00:01:41,833
+当你真正使用魔法时
+the magic comes when you actually use
+
+42
+00:01:42,200 --> 00:01:43,633
+主管行为
+the supervisor behavior
+
+43
+00:01:43,933 --> 00:01:45,800
+现在，主管是其过程中的一个过程
+now a supervisor is a process in its
+
+44
+00:01:45,800 --> 00:01:48,066
+像任何其他过程一样拥有权利
+own right just like any other process
+
+45
+00:01:48,200 --> 00:01:48,800
+所以开始
+so to start
+
+46
+00:01:48,800 --> 00:01:51,633
+主管进程将编写一个 rapper 函数
+the supervisor process will write a rapper function
+
+47
+00:01:51,733 --> 00:01:53,866
+这次称为启动链接，您会明白为什么
+this time called start link and you'll see why
+
+48
+00:01:53,866 --> 00:01:56,333
+一分钟后，我们将开始打印
+in a minute and then we'll just start by printing out
+
+49
+00:01:56,900 --> 00:01:59,866
+启动服务主管
+starting the services supervisor
+
+50
+00:02:00,900 --> 00:02:02,600
+启动主管进程
+to start the supervisor process
+
+51
+00:02:02,600 --> 00:02:05,066
+你可能认为我们可以打电话给主管
+you might think we could call supervisor
+
+52
+00:02:06,900 --> 00:02:09,633
+开始，因为这就是我们为生成服务器所做的
+start because that's what we did for a gen server
+
+53
+00:02:09,733 --> 00:02:12,533
+但是主管模块没有定义开始
+but the supervisor module doesn't define a start
+
+54
+00:02:12,533 --> 00:02:15,633
+功能它只有一个启动链接功能
+function it only has a start link function
+
+55
+00:02:16,033 --> 00:02:19,000
+调用 start 链接会产生一个主管进程
+calling start link spawns a supervisor process
+
+56
+00:02:19,000 --> 00:02:21,733
+并将其链接到调用它的进程
+and links it to the process that calls this
+
+57
+00:02:21,733 --> 00:02:23,133
+在此处启动链接功能
+start link function here
+
+58
+00:02:23,733 --> 00:02:27,466
+最初我们将从 ix 进程调用 start link
+initially we'll call start link from the ix process
+
+59
+00:02:27,466 --> 00:02:29,800
+但稍后我们会写一个顶层
+but later on we'll write a top level
+
+60
+00:02:29,833 --> 00:02:31,366
+主管进程
+supervisor process
+
+61
+00:02:31,366 --> 00:02:34,866
+然后链接到这个主管进程
+that then is linked to this supervisor process
+
+62
+00:02:35,300 --> 00:02:37,300
+现在类似于绅士过度行为的工作方式
+now similar to how the gents over behavior works
+
+63
+00:02:37,300 --> 00:02:38,900
+主管行为
+the supervisor behavior
+
+64
+00:02:39,100 --> 00:02:40,933
+还需要一个回调模块
+also needs a callback module
+
+65
+00:02:40,966 --> 00:02:42,933
+这是启动链接的第一个参数
+and that's the first argument to start link
+
+66
+00:02:42,966 --> 00:02:44,433
+这将是这个模块
+and it's going to be this module
+
+67
+00:02:44,433 --> 00:02:45,800
+我们的服务主管
+our services supervisor
+
+68
+00:02:46,466 --> 00:02:48,966
+然后我们将使用 ok 作为参数
+and then we'll use ok as the argument
+
+69
+00:02:49,066 --> 00:02:51,133
+我们还要注册这个过程
+and we're also going to register this process
+
+70
+00:02:51,133 --> 00:02:52,733
+与模块同名
+under the same name as the module
+
+71
+00:02:52,733 --> 00:02:54,066
+所以我们使用名称选项
+so we use the name option
+
+72
+00:02:54,333 --> 00:02:56,433
+然后我们希望它成为这个模块
+and then we want it to be this module
+
+73
+00:02:56,766 --> 00:02:56,933
+现在
+now
+
+74
+00:02:56,933 --> 00:02:59,600
+主管行为需要回调模块
+the supervisor behavior expects the callback module
+
+75
+00:02:59,600 --> 00:03:01,266
+在编织功能中实现
+to implement in a knit function
+
+76
+00:03:01,366 --> 00:03:02,633
+所以这是我们的下一步
+so that's our next step
+
+77
+00:03:03,966 --> 00:03:05,500
+我们将进行模式匹配
+and we'll pattern match on ok
+
+78
+00:03:05,533 --> 00:03:06,833
+只是因为我们把它传入
+just because we pass that in
+
+79
+00:03:07,366 --> 00:03:09,533
+类似于 knit 如何与 gen 服务器一起使用
+similar to how a knit works with gen server
+
+80
+00:03:09,633 --> 00:03:10,366
+和针织是
+and knit is
+
+81
+00:03:10,366 --> 00:03:12,866
+当我们启动主管时自动调用
+automatically invoked when we start the supervisor
+
+82
+00:03:12,866 --> 00:03:16,433
+在这里，因为我们通过了 ok 是第二个参数
+here and because we passed ok is the second argument
+
+83
+00:03:16,433 --> 00:03:17,833
+好吧，它会通过它
+well it's going to pass that in
+
+84
+00:03:17,900 --> 00:03:19,400
+针织是第一个论点
+to a knit is the first argument
+
+85
+00:03:19,400 --> 00:03:20,666
+所以我们只是模式匹配它
+so we just pattern match it
+
+86
+00:03:21,066 --> 00:03:21,266
+现在
+now
+
+87
+00:03:21,266 --> 00:03:24,333
+nit 回调是我们告诉主管哪个
+the nit callback is where we tell the supervisor which
+
+88
+00:03:24,333 --> 00:03:25,466
+过程或
+processes or
+
+89
+00:03:25,466 --> 00:03:28,200
+孩子们需要开始然后监督
+children it needs to start and then supervise
+
+90
+00:03:28,600 --> 00:03:32,166
+在我们的例子中，它负责两个子进程
+in our case it's responsible for two child processes
+
+91
+00:03:32,166 --> 00:03:33,800
+我们会把它们放在一个列表中
+and we'll put those in a list
+
+92
+00:03:34,366 --> 00:03:35,766
+是的，我们将列表称为孩子
+yeah we'll call the list children
+
+93
+00:03:37,600 --> 00:03:40,133
+它将成为质押服务器
+and it's going to be the pledge server
+
+94
+00:03:41,266 --> 00:03:43,000
+也服务
+and also serve
+
+95
+00:03:43,866 --> 00:03:44,833
+传感器服务器
+sensor server
+
+96
+00:03:46,166 --> 00:03:48,066
+然后我们需要打电话给主管
+then we need to call supervisor
+
+97
+00:03:48,900 --> 00:03:49,700
+尼特
+nit
+
+98
+00:03:49,700 --> 00:03:52,266
+我们将子列表作为第一个参数传递
+we pass at the list of children as the first argument
+
+99
+00:03:52,633 --> 00:03:55,933
+然后我们也给它重启策略
+and then we also give it the restart strategy
+
+100
+00:03:56,300 --> 00:03:58,833
+正如我们之前所说，我们将使用
+and as we said earlier we're going to use the one
+
+101
+00:03:59,933 --> 00:04:02,866
+对于一个策略并注意那是一个原子
+for one strategy and notice that that's an atom
+
+102
+00:04:03,366 --> 00:04:04,333
+所以让我们继续
+so let's go ahead and
+
+103
+00:04:04,333 --> 00:04:06,800
+启动主管，看看会发生什么
+fire up the supervisor to see what happens
+
+104
+00:04:07,733 --> 00:04:08,766
+超过 ix
+over an ix
+
+105
+00:04:09,533 --> 00:04:11,166
+启动我们将使用的主管
+to start the supervisor we would use
+
+106
+00:04:11,933 --> 00:04:14,066
+服务主管
+services supervisor
+
+107
+00:04:15,366 --> 00:04:17,666
+我们的包装函数的名称是 start link
+the name of our wrapper function is start link
+
+108
+00:04:18,433 --> 00:04:20,533
+好的，这将返回一个 pid
+alright and that's going to return a pid
+
+109
+00:04:20,533 --> 00:04:22,233
+这将被包裹在两个拉
+which is going to be wrapped in a two pull
+
+110
+00:04:22,333 --> 00:04:24,900
+好的 pid 我将调用 sub pid
+okay the pid I'm going to call sub pid
+
+111
+00:04:27,700 --> 00:04:28,533
+就这样
+just like that
+
+112
+00:04:29,600 --> 00:04:31,566
+哦，我们得到了空气
+uh oh we get an air
+
+113
+00:04:32,100 --> 00:04:35,300
+好吧，它正在尝试调用质押服务器
+well it's trying to invoke the pledge server
+
+114
+00:04:35,333 --> 00:04:38,900
+启动链接并传递一个空列表作为参数
+start link and pass an empty list as the argument
+
+115
+00:04:40,166 --> 00:04:41,633
+我们会在我们的代码中注意到
+we'll notice in our code
+
+116
+00:04:41,833 --> 00:04:44,466
+我们没有告诉主管如何开始
+we didn't tell the supervisor how to start
+
+117
+00:04:44,500 --> 00:04:46,000
+子进程
+the child processes
+
+118
+00:04:46,500 --> 00:04:48,200
+所以主管假设我们的
+so the supervisor assumes our
+
+119
+00:04:48,200 --> 00:04:50,066
+代码遵循一些约定
+code follows some conventions
+
+120
+00:04:50,233 --> 00:04:51,266
+当一个子进程
+when a child process
+
+121
+00:04:51,300 --> 00:04:54,266
+启动它需要链接到主管
+starts it needs to be linked to the supervisor
+
+122
+00:04:54,366 --> 00:04:56,733
+所以主管可以检测到崩溃
+so the supervisor can detect a crash
+
+123
+00:04:57,100 --> 00:04:59,333
+所以主管认为孩子
+so the supervisor assumes that the child
+
+124
+00:04:59,333 --> 00:05:00,733
+过程定义了一个开始
+process defines a start
+
+125
+00:05:00,733 --> 00:05:01,633
+链接功能
+link function
+
+126
+00:05:01,800 --> 00:05:03,333
+启动过程
+that starts the process
+
+127
+00:05:03,333 --> 00:05:05,200
+并将其链接到当前进程
+and links it to the current process
+
+128
+00:05:05,200 --> 00:05:07,066
+在这种情况下，这将是主管
+which will be the supervisor in this case
+
+129
+00:05:07,300 --> 00:05:09,633
+如果我们查看我们的质押服务器
+and if we look over in our pledge server
+
+130
+00:05:10,133 --> 00:05:12,033
+好吧，它不遵循该约定
+well it doesn't follow that convention
+
+131
+00:05:12,133 --> 00:05:15,000
+它定义了零能力的起始函数
+it defines a start function of ability zero
+
+132
+00:05:15,000 --> 00:05:17,466
+它不需要任何论据，也不会
+it doesn't take any arguments and it doesn't do
+
+133
+00:05:17,566 --> 00:05:20,900
+任何链接，这与我们的传感器服务器相同
+any linking and this is the same for our sensor server
+
+134
+00:05:21,066 --> 00:05:21,966
+启动功能
+start function
+
+135
+00:05:22,366 --> 00:05:23,766
+所以这就是为什么我们得到空气
+so that's why we get the air
+
+136
+00:05:23,800 --> 00:05:25,566
+因为主管正在寻找一个
+because the supervisor is looking for a
+
+137
+00:05:25,566 --> 00:05:26,700
+启动链接功能
+start link function
+
+138
+00:05:27,133 --> 00:05:28,200
+所以让我们解决这个问题
+so let's fix that
+
+139
+00:05:28,200 --> 00:05:30,533
+我们将从头开始重命名这个接口函数
+we'll rename this interface function from start
+
+140
+00:05:30,633 --> 00:05:31,633
+开始链接
+to start link
+
+141
+00:05:32,133 --> 00:05:33,233
+然后而不是打电话
+then instead of calling
+
+142
+00:05:34,366 --> 00:05:35,833
+gen 服务器启动链接
+gen server start link
+
+143
+00:05:36,166 --> 00:05:38,133
+这将产生 gen 服务器进程和
+that's going to spawn the gen server process and
+
+144
+00:05:38,133 --> 00:05:38,633
+链接它
+link it
+
+145
+00:05:38,633 --> 00:05:41,233
+到调用我们的启动链接函数的进程
+to the process that calls our start link function
+
+146
+00:05:41,566 --> 00:05:43,533
+并且主管将通过这个开始
+and the supervisor is going to pass this start
+
+147
+00:05:43,533 --> 00:05:44,266
+链接功能
+link function
+
+148
+00:05:44,266 --> 00:05:46,366
+在争论中，我们并不真正关心它是什么
+in argument we don't really care what it is
+
+149
+00:05:46,366 --> 00:05:48,000
+我们将使用下划线 arg
+we're just going to use underscore arg
+
+150
+00:05:48,166 --> 00:05:49,366
+但我们在空中看到了消息
+but we saw in the air message
+
+151
+00:05:49,366 --> 00:05:50,833
+它只是一个空列表
+it's just going to be an empty list
+
+152
+00:05:51,133 --> 00:05:51,866
+然后我们会
+and then we'll
+
+153
+00:05:51,866 --> 00:05:53,700
+还在此顶部添加打印输出
+also add a print out here at the top of this
+
+154
+00:05:53,733 --> 00:05:55,033
+因为我们现在没有
+because we don't have one right now
+
+155
+00:05:55,233 --> 00:05:56,133
+它只是想说
+it's just going to say
+
+156
+00:05:56,500 --> 00:05:58,933
+启动传感器服务器
+starting the sensor server
+
+157
+00:06:00,233 --> 00:06:01,066
+当我们在这里的时候
+while we're here
+
+158
+00:06:01,100 --> 00:06:03,800
+让我们把刷新间隔调低
+let's crank the refresh interval way down
+
+159
+00:06:03,900 --> 00:06:05,533
+使 d bug 输出
+so that the d bug output
+
+160
+00:06:05,533 --> 00:06:07,366
+不会妨碍我们所看到的
+doesn't get in the way of what we're seeing when
+
+161
+00:06:07,366 --> 00:06:08,533
+该过程开始
+the process is start
+
+162
+00:06:08,833 --> 00:06:11,766
+所以让我们把它设置为60分钟的间隔好吧
+so let's put it on an interval of 60min okay
+
+163
+00:06:11,766 --> 00:06:13,466
+好吧，我们最后有评论
+well we've got that commented at the end
+
+164
+00:06:13,500 --> 00:06:14,700
+所以我们就把它从这里拿走
+so we'll just take it out of here
+
+165
+00:06:15,166 --> 00:06:17,700
+我们将评论我们的 5 秒间隔
+we'll comment our 5 seconds interval
+
+166
+00:06:17,966 --> 00:06:19,333
+然后我们就可以了
+and then we'll have it be
+
+167
+00:06:19,766 --> 00:06:22,300
+60 分钟这样我们就不会看到太多的调试了
+60min that way we won't see as much debug
+
+168
+00:06:22,766 --> 00:06:25,433
+让我们也以同样的方式修复我们的质押服务器
+let's also fix our pledge server in the same way
+
+169
+00:06:25,733 --> 00:06:28,333
+我们希望我们的接口函数是启动链接
+we want our interface function to be start link
+
+170
+00:06:28,800 --> 00:06:30,200
+gen 服务器启动链接
+gen server start link
+
+171
+00:06:30,333 --> 00:06:32,500
+哦，它需要忽略的论点
+oh and it takes arguments which will ignore
+
+172
+00:06:33,166 --> 00:06:34,533
+现在我们正在遵守约定
+now that we're following the conventions
+
+173
+00:06:34,533 --> 00:06:35,900
+主管应该高兴
+the supervisor should be happy
+
+174
+00:06:35,900 --> 00:06:38,300
+所以让我们在这里重新尝试一下
+so let's try that out in a clean slate here
+
+175
+00:06:40,966 --> 00:06:43,500
+好吧，让我们启动我们的服务主管
+all right let's start up our services supervisor
+
+176
+00:06:45,566 --> 00:06:47,033
+啊，看起来好多了
+ah that's looking a lot better
+
+177
+00:06:47,566 --> 00:06:49,633
+是的，我们看到服务主管
+yeah we see the services supervisor
+
+178
+00:06:49,633 --> 00:06:52,033
+启动然后自动启动两个
+starts and then automatically starts the two
+
+179
+00:06:52,033 --> 00:06:53,366
+子进程
+child processes
+
+180
+00:06:53,866 --> 00:06:56,066
+这是指出主管的好时机
+this is a good time to point out that the supervisor
+
+181
+00:06:56,066 --> 00:06:57,100
+模块本身
+module itself
+
+182
+00:06:57,300 --> 00:06:59,533
+有一些方便的功能值得您保留
+has some handy functions worth keeping in your back
+
+183
+00:06:59,533 --> 00:07:01,133
+例如口袋
+pocket for example
+
+184
+00:07:01,433 --> 00:07:02,800
+假设我们想看看哪个
+let's say we want to see which
+
+185
+00:07:02,833 --> 00:07:04,366
+孩子们在监督
+children it's supervising
+
+186
+00:07:04,700 --> 00:07:06,366
+好吧，我们可以使用这个主管模块
+well we can use this supervisor module
+
+187
+00:07:06,366 --> 00:07:08,266
+这不是服务主管
+this isn't services supervisor
+
+188
+00:07:08,366 --> 00:07:10,766
+这只是一个内置的主管模块
+this is just a built in supervisor module
+
+189
+00:07:10,900 --> 00:07:12,800
+它有一个叫做女巫孩子的功能
+it has a function called witch children
+
+190
+00:07:14,500 --> 00:07:16,600
+然后我们将主管的 pid 传递给它
+and then we pass it the pid of a supervisor
+
+191
+00:07:16,600 --> 00:07:18,133
+好吧，这就是我们的 pid
+well that's our sup of pid
+
+192
+00:07:18,966 --> 00:07:21,800
+我们看到它有两个孩子传感器服务器
+and we see that it has two children the sensor server
+
+193
+00:07:21,900 --> 00:07:23,633
+这是那个孩子的pid
+here's the pid of that child
+
+194
+00:07:23,766 --> 00:07:24,600
+它说工人
+it says worker
+
+195
+00:07:24,600 --> 00:07:25,600
+当你看到工人
+and when you see worker
+
+196
+00:07:25,600 --> 00:07:28,333
+它仅表示主管以外的任何流程
+it just means any process other than a supervisor
+
+197
+00:07:28,433 --> 00:07:30,100
+然后我们就有了我们的质押服务器
+and then we've got our pledge server it's
+
+198
+00:07:30,100 --> 00:07:31,633
+pid，它也是一个工人
+pid and it's also a worker
+
+199
+00:07:32,066 --> 00:07:33,933
+如果你愿意，你也可以数孩子
+if you wanted you can also count the children
+
+200
+00:07:33,933 --> 00:07:36,533
+只需更改哪些孩子来计算孩子
+just change which children to count children
+
+201
+00:07:36,900 --> 00:07:39,000
+我们看到我们有两个工人
+and we see that we have two workers
+
+202
+00:07:39,833 --> 00:07:41,733
+所以让我们的传感器服务器崩溃
+so let's crash our sensor server
+
+203
+00:07:42,166 --> 00:07:43,566
+是的，首先我们需要找到它
+yeah first we need to find it
+
+204
+00:07:43,566 --> 00:07:45,500
+所以我们将使用 where is function
+so we'll use that where is function
+
+205
+00:07:46,133 --> 00:07:48,133
+然后我们注册了我们的传感器服务器
+and then we have our sensor server registered
+
+206
+00:07:48,133 --> 00:07:49,266
+在传感器服务器下
+under sensor server
+
+207
+00:07:49,366 --> 00:07:50,833
+这将返回一个 pid
+that's going to return a pid
+
+208
+00:07:50,833 --> 00:07:52,833
+然后这次我将使用管道
+and then this time I'm just going to use a pipe
+
+209
+00:07:52,833 --> 00:07:55,533
+我将把它导入进程出口
+I'm going to pipe it into process exit
+
+210
+00:07:55,700 --> 00:07:57,233
+因为第一个参数是猪
+because the first argument of that is a pig
+
+211
+00:07:57,266 --> 00:07:59,666
+第二个参数是我们要退出的原因
+the second argument is the reason we want to exit
+
+212
+00:07:59,733 --> 00:08:01,266
+我们将再次使用kaboom
+and we'll use kaboom again
+
+213
+00:08:02,633 --> 00:08:06,366
+完美只有子进程重新启动
+perfect only that child process got restarted
+
+214
+00:08:06,400 --> 00:08:09,300
+因为我们使用的是一对一重启策略
+because we're using the one for one restart strategy
+
+215
+00:08:09,766 --> 00:08:10,966
+并且为了很好的衡量
+and for good measure
+
+216
+00:08:10,966 --> 00:08:12,866
+让我们继续让质押服务器崩溃
+let's go ahead and crash the pledge server
+
+217
+00:08:13,000 --> 00:08:15,366
+是的，我们在质押服务器下注册了它
+yeah we have it registered under pledge server
+
+218
+00:08:16,133 --> 00:08:17,433
+所以我们也会用它
+so we'll kaboom it as well
+
+219
+00:08:17,966 --> 00:08:20,033
+我们看到它重新启动
+and we see that it gets restarted
+
+220
+00:08:20,166 --> 00:08:20,966
+呜呼
+woo hoo
+
+221
+00:08:22,000 --> 00:08:22,666
+现在假设
+now suppose
+
+222
+00:08:22,666 --> 00:08:24,633
+我们需要配置传感器服务器
+we needed to configure the sensor server
+
+223
+00:08:24,633 --> 00:08:25,600
+什么时候开始
+when it's started
+
+224
+00:08:25,600 --> 00:08:28,100
+例如设置刷新间隔
+for example to set the refresh interval
+
+225
+00:08:28,333 --> 00:08:31,066
+好吧，因为我们不再启动传感器服务器
+well since we're not starting the sensor server anymore
+
+226
+00:08:31,166 --> 00:08:33,100
+现在是主管的工作
+that's now the supervisor's job
+
+227
+00:08:33,400 --> 00:08:36,400
+这是开始链接参数派上用场的地方
+this is where the start link argument comes in handy
+
+228
+00:08:36,866 --> 00:08:39,366
+是的，我们想在这里传递刷新间隔
+yeah we want to pass the refresh interval in here
+
+229
+00:08:39,366 --> 00:08:40,300
+作为这个弧
+as this arc
+
+230
+00:08:40,566 --> 00:08:43,500
+为此，我们回到服务主管
+to do that we come back over to the services supervisor
+
+231
+00:08:43,633 --> 00:08:45,400
+你注意到这个孩子的名单
+and you notice this list of children
+
+232
+00:08:45,400 --> 00:08:47,200
+我们只是使用模块名称
+we're just using module names
+
+233
+00:08:47,200 --> 00:08:49,233
+但另一种方法是使用
+but another way to do this is to use a
+
+234
+00:08:49,233 --> 00:08:50,566
+元组第一个
+tuple the first
+
+235
+00:08:50,566 --> 00:08:53,133
+元组的元素是模块传感器服务器
+element of the tuple is the module sensor server
+
+236
+00:08:53,333 --> 00:08:56,000
+然后第二个元素将是一个参数
+and then the second element is going to be an argument
+
+237
+00:08:56,033 --> 00:08:56,900
+所以在我们的例子中
+so in our case
+
+238
+00:08:56,900 --> 00:08:59,300
+如果我们希望它是 60 分钟的刷新间隔
+if we wanted it to be 60min refresh interval
+
+239
+00:08:59,366 --> 00:09:00,866
+我们可以使用 60
+we could use 60
+
+240
+00:09:01,166 --> 00:09:02,533
+但这可能是任何论点
+but this could be any argument
+
+241
+00:09:02,533 --> 00:09:04,066
+你可以在这里使用一个列表
+you could use a list here
+
+242
+00:09:04,066 --> 00:09:06,200
+或地图或任何你需要的东西
+or a map or whatever you need
+
+243
+00:09:06,366 --> 00:09:08,533
+配置您的服务器进程
+to configure your server process
+
+244
+00:09:08,766 --> 00:09:11,566
+所以现在 60 将会通过
+so now 60 is going to get passed
+
+245
+00:09:11,800 --> 00:09:14,166
+到我们的传感器服务器作为这个参数
+over to our sensor server as this argument
+
+246
+00:09:14,166 --> 00:09:15,766
+所以这将是间隔
+so this is going to be interval
+
+247
+00:09:16,033 --> 00:09:17,166
+然后我们就打印出来
+and then we'll just print out
+
+248
+00:09:17,166 --> 00:09:18,566
+启动传感器服务器
+starting the sensor server
+
+249
+00:09:19,066 --> 00:09:19,866
+和
+with
+
+250
+00:09:20,266 --> 00:09:23,533
+间隔，我会说男人刷新
+interval and I'll say men refresh
+
+251
+00:09:24,933 --> 00:09:26,500
+现在我们将在这里得到一张白纸
+now we'll get a clean slate over here
+
+252
+00:09:29,166 --> 00:09:31,000
+启动我们的服务主管
+fire up our services supervisor
+
+253
+00:09:32,433 --> 00:09:34,700
+你会看到它说启动传感器服务器
+and you see it says starting the sensor server with
+
+254
+00:09:34,733 --> 00:09:35,933
+60分钟刷新
+60min refresh
+
+255
+00:09:36,566 --> 00:09:38,400
+现在让它真正起作用
+now for this to actually work
+
+256
+00:09:38,466 --> 00:09:40,566
+你需要把刷新间隔
+you would need to put the refresh interval
+
+257
+00:09:40,566 --> 00:09:43,833
+在状态中，而不仅仅是使用模块属性
+in the state rather than just using a module attribute
+
+258
+00:09:43,833 --> 00:09:45,033
+这是一个常数
+which is a constant
+
+259
+00:09:45,033 --> 00:09:47,200
+但我们会把它作为练习留给你
+but we'll leave that as an exercise for you
+
+260
+00:09:47,466 --> 00:09:49,433
+关键是你可以安排事情
+the point is you can arrange things
+
+261
+00:09:49,433 --> 00:09:51,233
+以便主管通过
+so that the supervisor passes
+
+262
+00:09:51,233 --> 00:09:53,066
+需要什么论据
+whatever arguments are needed
+
+263
+00:09:53,066 --> 00:09:54,033
+给它的孩子
+to its children
+
+264
+00:09:54,933 --> 00:09:57,000
+所以遵循惯例给了我们一个快风
+so following the conventions gave us a quick wind
+
+265
+00:09:57,000 --> 00:09:59,400
+但有时你想在线条之外着色
+but sometimes you want to color outside the lines
+
+266
+00:09:59,466 --> 00:10:00,600
+不明白怎么做
+don't understand how to do that
+
+267
+00:10:00,600 --> 00:10:01,866
+让我们再深入一点
+let's dig a little deeper
+
+268
+00:10:02,200 --> 00:10:04,133
+回到我们为主管服务
+back over in our service to supervisor
+
+269
+00:10:04,266 --> 00:10:05,933
+我们初始化主管
+we initialize the supervisor
+
+270
+00:10:05,933 --> 00:10:07,466
+有这样的孩子名单
+with a list of children like this
+
+271
+00:10:07,966 --> 00:10:10,000
+注意我们不必告诉它如何开始
+notice we didn't have to tell it how to start
+
+272
+00:10:10,000 --> 00:10:11,366
+每个子进程
+each child process
+
+273
+00:10:11,466 --> 00:10:12,533
+那它怎么知道
+so how does it know
+
+274
+00:10:13,300 --> 00:10:15,800
+所以看看这个调查承诺服务器
+so check this out survey pledge server
+
+275
+00:10:15,800 --> 00:10:17,633
+我们知道那是一个 gen 服务器
+we know that that's a gen server
+
+276
+00:10:17,633 --> 00:10:20,700
+以及当一个进程使用 gen 服务器行为时
+and when a process uses the gen server behavior
+
+277
+00:10:20,933 --> 00:10:22,000
+我们已经看到一些
+we've seen that some
+
+278
+00:10:22,000 --> 00:10:24,033
+函数自动注入
+functions are automatically injected
+
+279
+00:10:24,033 --> 00:10:24,900
+进入模块
+into the module
+
+280
+00:10:25,033 --> 00:10:25,700
+那么其中之一
+well one of those
+
+281
+00:10:25,700 --> 00:10:27,900
+我们还没有看过的函数被调用
+functions that we haven't looked at yet is called
+
+282
+00:10:27,900 --> 00:10:28,800
+子规格
+child spec
+
+283
+00:10:30,266 --> 00:10:31,333
+所以默认情况下
+so by default
+
+284
+00:10:31,333 --> 00:10:34,300
+当我们给主管一个这样的子模块时
+when we give the supervisor a child module like this
+
+285
+00:10:34,433 --> 00:10:35,500
+像质押服务器
+like pledge server
+
+286
+00:10:36,000 --> 00:10:38,166
+好吧，它调用了子规范函数
+well it calls the child spec function
+
+287
+00:10:38,166 --> 00:10:40,300
+像这样传入一个空列表
+passing in an empty list just like this
+
+288
+00:10:40,866 --> 00:10:43,833
+并返回所谓的子规范
+and that returns what's called a child specification
+
+289
+00:10:43,900 --> 00:10:45,400
+这是一张灵药图
+which is an elixir map
+
+290
+00:10:45,400 --> 00:10:48,000
+描述主管应该如何开始
+describing how the supervisor should start
+
+291
+00:10:48,200 --> 00:10:50,233
+并监督子进程
+and supervise the child process
+
+292
+00:10:50,500 --> 00:10:52,200
+你看这里有一个 id
+you see it has an id here
+
+293
+00:10:52,233 --> 00:10:54,233
+那只是设置为服务质押服务器
+that's just set to serve pledge server
+
+294
+00:10:54,266 --> 00:10:56,733
+这只是主管内部使用的
+and that's just used internally by the supervisor
+
+295
+00:10:56,800 --> 00:10:58,766
+识别这个孩子
+to identify this child
+
+296
+00:10:59,100 --> 00:11:00,700
+它也有重启
+it also has restart
+
+297
+00:11:00,833 --> 00:11:03,666
+这表明何时终止的子进程
+which indicates when a terminated child process
+
+298
+00:11:03,666 --> 00:11:04,900
+应该重新启动
+should be restarted
+
+299
+00:11:05,100 --> 00:11:07,566
+现在是永久的，这就是它现在设置的
+now permanent which is what it's set to right now
+
+300
+00:11:07,566 --> 00:11:11,100
+默认情况下，子进程总是重新启动
+by default means the child process is always restarted
+
+301
+00:11:11,300 --> 00:11:12,800
+另一种选择是暂时的
+another option is temporary
+
+302
+00:11:12,800 --> 00:11:14,866
+这表明子进程不应该
+which indicates the child process should never
+
+303
+00:11:14,866 --> 00:11:17,300
+重新启动它也已关闭
+be restarted it also has shut down
+
+304
+00:11:17,300 --> 00:11:19,200
+这表明子进程应该如何
+which indicates how a child process should be
+
+305
+00:11:19,233 --> 00:11:21,266
+终止这是一个超时值
+terminated this is a timeout value
+
+306
+00:11:21,700 --> 00:11:23,800
+我们看到它有一个类型，那就是一个工人
+we see it's got a type and that's a worker
+
+307
+00:11:23,833 --> 00:11:25,266
+因为这不是主管
+because this isn't a supervisor
+
+308
+00:11:25,266 --> 00:11:27,733
+这是一个常规的性别化过程
+it's a regular gendered process
+
+309
+00:11:28,066 --> 00:11:30,200
+然后这是它如何开始的关键
+and then here's the key to how it gets started
+
+310
+00:11:30,633 --> 00:11:34,066
+我们看到开始键的值是一个元组
+we see that the start key has a value that's a tuple
+
+311
+00:11:34,533 --> 00:11:36,300
+其中第一个元素是模块
+where the first element is the module
+
+312
+00:11:36,466 --> 00:11:38,300
+第二个元素是功能
+the second element is the function
+
+313
+00:11:38,300 --> 00:11:39,100
+跑步
+to run
+
+314
+00:11:39,100 --> 00:11:41,566
+然后第三个元素是参数列表
+and then the third element is a list of arguments
+
+315
+00:11:41,766 --> 00:11:43,966
+好吧，它会传递一个空列表
+well it's going to pass an empty list
+
+316
+00:11:43,966 --> 00:11:45,400
+所以参数列表
+so the list of arguments
+
+317
+00:11:45,400 --> 00:11:47,200
+默认情况下只是一个参数
+is just one argument up by default
+
+318
+00:11:47,200 --> 00:11:48,866
+这是一个空列表本身
+which is an empty list itself
+
+319
+00:11:49,333 --> 00:11:51,666
+所以这通常被称为 mmafa
+so this is typically referred to as the mmafa
+
+320
+00:11:51,966 --> 00:11:53,433
+模块功能
+module function
+
+321
+00:11:53,700 --> 00:11:54,700
+然后是论点
+and then the argument
+
+322
+00:11:55,033 --> 00:11:56,433
+并鉴于该信息
+and given that information
+
+323
+00:11:56,500 --> 00:11:59,700
+这个主管知道如何启动这个子进程
+this supervisor knows how to start this child process
+
+324
+00:12:00,033 --> 00:12:01,833
+您可以将子规范视为
+you can think of a child spec as a
+
+325
+00:12:01,833 --> 00:12:05,066
+主管用来生成其孩子的配方
+recipe the supervisor uses to spawn its children
+
+326
+00:12:05,600 --> 00:12:07,400
+现在默认子规格工作
+now the default child specs work
+
+327
+00:12:07,400 --> 00:12:09,500
+非常适合我们的应用程序
+great for the purposes of our application
+
+328
+00:12:09,700 --> 00:12:11,233
+但我们会给你一些起点
+but we'll give you some starting points
+
+329
+00:12:11,233 --> 00:12:13,466
+所以你知道如何根据需要进行定制
+so you know how to customize if need be
+
+330
+00:12:13,766 --> 00:12:15,500
+例如，如果你想改变怎么办
+for example what if you wanted to change
+
+331
+00:12:15,533 --> 00:12:18,333
+从永久重启到临时
+restart from permanent to temporary
+
+332
+00:12:18,600 --> 00:12:19,866
+好吧，我就复制一下
+well I'll just copy this out
+
+333
+00:12:20,666 --> 00:12:22,933
+我们会回来这里我们会去我们的承诺服务器
+we'll come back over here we'll go to our pledge server
+
+334
+00:12:23,366 --> 00:12:24,366
+然后当我们使用
+and then when we use
+
+335
+00:12:24,400 --> 00:12:26,566
+gen server 我们可以增加一些选项
+gen server we can tack on some options
+
+336
+00:12:26,566 --> 00:12:29,366
+我们要说重启现在是暂时的
+we're going to say restart is now temporary
+
+337
+00:12:30,033 --> 00:12:32,266
+通过这样做，我们将覆盖
+and by doing this we're going to override
+
+338
+00:12:32,433 --> 00:12:33,833
+默认重启
+the default restart
+
+339
+00:12:33,833 --> 00:12:35,600
+那在默认孩子的背上
+that's in the default child's back
+
+340
+00:12:35,833 --> 00:12:36,933
+如果我们把它保存起来
+if we save that away
+
+341
+00:12:37,733 --> 00:12:40,400
+回到这里，我们重新加载
+come back over here and we reload
+
+342
+00:12:41,166 --> 00:12:42,700
+调查承诺服务器
+survey pledge server
+
+343
+00:12:44,500 --> 00:12:46,033
+我们再次查看它的子规格
+and we look at its child spec again
+
+344
+00:12:46,066 --> 00:12:47,766
+通过调用该子规范函数
+by calling that child spec function
+
+345
+00:12:48,566 --> 00:12:51,166
+看看重启现在是暂时的
+well look at that restart is now temporary
+
+346
+00:12:51,566 --> 00:12:52,900
+现在更进一步
+now taking it a step further
+
+347
+00:12:52,900 --> 00:12:55,533
+如果你想改变一堆这些默认值
+if you wanted to change a bunch of these defaults
+
+348
+00:12:55,566 --> 00:12:58,466
+您可以覆盖默认的子规范功能
+you can override the default child spec function
+
+349
+00:12:58,866 --> 00:13:00,433
+所以你可以拿这张地图我就
+so you can just take this map I'll just
+
+350
+00:13:00,466 --> 00:13:01,766
+把这整件事复制到这里
+copy this whole thing here
+
+351
+00:13:02,366 --> 00:13:04,600
+我们将回到我们的质押服务器
+we'll come back over to our pledge server
+
+352
+00:13:05,233 --> 00:13:06,500
+然后我要删除这个
+and then I'm going to remove this
+
+353
+00:13:06,500 --> 00:13:08,300
+因为我不只是想覆盖它
+because I don't just want to override that
+
+354
+00:13:09,133 --> 00:13:11,633
+我要定义我自己的子规范函数
+and I'm going to define my own child spec function
+
+355
+00:13:11,800 --> 00:13:12,866
+这是儿童规格
+it's child spec
+
+356
+00:13:13,400 --> 00:13:14,433
+它需要一个组织
+it takes an org
+
+357
+00:13:14,566 --> 00:13:16,900
+然后你就像那样粘贴那个地图
+and then you just paste that map in just like that
+
+358
+00:13:17,033 --> 00:13:19,000
+并更改您想要的任何这些值
+and change any of these values you want
+
+359
+00:13:19,433 --> 00:13:19,700
+接着
+and then
+
+360
+00:13:19,700 --> 00:13:22,066
+当主管调用子规范函数时
+when the supervisor calls the child spec function
+
+361
+00:13:22,266 --> 00:13:24,166
+好吧，它会得到你所有的覆盖
+well it'll get all your overrides
+
+362
+00:13:24,566 --> 00:13:25,700
+拥有这些知识
+armed with this knowledge
+
+363
+00:13:25,700 --> 00:13:28,066
+你有很大的灵活性
+you have a lot of flexibility when it comes to
+
+364
+00:13:28,066 --> 00:13:30,266
+覆盖自定义行为的默认值
+overriding the defaults for custom behavior
+
+365
+00:13:30,800 --> 00:13:32,766
+现在我们不需要这种级别的定制
+now we don't need this level of customization
+
+366
+00:13:32,800 --> 00:13:34,766
+所以我要在继续之前删除它
+so I'm just going to remove this before moving on
+

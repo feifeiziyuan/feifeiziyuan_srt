@@ -1,0 +1,2645 @@
+1
+00:00:00,333 --> 00:00:01,766
+嘿伙计们，我们今天在避难所
+hey folks we're out on the refuge today
+
+2
+00:00:01,766 --> 00:00:03,900
+玩一些花哨的新技术
+playing around with some fancy new technology
+
+3
+00:00:04,433 --> 00:00:07,366
+我们将其中三个定位在跟踪凸轮
+trail cams we're positioning three of these at
+
+4
+00:00:07,366 --> 00:00:08,933
+避难所周围的不同区域
+different areas around the refuge
+
+5
+00:00:09,233 --> 00:00:10,500
+然后留意事情
+then to keep an eye on things
+
+6
+00:00:10,500 --> 00:00:12,500
+我们可以从每个
+we can get a snapshot image from each
+
+7
+00:00:12,500 --> 00:00:13,933
+通过发送请求相机
+camera by sending a request
+
+8
+00:00:13,933 --> 00:00:14,833
+到一个 api
+to an api
+
+9
+00:00:15,800 --> 00:00:16,766
+我们回到工作室
+we're back in the studio
+
+10
+00:00:16,766 --> 00:00:18,933
+你可以看到我们添加了一个摄像头
+and you can see that we've added a video cam
+
+11
+00:00:19,166 --> 00:00:21,866
+ex 文件在这里，像往常一样你会发现
+ex file here and as usual you'll find
+
+12
+00:00:21,966 --> 00:00:24,266
+代码包中的这个和其他准备好的文件
+this and other prepared files in the code bundle
+
+13
+00:00:24,733 --> 00:00:27,533
+在这个文件中只是为了找到一个名为 video cam 的模块
+in this file just to find a module called video cam
+
+14
+00:00:27,533 --> 00:00:30,233
+模拟向外部 api 发送请求
+that simulates sending a request to an external api
+
+15
+00:00:30,566 --> 00:00:33,766
+然后我们可以从摄像机中获取快照图像
+then we can get a snapshot image from a video camera
+
+16
+00:00:33,766 --> 00:00:35,833
+所以调用的函数得到了小睡
+so the functions called gets napshot
+
+17
+00:00:36,033 --> 00:00:37,133
+我们给它一个相机名称
+we give it a camera name
+
+18
+00:00:37,400 --> 00:00:37,600
+和
+and
+
+19
+00:00:37,600 --> 00:00:39,533
+在这里，您将放置实际代码以发送请求
+here you would put the actual code to send a request
+
+20
+00:00:39,566 --> 00:00:40,666
+到那个外部 api
+to that external api
+
+21
+00:00:40,666 --> 00:00:42,166
+但我们不会为此担心
+but we're not going to worry about that
+
+22
+00:00:42,433 --> 00:00:43,300
+我们只是要模拟
+we're just going to simulate
+
+23
+00:00:43,300 --> 00:00:44,700
+它可能相对较慢
+that it can be relatively slow
+
+24
+00:00:44,700 --> 00:00:46,133
+通过睡一秒钟
+by sleeping for one second
+
+25
+00:00:46,566 --> 00:00:48,266
+然后它会返回一些响应
+and then it's going to return some response
+
+26
+00:00:48,266 --> 00:00:49,866
+所以我们有一个示例响应
+and so we've got an example response
+
+27
+00:00:49,866 --> 00:00:50,700
+那将被退回
+that would be returned
+
+28
+00:00:50,700 --> 00:00:51,566
+从那个api
+from that api
+
+29
+00:00:51,900 --> 00:00:53,066
+我们只取相机名称
+we just take the camera name
+
+30
+00:00:53,266 --> 00:00:55,466
+添加连字符 dashnapshot
+add a hyphen dashnapshot
+
+31
+00:00:55,666 --> 00:00:56,466
+JPEG
+jpeg
+
+32
+00:00:56,900 --> 00:00:59,000
+现在我们只是返回这个小睡的文件名
+now we're just returning the file name of this napshot
+
+33
+00:00:59,000 --> 00:01:01,166
+但你可以想象它会返回一个完整的
+but you can imagine that it would return a full
+
+34
+00:01:01,166 --> 00:01:04,066
+指向位于某处图像服务器上的文件的 URL
+url to a file living on an image server somewhere
+
+35
+00:01:04,600 --> 00:01:05,966
+所以如果我们调用那个函数
+so if we call that function
+
+36
+00:01:10,033 --> 00:01:11,533
+我就传一个摄像头
+I'll just pass in cam one
+
+37
+00:01:13,600 --> 00:01:15,400
+好吧，需要一秒钟才能得到回应
+well it takes a second to get a response
+
+38
+00:01:15,400 --> 00:01:17,533
+它只返回该文件名
+and it just returns that file name
+
+39
+00:01:18,500 --> 00:01:19,400
+凸轮二相同
+same for cam two
+
+40
+00:01:19,400 --> 00:01:21,233
+我们只是在一秒钟后得到一个不同的文件名
+we just get a different file name after a second
+
+41
+00:01:21,400 --> 00:01:22,466
+和凸轮三
+and cam three
+
+42
+00:01:23,200 --> 00:01:26,066
+在处理程序 dx 中，我们已经有一个
+and in handler dx we already have a
+
+43
+00:01:26,533 --> 00:01:30,000
+为我们获取三个快照的快照路线
+snapshot's route that gets us three snapshots
+
+44
+00:01:30,200 --> 00:01:32,066
+是的，它调用了该函数三遍
+yeah it calls that function three times
+
+45
+00:01:32,066 --> 00:01:33,366
+所以我们得到三个
+so we get back three
+
+46
+00:01:33,433 --> 00:01:34,300
+不同的文件名
+different file names
+
+47
+00:01:34,300 --> 00:01:37,433
+然后我们将这些文件名放入快照列表
+we then put those file names into a snapshots list
+
+48
+00:01:37,700 --> 00:01:39,466
+然后我们检查那个列表
+and then we inspect that list
+
+49
+00:01:39,633 --> 00:01:41,966
+这构成了我们的响应主体
+and that makes up our response body
+
+50
+00:01:42,300 --> 00:01:44,033
+我们不会担心图像会如何得到
+we won't worry about how the images would get
+
+51
+00:01:44,033 --> 00:01:44,966
+呈现在页面上
+rendered on a page
+
+52
+00:01:45,033 --> 00:01:46,400
+只是这样我们就可以留在话题上
+just so we can stay on topic
+
+53
+00:01:46,733 --> 00:01:47,933
+你会注意到我们可以这样称呼
+and you'll notice we could call that
+
+54
+00:01:47,933 --> 00:01:49,233
+获取快照功能
+get snapshot function
+
+55
+00:01:49,300 --> 00:01:50,633
+来自摄像头模块
+from the video cam module
+
+56
+00:01:50,633 --> 00:01:52,333
+那是因为我们有别名
+and that's because we have that aliased in
+
+57
+00:01:52,333 --> 00:01:53,133
+在上面
+up here at the top
+
+58
+00:01:53,133 --> 00:01:55,033
+别名调查摄像机
+alias survey videocam
+
+59
+00:01:55,700 --> 00:01:57,233
+现在让我们自己生成服务器
+now let's spawn the server in its own
+
+60
+00:01:57,233 --> 00:01:59,666
+处理，以便我们可以继续使用 iex
+process so we can continue to use iex
+
+61
+00:01:59,666 --> 00:02:01,833
+我们在上一个模块中学习了如何做到这一点
+and we learned how to do this in the previous module
+
+62
+00:02:02,066 --> 00:02:04,333
+在这种情况下，我们将使用命名函数调用 spawn
+in this case we'll call spawn with the named function
+
+63
+00:02:04,333 --> 00:02:06,533
+所以它将成为我们的模块 hp 服务器
+so it's going to be our module hp server
+
+64
+00:02:07,033 --> 00:02:08,966
+该功能将启动
+the function is going to be start
+
+65
+00:02:09,600 --> 00:02:11,100
+然后我们给它一个参数列表
+and then we give it a list of arguments
+
+66
+00:02:11,100 --> 00:02:13,233
+我们将再次在端口 4000 上启动它
+we're going to start it on port 4000 again
+
+67
+00:02:14,866 --> 00:02:16,500
+然后在另一个终端会话中结束
+then over in a different terminal session
+
+68
+00:02:16,500 --> 00:02:18,366
+我们可以发送请求以获取快照
+we can send a request to get the snapshots
+
+69
+00:02:18,366 --> 00:02:19,266
+这只是一个请求
+it's just going to be a request
+
+70
+00:02:19,266 --> 00:02:21,533
+本地那 4000 个斜线快照
+to local those 4000 slash snapshots
+
+71
+00:02:22,633 --> 00:02:24,466
+我们必须等待请求
+and we have to wait for the request
+
+72
+00:02:24,600 --> 00:02:26,066
+这将需要一个完整的
+and it's going to take a full
+
+73
+00:02:26,100 --> 00:02:28,266
+3秒得到回复
+3 seconds to get back the response which
+
+74
+00:02:28,266 --> 00:02:30,333
+在那些文件名的列表中
+is at the list of those file names
+
+75
+00:02:30,566 --> 00:02:33,033
+所以它需要 3 秒也就不足为奇了
+so it shouldn't be any surprise that it takes 3 seconds
+
+76
+00:02:33,033 --> 00:02:35,900
+因为路由调用获取快照功能
+because the route calls to get snapshot function
+
+77
+00:02:36,100 --> 00:02:38,900
+三次，我们知道每个 api 请求
+three times and we know that each api request
+
+78
+00:02:38,933 --> 00:02:39,900
+需要一秒钟
+takes one second
+
+79
+00:02:40,400 --> 00:02:43,000
+啊，但我们知道如何更有效地做到这一点
+ah but we know how to do this more efficiently with
+
+80
+00:02:43,000 --> 00:02:47,366
+我们看到的进程 iex 在它自己的进程中运行
+processes as we saw iex runs in its own process
+
+81
+00:02:47,566 --> 00:02:51,233
+在 iex 中，我们生成了我们的 http 服务器
+and while in iex we spawn our http server
+
+82
+00:02:51,233 --> 00:02:53,966
+所以服务器在自己的进程中运行
+so the server is running in its own process
+
+83
+00:02:54,166 --> 00:02:56,266
+然后当我们向我们的服务器发送请求时
+then when we send a request to our server
+
+84
+00:02:56,266 --> 00:02:57,366
+更安全的熊
+safer bears
+
+85
+00:02:57,366 --> 00:03:00,600
+它产生另一个进程来处理该请求
+it spawns another process to handle that request
+
+86
+00:03:01,133 --> 00:03:03,566
+并且一旦将响应发送回客户端
+and once it is send a response back to the client
+
+87
+00:03:03,566 --> 00:03:05,200
+该进程退出
+that process exits
+
+88
+00:03:05,466 --> 00:03:06,433
+以同样的方式
+in the same way
+
+89
+00:03:06,433 --> 00:03:09,533
+我们对快照的新请求又产生了另一个
+our new requests for snapshot spawns yet another
+
+90
+00:03:09,566 --> 00:03:11,533
+处理该请求的过程
+process to handle that request
+
+91
+00:03:12,033 --> 00:03:14,533
+现在在那个过程中，我们发送了三个
+right now in that process we send three
+
+92
+00:03:14,566 --> 00:03:16,533
+api 请求顺序
+api requests sequentially
+
+93
+00:03:16,700 --> 00:03:18,666
+因为每个请求都需要一秒钟
+and since each request takes one second
+
+94
+00:03:18,800 --> 00:03:21,433
+该过程必须等待整整 3 秒
+the process has to wait a full 3 seconds
+
+95
+00:03:21,633 --> 00:03:23,400
+在发回响应之前
+before sending back a response
+
+96
+00:03:23,633 --> 00:03:26,233
+相反，我们可以生成每个 api 请求
+instead we can spawn each api request
+
+97
+00:03:26,233 --> 00:03:29,000
+在自己的进程中，因此它们并行运行
+in its own process so they run in parallel
+
+98
+00:03:29,200 --> 00:03:32,433
+所以进程可以产生其他进程
+so processes can spawn other processes
+
+99
+00:03:32,600 --> 00:03:34,866
+这样请求处理过程将
+and that way the request handling process will
+
+100
+00:03:34,866 --> 00:03:37,766
+只需要最慢的 api 请求
+only take as long as the slowest api request
+
+101
+00:03:37,900 --> 00:03:40,200
+在我们的例子中只是一秒钟
+which in our case is just one second
+
+102
+00:03:41,033 --> 00:03:42,033
+在我们的路线功能中
+in our route function
+
+103
+00:03:42,033 --> 00:03:45,000
+我们知道如何在自己的进程中生成 api 请求
+we know how to spawn an api request in its own process
+
+104
+00:03:45,166 --> 00:03:47,300
+所以这是我们将调用的函数 spawn
+so here's the function we'll just call spawn
+
+105
+00:03:47,866 --> 00:03:49,200
+给它匿名函数
+give it anonymous function there
+
+106
+00:03:50,033 --> 00:03:50,533
+运行那个
+run that
+
+107
+00:03:50,533 --> 00:03:53,133
+在匿名函数中获取快照函数
+get snapshot function inside of the anonymous function
+
+108
+00:03:54,033 --> 00:03:54,900
+如果会发生什么
+and what's going to happen if
+
+109
+00:03:54,900 --> 00:03:55,566
+我们这样做
+we do this
+
+110
+00:03:55,566 --> 00:03:58,166
+好吧，让我们把它复制出来，然后在 iux 中尝试一下
+well let's copy it out and just try it in iux
+
+111
+00:03:59,600 --> 00:04:00,500
+所以我会把它粘贴进去
+so I'll paste it in
+
+112
+00:04:00,566 --> 00:04:02,166
+我需要更改它以使用
+I need to change this to use
+
+113
+00:04:02,333 --> 00:04:04,400
+服务点，因为我们这里没有别名
+servy dot because we don't have the alias here
+
+114
+00:04:05,466 --> 00:04:06,133
+它返回
+it return
+
+115
+00:04:06,133 --> 00:04:08,133
+它创建了一个进程，它将运行
+and it creates a process and it's going to run
+
+116
+00:04:08,133 --> 00:04:10,600
+在该过程中获取快照功能
+that get snapshot function in that process
+
+117
+00:04:10,633 --> 00:04:12,666
+但我们只是在这里看到 pid
+but we just see the pid right here
+
+118
+00:04:12,666 --> 00:04:15,700
+这就是 spawn 函数返回的内容
+that's what's returned by the spawn function
+
+119
+00:04:16,000 --> 00:04:18,600
+但我们没有看到返回的值
+but we don't see the value that's returned by
+
+120
+00:04:18,600 --> 00:04:20,266
+获取快照功能
+the get snapshot function
+
+121
+00:04:20,500 --> 00:04:21,800
+这将是文件名
+that's going to be the file name
+
+122
+00:04:22,133 --> 00:04:23,300
+我们只得到 pid
+we just get the pid
+
+123
+00:04:23,900 --> 00:04:26,400
+因为这是 spawn 函数返回的
+because that's what's returned by the spawn function
+
+124
+00:04:26,833 --> 00:04:28,733
+所以现在回到我们的处理程序文件
+so now back over in our handler file
+
+125
+00:04:28,733 --> 00:04:30,566
+这真的不是快照之一
+this really isn't snapshot one
+
+126
+00:04:30,600 --> 00:04:33,000
+这是一个 pid，所以我们称它为 pid one
+this is a pid so let's call it pid one
+
+127
+00:04:33,466 --> 00:04:34,900
+但是现在我们遇到了一个问题
+but now we've got a problem right
+
+128
+00:04:34,966 --> 00:04:38,033
+我们有一个 pid，但我们真正需要的是快照
+we've got a pid but what we really need is snapshots
+
+129
+00:04:38,033 --> 00:04:41,400
+我们需要创建一个快照或文件名列表
+we need to create a list of snapshots or file names
+
+130
+00:04:41,700 --> 00:04:43,833
+所以我们需要一些方法来返回
+so we need some way to return
+
+131
+00:04:43,866 --> 00:04:46,000
+此返回的文件名
+the file name that's returned by this
+
+132
+00:04:46,000 --> 00:04:47,433
+获取快照功能
+get snapshot function
+
+133
+00:04:47,666 --> 00:04:49,600
+到产生它的过程
+to the process that spawned it
+
+134
+00:04:49,866 --> 00:04:50,666
+在这种情况下
+in this case
+
+135
+00:04:50,666 --> 00:04:53,066
+该进程是运行此进程的进程
+that process is the one that's running this
+
+136
+00:04:53,100 --> 00:04:54,033
+路由功能
+route function
+
+137
+00:04:54,666 --> 00:04:56,733
+所以我们有两个过程，因为
+so we have two processes and since
+
+138
+00:04:56,733 --> 00:04:58,566
+一个进程产生另一个进程
+one process spawned the other
+
+139
+00:04:58,566 --> 00:05:00,866
+您可以将此过程视为父进程
+you can think of this process as the parent
+
+140
+00:05:00,866 --> 00:05:02,700
+而这个过程就是孩子
+and this process is the child
+
+141
+00:05:02,933 --> 00:05:06,100
+此过程从外部 api 获取文件名
+this process gets a file name from an external api
+
+142
+00:05:06,133 --> 00:05:09,633
+然后需要将该文件名发送到该进程
+and then needs to send that file name to this process
+
+143
+00:05:09,933 --> 00:05:10,866
+但它怎么能做到这一点
+but how can it do that
+
+144
+00:05:10,866 --> 00:05:12,933
+如果进程同时运行并且
+if the processes run concurrently and
+
+145
+00:05:12,933 --> 00:05:14,133
+不要分享任何东西
+don't share anything
+
+146
+00:05:14,433 --> 00:05:17,033
+好吧，您可以将流程视为有点像
+well you can think of processes as being kind of like
+
+147
+00:05:17,166 --> 00:05:19,533
+我们都在同时做事的人
+people we're all doing things concurrently
+
+148
+00:05:19,533 --> 00:05:22,133
+而且我们经常需要异步通信
+and we often need to communicate asynchronously
+
+149
+00:05:22,233 --> 00:05:24,133
+让每个人继续
+allowing each person to carry on
+
+150
+00:05:24,133 --> 00:05:26,300
+不受他们正在做的任何事情的干扰
+uninterrupted with whatever they're doing
+
+151
+00:05:26,666 --> 00:05:27,733
+我们怎么做
+how do we do that
+
+152
+00:05:28,000 --> 00:05:29,133
+当我们互相发送
+while we send each other
+
+153
+00:05:29,133 --> 00:05:32,500
+同步消息，例如电子邮件和文本
+a synchronous messages such as emails and text
+
+154
+00:05:32,533 --> 00:05:34,833
+最终出现在某种邮箱中
+which end up in some kind of mailbox
+
+155
+00:05:35,166 --> 00:05:37,466
+同样每个进程都有一个邮箱
+likewise each process has a mailbox
+
+156
+00:05:37,466 --> 00:05:39,700
+它是在创建进程时创建的
+it's created when the process is created
+
+157
+00:05:39,966 --> 00:05:41,033
+在我们的例子中，我们是
+in our case we're
+
+158
+00:05:41,033 --> 00:05:42,833
+只关心发送给
+only concerned with messages sent to the
+
+159
+00:05:42,833 --> 00:05:44,033
+父进程
+parent process
+
+160
+00:05:44,066 --> 00:05:46,333
+所以我们将专注于它的邮箱
+so we'll focus on its mailbox
+
+161
+00:05:46,766 --> 00:05:48,400
+每个邮箱都有一个地址
+each mailbox has an address
+
+162
+00:05:48,400 --> 00:05:50,400
+这是进程的pid
+it's the pid of the process
+
+163
+00:05:50,533 --> 00:05:52,233
+发送异步消息
+to send an asynchronous message
+
+164
+00:05:52,233 --> 00:05:53,800
+到进程的邮箱
+to the process's mailbox
+
+165
+00:05:53,800 --> 00:05:56,033
+我们用两个参数调用 send
+we call send with two arguments
+
+166
+00:05:56,166 --> 00:05:58,733
+发送消息的进程的坑
+the pit of the process to send the message to
+
+167
+00:05:59,000 --> 00:06:02,066
+本例中的父 pid 和要发送的消息
+the parent pid in this case and the message to send
+
+168
+00:06:02,733 --> 00:06:04,833
+消息可以是任何长生不老药
+messages can be any elixir term
+
+169
+00:06:04,833 --> 00:06:07,400
+例如我们可以只发送文件名
+for example we could just send the file name
+
+170
+00:06:07,566 --> 00:06:08,933
+但通常使用元组
+but it's common to use a tuple
+
+171
+00:06:08,933 --> 00:06:11,000
+用一些标识符标记消息
+to tag the message with some identifier
+
+172
+00:06:11,000 --> 00:06:14,800
+我们任意选择将其标记为结果的原子
+an atom we've arbitrarily chosen to tag it as result
+
+173
+00:06:14,800 --> 00:06:15,900
+但它可以是任何东西
+but it could be anything
+
+174
+00:06:16,466 --> 00:06:17,866
+发送消息
+sending a message puts that
+
+175
+00:06:17,866 --> 00:06:20,066
+进程邮箱中的消息
+message in the process's mailbox
+
+176
+00:06:20,466 --> 00:06:23,033
+与您决定何时检查邮箱的方式不同
+not unlike how you decide when to check your mailbox
+
+177
+00:06:23,033 --> 00:06:24,366
+一个过程得到决定
+a process gets decide
+
+178
+00:06:24,366 --> 00:06:26,300
+当它想阅读它的消息时
+when it wants to read its messages
+
+179
+00:06:26,533 --> 00:06:29,300
+当它准备好时，它用一个块调用接收
+when it's ready it calls receive with a block
+
+180
+00:06:29,800 --> 00:06:33,000
+在块内我们使用模式来匹配消息
+inside the block we use patterns to match messages
+
+181
+00:06:33,333 --> 00:06:35,233
+当消息与此模式匹配时
+when a message matches this pattern
+
+182
+00:06:35,233 --> 00:06:37,766
+在这种情况下，该过程对其起作用
+the process acts upon it in this case
+
+183
+00:06:37,766 --> 00:06:40,600
+我们只是想提取文件名并返回它
+we simply want to extract the file name and return it
+
+184
+00:06:41,000 --> 00:06:42,133
+并且因为接收
+and because the receive
+
+185
+00:06:42,133 --> 00:06:44,200
+函数返回最后一个值
+function returns the value of the last
+
+186
+00:06:44,200 --> 00:06:46,066
+匹配爪中的表达
+expression in the matching claws
+
+187
+00:06:46,133 --> 00:06:47,800
+我们可以将它绑定到一个变量
+we can bind it to a variable
+
+188
+00:06:48,233 --> 00:06:49,600
+已匹配此消息
+having matched this message
+
+189
+00:06:49,600 --> 00:06:51,566
+它已从邮箱中删除
+it's removed from the mailbox
+
+190
+00:06:52,100 --> 00:06:54,633
+现在我们真正想做的是生成三个
+now what we really want to do is spawn three
+
+191
+00:06:54,766 --> 00:06:57,833
+一次处理所有进程，因此它们并行运行
+processes all at once so they run in parallel
+
+192
+00:06:58,066 --> 00:06:59,600
+每个流程都会发送最终的
+each process will send the final
+
+193
+00:06:59,600 --> 00:07:01,766
+从外部 api 获得的名称
+name it got from the external api
+
+194
+00:07:01,800 --> 00:07:03,800
+回到同一个父进程
+back to the same parent process
+
+195
+00:07:04,066 --> 00:07:05,066
+当父母准备好时
+when the parent is ready
+
+196
+00:07:05,066 --> 00:07:06,900
+它会一一读取消息
+it reads the messages one by one
+
+197
+00:07:06,900 --> 00:07:08,900
+通过调用接收三次
+by calling receive three times
+
+198
+00:07:08,900 --> 00:07:10,133
+每条消息一次
+once for each message
+
+199
+00:07:11,966 --> 00:07:14,066
+这样父进程就可以收集
+in this way the parent process can collect
+
+200
+00:07:14,066 --> 00:07:15,766
+列表中的所有文件名
+all the file names in a list
+
+201
+00:07:16,266 --> 00:07:17,066
+你会经常听到这个
+you'll often hear this
+
+202
+00:07:17,066 --> 00:07:19,800
+称为并发的actor模型
+referred to as the actor model of concurrency
+
+203
+00:07:20,133 --> 00:07:23,233
+每个过程都是一个行动者，生活在自己独立的环境中
+each process is an actor living in its own independent
+
+204
+00:07:23,233 --> 00:07:24,600
+孤立的小世界
+isolated little world
+
+205
+00:07:24,833 --> 00:07:27,433
+它不与其他进程共享任何内容
+it doesn't share anything with other processes
+
+206
+00:07:27,466 --> 00:07:29,600
+进程可以通信的唯一方式
+the only way processes can communicate
+
+207
+00:07:29,600 --> 00:07:31,833
+是通过发送和接收消息
+is by sending and receiving messages
+
+208
+00:07:32,433 --> 00:07:34,033
+让我们在 iex 中试一试
+let's give this a whirl in iex
+
+209
+00:07:34,033 --> 00:07:36,666
+我们想产生一个进程并让它发送一个结果
+we want to spawn a process and have it send a result
+
+210
+00:07:36,666 --> 00:07:38,233
+回到父进程
+back to the parent process
+
+211
+00:07:38,433 --> 00:07:39,900
+那么谁是父进程
+so who's the parent process
+
+212
+00:07:40,100 --> 00:07:40,233
+好
+well
+
+213
+00:07:40,233 --> 00:07:42,733
+我们将从这个 iex 会话中生成
+we're going to do the spawning from this iex session
+
+214
+00:07:42,733 --> 00:07:44,700
+所以这是你记得的父进程
+so it's the parent process you remember
+
+215
+00:07:44,700 --> 00:07:46,766
+可以通过调用获取当前进程的坑
+you can get the pit of the current process by calling
+
+216
+00:07:46,800 --> 00:07:50,333
+self 所以 iex 会话进程被绑定到 48
+self so the iex session process is pied to 48
+
+217
+00:07:50,800 --> 00:07:51,866
+我要签那个
+and I'm going to sign that
+
+218
+00:07:51,866 --> 00:07:53,600
+pid 到对父级的变量调用
+pid to a variable call to parent
+
+219
+00:07:53,600 --> 00:07:55,866
+我马上解释为什么
+and I'll explain why in a minute now
+
+220
+00:07:55,866 --> 00:07:58,466
+我们可以生成一个进程并使用该 pid
+we can spawn a process and use that pid
+
+221
+00:07:58,466 --> 00:08:01,466
+将消息发送回 iex 进程
+to send a message back to the iex process
+
+222
+00:08:05,800 --> 00:08:07,766
+为此，我们使用发送功能
+and to do that we use the send function
+
+223
+00:08:07,933 --> 00:08:09,566
+我们想把它发回给父母
+we want to send it back to the parent
+
+224
+00:08:10,033 --> 00:08:11,333
+所以我们给它父母的pid
+so we give it the parents pid
+
+225
+00:08:11,433 --> 00:08:12,633
+然后我们给它信息
+and then we give it the message
+
+226
+00:08:12,900 --> 00:08:14,733
+在这种情况下，我们的信息将是一个错误
+in this case our message is going to be a toople
+
+227
+00:08:14,733 --> 00:08:17,133
+但正如煤炭所说，您可以使用任何长生不老药
+but as the coal said you can use any elixir term
+
+228
+00:08:17,200 --> 00:08:18,066
+所以我们要使用一个工具
+so we're going to use a toople
+
+229
+00:08:18,066 --> 00:08:19,533
+我们将用结果标记它
+we're going to tag it with result
+
+230
+00:08:19,866 --> 00:08:22,333
+同样，这只是任意的，您可以在那里使用任何标签
+again that's just arbitrary you could use any tag there
+
+231
+00:08:22,633 --> 00:08:24,266
+然后我们要输入我们的实际文件名
+and then we want to put in our actual file name
+
+232
+00:08:24,266 --> 00:08:27,366
+所以我将使用一张快照 jpeg
+so I'm going to use one snapshot jpeg
+
+233
+00:08:29,966 --> 00:08:32,200
+in spawn 立即返回并给我们 pid
+in spawn returns immediately and gives us the pid
+
+234
+00:08:32,200 --> 00:08:35,300
+所以spawn进程是pid 2 78
+so the spawn process is pid two seventy eight
+
+235
+00:08:35,600 --> 00:08:37,200
+但这就是我们得到的所有输出
+but that's all the output that we get
+
+236
+00:08:37,600 --> 00:08:39,266
+但我们知道调用 sind
+but we know that calling sind
+
+237
+00:08:39,300 --> 00:08:40,900
+将把这条消息
+is going to put this message
+
+238
+00:08:41,233 --> 00:08:44,233
+在这个pid的父邮箱中
+in the mailbox of the parent which is this pid
+
+239
+00:08:44,900 --> 00:08:47,200
+所以让我们在那个邮箱里来个高峰吧
+so let's just take a peaky peak at that mailbox
+
+240
+00:08:47,366 --> 00:08:50,300
+我们可以通过调用流程模块来做到这一点
+and we can do that by calling the process modules
+
+241
+00:08:50,366 --> 00:08:51,400
+信息功能
+info function
+
+242
+00:08:51,733 --> 00:08:53,100
+这只是让我们查询
+and this just lets us query
+
+243
+00:08:53,100 --> 00:08:54,833
+进程的不同属性
+different attributes of a process
+
+244
+00:08:54,833 --> 00:08:56,766
+所以我们要看看父进程
+so we want to look at the parent process
+
+245
+00:08:56,933 --> 00:08:59,533
+我们想看看你的邮箱里有什么消息
+and we want to see what messages are in your mailbox
+
+246
+00:09:00,266 --> 00:09:02,433
+我们看到有一条信息就在这里
+and we see that there's one message it's right here
+
+247
+00:09:02,766 --> 00:09:04,900
+现在您注意到它已转换为关键字列表
+now you notice it converted into a keyword list
+
+248
+00:09:04,900 --> 00:09:07,300
+我们像这样使用了两极
+we used a two pole right like that
+
+249
+00:09:07,700 --> 00:09:10,366
+但它只是将其显示为关键字列表
+but it just displayed it as a keyword list
+
+250
+00:09:10,666 --> 00:09:12,766
+无论如何，邮箱只有一条消息
+in any event the mailbox has one message
+
+251
+00:09:13,266 --> 00:09:14,966
+现在，当您以这种方式使用流程信息时
+now when you use process info this way
+
+252
+00:09:14,966 --> 00:09:16,600
+它只是向我们展示了邮箱中的内容
+it just shows us what's in the mailbox
+
+253
+00:09:16,600 --> 00:09:19,133
+它实际上并没有删除任何消息
+it doesn't actually take out any of the messages
+
+254
+00:09:19,533 --> 00:09:22,233
+此时生成过程早已不复存在
+at this point the spawn process is long gone
+
+255
+00:09:22,233 --> 00:09:25,733
+它唯一的工作就是向父母发送一条消息
+its only job was to send a message back to the parent
+
+256
+00:09:25,766 --> 00:09:26,900
+然后它退出了
+then it exited
+
+257
+00:09:27,366 --> 00:09:29,600
+我们可以让消息坐在邮箱中
+and we can let the message sit in the mailbox
+
+258
+00:09:29,600 --> 00:09:30,866
+直到我们准备好做某事
+until we're ready to do something
+
+259
+00:09:30,866 --> 00:09:33,633
+有了它，邮件将保留在邮箱中
+with it messages will remain in the mailbox
+
+260
+00:09:33,633 --> 00:09:35,700
+直到他们被明确收到
+until they're explicitly received
+
+261
+00:09:35,733 --> 00:09:38,700
+或在这种情况下父进程终止
+or the process the parent in this case terminates
+
+262
+00:09:39,066 --> 00:09:41,166
+现在假设我们已经准备好接收消息
+now let's say we're ready to receive the message
+
+263
+00:09:41,600 --> 00:09:44,000
+为此，我们调用接收并给它一个块
+and to do that we call receive and we give it a block
+
+264
+00:09:44,033 --> 00:09:46,200
+我将在 iux 中有多行
+and I'm just going to have multiple lines here in iux
+
+265
+00:09:46,200 --> 00:09:47,200
+我只是要返回
+I'm just going to hit return
+
+266
+00:09:47,900 --> 00:09:49,066
+然后在那个街区里面
+and then inside of that block
+
+267
+00:09:49,066 --> 00:09:50,166
+我们需要一个模式
+we need a pattern that
+
+268
+00:09:50,166 --> 00:09:51,666
+匹配邮箱中的邮件
+matches the message in the mailbox
+
+269
+00:09:51,666 --> 00:09:52,466
+所以它是一个元组
+so it's a tuple
+
+270
+00:09:52,600 --> 00:09:53,833
+有原子结果
+has the atom result
+
+271
+00:09:54,300 --> 00:09:56,400
+然后它有一个文件名，我们要绑定它
+then it has a file name and we want to bind that
+
+272
+00:09:56,433 --> 00:09:57,033
+到一个变量
+to a variable
+
+273
+00:09:57,033 --> 00:09:58,233
+我将其命名为文件名
+I'm going to call it file name
+
+274
+00:09:58,933 --> 00:10:00,866
+当消息与该模式匹配时
+and when the message matches that pattern
+
+275
+00:10:00,900 --> 00:10:03,200
+我们要返回提取的文件名
+we want to return the extracted file name
+
+276
+00:10:03,933 --> 00:10:04,733
+所以我们就这样做
+so we just do that
+
+277
+00:10:05,433 --> 00:10:06,733
+然后我们就在街区里
+and then we'll just in the block
+
+278
+00:10:07,666 --> 00:10:10,633
+我们看到结果是一张快照 jpeg
+and we see the result is one snapshot jpeg
+
+279
+00:10:10,933 --> 00:10:12,200
+所以当我们打电话时收到它
+so when we call receive it
+
+280
+00:10:12,200 --> 00:10:13,800
+检查邮箱中的邮件
+examine the message in the mailbox
+
+281
+00:10:13,800 --> 00:10:15,400
+它匹配这个模式
+it match this pattern
+
+282
+00:10:15,800 --> 00:10:19,100
+所以这成为这里接收函数的结果
+so this becomes the result of the receive function here
+
+283
+00:10:19,733 --> 00:10:23,800
+这就是为什么我们在 ix 中看到一个快照 jpeg 的值
+and that's why we see the value one snapshot jpeg in ix
+
+284
+00:10:24,200 --> 00:10:25,366
+一旦我们收到消息
+once we've received the message
+
+285
+00:10:25,366 --> 00:10:26,700
+它已从邮箱中删除
+it's removed from the mailbox
+
+286
+00:10:26,700 --> 00:10:28,200
+所以如果我们再试一次
+so if we try this again
+
+287
+00:10:28,566 --> 00:10:30,666
+邮箱应该是空的，果然是
+the mailbox should be empty and sure enough it is
+
+288
+00:10:31,366 --> 00:10:33,533
+让我们在另一条消息中使用不同的文件名
+let's in another message with a different file name
+
+289
+00:10:34,400 --> 00:10:36,100
+我将把它称为两个快照
+I'm going to call it two snapshot
+
+290
+00:10:36,600 --> 00:10:38,733
+然后我将在一条线上收到它
+and then I'm going to receive it on one line
+
+291
+00:10:39,066 --> 00:10:40,700
+所以模式是结果
+so the pattern is result
+
+292
+00:10:42,433 --> 00:10:43,566
+捕获文件名
+capture the file name
+
+293
+00:10:44,233 --> 00:10:46,333
+返回文件名结束
+return the file name end
+
+294
+00:10:47,200 --> 00:10:49,433
+并将该消息与快照匹配
+and it match that message to snapshot
+
+295
+00:10:50,233 --> 00:10:51,766
+现在邮箱又是空的
+and now the mailbox is empty again
+
+296
+00:10:52,400 --> 00:10:54,766
+那么如果我们调用receive会发生什么
+so what would happen if we call receive
+
+297
+00:10:55,033 --> 00:10:57,933
+在邮件实际到达邮箱之前
+before a message actually arrives in the mailbox
+
+298
+00:10:58,033 --> 00:10:58,833
+很好地设置它
+well to set that up
+
+299
+00:10:58,833 --> 00:11:01,666
+我们将让这个绑定进程休眠 15 秒
+we'll have this bond process sleep for 15 seconds
+
+300
+00:11:01,700 --> 00:11:03,133
+在发送结果之前
+before sending the result
+
+301
+00:11:03,366 --> 00:11:05,600
+所以我将其更改为三个快照只是为了使它
+so I'll change this to three snapshot just to make it
+
+302
+00:11:05,600 --> 00:11:06,233
+不同的
+different
+
+303
+00:11:06,233 --> 00:11:08,766
+然后在我们犯罪之前，我将使用计时器
+and then before we do the sin I'm going to use timer
+
+304
+00:11:09,300 --> 00:11:11,566
+睡眠 15 秒
+sleep 15 seconds
+
+305
+00:11:12,533 --> 00:11:13,600
+把我们放进我的结肠
+and just put us in my colon
+
+306
+00:11:13,600 --> 00:11:15,266
+所以我们有两个表达式
+so we have two expressions there
+
+307
+00:11:15,266 --> 00:11:15,966
+我们要睡觉了
+we're going to sleep
+
+308
+00:11:15,966 --> 00:11:17,166
+然后我们要发送
+and then we're going to do the send
+
+309
+00:11:18,133 --> 00:11:20,133
+现在让我们立即查看邮箱
+now let's immediately peek in the mailbox
+
+310
+00:11:20,333 --> 00:11:23,000
+好吧，它仍然是空的，现在让我们调用接收
+well it's still empty and now let's call receive
+
+311
+00:11:24,500 --> 00:11:26,333
+看起来它只是挂在那里
+well it looks like it's just hanging there
+
+312
+00:11:26,733 --> 00:11:29,833
+它挂了，因为接收是一个阻塞调用
+and it's hanging because receive is a blocking call
+
+313
+00:11:30,200 --> 00:11:33,166
+它正在等待邮件到达邮箱
+it's waiting for a message to arrive in the mailbox
+
+314
+00:11:33,600 --> 00:11:34,700
+如果你打电话接收
+if you call receive
+
+315
+00:11:34,700 --> 00:11:37,633
+并且邮箱不包含任何匹配的消息
+and the mailbox doesn't contain any matching messages
+
+316
+00:11:37,633 --> 00:11:40,500
+那么在这种情况下是 ix 的当前进程
+then the current process which is ix in this case
+
+317
+00:11:40,533 --> 00:11:43,300
+挂起直到匹配的消息到达
+suspends until a matching message arrives
+
+318
+00:11:43,433 --> 00:11:46,433
+然后终于在 15 秒后我们收到了消息
+and then finally after 15 seconds we get the message
+
+319
+00:11:47,000 --> 00:11:48,333
+接收虽然很耐心
+receive is patient though
+
+320
+00:11:48,433 --> 00:11:50,133
+它会无限期地等待
+it would have waited indefinitely
+
+321
+00:11:50,566 --> 00:11:53,233
+现在如果我们产生三个进程，每个进程会发生什么
+now what happens if we spawn three processes that each
+
+322
+00:11:53,233 --> 00:11:55,300
+向家长邮箱发送消息
+send a message to the parent's mailbox
+
+323
+00:11:55,700 --> 00:11:57,100
+首先我们将发送快照二
+first we'll send snapshot two
+
+324
+00:11:57,866 --> 00:11:59,433
+然后我们将发送快照一
+then we'll send snapshot one
+
+325
+00:11:59,733 --> 00:12:01,133
+然后我们将发送快照三
+then we'll send snapshot three
+
+326
+00:12:01,966 --> 00:12:03,533
+然后我们去邮箱看看
+and then we'll have a look in the mailbox
+
+327
+00:12:03,866 --> 00:12:06,433
+好吧，现在我们在邮箱中有一个消息列表
+well now we have a list of messages in the mailbox
+
+328
+00:12:06,566 --> 00:12:07,566
+并且它们的订购方式相同
+and they're ordered in the same
+
+329
+00:12:07,566 --> 00:12:08,833
+我们发送它们的顺序
+order in which we sent them
+
+330
+00:12:08,833 --> 00:12:10,766
+我们先发送了两个快照
+we sent snapshot two first
+
+331
+00:12:11,133 --> 00:12:13,000
+然后快照一然后快照三
+then snapshot one then snapshot three
+
+332
+00:12:14,100 --> 00:12:15,466
+所以这给了我们一个快照两个
+so that gives us a snapshot two
+
+333
+00:12:15,466 --> 00:12:17,166
+它已从他们的邮箱中删除
+and it's removed from their mailbox
+
+334
+00:12:17,500 --> 00:12:20,066
+快照一，然后快照三
+snapshot one and then snapshot three
+
+335
+00:12:20,400 --> 00:12:23,266
+现在注意消息是在相同的
+now notice the messages are received in the same
+
+336
+00:12:23,266 --> 00:12:25,566
+命令他们到达邮箱
+order they arrived in the mailbox
+
+337
+00:12:25,633 --> 00:12:28,166
+换句话说，它是先进先出
+in other words it's first in first out
+
+338
+00:12:28,400 --> 00:12:30,766
+或先收到
+or first in first received
+
+339
+00:12:31,466 --> 00:12:33,100
+邮箱里又是空的
+in the mailboxes once again empty
+
+340
+00:12:33,700 --> 00:12:34,766
+好的，所以当我们开始时
+okay so when we started
+
+341
+00:12:34,766 --> 00:12:37,500
+为什么我们将父母 pid 分配给变量
+why did we assign the parents pid to a variable
+
+342
+00:12:39,000 --> 00:12:41,366
+然后我们向那个家长发送了一条消息
+and then we sent a message to that parent
+
+343
+00:12:41,666 --> 00:12:44,533
+那么为什么我们可以在这里使用 self
+so why can we have just use self right here
+
+344
+00:12:45,900 --> 00:12:47,866
+我们看到它产生了一个进程
+we see that it spawns a process
+
+345
+00:12:48,066 --> 00:12:50,033
+所以如果父母和自我是同一件事
+so if parent and self are the same thing
+
+346
+00:12:50,033 --> 00:12:52,533
+那么消息应该在父母的邮箱中
+then the message should be in the parent's mailbox
+
+347
+00:12:54,400 --> 00:12:56,733
+嗯，但家长的邮箱是空的
+hmm but the parent's mailbox is empty
+
+348
+00:12:57,233 --> 00:12:59,766
+事实证明这是一个非常常见的错误
+well it turns out this is a really common mistake
+
+349
+00:12:59,833 --> 00:13:00,433
+请记住
+remember that
+
+350
+00:13:00,433 --> 00:13:03,733
+self 返回当前进程的pid
+self returns the pid of the current process
+
+351
+00:13:03,800 --> 00:13:05,533
+所以当我们在这里调用 self 时
+so when we call self up here
+
+352
+00:13:05,633 --> 00:13:09,000
+当前进程就是这个iexcession进程
+the current process is this iexcession process
+
+353
+00:13:09,033 --> 00:13:11,233
+它返回该进程的 pid
+and it returns the pid of that process
+
+354
+00:13:11,433 --> 00:13:13,466
+但在里面叫自己
+but calling self inside of
+
+355
+00:13:13,466 --> 00:13:15,400
+这个 spawn 函数就在这里
+this spawn function right here
+
+356
+00:13:15,666 --> 00:13:17,533
+将返回 pid
+is going to return the pid
+
+357
+00:13:17,833 --> 00:13:19,733
+那个产卵过程
+of that spawn process
+
+358
+00:13:19,866 --> 00:13:22,600
+所以父母和自己不是一回事
+so parent and self aren't the same thing
+
+359
+00:13:22,600 --> 00:13:24,566
+当这个生成过程运行时
+when this spawn process runs
+
+360
+00:13:24,700 --> 00:13:27,133
+重要的是要记住 pid 返回
+it's important to keep in mind that the pid return by
+
+361
+00:13:27,133 --> 00:13:30,133
+自我改变取决于它被调用的地方
+self changes depending on where it's called
+
+362
+00:13:30,733 --> 00:13:31,700
+当它在这里被调用时
+when it's called here
+
+363
+00:13:31,733 --> 00:13:33,666
+这将是 iexcession 过程
+it's going to be the iexcession process
+
+364
+00:13:33,666 --> 00:13:34,600
+当它在这里被调用时
+when it's called here
+
+365
+00:13:34,900 --> 00:13:37,766
+这将是正在产生的过程
+it's going to be the process that's being spawned
+
+366
+00:13:38,000 --> 00:13:40,333
+这就是为什么我们必须保存自我的价值
+that's why we had to save the value of self
+
+367
+00:13:40,433 --> 00:13:42,100
+在产生进程之前
+before spawning the process
+
+368
+00:13:42,333 --> 00:13:43,933
+因为自我会改变
+because self's going to change
+
+369
+00:13:44,366 --> 00:13:47,000
+但是父母不会改变，因为我们已经把它保存了
+but parent won't change because we've saved it off
+
+370
+00:13:47,266 --> 00:13:48,566
+如果我们发送给自己
+if we send to self
+
+371
+00:13:48,566 --> 00:13:51,166
+然后将消息放入 spawn 的邮箱
+then the message is put in the mailbox of the spawn
+
+372
+00:13:51,166 --> 00:13:53,866
+处理但随后该邮箱被破坏
+process but then that mailbox gets destroyed
+
+373
+00:13:53,866 --> 00:13:55,800
+当生成进程退出时
+when the spawn process exits
+
+374
+00:13:56,100 --> 00:13:57,866
+所以除非你真的想发消息
+so unless you really want to send a message
+
+375
+00:13:57,900 --> 00:13:58,933
+回到你自己
+back to yourself
+
+376
+00:13:59,100 --> 00:14:00,500
+你通常不会打电话
+you typically won't call
+
+377
+00:14:00,533 --> 00:14:02,833
+在 spawn 函数中的 self
+self inside of a spawn function
+
+378
+00:14:02,833 --> 00:14:03,933
+发送消息
+to send a message
+
+379
+00:14:04,033 --> 00:14:06,733
+相反，您将拥有一个类似于父级的变量
+instead you'll have a variable something like a parent
+
+380
+00:14:06,833 --> 00:14:09,000
+你要把消息发回给
+that you're going to send the message back to
+
+381
+00:14:12,000 --> 00:14:14,200
+现在我们知道如何解决我们最初的问题
+now we know how to solve our original problem
+
+382
+00:14:14,866 --> 00:14:17,100
+是的，当我们产生这个过程时
+yeah when we spawn this process
+
+383
+00:14:17,100 --> 00:14:18,633
+我们需要发送消息
+we need to send a message
+
+384
+00:14:18,833 --> 00:14:21,266
+回到父进程
+back to the parent process
+
+385
+00:14:21,266 --> 00:14:22,600
+这是过程
+which is the process
+
+386
+00:14:22,600 --> 00:14:24,700
+首先调用这个路由函数
+that called this route function in the first place
+
+387
+00:14:24,866 --> 00:14:27,900
+并且该消息将包括以下结果
+and that message is going to include the result of
+
+388
+00:14:28,100 --> 00:14:29,600
+调用获取快照
+calling get snapshot
+
+389
+00:14:29,833 --> 00:14:31,966
+现在让我们只关注第一个 api 请求
+now let's just focus on the first api request
+
+390
+00:14:31,966 --> 00:14:34,700
+所以我们实际上可以注释掉另外两个相机
+so we can actually comment out these other two cameras
+
+391
+00:14:35,333 --> 00:14:37,000
+我们想发回消息给
+and we want to send a message back to
+
+392
+00:14:37,000 --> 00:14:39,133
+父进程所以我们需要做的第一件事
+the parent process so the first thing we need to do
+
+393
+00:14:39,400 --> 00:14:41,166
+是保存那个父进程
+is save off that parent process
+
+394
+00:14:41,166 --> 00:14:43,266
+我们将保存父母等于自我
+we'll save the parent equals self
+
+395
+00:14:43,633 --> 00:14:46,066
+在这种情况下，这是
+and in this context this is the
+
+396
+00:14:46,100 --> 00:14:47,666
+请求处理流程
+request handling process
+
+397
+00:14:49,766 --> 00:14:52,900
+这就是我们在 http 服务器中产生的过程
+that's the process we spawn in http server
+
+398
+00:14:52,966 --> 00:14:54,466
+运行路由功能
+that runs the route function
+
+399
+00:14:54,866 --> 00:14:57,433
+现在你可能会看到这被称为调用者
+now you might see this referred to as the caller
+
+400
+00:14:57,433 --> 00:14:58,433
+因为它是pid
+since it's the pid
+
+401
+00:14:58,433 --> 00:15:00,666
+调用此函数的进程
+of the process that called this function
+
+402
+00:15:00,933 --> 00:15:03,766
+但为了保持一致，我们将保留名称 parent
+but to stay consistent we'll keep the name parent
+
+403
+00:15:04,566 --> 00:15:06,166
+那么当我们产生这个过程时
+then when we spawn this process
+
+404
+00:15:06,166 --> 00:15:07,700
+我们想发回一条消息
+we want to send a message back to that
+
+405
+00:15:07,700 --> 00:15:08,533
+所以我们会发送
+so we will send
+
+406
+00:15:08,833 --> 00:15:09,633
+给父母
+to the parent
+
+407
+00:15:09,900 --> 00:15:12,566
+调用此函数的结果
+the result of calling this function
+
+408
+00:15:12,633 --> 00:15:13,900
+但我们要把它包装成元组
+but we're going to wrap it into tuple
+
+409
+00:15:13,900 --> 00:15:15,000
+所以这将是结果
+so it's going to be result
+
+410
+00:15:15,633 --> 00:15:16,433
+然后是第二个
+and then the second
+
+411
+00:15:16,466 --> 00:15:18,000
+该元组中的元素将是
+element in that tuple is going to be
+
+412
+00:15:18,000 --> 00:15:19,733
+调用的结果被打盹
+the result of calling gets napshot
+
+413
+00:15:20,133 --> 00:15:21,100
+我们不需要这个 pid
+and we don't need this pid
+
+414
+00:15:21,100 --> 00:15:22,700
+所以我要在前面摆脱这个
+so I'm just going to get rid of this on the front
+
+415
+00:15:23,300 --> 00:15:25,033
+然后一旦我们产生那个过程
+then once we spawn that process
+
+416
+00:15:25,066 --> 00:15:26,800
+我们会立即致电接收
+we'll immediately call receive
+
+417
+00:15:27,033 --> 00:15:28,600
+并等待消息到达
+and wait for the message to arrive
+
+418
+00:15:29,300 --> 00:15:30,633
+所以我们会说快照一
+so we'll say snapshot one
+
+419
+00:15:31,900 --> 00:15:32,966
+等于接收
+equals receive
+
+420
+00:15:34,633 --> 00:15:35,766
+我们将放入该模式
+we'll put in that pattern
+
+421
+00:15:38,666 --> 00:15:40,100
+返回提取的文件名
+return the extracted file name
+
+422
+00:15:40,666 --> 00:15:41,700
+就像我们以前一样
+just like we did before
+
+423
+00:15:42,600 --> 00:15:44,366
+现在重要的是要注意这个接收
+now it's important to note that this receive
+
+424
+00:15:44,366 --> 00:15:46,666
+在父进程中被调用
+is getting called in the parent process
+
+425
+00:15:46,666 --> 00:15:48,200
+因为在父母中我们要等待
+because in the parent we want to wait
+
+426
+00:15:48,200 --> 00:15:49,500
+消息到达
+for the message to arrive
+
+427
+00:15:49,866 --> 00:15:51,466
+从那个产生的过程
+from that spawned process
+
+428
+00:15:51,733 --> 00:15:53,900
+因为我们只期待一种信息
+and because we only expect one kind of message
+
+429
+00:15:53,966 --> 00:15:56,266
+我们只需要对该消息进行模式匹配
+we just need to pattern match on that message
+
+430
+00:15:56,633 --> 00:15:59,433
+现在进程可以发送和接收多个
+now processes can send and receive multiple
+
+431
+00:15:59,466 --> 00:16:01,000
+不同类型的消息
+different kinds of messages
+
+432
+00:16:01,133 --> 00:16:01,733
+像这样
+as such
+
+433
+00:16:01,733 --> 00:16:05,266
+接收可以匹配多个模式的消息
+receive can match messages against multiple patterns
+
+434
+00:16:05,266 --> 00:16:07,066
+类似于 case 表达式的工作方式
+similar to how a case expression works
+
+435
+00:16:07,066 --> 00:16:08,466
+有多个从句
+with multiple clauses
+
+436
+00:16:08,766 --> 00:16:10,000
+我们实际上会看到一个例子
+we'll actually see an example of that
+
+437
+00:16:10,000 --> 00:16:11,233
+在后面的部分
+in the later section
+
+438
+00:16:11,466 --> 00:16:13,900
+现在虽然我们只需要一种模式
+for now though we just need one pattern
+
+439
+00:16:14,333 --> 00:16:16,500
+然后一旦我们得到最后的快照
+then once we get that final even snapshot one
+
+440
+00:16:16,500 --> 00:16:18,100
+我们只需要记住返回
+we just need to remember to return
+
+441
+00:16:18,166 --> 00:16:19,200
+快照一张在这里
+snapshot one here
+
+442
+00:16:19,200 --> 00:16:21,433
+因为我们还没有快照列表
+because we don't yet have a list of snapshots
+
+443
+00:16:21,433 --> 00:16:22,300
+我们只有一个
+we just have one
+
+444
+00:16:22,700 --> 00:16:23,833
+所以如果我们把它保存起来
+so if we save that away
+
+445
+00:16:24,100 --> 00:16:25,600
+现在我们需要重新启动我们的服务器
+now we're going to need to restart our server
+
+446
+00:16:25,600 --> 00:16:27,333
+所以我只是要重新启动ix
+so I'm just going to restart ix
+
+447
+00:16:30,400 --> 00:16:31,566
+然后我们将生成我们的服务器
+then we'll spawn our server
+
+448
+00:16:32,566 --> 00:16:34,566
+然后我们将发送快照请求
+then we'll send a request for snapshots
+
+449
+00:16:34,666 --> 00:16:36,100
+它应该返回一个文件名
+and it should return a file name
+
+450
+00:16:36,466 --> 00:16:37,533
+确实如此
+and indeed it does
+
+451
+00:16:37,666 --> 00:16:38,633
+这很酷
+and that's pretty cool
+
+452
+00:16:39,133 --> 00:16:40,266
+这是一个很好的开始
+this is a great start
+
+453
+00:16:40,433 --> 00:16:41,933
+现在我们只需要做同样的事情
+now we just need to do the same
+
+454
+00:16:41,933 --> 00:16:43,666
+其他两个相机的东西
+thing for the other two cameras
+
+455
+00:16:43,933 --> 00:16:46,533
+所以让我们继续复制代码
+so let's go ahead and duplicate the code
+
+456
+00:16:46,533 --> 00:16:48,500
+因为它展示了一些有趣的东西
+because it demonstrates something interesting
+
+457
+00:16:48,700 --> 00:16:50,833
+现在别担心，我们稍后会清理它
+now don't worry we'll clean this up later
+
+458
+00:16:51,100 --> 00:16:52,700
+我只是要复制这两行
+I'm just going to copy these two lines
+
+459
+00:16:52,700 --> 00:16:54,600
+我们将在这里删除此评论
+we'll get rid of this comment here
+
+460
+00:16:55,566 --> 00:16:57,466
+我只是要粘贴我复制的内容
+I'm just going to paste in what I copied
+
+461
+00:16:58,133 --> 00:16:59,800
+所以这将用于凸轮二
+so this is going to be for cam two
+
+462
+00:17:00,700 --> 00:17:02,400
+然后我们会得到快照二
+and then we'll get snapshot two
+
+463
+00:17:02,766 --> 00:17:03,866
+我再贴一次
+I'll paste it again
+
+464
+00:17:05,100 --> 00:17:06,300
+这将用于凸轮三
+this is going to be for cam three
+
+465
+00:17:07,633 --> 00:17:08,766
+我们会得到快照三
+and we'll get snapshot three
+
+466
+00:17:10,500 --> 00:17:12,500
+然后我们可以取消注释这个列表
+then we can uncomment this list
+
+467
+00:17:15,200 --> 00:17:16,300
+所以我们把快照放在一张
+so we put snapshot one
+
+468
+00:17:16,300 --> 00:17:17,133
+列表中的两个和三个
+two and three in a list
+
+469
+00:17:17,133 --> 00:17:18,633
+然后我们只需要返回
+and then we just need to return
+
+470
+00:17:18,933 --> 00:17:21,466
+该列表，所以我们将调用检查
+that list so we'll call inspect on
+
+471
+00:17:21,533 --> 00:17:22,633
+现在的快照
+snapshots now
+
+472
+00:17:23,166 --> 00:17:24,133
+所以把它保存起来
+so save that away
+
+473
+00:17:25,366 --> 00:17:26,733
+我们将再次重新启动我们的服务器
+we'll restart our server again
+
+474
+00:17:30,033 --> 00:17:30,866
+以及可能出什么问题
+and what could go wrong
+
+475
+00:17:30,866 --> 00:17:32,266
+让我们继续发送请求
+let's go ahead and send the request
+
+476
+00:17:35,533 --> 00:17:38,733
+哇，还需要3秒
+whoa it still takes 3 seconds
+
+477
+00:17:38,800 --> 00:17:43,200
+为什么那么好，因为记住接收块
+why well because remember that receive blocks
+
+478
+00:17:43,600 --> 00:17:45,400
+对，我们发送一个请求
+right we send one request
+
+479
+00:17:45,800 --> 00:17:48,133
+然后等待调用receive的结果
+and then wait for the result calling receive
+
+480
+00:17:48,433 --> 00:17:50,200
+在发送下一个请求之前
+before sending the next request
+
+481
+00:17:50,433 --> 00:17:51,566
+所以即使每个
+so even though each
+
+482
+00:17:51,600 --> 00:17:53,400
+进程同时运行
+process runs concurrently
+
+483
+00:17:53,400 --> 00:17:55,566
+我们的代码被有效地序列化了
+our code is effectively serialized
+
+484
+00:17:55,700 --> 00:17:58,300
+现在这是相当明显的，因为重复
+now this is fairly obvious because of the duplication
+
+485
+00:17:58,466 --> 00:18:01,166
+但它是一个警告，要注意阻止
+but it serves as a warning to be mindful of blocking
+
+486
+00:18:01,166 --> 00:18:04,500
+成为代码中同步点的调用
+calls that become synchronization points in your code
+
+487
+00:18:04,666 --> 00:18:07,166
+并且接收是那些阻塞呼叫之一
+and receive is one of those blocking calls
+
+488
+00:18:07,666 --> 00:18:08,633
+解决这个问题
+to fix this problem
+
+489
+00:18:08,666 --> 00:18:10,600
+我们需要做的就是重新排列代码
+all we need to do is rearrange the code
+
+490
+00:18:10,600 --> 00:18:12,533
+所以我们首先产生这个过程
+so that we spawn the process as first
+
+491
+00:18:12,933 --> 00:18:14,566
+然后接收所有消息
+then receive all the messages
+
+492
+00:18:15,566 --> 00:18:17,733
+所以我会把这个债券搬到这里
+so I'll take this bond and move it up here
+
+493
+00:18:19,066 --> 00:18:20,100
+与此债券相同
+same with this bond
+
+494
+00:18:21,266 --> 00:18:23,366
+然后我们将在那之后做所有的接收
+and then we'll do all the receives after that
+
+495
+00:18:24,200 --> 00:18:24,533
+所以现在
+so now
+
+496
+00:18:24,533 --> 00:18:26,800
+所有进程都将立即生成
+all the processes are going to get spawned at once
+
+497
+00:18:26,800 --> 00:18:28,366
+这将很快发生
+this is going to happen really fast
+
+498
+00:18:28,900 --> 00:18:31,333
+然后我们等待三个消息
+and then we wait for the three messages
+
+499
+00:18:31,633 --> 00:18:33,033
+最快的api请求
+the fastest api request
+
+500
+00:18:33,033 --> 00:18:34,400
+会先发消息
+is going to send a message first
+
+501
+00:18:34,733 --> 00:18:36,633
+所以它将是邮箱中的第一个
+so it's going to be the first one in the mailbox
+
+502
+00:18:36,800 --> 00:18:38,000
+然后是下一个最快的
+and then the next fastest
+
+503
+00:18:38,266 --> 00:18:39,633
+最后是最慢的
+and then finally the slowest one
+
+504
+00:18:40,033 --> 00:18:40,866
+但总的来说
+but overall
+
+505
+00:18:40,866 --> 00:18:43,133
+因为进程同时运行
+since the processes are running concurrently
+
+506
+00:18:43,266 --> 00:18:44,633
+我们只需要等多久
+we only have to wait as long
+
+507
+00:18:44,633 --> 00:18:46,233
+作为最慢的 api 请求
+as the slowest api request
+
+508
+00:18:46,333 --> 00:18:48,233
+在我们的例子中只是一秒钟
+which in our case is just one second
+
+509
+00:18:48,966 --> 00:18:50,133
+所以现在如果我们把它保存起来
+so now if we save this away
+
+510
+00:18:51,000 --> 00:18:52,200
+再次重启服务器
+restart the server again
+
+511
+00:18:54,333 --> 00:18:56,533
+现在让我们最后一次尝试这个请求
+and now let's try that request one final time
+
+512
+00:18:57,033 --> 00:18:59,666
+我们在一秒钟内获得所有三个快照
+and we get all three snapshots in just one second
+
+513
+00:18:59,900 --> 00:19:02,500
+每个进程并行运行
+each of the processes are running in parallel
+
+514
+00:19:02,500 --> 00:19:04,066
+这真的很甜
+which is really sweet
+
+515
+00:19:04,466 --> 00:19:06,433
+协调同步工作
+to coordinate a synchronous work
+
+516
+00:19:06,600 --> 00:19:08,566
+我们所要做的就是产卵
+all we had to do was spawn
+
+517
+00:19:09,333 --> 00:19:11,000
+沙并接收
+sand and receive
+
+518
+00:19:11,366 --> 00:19:13,100
+现在值得承认的是
+now it's worth recognizing that this
+
+519
+00:19:13,233 --> 00:19:16,266
+仅适用于单个 api 请求
+only works because the individual api requests
+
+520
+00:19:16,333 --> 00:19:17,766
+不要互相依赖
+don't depend on each other
+
+521
+00:19:17,766 --> 00:19:20,033
+当你有这样的独立工作块时
+and when you have independent chunks of work like this
+
+522
+00:19:20,033 --> 00:19:21,433
+你可以并行运行
+that you can run in parallel
+
+523
+00:19:21,466 --> 00:19:22,600
+将购买一切手段
+will buy all means
+
+524
+00:19:22,600 --> 00:19:24,266
+充分利用权力
+take full advantage of the power
+
+525
+00:19:24,266 --> 00:19:26,033
+Elixir 的并发模型
+of elixir's concurrency model
+
+526
+00:19:26,300 --> 00:19:27,133
+在下一节
+in the next section
+
+527
+00:19:27,133 --> 00:19:29,200
+我们将删除我们在此处看到的重复项
+we'll remove the duplication we see here
+
+528
+00:19:29,200 --> 00:19:31,633
+并发现运行的抽象
+and discover an abstraction for running
+
+529
+00:19:31,733 --> 00:19:33,666
+任何异步任务
+any task asynchronously
+

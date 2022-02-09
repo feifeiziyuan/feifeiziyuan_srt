@@ -1,0 +1,1280 @@
+1
+00:00:00,333 --> 00:00:02,400
+所以我们的第一步是创建一个elixir项目
+so our first step is to create an elixir project
+
+2
+00:00:02,400 --> 00:00:03,700
+并运行一些代码
+and get some code running
+
+3
+00:00:03,766 --> 00:00:04,666
+毫不奇怪
+and no surprise
+
+4
+00:00:04,666 --> 00:00:07,733
+elixir 有组织项目的约定和
+elixir has conventions for organizing projects and
+
+5
+00:00:07,733 --> 00:00:10,566
+自动化项目任务的好工具
+great tooling to automate project tasks
+
+6
+00:00:10,866 --> 00:00:12,266
+创建一个新的长生不老药项目
+to create a new elixir project
+
+7
+00:00:12,266 --> 00:00:14,800
+我们使用我们所说的混合命令 mix new
+we use the mix command that we say mix new
+
+8
+00:00:14,800 --> 00:00:17,800
+并且navar项目将会被看到
+and the navar project is going to be see
+
+9
+00:00:18,400 --> 00:00:21,266
+它在那里生成了一些文件和目录
+and it generated a few files and directories there
+
+10
+00:00:21,400 --> 00:00:23,466
+我们马上看看那些
+we'll look at those in just a minute now
+
+11
+00:00:23,466 --> 00:00:26,233
+混合工具让我们自动化常见的项目任务
+the mix tool lets us automate common project tasks
+
+12
+00:00:26,233 --> 00:00:28,566
+有点像 ruby 的 rake 工具
+sort of like ruby's rake tool
+
+13
+00:00:28,633 --> 00:00:30,700
+实际上，如果您只想查看您所做的所有任务
+in fact if you just want to see all the tasks you do
+
+14
+00:00:30,733 --> 00:00:32,966
+混合帮助，它列出了所有这些
+mix help and it lists all those out
+
+15
+00:00:32,966 --> 00:00:35,700
+所以我们做了 mix new 来创建一个新的 elixir 项目
+so we did the mix new to create a new elixir project
+
+16
+00:00:35,966 --> 00:00:38,100
+但是这里有很多任务
+but there's a load of tasks in here for
+
+17
+00:00:38,233 --> 00:00:39,633
+只是你想做的普通事情
+just common things you want to do
+
+18
+00:00:39,633 --> 00:00:41,200
+围绕你的长生不老药项目
+around your elixir project
+
+19
+00:00:41,700 --> 00:00:43,200
+所以我只是要更改目录
+so I'm just going to change directory
+
+20
+00:00:43,300 --> 00:00:43,766
+进入那个
+into that
+
+21
+00:00:43,766 --> 00:00:46,333
+调查项目目录，然后在
+survey project directory and then open it up in
+
+22
+00:00:46,333 --> 00:00:47,133
+我的编辑
+my editor
+
+23
+00:00:47,933 --> 00:00:49,500
+让我们快速浏览一下轻量级
+let's take a quick peek at the lightweight
+
+24
+00:00:49,500 --> 00:00:50,200
+目录结构
+directory structure
+
+25
+00:00:50,200 --> 00:00:51,933
+混合新命令创建
+that the mix new command created
+
+26
+00:00:51,933 --> 00:00:53,666
+我们有一个 con 目录
+we've got a con directory
+
+27
+00:00:53,800 --> 00:00:55,400
+其中包含一个可配置的文件
+which contains one file configurable
+
+28
+00:00:55,400 --> 00:00:58,066
+exs 和这个文件负责
+exs and this file is responsible for
+
+29
+00:00:58,066 --> 00:00:59,200
+配置应用程序
+configuring the application
+
+30
+00:00:59,200 --> 00:01:00,133
+这里不足为奇
+no surprise here
+
+31
+00:01:00,500 --> 00:01:02,133
+大部分是评论和
+most of it is comments and
+
+32
+00:01:02,133 --> 00:01:03,500
+你必须放弃的情况很少见
+it's pretty rare that you have to drop
+
+33
+00:01:03,500 --> 00:01:04,733
+进入这个并改变任何东西
+into this and change anything
+
+34
+00:01:04,900 --> 00:01:06,000
+我们会回到这个
+we'll return back to this
+
+35
+00:01:06,000 --> 00:01:07,766
+因为我们稍后在课程中需要它
+as we need it later on in the course
+
+36
+00:01:08,333 --> 00:01:09,566
+我们有一个实时目录
+and we've got a live directory
+
+37
+00:01:09,566 --> 00:01:11,566
+这是我们的应用程序代码将要存在的地方
+this is where our application code is going to live
+
+38
+00:01:11,733 --> 00:01:13,233
+并进行了调查
+and generated a survey
+
+39
+00:01:13,233 --> 00:01:15,133
+ex 文件，我们将在稍后查看
+ex file which we'll look at in just a second
+
+40
+00:01:15,533 --> 00:01:17,800
+我们还有一个测试目录，这并不奇怪
+we also have a test directory which no surprise
+
+41
+00:01:18,133 --> 00:01:20,733
+在这些生成的测试中有一些测试
+has some test inside of those some generated tests
+
+42
+00:01:21,133 --> 00:01:22,700
+我们稍后再看这些
+again we'll look at those a little bit later
+
+43
+00:01:23,033 --> 00:01:24,900
+然后我们有这个混合exs
+and then we have this mix exs
+
+44
+00:01:25,133 --> 00:01:27,133
+这就是我们配置项目的地方
+and this is where we configure our project
+
+45
+00:01:27,133 --> 00:01:28,233
+及其依赖项
+and its dependencies
+
+46
+00:01:28,333 --> 00:01:29,000
+我们必须添加
+we'll have to add
+
+47
+00:01:29,000 --> 00:01:30,600
+稍后在课程中的依赖项
+a dependency a little bit later on in the course
+
+48
+00:01:30,600 --> 00:01:32,166
+所以我们也会回到这个文件
+so we'll come back to this file as well
+
+49
+00:01:32,600 --> 00:01:35,066
+现在不要让两个文件扩展名点
+now don't let the two file extensions dot
+
+50
+00:01:35,066 --> 00:01:37,833
+ex 和 dot exs 把你扔了
+ex and dot exs throw you
+
+51
+00:01:38,000 --> 00:01:40,366
+两种类型的文件都包含长生不老药代码
+both types of files contain elixir code
+
+52
+00:01:40,533 --> 00:01:44,000
+dot ex 文件旨在编译然后运行
+dot ex files are meant to be compiled and then run
+
+53
+00:01:44,266 --> 00:01:45,833
+而点性
+whereas dot sex
+
+54
+00:01:45,833 --> 00:01:48,666
+文件像脚本一样被有效地解释
+files are effectively interpreted like scripts
+
+55
+00:01:48,733 --> 00:01:50,000
+因此尾随 s
+thus the trailing s
+
+56
+00:01:50,400 --> 00:01:52,666
+大多数时候，虽然你只会使用
+most of the time though you'll just use the
+
+57
+00:01:52,666 --> 00:01:53,900
+扩展名
+ex extension
+
+58
+00:01:54,266 --> 00:01:56,566
+这正是我们在这个塞尔维亚的延伸
+and that's exactly the extension we have on this serbia
+
+59
+00:01:56,566 --> 00:01:58,366
+例如因为它是应用程序代码
+ex because it's application code
+
+60
+00:01:58,366 --> 00:02:00,300
+我们所有的应用程序代码都会有一个
+and all of our application code is going to have a
+
+61
+00:02:00,300 --> 00:02:03,100
+ex 扩展名，所以我将删除这些评论
+ex extension so I'm just going to remove these comments
+
+62
+00:02:03,100 --> 00:02:04,933
+所以我们可以专注于代码
+so we can focus on the code
+
+63
+00:02:05,100 --> 00:02:08,133
+并且长生不老药的代码总是组织在名称模块中
+and elixir code is always organized in name module
+
+64
+00:02:08,133 --> 00:02:10,933
+所以文件首先在这里定义一个模块
+so the file starts by defining a module here
+
+65
+00:02:10,933 --> 00:02:11,900
+这只是一个名字
+which is just a name
+
+66
+00:02:11,933 --> 00:02:14,300
+它使用 def 模块的功能空间
+space for functions it uses def module
+
+67
+00:02:14,366 --> 00:02:16,266
+然后看到模块的名称
+then the name of the module is see
+
+68
+00:02:16,266 --> 00:02:18,033
+请注意它以大写字符开头
+notice that it starts with an uppercase character
+
+69
+00:02:18,533 --> 00:02:20,200
+以及所有模块名称和长生不老药使用
+and all module names and elixir use
+
+70
+00:02:20,200 --> 00:02:21,533
+骆驼案类似于
+camel case similar to
+
+71
+00:02:21,733 --> 00:02:23,533
+ruby 类和模块
+ruby classes and modules
+
+72
+00:02:24,033 --> 00:02:25,300
+然后在模块内部我们有一个
+then inside of the module we have a
+
+73
+00:02:25,300 --> 00:02:26,900
+名称函数称为 hello
+name function called hello
+
+74
+00:02:26,900 --> 00:02:27,166
+和
+and
+
+75
+00:02:27,166 --> 00:02:29,833
+函数名是带下划线的小写或
+the function names are lowercase with underscores or
+
+76
+00:02:29,833 --> 00:02:33,200
+蛇案例，这些类似于 ruby 方法名称
+snake case and these are similar to ruby method names
+
+77
+00:02:33,233 --> 00:02:33,566
+和
+and
+
+78
+00:02:33,566 --> 00:02:36,533
+所有名称函数都必须在模块内定义
+all name functions must be defined inside of a module
+
+79
+00:02:36,766 --> 00:02:38,100
+如果你是一名 Ruby 程序员
+if you're a ruby programmer
+
+80
+00:02:38,100 --> 00:02:39,533
+这应该看起来很熟悉
+this should look fairly familiar
+
+81
+00:02:39,533 --> 00:02:41,133
+但一件事可能会让你绊倒
+but one thing that might trip you up
+
+82
+00:02:41,133 --> 00:02:43,300
+至少我的一次旅行试图记住
+that at least a trip to me up was trying to remember
+
+83
+00:02:43,300 --> 00:02:44,466
+打露水
+to type the dew
+
+84
+00:02:44,600 --> 00:02:44,866
+是的
+yeah
+
+85
+00:02:44,866 --> 00:02:47,533
+我总是忘记这些行尾的这些会费
+I always forget these dues on the ends of these lines
+
+86
+00:02:47,533 --> 00:02:49,266
+所以这只是要记住的事情
+so that's just something to keep in mind
+
+87
+00:02:49,700 --> 00:02:52,033
+这个 hello 函数当前正在返回一个
+and this hello function is currently returning an
+
+88
+00:02:52,033 --> 00:02:54,400
+原子，就像红宝石中的符号
+atom which is like a symbol in ruby
+
+89
+00:02:54,566 --> 00:02:55,666
+所以这是原子世界
+so it's the atom world
+
+90
+00:02:56,033 --> 00:02:57,233
+而亚当只是一个
+and adam is just a
+
+91
+00:02:57,300 --> 00:02:59,700
+值与其名称相同的名称或
+name whose value is the same as its name or
+
+92
+00:02:59,900 --> 00:03:00,866
+一个常数
+a constant
+
+93
+00:03:00,900 --> 00:03:03,633
+让它在这里返回一个适当的问候
+let's just have it return a proper greeting here
+
+94
+00:03:03,800 --> 00:03:05,900
+所以我们将使用一个双引号的长生不老药字符串
+so we'll use an elixir string which is double quotes
+
+95
+00:03:05,900 --> 00:03:08,266
+毫不奇怪，然后我们可以使用字符串插值
+no surprise and then we can use string interpolation
+
+96
+00:03:08,266 --> 00:03:09,266
+就像在红宝石中一样
+just like in ruby
+
+97
+00:03:09,266 --> 00:03:10,466
+如果我们想打招呼
+if we wanted to say hello
+
+98
+00:03:10,566 --> 00:03:12,766
+一些名字，然后我们可以把这个名字传入
+some name and then we could pass that name in
+
+99
+00:03:13,100 --> 00:03:14,933
+作为 hello 函数的参数
+as an argument to the hello function
+
+100
+00:03:15,466 --> 00:03:16,600
+然后调用一个函数
+then to call a function
+
+101
+00:03:16,766 --> 00:03:17,600
+我们要下来
+we're going to come down
+
+102
+00:03:17,633 --> 00:03:19,833
+在这个模块之外，我将使用 io
+outside of this module and I'm going to use io
+
+103
+00:03:19,833 --> 00:03:21,833
+这是一个内置在 elixir 中的模块名称
+that's a module name that's built into elixir
+
+104
+00:03:22,066 --> 00:03:22,800
+使用看跌期权
+use puts
+
+105
+00:03:22,800 --> 00:03:24,866
+如果您是 ruby 程序员，这应该很熟悉
+which should be familiar if you're a ruby programmer
+
+106
+00:03:25,033 --> 00:03:26,333
+然后我们使用模块名称
+and then we use the module name
+
+107
+00:03:26,366 --> 00:03:27,500
+在这种情况下服务
+which is serving in this case
+
+108
+00:03:27,500 --> 00:03:28,833
+和函数 hello 的名称
+and the name of the function hello
+
+109
+00:03:28,966 --> 00:03:30,600
+然后我们就传给它长生不老药
+and then we'll just pass it elixir
+
+110
+00:03:31,100 --> 00:03:32,300
+所以定义模块
+so defining modules
+
+111
+00:03:32,300 --> 00:03:32,933
+和功能
+and functions
+
+112
+00:03:32,933 --> 00:03:33,766
+然后打电话给那些
+and then calling those
+
+113
+00:03:33,766 --> 00:03:35,766
+模块上的功能非常简单
+functions on the modules is pretty straightforward
+
+114
+00:03:36,266 --> 00:03:36,766
+明显地
+obviously
+
+115
+00:03:36,766 --> 00:03:38,566
+接下来我们要做的是运行我们的代码
+the next thing we want to do is to run our code
+
+116
+00:03:38,566 --> 00:03:39,300
+并做到这一点
+and to do that
+
+117
+00:03:39,300 --> 00:03:41,633
+我们需要编译我们的 elixir 文件
+we're going to need to compile our elixir files
+
+118
+00:03:41,866 --> 00:03:42,766
+骑自行车代码
+to bike code
+
+119
+00:03:42,766 --> 00:03:45,733
+然后在 up 虚拟机上运行该自行车代码
+and then run that bike code on the up virtual machine
+
+120
+00:03:46,033 --> 00:03:48,566
+现在早期的虚拟机好像20岁了
+now the early virtual machine is like 20 years old
+
+121
+00:03:48,600 --> 00:03:50,433
+所以你可以想象我们将要做什么
+so you can imagine what we're going to have to
+
+122
+00:03:50,433 --> 00:03:51,233
+经过
+go through
+
+123
+00:03:51,333 --> 00:03:53,966
+只是为了将 hello elixir 打印到控制台
+just to print out hello elixir to the console
+
+124
+00:03:54,333 --> 00:03:56,633
+使文件交叉编译器
+make files cross compilers
+
+125
+00:03:56,900 --> 00:03:59,433
+好消息是一旦我们克服了这一点
+the good news is once we get past this point
+
+126
+00:03:59,433 --> 00:04:01,066
+从这里开始走下坡路
+it's all downhill from here
+
+127
+00:04:01,633 --> 00:04:02,533
+只是在开玩笑
+just kidding
+
+128
+00:04:02,933 --> 00:04:05,266
+elixir 让运行我们的代码变得非常容易
+elixir makes it really easy to run our code
+
+129
+00:04:05,733 --> 00:04:07,966
+所以运行 elixir 文件的第一种方法是使用
+so the first way to run an elixir file is using the
+
+130
+00:04:07,966 --> 00:04:08,966
+灵药命令
+elixir command
+
+131
+00:04:09,000 --> 00:04:10,433
+和我们的塞尔维亚
+and our serbia
+
+132
+00:04:10,433 --> 00:04:12,266
+ex 文件在 lip 目录下
+ex file is down in the lip directory
+
+133
+00:04:12,266 --> 00:04:14,033
+所以我只是给它一个相对路径
+so I just give it a relative path there
+
+134
+00:04:14,666 --> 00:04:16,800
+我们看到我们得到你好长生不老药不足为奇
+and we see we get hello elixir no surprise
+
+135
+00:04:17,333 --> 00:04:18,866
+但是当你想到它时，这很酷
+but this is pretty cool when you think about it
+
+136
+00:04:18,866 --> 00:04:20,866
+因为文件在内存中编译
+because the file got compiled in memory
+
+137
+00:04:20,866 --> 00:04:22,600
+进入自行车代码，然后运行
+into bike code and then it was run
+
+138
+00:04:22,633 --> 00:04:24,100
+在早期的虚拟机上
+on the early virtual machine
+
+139
+00:04:24,566 --> 00:04:27,466
+现在我们的文件位于混合项目目录下
+now our file lives in the mixed project directory under
+
+140
+00:04:27,466 --> 00:04:30,200
+lib 但你可以创建一个一次性的长生不老药文件
+lib but you can create a one off elixir file
+
+141
+00:04:30,200 --> 00:04:31,000
+任何你想的地点都可以
+anywhere you want
+
+142
+00:04:31,133 --> 00:04:32,800
+并使用electric 命令运行它
+and run it using the electric command
+
+143
+00:04:32,800 --> 00:04:34,966
+它不必位于混合项目目录中
+it doesn't have to be in a mixed project directory
+
+144
+00:04:34,966 --> 00:04:35,766
+就像我们在这里一样
+like we have it here
+
+145
+00:04:36,000 --> 00:04:37,500
+但除非它是一次性文件
+but unless it's a one off file
+
+146
+00:04:37,500 --> 00:04:40,333
+我总是把我的代码放在一个混合项目目录中
+I always put my code in a mixed project directory
+
+147
+00:04:40,333 --> 00:04:40,766
+因为我通常
+because I usually
+
+148
+00:04:40,766 --> 00:04:41,933
+最终有多个文件
+end up with multiple files
+
+149
+00:04:41,933 --> 00:04:43,700
+这就是正确的方法
+and that's just the proper way to do it
+
+150
+00:04:44,266 --> 00:04:46,100
+我也可以用崇高的方式运行它
+I can also run this back in sublime
+
+151
+00:04:46,100 --> 00:04:48,233
+如果我做苹果 b，我已经设置好了
+I've got it set up if I do apple b
+
+152
+00:04:48,666 --> 00:04:51,033
+我在那里得到输出，它是你好，长生不老药
+I get the output there it's hello elixir
+
+153
+00:04:51,300 --> 00:04:52,966
+这只是设置为
+and this is just set up to
+
+154
+00:04:53,000 --> 00:04:55,400
+在当前文件上运行 elixir 命令
+run the elixir command on the current file
+
+155
+00:04:55,466 --> 00:04:56,633
+我将使用这种方法
+and I'm going to use this approach
+
+156
+00:04:56,633 --> 00:04:57,700
+至少对于第一个
+at least for the first
+
+157
+00:04:57,700 --> 00:04:58,466
+课程的一部分
+part of the course
+
+158
+00:04:58,466 --> 00:04:59,533
+只是这样你就不必看
+just so you don't have to watch
+
+159
+00:04:59,533 --> 00:05:00,666
+我来回切换
+me switch back and forth
+
+160
+00:05:00,666 --> 00:05:02,300
+在命令行和编辑器之间
+between the command line and the editor
+
+161
+00:05:02,300 --> 00:05:04,600
+这只是快速获得结果的简单方法
+and it's just the easy way to get the results quickly
+
+162
+00:05:05,266 --> 00:05:06,433
+运行我们的应用程序的另一种方式
+another way to run our app
+
+163
+00:05:06,433 --> 00:05:09,800
+是使用 luxor 的交互式 shell 修复
+is to use a luxor's interactive shell fix
+
+164
+00:05:09,833 --> 00:05:11,933
+是的，这类似于 ruby 的 irb
+yeah this is similar to ruby's irb
+
+165
+00:05:12,066 --> 00:05:13,233
+我们可以输入
+and we could just type in
+
+166
+00:05:13,233 --> 00:05:15,200
+任何表达式并得到它的结果
+any expression and get its result
+
+167
+00:05:15,200 --> 00:05:17,200
+所以你输入性别
+so you type sex
+
+168
+00:05:17,400 --> 00:05:18,200
+就这样
+just like that
+
+169
+00:05:18,366 --> 00:05:20,266
+它会评估任何表达式
+and it'll evaluate any expression
+
+170
+00:05:20,266 --> 00:05:22,300
+难怪你也可以打电话
+no surprise you can also call
+
+171
+00:05:22,333 --> 00:05:24,366
+任何内置模块，如字符串
+any built in modules like string
+
+172
+00:05:24,400 --> 00:05:26,533
+和函数 reverse 例如
+and the function reverse for example
+
+173
+00:05:27,500 --> 00:05:30,100
+但是如果我们尝试我们的调查模块会发生什么
+but what happens if we try our survey module and
+
+174
+00:05:30,100 --> 00:05:31,133
+打个招呼
+call our hello
+
+175
+00:05:31,400 --> 00:05:32,800
+以我的名义传递
+passing in my name
+
+176
+00:05:33,400 --> 00:05:35,700
+好吧，它说调查你好是未定义的
+well it says survey hello is undefined
+
+177
+00:05:35,800 --> 00:05:37,900
+模块调查不可用
+the module survey is not available
+
+178
+00:05:38,033 --> 00:05:40,966
+那是因为默认情况下索引不知道
+and that's because by default index doesn't know about
+
+179
+00:05:41,100 --> 00:05:42,166
+这个调查文件
+this survey file
+
+180
+00:05:42,333 --> 00:05:44,833
+所以编译和加载它的一种方法是使用 c
+so one way to compile it and load it is using the c
+
+181
+00:05:44,833 --> 00:05:45,633
+功能
+function
+
+182
+00:05:45,733 --> 00:05:48,300
+然后我们只给它一个相对的字符串
+then we just give it a string which is the relative
+
+183
+00:05:48,300 --> 00:05:49,966
+我们要运行的文件的路径
+path to the file we want to run
+
+184
+00:05:51,733 --> 00:05:54,266
+你注意到我们马上就得到了你好长生不老药
+and you notice we immediately got hello elixir
+
+185
+00:05:54,500 --> 00:05:55,333
+所以这个编译
+so this compiled
+
+186
+00:05:55,333 --> 00:05:58,366
+内存中的文件，然后加载调查模块
+the file in memory and then loaded the survey module
+
+187
+00:05:58,466 --> 00:05:59,166
+进入会话
+into the session
+
+188
+00:05:59,166 --> 00:05:59,566
+接着
+and then
+
+189
+00:05:59,566 --> 00:06:01,766
+模块外的任何代码都会被解释
+any code that's outside of the module is interpreted
+
+190
+00:06:01,766 --> 00:06:04,733
+所以这个代码就在这里打印出你好长生不老药
+so this code right here that prints out hello elixir
+
+191
+00:06:04,766 --> 00:06:05,500
+得到解释
+got interpreted
+
+192
+00:06:05,500 --> 00:06:07,533
+这就是为什么我们在这里看到输出
+which is why we see the output right here
+
+193
+00:06:08,033 --> 00:06:08,600
+摆脱
+to get out of
+
+194
+00:06:08,600 --> 00:06:10,433
+如果你能点击控制 c
+if you can hit control c
+
+195
+00:06:10,433 --> 00:06:12,533
+这将打开刹车菜单
+and this is going to open up the brake menu
+
+196
+00:06:12,633 --> 00:06:14,300
+然后你可以输入一个
+and then you can either type a
+
+197
+00:06:14,433 --> 00:06:16,533
+就在这里退出本次会议
+right here to get out of this session
+
+198
+00:06:16,533 --> 00:06:17,733
+或者像大多数人一样
+or as most people do
+
+199
+00:06:17,800 --> 00:06:19,300
+你只是再次点击控制c
+you just hit control c again
+
+200
+00:06:19,466 --> 00:06:22,466
+所以如果它基本上是两个控制 cs 就退出
+so to get out of if it's basically two control cs
+
+201
+00:06:23,066 --> 00:06:25,200
+有一个开始修复的捷径和
+there's a shortcut to starting fix and
+
+202
+00:06:25,266 --> 00:06:26,066
+加载文件
+loading up a file
+
+203
+00:06:26,066 --> 00:06:27,900
+你可以使用它然后给它
+you can just use it and then give it
+
+204
+00:06:27,900 --> 00:06:29,866
+文件相对路径的名称
+the name of the file relative path
+
+205
+00:06:29,866 --> 00:06:30,900
+再次作为论据
+again as an argument
+
+206
+00:06:31,066 --> 00:06:33,100
+文件再次在内存中编译
+and again the file is compiled in memory
+
+207
+00:06:33,100 --> 00:06:34,700
+并加载系列模块
+and the series modules is loaded
+
+208
+00:06:34,700 --> 00:06:35,833
+进入运行时，然后
+into the runtime and then
+
+209
+00:06:35,833 --> 00:06:37,933
+模块外的任何代码都会被解释
+any code that's outside of the module is interpreted
+
+210
+00:06:37,933 --> 00:06:39,533
+这就是为什么我们在这里看到这个
+which is why we see this right here
+
+211
+00:06:39,966 --> 00:06:41,100
+所以这是一个捷径
+so that's a shortcut to
+
+212
+00:06:41,100 --> 00:06:44,066
+开六然后用c函数编译
+opening six and then using the c function to compile it
+
+213
+00:06:44,100 --> 00:06:44,766
+并摆脱这个
+and to get out of this
+
+214
+00:06:44,766 --> 00:06:46,566
+我只是要击中控制 c 两次
+I'm just going to hit control c twice
+
+215
+00:06:47,300 --> 00:06:48,000
+一场决赛
+one final
+
+216
+00:06:48,000 --> 00:06:51,566
+在六中运行代码的方法是启动 ix 会话
+way to run code in six is to start the ix session with
+
+217
+00:06:51,566 --> 00:06:54,566
+作为选项，然后混合
+a s option and then mix
+
+218
+00:06:55,733 --> 00:06:57,533
+然后它说它编译了文件
+and then it says it compiled the file
+
+219
+00:06:57,533 --> 00:06:58,566
+我们得到了输出
+we got the output
+
+220
+00:06:58,566 --> 00:07:00,633
+因为它在这里再次解释了这条线
+because it interpreted this line up here again
+
+221
+00:07:00,966 --> 00:07:04,000
+当您使用 dash s mix 选项启动它时
+when you start it with the dash s mix option
+
+222
+00:07:04,000 --> 00:07:05,833
+它知道这个项目，所以
+it knows about the project so
+
+223
+00:07:05,933 --> 00:07:07,266
+我们正在参加 ix 会议
+we're in an ix session
+
+224
+00:07:07,266 --> 00:07:09,566
+在我们的应用程序中
+in the context of our application
+
+225
+00:07:09,733 --> 00:07:11,666
+所以我们可以继续使用我们的模块调查
+so we can go ahead and use our module survey
+
+226
+00:07:11,666 --> 00:07:12,766
+你好，例如
+hello for example
+
+227
+00:07:13,566 --> 00:07:14,833
+我倾向于使用这种方法
+I tend to use this approach
+
+228
+00:07:14,866 --> 00:07:15,066
+因为
+because
+
+229
+00:07:15,066 --> 00:07:17,400
+它编译并加载项目中的所有模块
+it compiled and loads all the modules in the project
+
+230
+00:07:17,400 --> 00:07:20,166
+我们可以与任何应用程序代码进行交互
+and we can interact with any of the application code
+
+231
+00:07:20,266 --> 00:07:21,800
+所以你不必编译它或
+so you don't have to compile it or
+
+232
+00:07:22,000 --> 00:07:23,833
+使用特定文件加载项目
+load item with a specific file
+
+233
+00:07:23,933 --> 00:07:25,966
+您可以在这里获得所需的一切
+you've got access to everything you need right here
+
+234
+00:07:26,633 --> 00:07:29,333
+所以让我们看看当我们需要重新编译时会发生什么
+so let's look at what happens when we need to recompile
+
+235
+00:07:29,366 --> 00:07:33,233
+假设我们将代码从 hello 更改为 howdy
+let's say we change our code from hello to howdy
+
+236
+00:07:33,566 --> 00:07:34,733
+如果我把它保存在这里
+if I save that away here
+
+237
+00:07:34,733 --> 00:07:36,700
+在崇高的我可以再次击中appleby
+in sublime I can hit appleby again
+
+238
+00:07:36,800 --> 00:07:38,333
+我们回来了，你好，长生不老药
+we get back howdy elixir
+
+239
+00:07:38,766 --> 00:07:39,166
+在这里
+down here
+
+240
+00:07:39,166 --> 00:07:42,400
+如果我还在 ix 会话中，我可以使用 r 函数
+if I'm still in an ix session I can use the r function
+
+241
+00:07:42,400 --> 00:07:43,966
+然后给它一个模块的名称
+and then give it the name of a module
+
+242
+00:07:43,966 --> 00:07:45,500
+在这种情况下，我们的模块是
+in this case our module is see
+
+243
+00:07:46,000 --> 00:07:49,533
+并且重新编译并重新加载给定的模块
+and that recompile and reloads the given module
+
+244
+00:07:49,533 --> 00:07:51,666
+你看我们在这里得到一点警告说
+you see we get a little bit of warning here saying
+
+245
+00:07:51,833 --> 00:07:53,466
+我们正在重新定义该模块
+we're redefining that module
+
+246
+00:07:53,566 --> 00:07:55,666
+然后它重新编译重新加载它
+and then it recompiled reloaded it
+
+247
+00:07:55,833 --> 00:07:56,900
+我们看到我们有
+and we see that we've got
+
+248
+00:07:56,900 --> 00:07:59,266
+你好，长生不老药因为它再次解释了那句话
+howdy elixir because it interpreted that line again
+
+249
+00:07:59,400 --> 00:08:02,466
+所以现在如果我们说低麦克风它说你好麦克风
+so now if we say low mic it says howdy mic
+
+250
+00:08:02,966 --> 00:08:04,366
+所以我要继续评论这个
+so I'm going to go ahead and comment out this
+
+251
+00:08:04,366 --> 00:08:05,100
+就在这里线
+line right here
+
+252
+00:08:05,100 --> 00:08:06,300
+所以它不会被解释
+so it doesn't get interpreted
+
+253
+00:08:06,300 --> 00:08:08,966
+每次我们加载我们的项目和 ix 前进
+every time we load up our project and ix going forward
+
+254
+00:08:09,533 --> 00:08:11,666
+所以现在我们有了一个项目和一个起点
+so now we have a project and a jumping off point
+
+255
+00:08:11,666 --> 00:08:12,933
+从中构建我们的网络
+from which to build our web
+
+256
+00:08:12,933 --> 00:08:16,766
+服务器接下来我们将处理我们的第一个 http 请求
+server next up we'll handle our first http request
+

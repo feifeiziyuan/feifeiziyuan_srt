@@ -1,0 +1,340 @@
+1
+00:00:00,300 --> 00:00:02,600
+in the last module we handled an about page
+
+2
+00:00:02,600 --> 00:00:05,600
+and I can imagine having routes for other static pages
+
+3
+00:00:05,600 --> 00:00:08,066
+maybe a contact page or an f page
+
+4
+00:00:08,366 --> 00:00:09,866
+yeah and to serve each of those pages
+
+5
+00:00:09,866 --> 00:00:10,300
+we'd first
+
+6
+00:00:10,300 --> 00:00:13,233
+need to get the absolute path to the pages directory
+
+7
+00:00:13,300 --> 00:00:14,733
+as we did with the about page
+
+8
+00:00:15,266 --> 00:00:17,033
+so to share this bit of code
+
+9
+00:00:17,033 --> 00:00:19,433
+we could extract it into a function
+
+10
+00:00:19,600 --> 00:00:22,366
+but the path to the pages directory is a constant
+
+11
+00:00:22,366 --> 00:00:24,366
+which gives us an opportunity to learn something
+
+12
+00:00:24,366 --> 00:00:25,633
+new about modules
+
+13
+00:00:25,866 --> 00:00:27,833
+modules can have attributes
+
+14
+00:00:28,100 --> 00:00:29,900
+module attributes are defined at the
+
+15
+00:00:29,900 --> 00:00:31,300
+top level of a module
+
+16
+00:00:31,300 --> 00:00:32,000
+and in general
+
+17
+00:00:32,000 --> 00:00:34,733
+you can use module attributes to associate metadata
+
+18
+00:00:34,733 --> 00:00:35,733
+with the module
+
+19
+00:00:35,833 --> 00:00:37,333
+for example elixir has
+
+20
+00:00:37,366 --> 00:00:39,400
+two reserved module attributes
+
+21
+00:00:39,400 --> 00:00:41,633
+for documenting modules and functions
+
+22
+00:00:41,700 --> 00:00:44,133
+the documentation for a module goes at the
+
+23
+00:00:44,133 --> 00:00:45,266
+top of the module
+
+24
+00:00:45,700 --> 00:00:49,466
+and the name of the module attribute is module dock
+
+25
+00:00:49,500 --> 00:00:51,766
+and you notice it starts with an at sign
+
+26
+00:00:51,766 --> 00:00:54,033
+that indicates that it's a module attribute
+
+27
+00:00:54,533 --> 00:00:55,700
+and then because it's documentation
+
+28
+00:00:55,700 --> 00:00:56,766
+we can give it a string
+
+29
+00:00:56,766 --> 00:01:00,666
+so say handles http requests
+
+30
+00:01:00,866 --> 00:01:01,700
+now you can use it here
+
+31
+00:01:01,700 --> 00:01:02,066
+doc
+
+32
+00:01:02,066 --> 00:01:04,500
+and add a bunch more documentation here in the string
+
+33
+00:01:04,500 --> 00:01:05,733
+but I'm going to just keep it really
+
+34
+00:01:05,733 --> 00:01:07,166
+simple for this screencast
+
+35
+00:01:07,166 --> 00:01:08,566
+because you really don't want to watch me
+
+36
+00:01:08,566 --> 00:01:09,966
+typing in documentation
+
+37
+00:01:10,400 --> 00:01:12,033
+so that documents the module
+
+38
+00:01:12,033 --> 00:01:15,033
+there's also a module attribute called at doc
+
+39
+00:01:15,066 --> 00:01:17,866
+that document the function underneath it
+
+40
+00:01:18,033 --> 00:01:20,700
+so this one might be transforms
+
+41
+00:01:20,833 --> 00:01:21,700
+the request
+
+42
+00:01:22,433 --> 00:01:24,033
+into a response
+
+43
+00:01:24,566 --> 00:01:26,500
+and the same attribute can be set
+
+44
+00:01:26,500 --> 00:01:28,033
+multiple times in a module
+
+45
+00:01:28,033 --> 00:01:29,800
+so to document this function
+
+46
+00:01:29,866 --> 00:01:31,233
+we would also use the
+
+47
+00:01:31,400 --> 00:01:34,333
+dock module attribute and then the string might be
+
+48
+00:01:34,500 --> 00:01:36,233
+logs four or four requests
+
+49
+00:01:36,733 --> 00:01:39,400
+and then using these well defined attributes
+
+50
+00:01:39,633 --> 00:01:43,200
+elixir can access the values to generate documentation
+
+51
+00:01:43,766 --> 00:01:44,466
+so elixir has
+
+52
+00:01:44,466 --> 00:01:47,633
+reserved attributes for documentation purposes
+
+53
+00:01:47,633 --> 00:01:48,600
+and we can add
+
+54
+00:01:48,600 --> 00:01:52,000
+arbitrary or custom module attributes as well
+
+55
+00:01:52,300 --> 00:01:55,266
+yeah another common use of module attributes is as
+
+56
+00:01:55,266 --> 00:01:57,666
+constants and that's exactly what we have
+
+57
+00:01:57,733 --> 00:01:58,533
+down here
+
+58
+00:01:59,666 --> 00:02:02,000
+we can take this and make it a consonant
+
+59
+00:02:02,166 --> 00:02:04,733
+so I'm just going to copy it and the module attribute
+
+60
+00:02:04,733 --> 00:02:07,000
+it just has to be defined at the top level of module
+
+61
+00:02:07,000 --> 00:02:08,566
+but you can put it anywhere
+
+62
+00:02:08,766 --> 00:02:11,066
+and so we can call this one pages path
+
+63
+00:02:11,100 --> 00:02:12,533
+and then the value will be
+
+64
+00:02:12,633 --> 00:02:14,066
+the result of that expression
+
+65
+00:02:14,233 --> 00:02:15,466
+then down in our pipeline
+
+66
+00:02:15,466 --> 00:02:16,400
+instead of doing this
+
+67
+00:02:16,433 --> 00:02:19,133
+we can just read that value at pages path
+
+68
+00:02:19,700 --> 00:02:20,333
+and if we had
+
+69
+00:02:20,333 --> 00:02:22,933
+other route functions that needed to read page files
+
+70
+00:02:22,966 --> 00:02:25,100
+while they could use the pages path attribute
+
+71
+00:02:25,200 --> 00:02:25,966
+what's also nice
+
+72
+00:02:25,966 --> 00:02:28,533
+is that using a constant lets us easily change
+
+73
+00:02:28,533 --> 00:02:29,800
+the location of the page
+
+74
+00:02:29,800 --> 00:02:31,100
+directory in one place
+
+75
+00:02:31,466 --> 00:02:33,933
+so if we run it now we see that it works
+
+76
+00:02:34,166 --> 00:02:36,400
+now I said that you can add module attributes
+
+77
+00:02:36,400 --> 00:02:38,400
+anywhere in the top level of module
+
+78
+00:02:38,400 --> 00:02:41,666
+but I generally put constants at the top of a module
+
+79
+00:02:41,733 --> 00:02:44,100
+because their value is set at compile time
+
+80
+00:02:44,633 --> 00:02:45,933
+so I'm going to take this out of here
+
+81
+00:02:46,833 --> 00:02:48,666
+and we'll just put it right up here
+
+82
+00:02:48,666 --> 00:02:49,866
+under the module dock
+
+83
+00:02:49,866 --> 00:02:50,733
+just like that
+
+84
+00:02:50,966 --> 00:02:54,100
+so now any function defined below this point
+
+85
+00:02:54,300 --> 00:02:55,400
+can read the value
+

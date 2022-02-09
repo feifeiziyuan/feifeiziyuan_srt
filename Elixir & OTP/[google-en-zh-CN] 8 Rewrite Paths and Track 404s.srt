@@ -1,0 +1,1305 @@
+1
+00:00:00,400 --> 00:00:02,566
+所以现在我们有请求流过我们的
+so now that we have requests flowing through our
+
+2
+00:00:02,566 --> 00:00:03,900
+我们可以添加的管道
+pipeline we can add
+
+3
+00:00:03,900 --> 00:00:07,033
+用于转换请求的专用功能
+specialized functions to transform either the request
+
+4
+00:00:07,233 --> 00:00:08,400
+或回应
+or the response
+
+5
+00:00:08,400 --> 00:00:08,966
+例如
+for example
+
+6
+00:00:08,966 --> 00:00:12,133
+假设我们收到了削减野生动物的请求
+let's say we get a request for slash wildlife
+
+7
+00:00:12,166 --> 00:00:13,933
+好吧，我们想以同样的方式处理
+well we want to handle that the same way
+
+8
+00:00:13,933 --> 00:00:16,166
+我们会要求削减野生动物
+we would a request for slash wild things
+
+9
+00:00:16,733 --> 00:00:19,866
+啊，我们可以添加一个重写的转换
+ah we can add a transformation that rewrites
+
+10
+00:00:20,066 --> 00:00:21,266
+只有那些请求
+only those requests
+
+11
+00:00:21,400 --> 00:00:23,900
+为此，我们需要在地图上进行模式匹配
+and to do that we'll need to pattern match on maps
+
+12
+00:00:23,900 --> 00:00:26,766
+这是一种在长生不老药中广泛使用的技术
+which is a technique that's used extensively in elixir
+
+13
+00:00:26,766 --> 00:00:28,266
+它也很强大
+and it's also really powerful
+
+14
+00:00:28,766 --> 00:00:31,533
+我们首先在此处添加了对野生动物的新请求
+we've started by adding a new request for wildlife here
+
+15
+00:00:31,966 --> 00:00:33,700
+现在如果你对所有这些感到不安
+now if you're feeling uneasy about all these
+
+16
+00:00:33,700 --> 00:00:34,466
+请求是
+requests being
+
+17
+00:00:34,466 --> 00:00:36,533
+复制并粘贴在文件底部
+copied and pasted at the bottom of the file
+
+18
+00:00:36,566 --> 00:00:37,933
+好吧，现在就去吧
+well just go with it for now
+
+19
+00:00:38,100 --> 00:00:39,000
+稍后
+a bit later on
+
+20
+00:00:39,033 --> 00:00:40,766
+我们会将这些添加到自动化测试中
+we'll add these to an automated test and
+
+21
+00:00:40,766 --> 00:00:41,733
+摆脱这一切
+get rid of all this
+
+22
+00:00:41,733 --> 00:00:42,766
+重复代码
+duplicated code
+
+23
+00:00:45,066 --> 00:00:46,666
+所以我们想要请求
+so we want the request for
+
+24
+00:00:47,200 --> 00:00:51,066
+由这个函数类处理的野生动物
+wildlife to be handled by this function class
+
+25
+00:00:51,133 --> 00:00:53,366
+为了做到这一点，我们需要改变
+in order to do that we're going to need to change
+
+26
+00:00:53,400 --> 00:00:56,333
+野生动物的请求路径
+the path of that request from wildlife
+
+27
+00:00:56,466 --> 00:00:57,466
+野生的东西
+to wild things
+
+28
+00:00:57,666 --> 00:00:59,433
+所以它与功能爪相匹配
+so it matches the function claws
+
+29
+00:00:59,466 --> 00:01:01,433
+我们需要改变那条路
+and we're going to need to change that path
+
+30
+00:01:01,700 --> 00:01:03,066
+在路线发生之前
+before the route happens
+
+31
+00:01:03,066 --> 00:01:05,033
+所以如果我们只看这里的管道
+so if we just look at our pipeline up here
+
+32
+00:01:05,366 --> 00:01:07,900
+我们有 pars 日志然后 rout
+we've got pars log and then rout
+
+33
+00:01:08,066 --> 00:01:10,833
+所以它显然需要在pars之后但在之前
+so it needs to come after pars obviously but before
+
+34
+00:01:11,166 --> 00:01:13,266
+溃败，我实际上要把它放在前面
+rout and I'm actually going to put it before
+
+35
+00:01:13,266 --> 00:01:15,066
+也登录，以便我们可以注销
+log as well so that we can log out
+
+36
+00:01:15,333 --> 00:01:16,500
+最终结果
+the final result
+
+37
+00:01:16,500 --> 00:01:17,800
+所以就在这里
+so right here in the pipeline
+
+38
+00:01:17,800 --> 00:01:20,800
+我们将添加一个名为 rewrite path 的步骤
+we're going to add a step called rewrite path
+
+39
+00:01:21,133 --> 00:01:22,700
+然后定义该功能
+and then to define that function
+
+40
+00:01:24,400 --> 00:01:25,533
+是正确的道路
+be right path
+
+41
+00:01:26,133 --> 00:01:28,466
+好吧，它需要一张对话地图和
+well it needs to take a conversation map and
+
+42
+00:01:28,533 --> 00:01:30,066
+还返回一个对话地图
+also return a conversation map
+
+43
+00:01:31,466 --> 00:01:33,700
+我们要做的就是更新
+and all we want to do in here is update
+
+44
+00:01:34,066 --> 00:01:37,133
+给定的地图并将其路径更改为
+the given map and change its path to
+
+45
+00:01:37,800 --> 00:01:38,600
+野生的东西
+wild things
+
+46
+00:01:39,433 --> 00:01:41,933
+所以现在如果我们运行良好
+so now if we run it well
+
+47
+00:01:41,933 --> 00:01:44,033
+我们看到它几乎重写了
+we see that it pretty much rewrites
+
+48
+00:01:44,033 --> 00:01:45,400
+我们所有的要求
+all of our requests
+
+49
+00:01:45,400 --> 00:01:46,466
+野生的东西
+to wild things
+
+50
+00:01:47,033 --> 00:01:49,200
+我们只希望这个函数运行
+we only want this function to run
+
+51
+00:01:49,300 --> 00:01:52,833
+如果地图以野生动物为路径
+if the map has wildlife as the path
+
+52
+00:01:52,833 --> 00:01:55,866
+我们实际上可以使用模式匹配来做到这一点
+and we can actually use pattern matching to do that
+
+53
+00:01:56,400 --> 00:01:57,933
+让我们玩一下模式匹配
+let's play around with pattern matching
+
+54
+00:01:57,933 --> 00:01:59,833
+一秒钟的性爱地图
+maps in sex for just a second
+
+55
+00:01:59,833 --> 00:02:02,100
+我在这里设置了一个对话地图
+I've got a conversation map set up here
+
+56
+00:02:02,400 --> 00:02:04,666
+带有关键方法和关键路径
+with a key method and a key path
+
+57
+00:02:05,000 --> 00:02:08,233
+我们想要做的是将它与地图进行模式匹配
+and what we want to do is pattern match it to a map
+
+58
+00:02:08,633 --> 00:02:10,266
+有一条路径
+that has a path of
+
+59
+00:02:11,000 --> 00:02:12,033
+削减野生动物
+slash wildlife
+
+60
+00:02:12,733 --> 00:02:14,166
+我们使用匹配运算符
+we use the match operator
+
+61
+00:02:14,466 --> 00:02:16,633
+像这样使用右侧的地图
+use that map on the right hand side like that
+
+62
+00:02:17,000 --> 00:02:18,033
+它匹配
+and it matches
+
+63
+00:02:18,033 --> 00:02:20,233
+即使左边的地图
+even though the map on the left
+
+64
+00:02:20,433 --> 00:02:23,333
+没有与地图相同数量的键
+doesn't have the same number of keys as the map
+
+65
+00:02:23,333 --> 00:02:27,100
+只要左边是地图就在右边
+on the right as long as this left hand side is a map
+
+66
+00:02:27,266 --> 00:02:30,566
+它有一个以野生动物为值的路径键
+and it has a path key with wildlife as the value
+
+67
+00:02:30,733 --> 00:02:32,133
+那么这匹配
+then this matches
+
+68
+00:02:32,300 --> 00:02:34,400
+换句话说，我们不必提供
+in other words we don't have to provide
+
+69
+00:02:34,433 --> 00:02:37,933
+成功匹配的所有键或值
+all the keys or values for a successful match
+
+70
+00:02:38,033 --> 00:02:39,066
+这很棒
+and this is great
+
+71
+00:02:39,100 --> 00:02:42,200
+因为我们只对匹配路径感兴趣
+because we're only interested in matching the path
+
+72
+00:02:42,266 --> 00:02:44,033
+我们不在乎方法是什么
+we don't care what the method is
+
+73
+00:02:44,700 --> 00:02:45,500
+现在假设我们改变
+now let's say we change
+
+74
+00:02:45,500 --> 00:02:48,766
+这周围并设置了我们在这里使用熊的野生动物
+this around and set a wildlife we use bears right here
+
+75
+00:02:49,366 --> 00:02:50,533
+好吧，那不会是一场比赛
+well that's not going to be a match
+
+76
+00:02:50,533 --> 00:02:52,233
+因为路径键的值
+because the value of the path key
+
+77
+00:02:52,300 --> 00:02:53,500
+在期限和权利
+in the term and the right
+
+78
+00:02:53,733 --> 00:02:55,866
+不是熊它实际上是野生动物所以
+is not bears it's actually wildlife so
+
+79
+00:02:56,000 --> 00:02:57,133
+我们得到了无与伦比的空气
+we get a no match air
+
+80
+00:02:57,766 --> 00:03:00,333
+所以我们会把它放回野生动物
+so we'll set it back to wildlife
+
+81
+00:03:00,800 --> 00:03:03,466
+然后如果我们有一个键名会发生什么
+and then what happens if we have a key name
+
+82
+00:03:03,600 --> 00:03:06,233
+左手边有一个超值麦克风
+with a value mic on this left hand side
+
+83
+00:03:07,066 --> 00:03:09,166
+好吧，这不是一场比赛，因为
+well that's not a match because the
+
+84
+00:03:09,533 --> 00:03:13,633
+右侧的地图没有键名
+map on the right hand side doesn't have a key name
+
+85
+00:03:14,066 --> 00:03:15,533
+和模式中的键
+and the keys in the pattern
+
+86
+00:03:15,533 --> 00:03:17,700
+必须存在于右边的地图中
+must exist in the map on the right
+
+87
+00:03:18,266 --> 00:03:18,933
+现在如果我们是
+now if we were
+
+88
+00:03:18,933 --> 00:03:21,066
+只对获取请求感兴趣，我们可以做点什么
+only interested in get requests we could do something
+
+89
+00:03:21,066 --> 00:03:23,633
+就像这个方法是get
+like this method is get
+
+90
+00:03:24,100 --> 00:03:25,600
+这将与对话相匹配
+and that will match the conversation
+
+91
+00:03:25,600 --> 00:03:26,300
+它会匹配
+it will match
+
+92
+00:03:26,300 --> 00:03:29,100
+右侧任何具有获取方法的地图
+any map on the right hand side that has a method of get
+
+93
+00:03:29,666 --> 00:03:31,333
+现在让我们假设我们要检查
+now let's suppose we want to check
+
+94
+00:03:31,366 --> 00:03:35,366
+该路径与野生动物相匹配，如果匹配
+that the path matches wildlife and if it does
+
+95
+00:03:35,366 --> 00:03:38,166
+然后也提取方法的值
+then also extract the value of the method
+
+96
+00:03:38,700 --> 00:03:40,600
+所以不要在这里使用文字 git
+so instead of using a literal git here
+
+97
+00:03:40,600 --> 00:03:42,333
+我们将只使用变量方法
+we'll just use a variable method
+
+98
+00:03:42,433 --> 00:03:46,233
+然后 path 将使用真正的野生动物
+and then path will use a literal wildlife
+
+99
+00:03:47,000 --> 00:03:48,800
+它匹配，现在
+and it matches and now
+
+100
+00:03:49,000 --> 00:03:50,933
+方法的价值
+the value of the method
+
+101
+00:03:51,033 --> 00:03:53,366
+绑定到该变量方法
+is bound to that variable method
+
+102
+00:03:53,900 --> 00:03:54,266
+它是
+it's
+
+103
+00:03:54,266 --> 00:03:56,800
+还值得注意的是，我们可以绑定多个变量
+also worth noting that we can bind multiple variables
+
+104
+00:03:56,800 --> 00:03:57,700
+一气呵成
+in one go
+
+105
+00:03:58,233 --> 00:04:00,033
+是的，我们只需绑定方法和
+yeah we'll just bind method and
+
+106
+00:04:00,066 --> 00:04:02,566
+也是我们不关心文字字符串的路径
+also the path we don't care about the literal string
+
+107
+00:04:02,566 --> 00:04:03,400
+我们只想
+we just want to
+
+108
+00:04:03,533 --> 00:04:06,433
+将我们拥有的任何路径绑定到变量路径
+bind whatever path we have to the variable path
+
+109
+00:04:07,266 --> 00:04:08,300
+我们也得到了
+and we get that as well
+
+110
+00:04:09,000 --> 00:04:09,900
+所以这给了我们
+so this gives us
+
+111
+00:04:10,133 --> 00:04:12,266
+完成函数子句所需的一切
+everything we need to finish our function clause
+
+112
+00:04:12,533 --> 00:04:15,033
+是的，记住我们只是在这里有一个争论
+yeah remember we just have an argument co nv here
+
+113
+00:04:15,066 --> 00:04:16,533
+但我们会匹配它
+but we'll pattern match it
+
+114
+00:04:16,533 --> 00:04:19,433
+我们会说我们希望它成为一条路径
+we'll say we want it to be a path
+
+115
+00:04:19,866 --> 00:04:21,833
+用字面的斜线野生动物
+with the literal slash wildlife
+
+116
+00:04:22,466 --> 00:04:24,600
+然后我们可以在这里使用匹配运算符
+and then we can use the match operator right here
+
+117
+00:04:24,933 --> 00:04:26,533
+所以这要做的是
+so what this is going to do is
+
+118
+00:04:26,533 --> 00:04:29,166
+将传入的参数与此映射匹配
+match the incoming argument against this map
+
+119
+00:04:29,233 --> 00:04:32,833
+并将其分配给变量 con
+and also assign it to the variable co n
+
+120
+00:04:33,166 --> 00:04:35,066
+我们需要这样做，因为我们需要使用
+and we need to do that because we need to use
+
+121
+00:04:35,100 --> 00:04:37,433
+函数体中的 co 和 v 在这里
+co and v in the function body here
+
+122
+00:04:37,433 --> 00:04:40,466
+更新该对话地图并返回一个新的
+to update that conversation map and return a new one
+
+123
+00:04:40,700 --> 00:04:42,933
+如果你不需要在函数体中使用它
+if you didn't need to use it in the function body
+
+124
+00:04:42,933 --> 00:04:44,233
+好吧，你可以这样做
+well you could just do it just like this
+
+125
+00:04:44,233 --> 00:04:46,333
+它会匹配即将到来的论点
+and it would match the argument that's coming in
+
+126
+00:04:46,433 --> 00:04:49,300
+并且仅在匹配时运行此功能
+and only run this function if that matches
+
+127
+00:04:49,300 --> 00:04:51,433
+但在我们的例子中，我们需要捕捉到
+but in our case we need to capture that
+
+128
+00:04:51,566 --> 00:04:52,400
+所以我们可以这样做
+so we can do that
+
+129
+00:04:52,833 --> 00:04:54,800
+所以让我们保存并运行它
+so let's give that a save and run it
+
+130
+00:04:55,133 --> 00:04:56,600
+哦，我们在这里得到一个错误
+ooh and we get an error here
+
+131
+00:04:57,433 --> 00:04:58,666
+它是说没有
+it's saying that there's no
+
+132
+00:04:58,733 --> 00:04:59,800
+功能爪
+function claws
+
+133
+00:04:59,800 --> 00:05:00,233
+那是
+that's
+
+134
+00:05:00,233 --> 00:05:03,600
+匹配方法为 get 且路径为的地图
+matching a map where the method is get and the path is
+
+135
+00:05:04,200 --> 00:05:05,000
+野生的东西
+wild things
+
+136
+00:05:05,333 --> 00:05:08,200
+那是因为我们正在调用重写路径
+well that's because we're calling rewrite path for
+
+137
+00:05:08,266 --> 00:05:10,200
+管道中的每个请求
+every request in the pipeline
+
+138
+00:05:10,533 --> 00:05:12,133
+但是这里的功能爪
+but the function claws here
+
+139
+00:05:12,266 --> 00:05:13,533
+只匹配
+only matches
+
+140
+00:05:13,633 --> 00:05:16,600
+当参数是具有路径键的映射时
+when the argument is a map with the path key of
+
+141
+00:05:16,933 --> 00:05:19,066
+野生动物不是野生动物
+wildlife not wild things
+
+142
+00:05:19,666 --> 00:05:22,866
+所以我们还需要一个默认函数子句
+so we also need a default function clause
+
+143
+00:05:22,866 --> 00:05:24,633
+对于所有其他路径
+for all the other paths
+
+144
+00:05:24,666 --> 00:05:25,866
+因为我们知道这个顺序
+and since we know that order
+
+145
+00:05:25,866 --> 00:05:27,733
+我们需要最后定义的事项
+matters we need to define it last
+
+146
+00:05:28,266 --> 00:05:29,366
+对，我们把它放在这里
+right we'll put it right here
+
+147
+00:05:29,566 --> 00:05:30,633
+重写路径
+rewrite path
+
+148
+00:05:30,766 --> 00:05:33,666
+它只需要我们称之为 con 的任何地图
+it's just going to take any map we'll call it co n
+
+149
+00:05:34,333 --> 00:05:35,900
+因为这是一个单行函数
+and since this is a single line function
+
+150
+00:05:35,900 --> 00:05:36,833
+我们会让它更简洁
+we'll make it more concise
+
+151
+00:05:36,833 --> 00:05:38,500
+原封不动地使用这个平分
+using this deuce intact
+
+152
+00:05:38,533 --> 00:05:41,633
+然后我们只想原封不动地返回那个地图
+and then we just want to return that map unchanged
+
+153
+00:05:42,000 --> 00:05:42,966
+所以这将
+so this is going to
+
+154
+00:05:43,100 --> 00:05:45,533
+匹配路径是野生动物的任何请求
+match any requests where the path is wildlife
+
+155
+00:05:45,533 --> 00:05:46,033
+然后对于
+and then for
+
+156
+00:05:46,033 --> 00:05:47,433
+其他一切都会失败
+everything else it's going to fall through
+
+157
+00:05:47,700 --> 00:05:49,433
+这个函数子句将运行
+and this function clause will get run
+
+158
+00:05:49,500 --> 00:05:51,966
+只是返回对话地图不变
+just returning the conversation map unchanged
+
+159
+00:05:52,300 --> 00:05:54,333
+如果我们保存并运行它
+if we give that a save and run it
+
+160
+00:05:54,633 --> 00:05:55,333
+果然
+well sure enough
+
+161
+00:05:55,333 --> 00:05:57,033
+现在我们所有的要求都是
+now all of our requests are
+
+162
+00:05:57,033 --> 00:05:58,433
+符合我们期望的方式
+matching the way we would expect
+
+163
+00:05:59,333 --> 00:06:02,333
+现在我们可以使用同样的技术来添加一些跟踪
+now we can use this same technique to add some tracking
+
+164
+00:06:02,333 --> 00:06:04,333
+假设每次我们得到一个四四个
+let's say every time we get a four or four
+
+165
+00:06:04,533 --> 00:06:06,266
+让我们记录丢失的路径
+let's log the missing path
+
+166
+00:06:06,366 --> 00:06:07,033
+很好地做到这一点
+well to do that
+
+167
+00:06:07,033 --> 00:06:08,366
+我们只需添加一个函数
+we'll just add a function
+
+168
+00:06:08,366 --> 00:06:10,633
+匹配四个或四个状态码
+that matches a four or four status code
+
+169
+00:06:10,633 --> 00:06:12,100
+然后提取路径
+and then extracts the path
+
+170
+00:06:12,766 --> 00:06:15,200
+现在我们需要等到对话地图
+now we'll need to wait until the conversation map
+
+171
+00:06:15,200 --> 00:06:16,533
+有状态键
+has a status key
+
+172
+00:06:16,533 --> 00:06:18,666
+这发生在路由功能中
+and that happens in the route function
+
+173
+00:06:19,100 --> 00:06:21,466
+所以我们会加入一个新的轨道功能
+so we'll slip in a new track function right
+
+174
+00:06:21,633 --> 00:06:23,333
+在它进入管道之后
+after it in the pipeline
+
+175
+00:06:23,700 --> 00:06:24,833
+然后我们将定义它
+and then we'll define it
+
+176
+00:06:25,866 --> 00:06:27,933
+我们只希望这个函数子句运行
+we only want this function clause to run
+
+177
+00:06:28,100 --> 00:06:29,933
+当状态为四或四时
+when the status is a four or four
+
+178
+00:06:29,933 --> 00:06:31,500
+所以我们将使用模式匹配
+so we'll use a pattern match for it
+
+179
+00:06:31,766 --> 00:06:33,500
+状态需要是四个或四个
+status needs to be four or four
+
+180
+00:06:33,900 --> 00:06:35,400
+然后我们要捕获路径
+and then we want to capture the path
+
+181
+00:06:35,400 --> 00:06:37,866
+我们将在变量调用路径中捕获它
+and we'll just capture it in a variable call path
+
+182
+00:06:37,933 --> 00:06:39,300
+我们会把它分配给 co
+and we'll assign that to co
+
+183
+00:06:39,300 --> 00:06:41,800
+n 所以我们可以在函数体中使用它
+n so we can use it in the function body
+
+184
+00:06:42,433 --> 00:06:45,100
+现在我们可以用这些信息做任何我们想做的事情
+now we could do anything we want with this information
+
+185
+00:06:45,100 --> 00:06:48,266
+但现在让我们打印出警告
+but for now let's just print out warning
+
+186
+00:06:48,566 --> 00:06:51,600
+我们的道路的名字是松散的
+the name of our path is on the loose
+
+187
+00:06:52,966 --> 00:06:55,833
+我们可以在函数体内使用路径，因为
+we can use path inside of the function body because
+
+188
+00:06:55,866 --> 00:06:57,600
+我们在此处的路径上匹配模式
+we pattern matched on path here
+
+189
+00:06:57,800 --> 00:06:59,200
+因为这是一个变量
+and because this is a variable
+
+190
+00:06:59,233 --> 00:07:00,466
+然后它就会被绑定
+then it's just going to be bound
+
+191
+00:07:00,566 --> 00:07:03,000
+到路径中的任何值
+to whatever value is in the path
+
+192
+00:07:03,300 --> 00:07:05,800
+我们需要记住返回对话地图
+and we need to remember to return the conversation map
+
+193
+00:07:05,800 --> 00:07:07,666
+所以它继续流过管道
+so it continues flowing through the pipeline
+
+194
+00:07:08,166 --> 00:07:10,033
+现在我们学习重写功能
+now as we learn with the rewrite function
+
+195
+00:07:10,033 --> 00:07:11,400
+我们还需要定义
+we also need to define
+
+196
+00:07:11,400 --> 00:07:14,133
+匹配所有的默认函数子句
+a default function clause that matches all
+
+197
+00:07:14,133 --> 00:07:15,766
+其他对话地图
+the other conversation maps
+
+198
+00:07:16,100 --> 00:07:16,733
+是的，没错
+yeah that's right
+
+199
+00:07:16,733 --> 00:07:17,833
+所以这个只需要
+so this one just takes
+
+200
+00:07:17,833 --> 00:07:20,300
+对话地图并原样返回
+a conversation map and returns it unchanged
+
+201
+00:07:20,500 --> 00:07:22,100
+如果我们保存并运行它
+if we give that a save and run it
+
+202
+00:07:22,400 --> 00:07:24,633
+如果我们向上滚动到 bigfoot 请求
+and if we scroll up to the bigfoot request
+
+203
+00:07:25,333 --> 00:07:27,233
+好吧，我们看到响应是四或四
+well we see the response was a four or four
+
+204
+00:07:27,733 --> 00:07:30,000
+我们打印出大脚怪逍遥法外
+and we printed out that bigfoot is on the loose
+
+205
+00:07:30,900 --> 00:07:32,800
+所以你可能已经看到了
+so you may have seen this coming
+
+206
+00:07:32,800 --> 00:07:35,600
+但是现在我们知道如何在地图上进行模式匹配
+but now that we know how to pattern match on maps
+
+207
+00:07:35,600 --> 00:07:38,766
+有一种不同的方式来设计我们的路线功能
+there's a different way to design our route functions
+
+208
+00:07:38,833 --> 00:07:39,633
+啊哈
+aha
+
+209
+00:07:40,433 --> 00:07:41,266
+在管线中
+in the pipeline
+
+210
+00:07:41,266 --> 00:07:43,533
+我们目前正在调用这个路由函数
+we're currently calling this route function
+
+211
+00:07:43,533 --> 00:07:44,900
+这需要一个论点
+that takes one argument
+
+212
+00:07:44,900 --> 00:07:46,366
+这张对话地图
+this conversation map
+
+213
+00:07:46,500 --> 00:07:47,666
+然后我们委托
+and then we delegate
+
+214
+00:07:47,666 --> 00:07:50,200
+到接受三个参数的路由函数
+to the route function that takes three arguments
+
+215
+00:07:50,366 --> 00:07:53,200
+然后我们有多个函数子句
+and then we have multiple function clauses
+
+216
+00:07:53,200 --> 00:07:56,600
+该模式匹配两个字符串参数的方法
+that pattern match on two string arguments the method
+
+217
+00:07:56,966 --> 00:07:59,066
+和路径，但我们
+and the path but we
+
+218
+00:07:59,066 --> 00:07:59,300
+现在
+now
+
+219
+00:07:59,300 --> 00:08:01,333
+知道我们可以对其中的内容进行模式匹配
+know that we can just pattern match on what's in this
+
+220
+00:08:01,333 --> 00:08:02,366
+对话地图
+conversation map
+
+221
+00:08:02,700 --> 00:08:04,500
+所以让我们先评论一下
+so let's start by commenting this out
+
+222
+00:08:04,500 --> 00:08:05,466
+因为我们不需要它
+because we won't need it
+
+223
+00:08:05,500 --> 00:08:08,300
+然后我们可以更新它只接受一个参数
+and then we can update this to just take one argument
+
+224
+00:08:08,566 --> 00:08:09,833
+我只是要复制这些
+I'm just going to copy these
+
+225
+00:08:10,800 --> 00:08:12,166
+我们希望这只是采取
+we want this just to take a
+
+226
+00:08:12,166 --> 00:08:14,500
+对话地图，然后我们可以在上面进行模式匹配
+conversation map and then we can pattern match on it
+
+227
+00:08:14,500 --> 00:08:16,000
+所以我们这里有我们的地图
+so we'll have our map here
+
+228
+00:08:16,000 --> 00:08:17,300
+我要把那些粘贴进去
+I'm going to paste those in
+
+229
+00:08:18,500 --> 00:08:20,933
+像那样，然后这将是方法
+like that and then this is going to be the method
+
+230
+00:08:21,533 --> 00:08:22,733
+这就是路径
+and this is the path
+
+231
+00:08:24,200 --> 00:08:25,233
+现在我们需要改变
+now we need to change
+
+232
+00:08:25,233 --> 00:08:26,966
+这些函数子句中的每一个都只是
+each of these function clauses to just
+
+233
+00:08:26,966 --> 00:08:27,933
+采取一个论点
+take one argument
+
+234
+00:08:27,933 --> 00:08:29,566
+这样他们就可以在管道中变冷
+so that they can get cold in the pipeline
+
+235
+00:08:29,566 --> 00:08:30,733
+所以我要这个
+so I'll take this one
+
+236
+00:08:30,900 --> 00:08:32,133
+我把它贴在这里
+I'll just paste it down here
+
+237
+00:08:32,166 --> 00:08:33,833
+这只是熊
+and this is just going to be bears
+
+238
+00:08:34,933 --> 00:08:36,133
+我们拿这个
+we take this one
+
+239
+00:08:36,866 --> 00:08:37,933
+把它贴在这里
+paste it down here
+
+240
+00:08:38,000 --> 00:08:40,233
+这个有点不同，因为我们需要
+this one's a bit different because we need to
+
+241
+00:08:40,233 --> 00:08:41,833
+该参数的模式匹配
+pattern match on that parameter
+
+242
+00:08:41,900 --> 00:08:43,666
+我们可以在这里做
+and we can do that right inside of here
+
+243
+00:08:43,933 --> 00:08:46,666
+使用该二元连接运算符小于
+using that binary concatenation operator less than
+
+244
+00:08:46,666 --> 00:08:48,733
+大于然后我们的 id
+greater than and then our id
+
+245
+00:08:49,133 --> 00:08:50,000
+所以这很整洁
+so that's kind of neat
+
+246
+00:08:50,000 --> 00:08:52,066
+我们可以在里面使用这个匹配
+we can use this matching inside
+
+247
+00:08:52,066 --> 00:08:55,200
+我们在左侧匹配的地图
+of a map that we're matching on the left hand side
+
+248
+00:08:55,933 --> 00:08:58,033
+然后我们在这里捕获所有路线
+and then for our catch all route down here
+
+249
+00:08:58,133 --> 00:08:59,266
+好吧，我们会摆脱这些
+well we'll get rid of these
+
+250
+00:09:00,833 --> 00:09:02,166
+地图看起来像这样
+and the map will look like this
+
+251
+00:09:02,166 --> 00:09:03,033
+我们关心的一切
+all we care about
+
+252
+00:09:03,033 --> 00:09:05,800
+是路径，我们要提取它的值
+is the path and we want to extract its value
+
+253
+00:09:05,800 --> 00:09:07,466
+所以我们就这样重组它
+so we'll just restructure it that way
+
+254
+00:09:07,866 --> 00:09:11,266
+现在所有这些函数子句都只需要一个
+and now all of these function clauses take just one
+
+255
+00:09:11,266 --> 00:09:12,900
+争论对话地图
+argument the conversation map
+
+256
+00:09:13,166 --> 00:09:16,266
+并且管道使用一个参数调用路由
+and the pipeline calls route with one argument
+
+257
+00:09:16,266 --> 00:09:17,166
+所以这些应该可以工作
+so these should just work
+
+258
+00:09:17,166 --> 00:09:18,033
+我们把它存起来
+we save that away
+
+259
+00:09:18,666 --> 00:09:20,433
+果然它像以前一样工作
+sure enough it works just as before
+
+260
+00:09:21,200 --> 00:09:23,933
+与往常一样，有多种方法可以做同样的事情
+as always there are multiple ways to do the same thing
+
+261
+00:09:24,133 --> 00:09:26,233
+这通常只是一个偏好问题
+and it's often simply a matter of preference
+

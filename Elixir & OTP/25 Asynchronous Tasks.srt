@@ -1,0 +1,2136 @@
+1
+00:00:00,233 --> 00:00:01,633
+we're back out here on the refuge
+
+2
+00:00:01,633 --> 00:00:03,233
+and in addition to our trail cams
+
+3
+00:00:03,233 --> 00:00:05,000
+we've also installed some sensors
+
+4
+00:00:05,033 --> 00:00:07,333
+to report the gps locations of our wild things
+
+5
+00:00:07,533 --> 00:00:09,266
+and to get the gps coordinates
+
+6
+00:00:09,266 --> 00:00:11,666
+we're going to need to send more requests to another
+
+7
+00:00:11,666 --> 00:00:13,800
+api now in the last section
+
+8
+00:00:13,800 --> 00:00:16,000
+we send a request in api and ended up creating a lot
+
+9
+00:00:16,000 --> 00:00:16,933
+of duplication
+
+10
+00:00:17,133 --> 00:00:18,300
+if we send more requests
+
+11
+00:00:18,300 --> 00:00:20,100
+we're probably going to end up with more duplication
+
+12
+00:00:20,333 --> 00:00:22,866
+so we'll create an abstraction to tidy that up and make
+
+13
+00:00:22,866 --> 00:00:24,366
+all of our tasks easier
+
+14
+00:00:25,533 --> 00:00:26,600
+back here in the studio
+
+15
+00:00:26,600 --> 00:00:29,300
+we see that to get a snapshot we have to do two
+
+16
+00:00:30,166 --> 00:00:31,300
+spawn of function
+
+17
+00:00:31,300 --> 00:00:33,500
+that sends the result back to the parent
+
+18
+00:00:33,733 --> 00:00:34,633
+and wait for
+
+19
+00:00:34,666 --> 00:00:37,066
+and return the result to the parent process
+
+20
+00:00:37,333 --> 00:00:39,800
+so we've got a fair amount of duplication to get these
+
+21
+00:00:39,800 --> 00:00:41,166
+three different snapshots
+
+22
+00:00:41,166 --> 00:00:42,500
+but looking at this code
+
+23
+00:00:42,533 --> 00:00:44,900
+the only thing that varies between one and the other
+
+24
+00:00:45,000 --> 00:00:47,633
+is just the argument to this get snapshot function
+
+25
+00:00:47,633 --> 00:00:48,766
+which is the camera name
+
+26
+00:00:49,166 --> 00:00:50,766
+so let's encapsulate these two things
+
+27
+00:00:50,766 --> 00:00:51,566
+in functions
+
+28
+00:00:51,566 --> 00:00:53,766
+and we'll put them in a new module named fetcher
+
+29
+00:00:54,966 --> 00:00:56,466
+so we'll put it in the lib survey
+
+30
+00:00:56,533 --> 00:00:57,533
+create a new file
+
+31
+00:00:58,166 --> 00:00:59,333
+fetch your dx
+
+32
+00:01:03,366 --> 00:01:05,966
+then we need to hoist some coat over from handler so
+
+33
+00:01:06,166 --> 00:01:06,666
+we need these
+
+34
+00:01:06,666 --> 00:01:08,866
+two lines where we get the parent and a spawn
+
+35
+00:01:09,200 --> 00:01:10,500
+so I'll paste those in here
+
+36
+00:01:10,800 --> 00:01:13,666
+come back over here and we also need a receive block
+
+37
+00:01:16,366 --> 00:01:18,600
+then we'll partition this code into two functions
+
+38
+00:01:18,600 --> 00:01:20,566
+since we do these two things at
+
+39
+00:01:20,633 --> 00:01:21,733
+different times
+
+40
+00:01:21,733 --> 00:01:23,866
+we're going to put this first part in a function
+
+41
+00:01:23,866 --> 00:01:25,066
+called async
+
+42
+00:01:25,133 --> 00:01:27,266
+since it's going to run a function asynchronously
+
+43
+00:01:29,833 --> 00:01:30,766
+so it's a sync
+
+44
+00:01:30,833 --> 00:01:32,633
+and we're going to pass in the camera name
+
+45
+00:01:39,300 --> 00:01:41,233
+and then where we reference this camera
+
+46
+00:01:41,233 --> 00:01:44,000
+we need to pass in camera name there
+
+47
+00:01:44,266 --> 00:01:46,366
+we also need to change this to survey
+
+48
+00:01:46,833 --> 00:01:49,000
+com because we don't have that aliased in this file
+
+49
+00:01:49,400 --> 00:01:50,533
+and I'll remove this comment
+
+50
+00:01:50,533 --> 00:01:51,966
+because the parent could be
+
+51
+00:01:52,133 --> 00:01:54,533
+any process not just the request handling process
+
+52
+00:01:54,900 --> 00:01:56,766
+and then we'll put this receive block
+
+53
+00:01:56,766 --> 00:01:58,833
+in a function named get result
+
+54
+00:02:04,766 --> 00:02:06,100
+and I can remove this assignment
+
+55
+00:02:06,100 --> 00:02:07,266
+because I just want to return
+
+56
+00:02:07,266 --> 00:02:08,866
+the return value of receive
+
+57
+00:02:09,333 --> 00:02:10,433
+so this will block
+
+58
+00:02:10,433 --> 00:02:12,566
+if a matching message isn't in the mailbox
+
+59
+00:02:12,566 --> 00:02:15,166
+otherwise it will return the file name immediately
+
+60
+00:02:15,533 --> 00:02:18,366
+so after calling a sink we can do whatever we want
+
+61
+00:02:18,366 --> 00:02:19,800
+and then at some later time
+
+62
+00:02:19,800 --> 00:02:22,100
+we can get the result by calling get result
+
+63
+00:02:22,466 --> 00:02:23,100
+so what's nice
+
+64
+00:02:23,100 --> 00:02:25,266
+about this fetcher abstraction is that a person
+
+65
+00:02:25,266 --> 00:02:26,566
+using it doesn't need to know
+
+66
+00:02:26,566 --> 00:02:28,333
+the structure of these messages
+
+67
+00:02:28,500 --> 00:02:31,066
+for example we used this tuple with a result
+
+68
+00:02:31,066 --> 00:02:31,966
+at the beginning
+
+69
+00:02:32,100 --> 00:02:33,966
+and then the result of the expression
+
+70
+00:02:34,100 --> 00:02:35,666
+and then we matched it down here
+
+71
+00:02:35,933 --> 00:02:38,766
+but because those are only maps inside of this file
+
+72
+00:02:38,833 --> 00:02:40,700
+the person that's using this module
+
+73
+00:02:40,700 --> 00:02:42,933
+doesn't need to know how these messages are structured
+
+74
+00:02:42,933 --> 00:02:43,733
+at all
+
+75
+00:02:43,966 --> 00:02:46,466
+so we'll save that away then back over and handler
+
+76
+00:02:47,133 --> 00:02:49,100
+at the very top we're going to alias this in
+
+77
+00:02:52,766 --> 00:02:53,866
+and then down in our route
+
+78
+00:02:53,866 --> 00:02:55,300
+we want to go ahead and use that
+
+79
+00:02:55,800 --> 00:02:57,000
+so we can get rid of this
+
+80
+00:02:57,133 --> 00:02:59,100
+because that's in that acing function
+
+81
+00:02:59,100 --> 00:03:00,100
+and we want to change
+
+82
+00:03:00,166 --> 00:03:02,933
+all of these to use that acing function
+
+83
+00:03:11,200 --> 00:03:13,300
+in the same way we want to change all of these
+
+84
+00:03:13,800 --> 00:03:15,966
+to call our get result function
+
+85
+00:03:15,966 --> 00:03:17,800
+instead of having a receive block right here
+
+86
+00:03:23,133 --> 00:03:24,166
+then we'll save that away
+
+87
+00:03:26,466 --> 00:03:28,566
+then over an ex we'll fire up our server
+
+88
+00:03:31,066 --> 00:03:32,866
+and we don't need to run it in a separate process this
+
+89
+00:03:32,866 --> 00:03:33,666
+time
+
+90
+00:03:34,733 --> 00:03:36,600
+and then if we go over to a new terminal session
+
+91
+00:03:36,633 --> 00:03:38,133
+well it should work just as before
+
+92
+00:03:38,366 --> 00:03:39,933
+all we've done is move some code around
+
+93
+00:03:41,200 --> 00:03:41,666
+and sure enough
+
+94
+00:03:41,666 --> 00:03:43,700
+we get back all the results in one second
+
+95
+00:03:43,800 --> 00:03:44,700
+just like before
+
+96
+00:03:45,266 --> 00:03:46,833
+let's take it a step further
+
+97
+00:03:47,000 --> 00:03:49,200
+right now the fetcher module can
+
+98
+00:03:49,200 --> 00:03:51,666
+only be used to get a video cam snapshot
+
+99
+00:03:51,866 --> 00:03:54,300
+because that's what the spawn function does
+
+100
+00:03:54,533 --> 00:03:55,400
+but you can probably
+
+101
+00:03:55,400 --> 00:03:58,166
+see how we can arrange things so that we can spawn
+
+102
+00:03:58,400 --> 00:04:00,500
+any function yeah to do that
+
+103
+00:04:00,500 --> 00:04:02,433
+instead of calling this specific function
+
+104
+00:04:02,433 --> 00:04:04,366
+here we want to be able to call any function
+
+105
+00:04:04,466 --> 00:04:05,233
+what we're going to do is
+
+106
+00:04:05,233 --> 00:04:05,533
+we're going to
+
+107
+00:04:05,566 --> 00:04:07,666
+pass in the function instead of the camera name
+
+108
+00:04:08,033 --> 00:04:09,700
+so I'm going to name this fun that's going to be the
+
+109
+00:04:09,700 --> 00:04:11,000
+function that gets passed in
+
+110
+00:04:11,233 --> 00:04:12,833
+and instead of running this function here
+
+111
+00:04:13,266 --> 00:04:15,933
+we'll just run the past in function we can do that fun
+
+112
+00:04:16,633 --> 00:04:17,433
+just like that
+
+113
+00:04:17,666 --> 00:04:19,666
+so whatever this function returns
+
+114
+00:04:19,733 --> 00:04:21,533
+is going to be part of the message
+
+115
+00:04:22,000 --> 00:04:22,333
+and then
+
+116
+00:04:22,333 --> 00:04:24,666
+because the message isn't specific to file names
+
+117
+00:04:24,666 --> 00:04:27,300
+I'm just going to change this variable here to value
+
+118
+00:04:27,300 --> 00:04:28,766
+now it'll work without doing this
+
+119
+00:04:28,966 --> 00:04:31,333
+but it just makes it more generic to see hey
+
+120
+00:04:31,333 --> 00:04:32,700
+the function returns to value
+
+121
+00:04:32,700 --> 00:04:34,200
+and that value is part of the message
+
+122
+00:04:34,700 --> 00:04:37,233
+now the name fetcher doesn't really work anymore
+
+123
+00:04:37,233 --> 00:04:39,366
+but just go with us here for a minute
+
+124
+00:04:39,800 --> 00:04:41,400
+then back over and handler
+
+125
+00:04:41,800 --> 00:04:44,433
+we need to change how this acing function is called
+
+126
+00:04:44,433 --> 00:04:46,366
+making sure to pass it a function
+
+127
+00:04:55,933 --> 00:04:56,733
+just like that
+
+128
+00:04:57,466 --> 00:05:00,933
+so now it's more generic we can pass in any function
+
+129
+00:05:01,333 --> 00:05:02,466
+if we save that away
+
+130
+00:05:04,000 --> 00:05:05,333
+go restart our server
+
+131
+00:05:06,400 --> 00:05:08,133
+just run a quick sanity check here
+
+132
+00:05:08,833 --> 00:05:10,100
+cool that works too
+
+133
+00:05:10,600 --> 00:05:13,100
+now let's suppose we want to send a request to
+
+134
+00:05:13,100 --> 00:05:19,033
+another api let's create a new file called tracker ex
+
+135
+00:05:21,000 --> 00:05:22,766
+and then we're going to paste in some code
+
+136
+00:05:23,333 --> 00:05:26,100
+the tracker module simulates sending a request
+
+137
+00:05:26,133 --> 00:05:27,633
+to an external api
+
+138
+00:05:27,633 --> 00:05:30,266
+to get the gps coordinates of a wild thing
+
+139
+00:05:30,600 --> 00:05:33,166
+it's some amazing technology
+
+140
+00:05:33,566 --> 00:05:34,700
+and it looks a lot
+
+141
+00:05:34,733 --> 00:05:37,566
+like the video cam module that you saw earlier
+
+142
+00:05:38,200 --> 00:05:40,166
+here we call get location
+
+143
+00:05:40,300 --> 00:05:42,266
+for a wild thing and get back
+
+144
+00:05:42,266 --> 00:05:45,200
+its gps coordinates as an elixir map
+
+145
+00:05:46,133 --> 00:05:46,400
+so we
+
+146
+00:05:46,400 --> 00:05:49,266
+want to call this get location function from our route
+
+147
+00:05:49,266 --> 00:05:50,866
+so back over in handler
+
+148
+00:05:51,233 --> 00:05:54,266
+let's go ahead and rename this route from snapshots to
+
+149
+00:05:54,333 --> 00:05:57,200
+sensors since now we're acquiring multiple sensors
+
+150
+00:05:57,600 --> 00:06:00,466
+and to get the location of bigfoot asynchronously
+
+151
+00:06:00,533 --> 00:06:03,166
+we can use fetcher since it can take any function
+
+152
+00:06:03,800 --> 00:06:05,466
+so right down here we'll call fetcher
+
+153
+00:06:06,100 --> 00:06:06,900
+a sink
+
+154
+00:06:08,200 --> 00:06:09,066
+with a function
+
+155
+00:06:09,333 --> 00:06:12,233
+in this case it's going to be a survey tracker
+
+156
+00:06:12,333 --> 00:06:13,533
+I don't have this aliased in
+
+157
+00:06:13,533 --> 00:06:14,666
+so I've got to use survey there
+
+158
+00:06:14,900 --> 00:06:18,000
+get location I'm going to pass in bigfoot
+
+159
+00:06:21,000 --> 00:06:23,100
+and then we'll get the location by calling
+
+160
+00:06:23,133 --> 00:06:25,200
+get result since it's also generic
+
+161
+00:06:25,200 --> 00:06:26,100
+so I'm going to call this
+
+162
+00:06:26,433 --> 00:06:27,700
+where is bigfoot
+
+163
+00:06:30,833 --> 00:06:32,266
+fetch your dot get result
+
+164
+00:06:32,933 --> 00:06:35,700
+now we want to include this in our response body
+
+165
+00:06:35,700 --> 00:06:37,166
+so down here I'm just going to inspect
+
+166
+00:06:37,166 --> 00:06:38,533
+we've got snapshots right there
+
+167
+00:06:38,533 --> 00:06:39,866
+I'm actually going to put it in a two pole
+
+168
+00:06:39,866 --> 00:06:42,166
+so the first element is going to be our snapshots
+
+169
+00:06:42,233 --> 00:06:45,066
+and the second element is going to be where is bigfoot
+
+170
+00:06:46,766 --> 00:06:48,133
+now if we restart our server
+
+171
+00:06:51,033 --> 00:06:53,400
+and then send a request this time for sensors
+
+172
+00:06:54,700 --> 00:06:56,533
+hmm something went awry there
+
+173
+00:06:56,866 --> 00:06:59,033
+we get back a tuple as we would expect
+
+174
+00:06:59,600 --> 00:07:01,700
+and the first element is supposed to be a
+
+175
+00:07:01,700 --> 00:07:03,333
+list of our snapshot images
+
+176
+00:07:03,333 --> 00:07:04,766
+so there's the list right there
+
+177
+00:07:05,100 --> 00:07:07,100
+and the second element is supposed to be
+
+178
+00:07:07,533 --> 00:07:10,733
+a map a linear map of the gps coordinates
+
+179
+00:07:10,933 --> 00:07:13,900
+but the coordinates actually ended up in the snapshot
+
+180
+00:07:13,900 --> 00:07:16,066
+list and where our coordinates were supposed to be
+
+181
+00:07:16,066 --> 00:07:17,366
+we have a snapshot image
+
+182
+00:07:17,800 --> 00:07:18,866
+so what went wrong
+
+183
+00:07:19,400 --> 00:07:21,066
+well if we look back at the code
+
+184
+00:07:21,066 --> 00:07:23,300
+we spawned four processes
+
+185
+00:07:23,300 --> 00:07:24,933
+each of which sent a message
+
+186
+00:07:24,933 --> 00:07:27,566
+back to the parent process's mailbox
+
+187
+00:07:27,700 --> 00:07:29,033
+but they came back in a
+
+188
+00:07:29,033 --> 00:07:30,666
+different order than we expected
+
+189
+00:07:31,000 --> 00:07:34,266
+why well even though we spawned the track or last
+
+190
+00:07:34,900 --> 00:07:36,966
+its response came back the fastest
+
+191
+00:07:37,533 --> 00:07:40,500
+right if we look at its code over here in tracker
+
+192
+00:07:41,000 --> 00:07:41,533
+well it
+
+193
+00:07:41,533 --> 00:07:43,333
+only sleeps for five hundred milliseconds
+
+194
+00:07:43,333 --> 00:07:44,133
+half a second
+
+195
+00:07:44,333 --> 00:07:47,133
+so it was the first message to arrive in the mailbox
+
+196
+00:07:47,533 --> 00:07:51,100
+therefore back over here this first call to get result
+
+197
+00:07:51,433 --> 00:07:53,033
+returns the location
+
+198
+00:07:53,333 --> 00:07:56,100
+not the snapshot so this isn't going to be a snapshot
+
+199
+00:07:56,500 --> 00:07:59,066
+and remember how our get result function is implemented
+
+200
+00:07:59,733 --> 00:08:02,233
+the receive is going to match any message
+
+201
+00:08:02,233 --> 00:08:03,366
+with this pattern
+
+202
+00:08:03,700 --> 00:08:06,600
+and all process is spawned by a sink
+
+203
+00:08:06,600 --> 00:08:08,600
+send a message with that pattern
+
+204
+00:08:09,233 --> 00:08:10,733
+so calling get result
+
+205
+00:08:10,733 --> 00:08:13,666
+will simply receive the next message in the mailbox
+
+206
+00:08:13,666 --> 00:08:14,566
+or wait for a message
+
+207
+00:08:14,566 --> 00:08:16,000
+if one hasn't already arrived
+
+208
+00:08:16,600 --> 00:08:20,066
+a hack would be to get the gps location results first
+
+209
+00:08:20,633 --> 00:08:23,200
+but that's exactly what it is just a hack
+
+210
+00:08:23,533 --> 00:08:25,466
+because processes run concurrently
+
+211
+00:08:25,466 --> 00:08:27,600
+there's no guarantee of the order in which
+
+212
+00:08:27,600 --> 00:08:29,000
+the messages are sent
+
+213
+00:08:29,233 --> 00:08:31,033
+who knows how long it might take to
+
+214
+00:08:31,133 --> 00:08:32,700
+actually locate bigfoot
+
+215
+00:08:33,000 --> 00:08:36,066
+yeah we need some way to tie the call to get result
+
+216
+00:08:36,200 --> 00:08:38,933
+to the spawn process that produce that result
+
+217
+00:08:39,133 --> 00:08:41,933
+so this result should come from this spawn process
+
+218
+00:08:41,933 --> 00:08:44,066
+the one where we call get location for bigfoot
+
+219
+00:08:44,233 --> 00:08:47,133
+when we call get result here we want snapshot one
+
+220
+00:08:47,400 --> 00:08:48,900
+well that's this spawn function
+
+221
+00:08:49,333 --> 00:08:51,566
+snapshot two is this bond function
+
+222
+00:08:51,733 --> 00:08:52,500
+and you guessed it
+
+223
+00:08:52,500 --> 00:08:54,533
+snapshot three is that spawn function
+
+224
+00:08:54,900 --> 00:08:56,200
+if we can tie those together
+
+225
+00:08:56,200 --> 00:08:58,366
+then it won't matter the order in which we call
+
+226
+00:08:58,366 --> 00:09:00,900
+get result it will always get the result
+
+227
+00:09:00,900 --> 00:09:02,366
+for the process that spawned it
+
+228
+00:09:02,766 --> 00:09:03,333
+to do that
+
+229
+00:09:03,333 --> 00:09:06,333
+we need to uniquely identify a process and we
+
+230
+00:09:06,333 --> 00:09:07,566
+actually know how to do that
+
+231
+00:09:07,566 --> 00:09:08,800
+it's by its pid
+
+232
+00:09:09,133 --> 00:09:10,933
+yeah when we call a sink here
+
+233
+00:09:11,033 --> 00:09:13,000
+remember looking at the implementation of that
+
+234
+00:09:13,266 --> 00:09:16,633
+the last call in this acing function is to spawn
+
+235
+00:09:16,800 --> 00:09:17,900
+and we know that spawn
+
+236
+00:09:18,300 --> 00:09:19,866
+always returns the pid
+
+237
+00:09:20,033 --> 00:09:22,666
+so the return value back here is going to give us a pid
+
+238
+00:09:22,766 --> 00:09:24,166
+so I'm going to sign this to pid one
+
+239
+00:09:27,600 --> 00:09:29,133
+pit two and so on
+
+240
+00:09:34,300 --> 00:09:35,500
+now to tie them together
+
+241
+00:09:35,566 --> 00:09:36,966
+let's suppose for a minute
+
+242
+00:09:36,966 --> 00:09:38,400
+this isn't going to work just yet
+
+243
+00:09:38,400 --> 00:09:40,900
+but let's suppose that the get result function
+
+244
+00:09:41,133 --> 00:09:43,133
+takes a pid as the argument
+
+245
+00:09:43,200 --> 00:09:44,300
+and returns the result
+
+246
+00:09:44,300 --> 00:09:46,133
+for that process we would say okay
+
+247
+00:09:46,366 --> 00:09:48,533
+for bigfoot we want to pass in pid four
+
+248
+00:09:48,566 --> 00:09:49,666
+we want its result
+
+249
+00:09:49,733 --> 00:09:50,733
+this would be pid one
+
+250
+00:09:51,733 --> 00:09:52,533
+pit two
+
+251
+00:09:53,533 --> 00:09:54,333
+and pit three
+
+252
+00:09:54,900 --> 00:09:56,233
+well that would be ideal
+
+253
+00:09:56,300 --> 00:09:58,333
+then the ordering wouldn't matter
+
+254
+00:09:58,566 --> 00:10:00,933
+let's step away from fetcher for a moment and hop
+
+255
+00:10:00,933 --> 00:10:02,200
+into sex to see
+
+256
+00:10:02,200 --> 00:10:03,300
+how we'll make this work
+
+257
+00:10:04,033 --> 00:10:05,966
+I'm going to have to quit it that I get back
+
+258
+00:10:05,966 --> 00:10:06,800
+to a prompt
+
+259
+00:10:07,833 --> 00:10:09,733
+so let's sort of simulate what's happening inside
+
+260
+00:10:09,733 --> 00:10:11,133
+of our acing function
+
+261
+00:10:11,700 --> 00:10:13,733
+the first thing it does is set up the parent
+
+262
+00:10:14,166 --> 00:10:15,500
+and it just assigns it to self
+
+263
+00:10:15,500 --> 00:10:17,966
+that's the calling process or the parent process
+
+264
+00:10:18,133 --> 00:10:19,933
+and then as we just saw the last
+
+265
+00:10:20,033 --> 00:10:21,966
+line of our acing function called spawn
+
+266
+00:10:21,966 --> 00:10:22,966
+and returns a pid
+
+267
+00:10:26,200 --> 00:10:27,566
+inside of the spawn function
+
+268
+00:10:27,566 --> 00:10:29,233
+it just sends back to the parent
+
+269
+00:10:29,566 --> 00:10:30,366
+some message
+
+270
+00:10:31,033 --> 00:10:32,833
+right now it looks like this result
+
+271
+00:10:33,000 --> 00:10:35,066
+and I'll just put in a hard coated snapshot
+
+272
+00:10:38,000 --> 00:10:39,733
+so that's the way it currently works
+
+273
+00:10:39,733 --> 00:10:41,700
+but what we'll do is include
+
+274
+00:10:41,700 --> 00:10:43,666
+the spawned process is pied
+
+275
+00:10:43,666 --> 00:10:45,900
+in the message that it sends back to the parent
+
+276
+00:10:46,366 --> 00:10:47,766
+so the tuple currently has
+
+277
+00:10:47,766 --> 00:10:49,600
+two elements result in the image
+
+278
+00:10:49,833 --> 00:10:52,333
+we want to put a new element on the front of this
+
+279
+00:10:52,366 --> 00:10:53,200
+we could put it anywhere
+
+280
+00:10:53,200 --> 00:10:54,600
+but we're going to choose the front of it
+
+281
+00:10:54,633 --> 00:10:56,966
+and it's going to be the pid of this spawn process
+
+282
+00:10:57,266 --> 00:10:59,800
+well how do we get the pid of the spawn process
+
+283
+00:10:59,866 --> 00:11:01,000
+well we call self
+
+284
+00:11:01,366 --> 00:11:03,900
+it always returns the pid of the current process
+
+285
+00:11:04,200 --> 00:11:08,366
+and so when spawn is called self in this context
+
+286
+00:11:08,600 --> 00:11:11,166
+is going to be the pid of that process
+
+287
+00:11:11,533 --> 00:11:13,833
+which is going to be the same thing as pit one
+
+288
+00:11:14,066 --> 00:11:15,833
+but we're including it in the message
+
+289
+00:11:16,066 --> 00:11:17,233
+so that we can pick it up on
+
+290
+00:11:17,233 --> 00:11:18,400
+the received side of things
+
+291
+00:11:19,000 --> 00:11:20,633
+so in this case I'll send a snapshot
+
+292
+00:11:21,100 --> 00:11:22,700
+then I'm going to send a second message
+
+293
+00:11:23,300 --> 00:11:24,900
+this time instead of sending a string
+
+294
+00:11:25,100 --> 00:11:25,700
+I'm going to use
+
+295
+00:11:25,700 --> 00:11:27,866
+an elixir mat where we put our coordinates in there
+
+296
+00:11:27,866 --> 00:11:29,500
+I'm just going to use x one
+
+297
+00:11:30,400 --> 00:11:31,266
+y is two
+
+298
+00:11:32,166 --> 00:11:32,966
+doesn't really matter
+
+299
+00:11:32,966 --> 00:11:35,533
+we just want something different than a snapshot name
+
+300
+00:11:35,800 --> 00:11:38,133
+and I need to change this pid over to pid two
+
+301
+00:11:39,000 --> 00:11:40,166
+and then for the third message
+
+302
+00:11:40,166 --> 00:11:41,733
+I'm going to send another snapshot
+
+303
+00:11:42,100 --> 00:11:43,700
+we'll just call this one snapshot one
+
+304
+00:11:43,766 --> 00:11:45,666
+so that it's different and this will be pid three
+
+305
+00:11:47,033 --> 00:11:48,933
+okay now let's peek inside of the mailbox
+
+306
+00:11:50,366 --> 00:11:52,933
+that's the parent's mailbox messages
+
+307
+00:11:53,966 --> 00:11:56,166
+okay cool we've got three messages inside of here
+
+308
+00:11:56,166 --> 00:11:58,466
+and you notice that each of the message tuples
+
+309
+00:11:58,466 --> 00:12:00,400
+has a pid as the first element
+
+310
+00:12:00,566 --> 00:12:02,633
+so snapshot three was one fifty eight
+
+311
+00:12:02,866 --> 00:12:04,566
+and that's right one fifty eight there
+
+312
+00:12:05,533 --> 00:12:08,000
+our coordinates were one sixty one that matches up
+
+313
+00:12:08,100 --> 00:12:10,800
+and one sixty three is our final snapshot
+
+314
+00:12:11,200 --> 00:12:13,333
+so as I said calling self inside of here
+
+315
+00:12:13,566 --> 00:12:15,633
+is going to be the same pid that gets returned here
+
+316
+00:12:15,633 --> 00:12:16,433
+and we see that
+
+317
+00:12:16,900 --> 00:12:19,166
+so now suppose we want to receive the message
+
+318
+00:12:19,166 --> 00:12:20,666
+with the gps coordinates
+
+319
+00:12:21,433 --> 00:12:22,500
+what we do receive
+
+320
+00:12:23,733 --> 00:12:25,533
+and then the pattern we want to match is
+
+321
+00:12:26,000 --> 00:12:26,800
+a pid
+
+322
+00:12:27,366 --> 00:12:30,166
+and then the atom result and then our coordinates
+
+323
+00:12:30,433 --> 00:12:31,733
+which I'll just call cords
+
+324
+00:12:32,333 --> 00:12:33,200
+when that matches
+
+325
+00:12:33,200 --> 00:12:35,200
+we just want to return the coordinates
+
+326
+00:12:35,666 --> 00:12:38,266
+but the question is what pid do we want to match
+
+327
+00:12:38,300 --> 00:12:40,566
+well the coordinates are here
+
+328
+00:12:40,766 --> 00:12:43,400
+one sixty one and that's pid number two
+
+329
+00:12:43,566 --> 00:12:44,500
+one sixty one
+
+330
+00:12:44,933 --> 00:12:46,500
+so this should be pid two
+
+331
+00:12:47,000 --> 00:12:48,300
+but not so fast
+
+332
+00:12:48,766 --> 00:12:49,966
+this is a variable
+
+333
+00:12:49,966 --> 00:12:51,833
+and we don't want to bind that variable
+
+334
+00:12:51,833 --> 00:12:53,400
+to the value that's in the message
+
+335
+00:12:53,400 --> 00:12:55,033
+which would be this pid
+
+336
+00:12:55,400 --> 00:12:57,400
+instead we want a pattern match
+
+337
+00:12:57,400 --> 00:12:59,566
+pid too's existing value
+
+338
+00:12:59,566 --> 00:13:01,333
+which is this pid structure right here
+
+339
+00:13:01,800 --> 00:13:04,133
+so to do that we need to use the pin operator
+
+340
+00:13:04,366 --> 00:13:05,900
+that's that carrot right there
+
+341
+00:13:06,400 --> 00:13:07,133
+and that's going to
+
+342
+00:13:07,133 --> 00:13:09,833
+match against the variables existing value
+
+343
+00:13:09,833 --> 00:13:11,433
+not bind it to a new value
+
+344
+00:13:11,866 --> 00:13:13,600
+so this is saying that this
+
+345
+00:13:14,000 --> 00:13:16,800
+must match the exact value of pid two
+
+346
+00:13:17,166 --> 00:13:18,066
+and if we do that
+
+347
+00:13:18,500 --> 00:13:20,566
+well receiver turns the matching message
+
+348
+00:13:20,966 --> 00:13:23,700
+even though it's not the first message in the mailbox
+
+349
+00:13:23,766 --> 00:13:26,066
+it was actually the second message in the mailbox
+
+350
+00:13:26,400 --> 00:13:27,566
+that's right if the first
+
+351
+00:13:27,566 --> 00:13:28,966
+message doesn't match
+
+352
+00:13:28,966 --> 00:13:31,933
+it continues examining the remaining messages
+
+353
+00:13:31,933 --> 00:13:33,400
+until it finds a match
+
+354
+00:13:33,500 --> 00:13:35,266
+and if it doesn't find a match at all
+
+355
+00:13:35,466 --> 00:13:37,466
+it waits for a new message to arrive
+
+356
+00:13:38,066 --> 00:13:39,033
+now back in handler
+
+357
+00:13:39,033 --> 00:13:41,200
+we need to make a couple changes to make this work
+
+358
+00:13:41,266 --> 00:13:43,600
+remember I said passing a pid in the get result
+
+359
+00:13:43,700 --> 00:13:44,733
+won't work yet
+
+360
+00:13:44,733 --> 00:13:46,166
+so let's go ahead and make the changes
+
+361
+00:13:46,200 --> 00:13:47,033
+so that will work
+
+362
+00:13:47,600 --> 00:13:48,933
+so over in fetcher
+
+363
+00:13:49,133 --> 00:13:51,000
+the first thing we need to do when we're sending this
+
+364
+00:13:51,000 --> 00:13:53,400
+message back is include the
+
+365
+00:13:53,400 --> 00:13:54,866
+spawn process is pid
+
+366
+00:13:55,133 --> 00:13:56,300
+just like we did in ex
+
+367
+00:13:56,300 --> 00:13:57,666
+it's going to be self right here
+
+368
+00:13:58,533 --> 00:14:01,133
+then our gib result function needs to take the pid
+
+369
+00:14:01,266 --> 00:14:01,933
+and then
+
+370
+00:14:01,933 --> 00:14:04,333
+pattern match against it using that pin operator
+
+371
+00:14:04,966 --> 00:14:06,066
+so what happens is
+
+372
+00:14:06,066 --> 00:14:08,300
+we call self to get the spawn process as
+
+373
+00:14:08,300 --> 00:14:09,666
+pit and stick it in the message
+
+374
+00:14:09,900 --> 00:14:10,933
+that's going to be the same
+
+375
+00:14:10,933 --> 00:14:12,966
+value as the pid returned by spawn
+
+376
+00:14:13,233 --> 00:14:15,133
+which is the return value of sync
+
+377
+00:14:15,933 --> 00:14:18,866
+so when handler calls a sync it gets that pit back
+
+378
+00:14:19,200 --> 00:14:21,966
+then it uses that pit when it calls get result
+
+379
+00:14:22,000 --> 00:14:23,900
+so in this case get result pit one
+
+380
+00:14:24,466 --> 00:14:25,566
+that gets passed in
+
+381
+00:14:26,266 --> 00:14:27,933
+and then we pattern match against it
+
+382
+00:14:28,633 --> 00:14:32,166
+so this will only receive messages that were sent by
+
+383
+00:14:32,433 --> 00:14:33,866
+this bond process
+
+384
+00:14:34,166 --> 00:14:35,733
+now we need to make sure to save this away
+
+385
+00:14:36,100 --> 00:14:37,333
+also need to save away the handler
+
+386
+00:14:37,333 --> 00:14:38,866
+because it's currently not saved
+
+387
+00:14:39,166 --> 00:14:41,166
+and we're ready to fire up our server one more time
+
+388
+00:14:41,633 --> 00:14:42,966
+to make sure we have a clean slate
+
+389
+00:14:42,966 --> 00:14:45,466
+I killed everything and then I'll fire up ix again
+
+390
+00:14:45,966 --> 00:14:47,200
+and then restart our server
+
+391
+00:14:47,766 --> 00:14:49,533
+now if we send a request for sensors
+
+392
+00:14:50,100 --> 00:14:51,266
+well everything's in the right order
+
+393
+00:14:51,266 --> 00:14:53,666
+we have all of our snapshots in that first list
+
+394
+00:14:53,766 --> 00:14:56,033
+and we have our gps coordinates as the second
+
+395
+00:14:56,033 --> 00:14:57,133
+element of that tuple
+
+396
+00:14:57,566 --> 00:14:58,500
+so that fixed it
+
+397
+00:14:58,966 --> 00:15:01,133
+now in the case of snapshots we have three
+
+398
+00:15:01,200 --> 00:15:02,500
+calls to a sink
+
+399
+00:15:02,666 --> 00:15:04,666
+and three calls to get result
+
+400
+00:15:04,900 --> 00:15:05,833
+it turns out there's
+
+401
+00:15:05,833 --> 00:15:08,566
+a more concise way to do this using a pipeline
+
+402
+00:15:09,266 --> 00:15:11,533
+yeah let's rearrange things a bit here to set that up
+
+403
+00:15:12,366 --> 00:15:13,733
+we want to put these inside of a list
+
+404
+00:15:13,733 --> 00:15:15,066
+so let's get rid of the p
+
+405
+00:15:16,300 --> 00:15:17,466
+and this will be a list
+
+406
+00:15:19,833 --> 00:15:22,166
+I need to put a comma here and a comma here
+
+407
+00:15:24,366 --> 00:15:25,166
+just like that
+
+408
+00:15:25,833 --> 00:15:28,033
+so what this is going to do is spawn three functions
+
+409
+00:15:28,033 --> 00:15:29,200
+one for each camera
+
+410
+00:15:29,200 --> 00:15:31,600
+and we're going to end up with a list of three pits
+
+411
+00:15:32,066 --> 00:15:34,866
+now what we can do is take that list of pids
+
+412
+00:15:34,866 --> 00:15:37,266
+and pipe it into emu map
+
+413
+00:15:38,666 --> 00:15:41,333
+and for every one of those kids we want to call fetcher
+
+414
+00:15:41,333 --> 00:15:42,766
+get result we know how to do that
+
+415
+00:15:42,766 --> 00:15:44,733
+we can use the capture operator to do that
+
+416
+00:15:44,933 --> 00:15:46,066
+it's just going to be fetcher
+
+417
+00:15:47,400 --> 00:15:48,200
+get result
+
+418
+00:15:49,366 --> 00:15:50,500
+and then we can either use
+
+419
+00:15:51,200 --> 00:15:53,200
+ampersand one like that
+
+420
+00:15:53,300 --> 00:15:54,333
+or as we learned earlier
+
+421
+00:15:54,333 --> 00:15:57,266
+there's a shortcut we can just use the reality one
+
+422
+00:15:58,000 --> 00:16:00,633
+so for every pit in this list it's going to call
+
+423
+00:16:00,633 --> 00:16:02,300
+get result with that pid
+
+424
+00:16:02,433 --> 00:16:04,100
+and when all the process is finished
+
+425
+00:16:04,100 --> 00:16:05,233
+while we've collected
+
+426
+00:16:05,300 --> 00:16:07,300
+a list of three file amps fact
+
+427
+00:16:07,300 --> 00:16:09,866
+we'll just go ahead and assign that to snapshots
+
+428
+00:16:12,833 --> 00:16:14,333
+and then we can get rid of that down here
+
+429
+00:16:15,033 --> 00:16:17,066
+and get rid of all the get results
+
+430
+00:16:17,433 --> 00:16:18,366
+so this will work
+
+431
+00:16:18,366 --> 00:16:19,800
+but you notice we're just calling
+
+432
+00:16:19,800 --> 00:16:21,633
+get snapshot three times here
+
+433
+00:16:21,833 --> 00:16:24,333
+passing it in a different argument each time
+
+434
+00:16:24,900 --> 00:16:26,366
+so we can further refine this
+
+435
+00:16:27,533 --> 00:16:30,233
+what we'll do is create a list of camera names so
+
+436
+00:16:32,066 --> 00:16:32,866
+cam one
+
+437
+00:16:34,500 --> 00:16:36,866
+cam two and cam three
+
+438
+00:16:37,700 --> 00:16:39,933
+and then instead of calling this three times
+
+439
+00:16:41,133 --> 00:16:44,466
+what we want to do is pipe that list into a new map
+
+440
+00:16:45,200 --> 00:16:47,800
+and for every one of those camera names we want to call
+
+441
+00:16:48,166 --> 00:16:49,833
+this fetcher acing function
+
+442
+00:16:50,200 --> 00:16:53,033
+passing it the function calls get snapshot
+
+443
+00:16:54,100 --> 00:16:56,033
+and then instead of cam three right here
+
+444
+00:16:56,333 --> 00:16:57,700
+while we just want to pass in
+
+445
+00:16:57,900 --> 00:16:59,800
+the next camera name from this list
+
+446
+00:17:00,100 --> 00:17:01,766
+and then we pipe that into get result
+
+447
+00:17:01,766 --> 00:17:03,200
+which calls get result
+
+448
+00:17:03,233 --> 00:17:04,166
+for every one of the
+
+449
+00:17:04,166 --> 00:17:06,500
+kids that are in the list returned by this map
+
+450
+00:17:07,433 --> 00:17:08,633
+let's go ahead and save that away
+
+451
+00:17:09,900 --> 00:17:11,066
+we'll restart our server
+
+452
+00:17:13,500 --> 00:17:14,733
+give it a quick sanity check
+
+453
+00:17:15,433 --> 00:17:16,966
+and cool that still works
+
+454
+00:17:17,400 --> 00:17:19,300
+one advantage to this approach is that it
+
+455
+00:17:19,300 --> 00:17:20,766
+always calls git result
+
+456
+00:17:20,766 --> 00:17:22,133
+for each process
+
+457
+00:17:22,133 --> 00:17:23,100
+we don't have to remember
+
+458
+00:17:23,100 --> 00:17:25,266
+to call it a certain number of times
+
+459
+00:17:25,633 --> 00:17:29,200
+one disadvantage is our tracker process right here
+
+460
+00:17:29,533 --> 00:17:31,066
+doesn't get spawn until
+
+461
+00:17:31,233 --> 00:17:33,333
+after the snapshots have been received
+
+462
+00:17:33,600 --> 00:17:35,533
+which means we've created an unwanted
+
+463
+00:17:35,533 --> 00:17:37,200
+synchronization point in our code
+
+464
+00:17:37,200 --> 00:17:37,833
+again
+
+465
+00:17:37,833 --> 00:17:40,100
+we've got to wait for all these snapshots to come back
+
+466
+00:17:40,233 --> 00:17:42,266
+before we can then go figure out where bigfoot is
+
+467
+00:17:42,600 --> 00:17:44,700
+so in this case we want to spawn everything first
+
+468
+00:17:44,700 --> 00:17:46,066
+so I'm going to move this up here
+
+469
+00:17:47,500 --> 00:17:50,333
+we'll spawn the get location go look for bigfoot
+
+470
+00:17:50,700 --> 00:17:52,466
+and then we'll go ahead and spawn our get
+
+471
+00:17:52,466 --> 00:17:55,033
+snapshots we'll wait for the snapshots
+
+472
+00:17:55,166 --> 00:17:56,433
+and then by the time they're back
+
+473
+00:17:56,500 --> 00:17:58,233
+well we should have a result for bigfoot too
+
+474
+00:17:58,266 --> 00:17:59,566
+so we'll just get that result
+
+475
+00:18:00,000 --> 00:18:02,300
+now spawning a process for a one off
+
+476
+00:18:02,366 --> 00:18:04,100
+a synchronous task like this
+
+477
+00:18:04,100 --> 00:18:06,200
+and getting its result at a later time
+
+478
+00:18:06,200 --> 00:18:08,966
+is so common that elixir provides an abstraction
+
+479
+00:18:09,233 --> 00:18:10,900
+yeah similar to our fetcher module
+
+480
+00:18:10,900 --> 00:18:12,566
+elixir has a task module
+
+481
+00:18:12,633 --> 00:18:14,866
+it includes several convenience functions
+
+482
+00:18:14,966 --> 00:18:16,633
+two of which effectively do the same
+
+483
+00:18:16,633 --> 00:18:17,700
+thing as our fetcher
+
+484
+00:18:17,933 --> 00:18:20,033
+and because we designed fetcher the way we did
+
+485
+00:18:20,200 --> 00:18:23,066
+wink wink task is a drop in replacement
+
+486
+00:18:23,300 --> 00:18:25,266
+so let's change our route to use task
+
+487
+00:18:25,366 --> 00:18:26,833
+and I'll start with bigfoot here
+
+488
+00:18:27,166 --> 00:18:29,933
+we just change the fetcher module here to task
+
+489
+00:18:30,133 --> 00:18:32,333
+and similar to the acing function and fetcher
+
+490
+00:18:32,600 --> 00:18:34,300
+task has an acing function
+
+491
+00:18:34,366 --> 00:18:36,833
+it spawns a process that runs a function
+
+492
+00:18:36,966 --> 00:18:38,566
+then cind is called to send
+
+493
+00:18:38,566 --> 00:18:41,133
+that functions result back to the parent process
+
+494
+00:18:41,300 --> 00:18:42,466
+sounds pretty familiar
+
+495
+00:18:43,400 --> 00:18:46,200
+in similar to the git result function in fetcher
+
+496
+00:18:46,400 --> 00:18:49,333
+the task module has a function called a weight
+
+497
+00:18:49,600 --> 00:18:52,000
+and inside of that function there's a receive block
+
+498
+00:18:52,000 --> 00:18:53,600
+that matches and returns
+
+499
+00:18:53,600 --> 00:18:55,400
+the message sent by sync
+
+500
+00:18:55,866 --> 00:18:58,533
+now unlike the fetcher we don't get back a pid
+
+501
+00:18:58,600 --> 00:19:00,200
+when we call task a sink
+
+502
+00:19:00,200 --> 00:19:03,000
+we actually get back a task structure
+
+503
+00:19:03,000 --> 00:19:04,266
+so I'm going to call that task
+
+504
+00:19:04,400 --> 00:19:06,833
+and the struck just includes the parent process pid
+
+505
+00:19:07,166 --> 00:19:10,166
+it calls it the owner and also the trial process pid
+
+506
+00:19:10,333 --> 00:19:12,433
+and then it uses that task structure
+
+507
+00:19:12,500 --> 00:19:14,733
+to match up the spawn process
+
+508
+00:19:14,733 --> 00:19:16,733
+with the results we have to pass it in here
+
+509
+00:19:17,000 --> 00:19:19,233
+task sounds pretty familiar
+
+510
+00:19:19,666 --> 00:19:21,200
+then let's go ahead and change our pipeline to use
+
+511
+00:19:21,200 --> 00:19:23,266
+task as well so task here
+
+512
+00:19:24,700 --> 00:19:26,800
+don't have to change a sink but have to change this
+
+513
+00:19:26,800 --> 00:19:28,200
+over to a weight
+
+514
+00:19:28,700 --> 00:19:31,400
+cool so while we learned a lot writing fetcher
+
+515
+00:19:31,566 --> 00:19:33,300
+we don't actually need it anymore
+
+516
+00:19:33,533 --> 00:19:35,700
+don't you just love it when a plan comes together
+
+517
+00:19:36,133 --> 00:19:38,666
+yeah I do I also love removing these aliases
+
+518
+00:19:38,700 --> 00:19:40,133
+that's less code that we have to write
+
+519
+00:19:40,133 --> 00:19:41,533
+so I'll just remove that there
+
+520
+00:19:41,933 --> 00:19:42,733
+save that away
+
+521
+00:19:44,733 --> 00:19:45,900
+restart our server
+
+522
+00:19:47,666 --> 00:19:49,400
+send the request one final time
+
+523
+00:19:50,000 --> 00:19:51,700
+and it works just like it did before
+
+524
+00:19:51,833 --> 00:19:53,566
+but now we have less code to maintain
+
+525
+00:19:53,966 --> 00:19:56,233
+now you basically know what happens
+
+526
+00:19:56,233 --> 00:19:58,033
+under the hood of the task module
+
+527
+00:19:58,400 --> 00:19:59,033
+you'll want to use
+
+528
+00:19:59,033 --> 00:20:01,566
+task in situations where you need to run a function
+
+529
+00:20:01,566 --> 00:20:03,700
+a task asynchronously
+
+530
+00:20:03,800 --> 00:20:05,466
+in a short lived process
+
+531
+00:20:05,666 --> 00:20:08,500
+so in what other use cases our process is useful
+
+532
+00:20:08,733 --> 00:20:09,633
+well in the next section
+
+533
+00:20:09,633 --> 00:20:11,833
+we'll look at an example of a process that has a
+
+534
+00:20:11,833 --> 00:20:14,833
+longer life and responds to multiple messages
+

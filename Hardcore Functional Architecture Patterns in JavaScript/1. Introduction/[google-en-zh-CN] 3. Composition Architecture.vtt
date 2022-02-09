@@ -1,0 +1,386 @@
+WEBVTT
+
+1
+00:00:00.260 --> 00:00:03.070
+在左边，我们有一堆要组装的零件，
+Over here on the left, we have a bunch of pieces that we're going to assemble,
+
+2
+00:00:03.070 --> 00:00:05.560
+我们向用户展示的小乐高积木。
+little Legos that we're exposing to the user.
+
+3
+00:00:05.560 --> 00:00:07.330
+在右边，我们有一个紫色的盒子。
+On the right, we have a purple box.
+
+4
+00:00:08.620 --> 00:00:12.770
+所以这是一种试图捕捉一点点的想法，一堆小
+And so this is kind of trying to capture the idea of a little, bunch of little
+
+5
+00:00:12.770 --> 00:00:16.350
+您编写的函数与完成所有工作的一个大函数。
+functions that you compose versus one big function that does all the work.
+
+6
+00:00:17.870 --> 00:00:22.790
+我们正在编写的小函数的好处之一
+And one of the benefits here of the little functions that we're composing
+
+7
+00:00:24.280 --> 00:00:27.440
+我们是否得到了无限的用例，比如
+is we get infinite use cases like the combinatorics of
+
+8
+00:00:27.440 --> 00:00:30.510
+您可以组合函数以创建新功能的所有方式。
+all the ways you can compose the functions to create new functionality.
+
+9
+00:00:30.510 --> 00:00:34.050
+我们只是将这些提供给用户并说，你知道的，说去吧，发疯。
+We're just giving those to the user and say, you know, saying go, go nuts.
+
+10
+00:00:34.050 --> 00:00:37.329
+享受这些功能的乐趣并制作您自己的应用程序。
+Have fun with these these functions and make your own apps.
+
+11
+00:00:38.410 --> 00:00:41.950
+我们最终得到一些简单易懂的片段，
+We end up with little simple, understandable pieces,
+
+12
+00:00:41.950 --> 00:00:47.050
+通常高度可重用，这里有很多很多优点。
+often highly reusable, lots of, lots of goodness here.
+
+13
+00:00:47.050 --> 00:00:49.760
+但也很难改变实现。
+But it's also hard to change the implementation.
+
+14
+00:00:49.760 --> 00:00:51.210
+这更难。
+It's harder.
+
+15
+00:00:51.210 --> 00:00:55.100
+如果我们要试试这个
+And if we're gonna try this,
+
+16
+00:00:55.100 --> 00:01:00.100
+当我们将所有部分提供给用户时，我们获得灵活性的方式
+the way we get flexibility when we give all the pieces to our users
+
+17
+00:01:00.100 --> 00:01:05.470
+撰写是通过强制执行这些作品中的每一个以有原则的方式撰写。
+to compose is by enforcing that each of these pieces compose in a principled way.
+
+18
+00:01:05.470 --> 00:01:08.610
+我们可以随心所欲地更改实现，只要它们仍然有效
+And we can change the implementation all we want as long as they still hold
+
+19
+00:01:08.610 --> 00:01:12.920
+我们正在定义的合约。
+the contracts that we're defining.
+
+20
+00:01:12.920 --> 00:01:18.520
+所以这主要是代数，抽象代数的工作原理是你有这些部分
+So this is largely how algebra, abstract algebra works is you have these pieces
+
+21
+00:01:18.520 --> 00:01:24.190
+你可以用很多不同的方式摆姿势，但这些作品有构图法则，
+that you can pose in many different ways, but those pieces have laws of composition,
+
+22
+00:01:24.190 --> 00:01:26.330
+您可以通过多种不同的方式实现它们。
+and you can implement them in many different ways.
+
+23
+00:01:26.330 --> 00:01:29.560
+因此，这为您提供了很大的灵活性，但您必须真正做到这一点。
+So that gives you a lot of flexibility but you have to really work at that.
+
+24
+00:01:31.400 --> 00:01:33.240
+而且用户作曲也更难了，对吧？
+And it's also harder for the user to compose, right?
+
+25
+00:01:33.240 --> 00:01:35.991
+他们必须像，一直把所有这些碎片放在一起。
+They have to go like, put all these pieces together all the time.
+
+26
+00:01:37.472 --> 00:01:42.584
+进入事物的另一面，我们有一个盒子的极端另一面，
+Getting into the other side of things, the extreme other side where we have a box,
+
+27
+00:01:42.584 --> 00:01:47.890
+你给我输入，我给你输出，它为你做一切。
+you give me input, I'll give you output, and it does everything for you.
+
+28
+00:01:47.890 --> 00:01:51.320
+虽然我们有很多灵活性和实施变更，但我们可以
+While we have a lot of flexibility and implementation changes we can
+
+29
+00:01:51.320 --> 00:01:55.020
+取一个值并做我们想做的任何事情，只要它返回相同的输出。
+take a value and do whatever we want as long as it returns the same output.
+
+30
+00:01:55.020 --> 00:01:58.240
+我们可以改变这一整天。
+We can we can change this all day long.
+
+31
+00:01:58.240 --> 00:02:01.380
+但是支持和支持的用例较少
+But there's less use cases out there to support and
+
+32
+00:02:01.380 --> 00:02:04.740
+他们只能用这个功能做一件事。
+they only can kind of do one thing with this function.
+
+33
+00:02:04.740 --> 00:02:08.870
+但是如果我们用名字和合同来捕获这个过程，并且
+But if we're capturing this procedure with a name and contract, and
+
+34
+00:02:08.870 --> 00:02:11.930
+我们在世界上代表与其他人组成
+we're representing out in the world to be composed with other
+
+35
+00:02:11.930 --> 00:02:13.020
+每个其他程序的一部分。
+parts of every other program.
+
+36
+00:02:14.510 --> 00:02:19.110
+从本质上讲，您将不可避免地遇到以下情况：
+Essentially, you're gonna inevitably run into a case where you
+
+37
+00:02:19.110 --> 00:02:24.570
+传入 if else 或某种标志，或者如果你想重用这个单元
+pass in an if else or some kind of flag, or something if you wanna reuse this unit
+
+38
+00:02:24.570 --> 00:02:28.900
+以不同的方式，所以这些条件被推入
+in different ways, so those conditionals get pushed into
+
+39
+00:02:28.900 --> 00:02:31.850
+当我们以不同的方式创作时，而不是在外面。
+the box rather than being out when we compose in different ways.
+
+40
+00:02:31.850 --> 00:02:33.710
+那有意义吗？
+Does that make sense?
+
+41
+00:02:33.710 --> 00:02:35.515
+我现在说的很抽象。
+I'm talking pretty abstract right now.
+
+42
+00:02:35.515 --> 00:02:40.170
+[笑] 但我们的想法是，如果我们编写一个巨大的函数，
+[LAUGH] But the idea is that if we write one giant function,
+
+43
+00:02:40.170 --> 00:02:44.079
+并且我们需要在不同的地方使用它，如果 else 在函数内，则不可避免。
+and we need to use it in different places, inevitably if else is within the function.
+
+44
+00:02:45.610 --> 00:02:48.022
+我们不能用很少的 if else 来满足所有的情况，对吧？
+We can't satisfy all the cases with few if else's, right?
+
+45
+00:02:48.022 --> 00:02:53.680
+与提供一堆用于编写的功能相比，这是最小的。
+The is minimal compared to providing a bunch of functions for composing.
+
+46
+00:02:53.680 --> 00:02:59.500
+你得到的方式更少，所以有时这是正确的决定。
+You get way less so sometimes this is the right decision.
+
+47
+00:02:59.500 --> 00:03:01.650
+有时这是正确的决定。
+And sometimes this is the right decision.
+
+48
+00:03:01.650 --> 00:03:05.270
+但我们今天将专注于这个决定。
+But we're going to focus on this decision today.
+
+49
+00:03:05.270 --> 00:03:06.650
+那是因为，
+And that's because,
+
+50
+00:03:06.650 --> 00:03:11.890
+大多数情况下，这将在您的应用程序开发中获得回报。
+most of the time this will pay off in your application development.
+
+51
+00:03:11.890 --> 00:03:15.090
+当你在这儿的时候，这里的这个会得到更多的回报
+This one over here will pay off much more when you're
+
+52
+00:03:15.090 --> 00:03:17.560
+开发一个只做一件事的库。
+developing a library that does one thing.
+
+53
+00:03:19.390 --> 00:03:24.600
+所以就像抽象代数的一个简单例子，这是
+So just as a quick example of the abstract algebra stuff, this is
+
+54
+00:03:24.600 --> 00:03:30.120
+group 的定义来自维基百科，我们可以定义这么多组。
+the definition of group from Wikipedia, and we can define so many groups.
+
+55
+00:03:30.120 --> 00:03:35.579
+如果你看像组的实例，它们就像到处都是
+If you look at like instances of groups, they're just like everywhere and they're
+
+56
+00:03:35.579 --> 00:03:40.670
+只要满足这些特性，就可以自由地以不同的方式实现。
+free to implement in different ways, as long as they satisfy these properties.
+
+57
+00:03:40.670 --> 00:03:42.720
+这就是您的文档的样子。
+This is what your documentation can look like.
+
+58
+00:03:42.720 --> 00:03:47.430
+相反，你知道，它被称为 this 并把它放到那个输出和
+Versus, you know, it's called this and take this and put to that output and
+
+59
+00:03:47.430 --> 00:03:49.550
+你对如何创作它一无所知。
+you don't know anything else about how you can compose it.
+
+60
+00:03:51.020 --> 00:03:55.470
+所以最后一个注意事项是有时你构建一个应用程序，它是这样的
+So one last note on that is sometimes you build an app and its like this and
+
+61
+00:03:55.470 --> 00:03:56.260
+它的美妙。
+its wonderful.
+
+62
+00:03:56.260 --> 00:03:58.760
+就像，你知道，这是我的图书馆，这是我的应用程序。
+Like, this is, you know, my library, this is my application.
+
+63
+00:03:58.760 --> 00:04:01.840
+我们有所有这些小功能，您可以编写它们，这很棒。
+We have all these little functions and you compose them, it's great.
+
+64
+00:04:01.840 --> 00:04:03.530
+有时就是这样。
+And sometimes it's like this.
+
+65
+00:04:03.530 --> 00:04:07.330
+和组合并没有真正买多少。
+And composition doesn't really buy much.
+
+66
+00:04:07.330 --> 00:04:13.020
+你真的会有一个像其中一个很棒的，叫做汽车巡洋舰战斗机？
+You really gonna have an awesome like one of those, called car cruiser fighters?
+
+67
+00:04:13.020 --> 00:04:16.820
+不，我会在互联网上遇到很多麻烦。
+No, I'm going to be in so much trouble with the internet.
+
+68
+00:04:16.820 --> 00:04:17.950
+&gt;&gt; X 翼 &gt;&gt; X 翼。
+&gt;&gt; X wing &gt;&gt; X wing.
+
+69
+00:04:17.950 --> 00:04:19.200
+我猜它是一个 X。
+I guess it makes an X.
+
+70
+00:04:19.200 --> 00:04:23.240
+是的，好吧，无论如何星球大战传单的事情，
+Yeah, well, anyway Star Wars battle flyer thing,
+
+71
+00:04:23.240 --> 00:04:26.280
+你会拥有一个，或者你不会拥有它，对吧？
+you're gonna have one or you're not gonna have it, right?
+
+72
+00:04:26.280 --> 00:04:30.915
+对于用户来说，每次都必须重新组合这个东西并不是很有用
+It's not going to be very useful for the user to have to recompose this thing every
+
+73
+00:04:30.915 --> 00:04:33.588
+除非这对孩子们来说是一个有趣的游戏。
+time unless it's a fun game for the children.
+
+74
+00:04:33.588 --> 00:04:38.091
+所以我们主要倾向于可组合的函数。
+So we're gonna favor composable functions, mostly.
+
+75
+00:04:38.091 --> 00:04:41.996
+我只是想提醒一下，如果你是，如果你一直都知道，
+I just wanted to call out that caveat like if you're if you're always you know,
+
+76
+00:04:41.996 --> 00:04:45.570
+遵守这些原则，您可能会做出错误的决定。
+abiding by these these principles, you might make the wrong decision.
+
+77
+00:04:45.570 --> 00:04:51.100
+有时，在大多数情况下，它只是进入正确解决方案的良好指路明灯。
+Sometimes it's just a good guiding light into the right solution most of the time.

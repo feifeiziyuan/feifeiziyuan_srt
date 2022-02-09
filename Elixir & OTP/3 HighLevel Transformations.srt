@@ -1,0 +1,1004 @@
+1
+00:00:00,233 --> 00:00:01,133
+so we're ready to start
+
+2
+00:00:01,133 --> 00:00:02,000
+handling requests
+
+3
+00:00:02,000 --> 00:00:04,133
+and we'll need a new module where we can define
+
+4
+00:00:04,133 --> 00:00:05,266
+functions to do that
+
+5
+00:00:05,633 --> 00:00:07,500
+so where do we put this module file
+
+6
+00:00:07,533 --> 00:00:09,533
+well that's the power of conventions
+
+7
+00:00:09,533 --> 00:00:11,266
+we don't have to arbitrarily decide
+
+8
+00:00:12,133 --> 00:00:14,533
+we know our application code lives in the lib directory
+
+9
+00:00:14,533 --> 00:00:15,766
+and by convention
+
+10
+00:00:15,966 --> 00:00:17,533
+we need to create a subdirectory
+
+11
+00:00:17,533 --> 00:00:19,566
+under lib with the same name as the project
+
+12
+00:00:19,566 --> 00:00:21,666
+so I'm going to create a new folder under lib
+
+13
+00:00:21,800 --> 00:00:23,233
+and the name of our project is service
+
+14
+00:00:23,233 --> 00:00:24,500
+so I'm going to have a folder or
+
+15
+00:00:24,500 --> 00:00:25,566
+directory called survey
+
+16
+00:00:25,733 --> 00:00:28,333
+and then we put our application code inside of
+
+17
+00:00:28,466 --> 00:00:29,500
+that directory
+
+18
+00:00:29,533 --> 00:00:31,366
+so here I'm going to create a new file
+
+19
+00:00:32,066 --> 00:00:33,400
+we're going to call it handler
+
+20
+00:00:33,400 --> 00:00:36,733
+ex and this or we'll write our first module
+
+21
+00:00:37,133 --> 00:00:38,400
+so we use def module
+
+22
+00:00:38,400 --> 00:00:41,733
+the name of this module is going to be survey dot
+
+23
+00:00:41,733 --> 00:00:42,566
+by convention
+
+24
+00:00:42,566 --> 00:00:45,233
+the module is name spaced inside of the
+
+25
+00:00:45,233 --> 00:00:47,266
+see module which is the same as the
+
+26
+00:00:47,566 --> 00:00:50,033
+directory name we've got our code inside of lib see
+
+27
+00:00:50,333 --> 00:00:51,966
+so the module here is going to be called
+
+28
+00:00:51,966 --> 00:00:54,133
+serve dot and we're going to call it handler
+
+29
+00:00:55,333 --> 00:00:56,900
+okay so let's look at the first
+
+30
+00:00:56,933 --> 00:00:59,266
+http request we want to handle
+
+31
+00:00:59,600 --> 00:01:00,733
+now I'm just going to paste this in
+
+32
+00:01:00,733 --> 00:01:02,166
+because as multiple lines
+
+33
+00:01:02,200 --> 00:01:03,166
+and you can find
+
+34
+00:01:03,166 --> 00:01:05,133
+these in the code bundle so you can paste them into
+
+35
+00:01:05,133 --> 00:01:06,266
+if you're following along
+
+36
+00:01:06,800 --> 00:01:09,400
+http requests have multiple lines
+
+37
+00:01:09,400 --> 00:01:11,133
+so we've used an elixir hair
+
+38
+00:01:11,133 --> 00:01:11,400
+dock
+
+39
+00:01:11,400 --> 00:01:15,066
+which lets us format a string across multiple lines
+
+40
+00:01:15,066 --> 00:01:18,000
+hair docks start with a triple double quote
+
+41
+00:01:18,100 --> 00:01:20,633
+and then the ending triple double quote
+
+42
+00:01:20,633 --> 00:01:22,400
+must be on its own line
+
+43
+00:01:22,866 --> 00:01:25,166
+so if you're new to seeing a raw http request
+
+44
+00:01:25,166 --> 00:01:26,600
+it has three parts
+
+45
+00:01:26,733 --> 00:01:29,200
+the first part here is called their request line
+
+46
+00:01:29,400 --> 00:01:32,066
+this is the method we want to get a resource
+
+47
+00:01:32,200 --> 00:01:34,266
+this is the path upon
+
+48
+00:01:34,400 --> 00:01:35,733
+which to perform the request
+
+49
+00:01:35,733 --> 00:01:38,033
+so we're getting the wild things resource
+
+50
+00:01:38,033 --> 00:01:40,233
+and then this is the he particle
+
+51
+00:01:40,733 --> 00:01:42,766
+then the second part is a list of
+
+52
+00:01:42,766 --> 00:01:44,433
+headers or key value pairs
+
+53
+00:01:44,433 --> 00:01:46,300
+we have the key which is host here
+
+54
+00:01:46,533 --> 00:01:48,000
+and then the value is example
+
+55
+00:01:48,000 --> 00:01:51,133
+com so that's the host of the resource being requested
+
+56
+00:01:51,200 --> 00:01:53,500
+the user agent is the software
+
+57
+00:01:53,733 --> 00:01:55,833
+typically a browser making the request
+
+58
+00:01:56,100 --> 00:01:58,200
+and then this accept line specifies the media
+
+59
+00:01:58,200 --> 00:01:59,866
+types acceptable for the response
+
+60
+00:01:59,900 --> 00:02:02,700
+in this case it's wild card so it'll accept basically
+
+61
+00:02:02,700 --> 00:02:03,500
+anything
+
+62
+00:02:03,600 --> 00:02:06,266
+then there's an important blank line right here
+
+63
+00:02:06,433 --> 00:02:08,433
+separating the headers
+
+64
+00:02:08,833 --> 00:02:11,366
+from the actual body which is optional
+
+65
+00:02:11,366 --> 00:02:12,466
+we don't have a body here
+
+66
+00:02:12,633 --> 00:02:15,533
+but a body is typically used to pass form parameters
+
+67
+00:02:15,533 --> 00:02:17,433
+and we'll see a body like that when we
+
+68
+00:02:17,433 --> 00:02:19,233
+actually handle a post request a bit later
+
+69
+00:02:19,800 --> 00:02:21,633
+and here's the response we want to send back
+
+70
+00:02:21,866 --> 00:02:24,366
+now an http response also has three parts
+
+71
+00:02:24,366 --> 00:02:26,366
+it starts with the status line
+
+72
+00:02:26,533 --> 00:02:28,366
+which includes the http version
+
+73
+00:02:28,566 --> 00:02:31,166
+the status code 200 in this case and then a
+
+74
+00:02:31,166 --> 00:02:32,133
+reason phrase
+
+75
+00:02:32,700 --> 00:02:34,266
+then we have our response headers
+
+76
+00:02:34,266 --> 00:02:36,100
+these are again key value pairs
+
+77
+00:02:36,133 --> 00:02:37,933
+this one is the media type of the body
+
+78
+00:02:37,933 --> 00:02:38,933
+in which case it's
+
+79
+00:02:39,033 --> 00:02:41,466
+text html because we're sending back html
+
+80
+00:02:41,633 --> 00:02:44,166
+and then content length is the size of the body
+
+81
+00:02:44,300 --> 00:02:47,233
+then there's a blank line which separates those headers
+
+82
+00:02:47,300 --> 00:02:48,633
+from an optional body
+
+83
+00:02:48,633 --> 00:02:49,333
+and we have a body
+
+84
+00:02:49,333 --> 00:02:51,366
+in this case because we're sending back html
+
+85
+00:02:51,433 --> 00:02:53,700
+and we're just sending back bears lines on tigers
+
+86
+00:02:53,966 --> 00:02:55,933
+now we're using animals and our domain
+
+87
+00:02:56,033 --> 00:02:57,300
+just to make it fun
+
+88
+00:02:57,566 --> 00:03:00,566
+but sometimes folks want examples to be more realistic
+
+89
+00:03:00,766 --> 00:03:02,700
+so please feel free to substitute in
+
+90
+00:03:02,700 --> 00:03:04,833
+products or to dos or
+
+91
+00:03:04,833 --> 00:03:06,466
+whatever feels fun for you
+
+92
+00:03:06,533 --> 00:03:08,433
+in the body of your response
+
+93
+00:03:09,133 --> 00:03:12,266
+at a high level we need to handle this request next
+
+94
+00:03:12,333 --> 00:03:13,766
+so let's start by writing a
+
+95
+00:03:13,766 --> 00:03:14,800
+handle function
+
+96
+00:03:14,800 --> 00:03:17,266
+that will ultimately transform the request
+
+97
+00:03:17,466 --> 00:03:18,566
+to a response
+
+98
+00:03:18,766 --> 00:03:20,200
+we'll do that up in our module
+
+99
+00:03:20,200 --> 00:03:22,500
+we'll define a function called handle
+
+100
+00:03:22,500 --> 00:03:23,533
+it'll take a request
+
+101
+00:03:23,533 --> 00:03:24,966
+that's going to be the request string
+
+102
+00:03:25,500 --> 00:03:26,700
+and we're just going to leave the body that
+
+103
+00:03:26,700 --> 00:03:27,733
+function blank for now
+
+104
+00:03:28,200 --> 00:03:30,833
+then down below outside of the module itself
+
+105
+00:03:31,400 --> 00:03:32,566
+we'll go ahead and call that
+
+106
+00:03:32,566 --> 00:03:35,000
+we could say our response is going to be equal to
+
+107
+00:03:35,000 --> 00:03:36,233
+calling survey
+
+108
+00:03:36,500 --> 00:03:38,833
+handler that's the name of the module
+
+109
+00:03:39,233 --> 00:03:40,533
+name of the function is handle
+
+110
+00:03:40,600 --> 00:03:41,933
+and then pass in the request
+
+111
+00:03:41,933 --> 00:03:43,333
+we've got our request up here
+
+112
+00:03:43,800 --> 00:03:46,033
+stored in the request variable
+
+113
+00:03:46,200 --> 00:03:47,400
+and then we'll just print
+
+114
+00:03:47,400 --> 00:03:48,200
+out
+
+115
+00:03:48,433 --> 00:03:50,933
+io to put us the response
+
+116
+00:03:52,000 --> 00:03:52,900
+elixir has really
+
+117
+00:03:52,900 --> 00:03:54,666
+changed the way I think about programming
+
+118
+00:03:54,666 --> 00:03:55,666
+instead of thinking about
+
+119
+00:03:55,666 --> 00:03:58,133
+objects and calling methods on those objects to change
+
+120
+00:03:58,133 --> 00:04:00,566
+their state now I think more in terms of
+
+121
+00:04:00,566 --> 00:04:02,766
+transforming data with functions
+
+122
+00:04:03,133 --> 00:04:04,600
+in this case we have a request
+
+123
+00:04:04,600 --> 00:04:06,566
+and through a series of transformations
+
+124
+00:04:06,566 --> 00:04:08,200
+we want to turn it into a response
+
+125
+00:04:08,200 --> 00:04:10,266
+and that's really what a web server does
+
+126
+00:04:10,400 --> 00:04:12,733
+and our web server is going to make three
+
+127
+00:04:12,933 --> 00:04:14,600
+high level transformations
+
+128
+00:04:14,600 --> 00:04:17,533
+each transformation step will be a function
+
+129
+00:04:17,733 --> 00:04:18,966
+so let's take a look at those
+
+130
+00:04:19,766 --> 00:04:20,700
+so I'm going to paste in those
+
+131
+00:04:20,700 --> 00:04:22,766
+functions so we can focus on the concept
+
+132
+00:04:22,866 --> 00:04:23,900
+not the syntax
+
+133
+00:04:23,900 --> 00:04:25,966
+initially we'll come back to the syntax though
+
+134
+00:04:26,166 --> 00:04:28,566
+the pars function transforms a request ring
+
+135
+00:04:28,666 --> 00:04:30,200
+into a key value pair
+
+136
+00:04:30,300 --> 00:04:31,866
+now this is an elixir map
+
+137
+00:04:31,866 --> 00:04:34,400
+which is similar to a hash and ruby or an
+
+138
+00:04:34,533 --> 00:04:35,900
+object in javascript
+
+139
+00:04:36,033 --> 00:04:38,133
+and we'll look at the details in the next section
+
+140
+00:04:38,300 --> 00:04:40,066
+we just set the method to get
+
+141
+00:04:40,266 --> 00:04:42,200
+the path to slash wild things
+
+142
+00:04:42,600 --> 00:04:44,466
+and then we've got a response body which
+
+143
+00:04:44,666 --> 00:04:46,100
+starting off is just going to be empty
+
+144
+00:04:46,366 --> 00:04:48,366
+and we'll refer to this map as the conversation
+
+145
+00:04:48,366 --> 00:04:49,600
+since it represents a very
+
+146
+00:04:49,600 --> 00:04:52,200
+short conversation between a browser and our server
+
+147
+00:04:52,300 --> 00:04:54,666
+and we'll just abbreviate it as come
+
+148
+00:04:54,933 --> 00:04:55,533
+and obviously
+
+149
+00:04:55,533 --> 00:04:57,200
+we're going to need to parse the requesting
+
+150
+00:04:57,333 --> 00:04:58,133
+into that map
+
+151
+00:04:58,900 --> 00:05:01,566
+the route function then transforms that map
+
+152
+00:05:01,600 --> 00:05:03,333
+into a new map that also has
+
+153
+00:05:03,333 --> 00:05:04,633
+a response body
+
+154
+00:05:04,700 --> 00:05:06,666
+so if we look at the response body its bears
+
+155
+00:05:06,666 --> 00:05:07,700
+lions and tigers
+
+156
+00:05:08,000 --> 00:05:10,566
+because that's the appropriate response for a request
+
+157
+00:05:10,566 --> 00:05:12,266
+to wiling
+
+158
+00:05:12,900 --> 00:05:14,400
+so we're going to need to take the map
+
+159
+00:05:14,400 --> 00:05:17,266
+co and v that comes in as an argument to this function
+
+160
+00:05:17,433 --> 00:05:18,233
+and then
+
+161
+00:05:18,333 --> 00:05:21,500
+also add a response body filling out the map even more
+
+162
+00:05:22,200 --> 00:05:24,966
+and then we have our format response function down here
+
+163
+00:05:25,133 --> 00:05:26,700
+now it's going to take the final map
+
+164
+00:05:26,700 --> 00:05:29,233
+that's co and v that's coming in as an argument
+
+165
+00:05:29,233 --> 00:05:30,466
+and transform it
+
+166
+00:05:30,533 --> 00:05:33,066
+into a valid http response string
+
+167
+00:05:33,200 --> 00:05:34,966
+so we're going to need to get the values
+
+168
+00:05:34,966 --> 00:05:37,233
+from the map in order to create
+
+169
+00:05:37,500 --> 00:05:38,566
+this response string
+
+170
+00:05:39,033 --> 00:05:41,133
+so because we've already got a response string inside
+
+171
+00:05:41,133 --> 00:05:42,966
+of our format response function here
+
+172
+00:05:43,133 --> 00:05:44,566
+I'm just going to remove this
+
+173
+00:05:44,566 --> 00:05:46,500
+expected response variable down here
+
+174
+00:05:46,500 --> 00:05:47,366
+because we don't need it
+
+175
+00:05:47,966 --> 00:05:50,700
+so we have the transformation functions
+
+176
+00:05:50,700 --> 00:05:52,766
+we now need to call them in the right
+
+177
+00:05:52,800 --> 00:05:54,966
+sequence in our handle function
+
+178
+00:05:55,200 --> 00:05:57,000
+so let's walk through this sequentially
+
+179
+00:05:57,000 --> 00:05:58,166
+we're going to take this request
+
+180
+00:05:58,166 --> 00:06:00,500
+ring and we're going to pass it into parse
+
+181
+00:06:01,066 --> 00:06:02,033
+what's going to come back
+
+182
+00:06:02,133 --> 00:06:04,566
+is a map that's partially filled out
+
+183
+00:06:04,566 --> 00:06:06,000
+we're going to call it convey
+
+184
+00:06:06,000 --> 00:06:07,633
+it's missing a response body
+
+185
+00:06:07,800 --> 00:06:11,000
+then we want to pass that map to the route function
+
+186
+00:06:11,233 --> 00:06:13,233
+which is going to fill in the response body
+
+187
+00:06:13,233 --> 00:06:16,233
+and we want to capture the result of that in con
+
+188
+00:06:16,233 --> 00:06:19,300
+so we're just transforming con each time through
+
+189
+00:06:19,300 --> 00:06:21,000
+here filling out more data
+
+190
+00:06:21,566 --> 00:06:23,933
+then finally we want to take that final map
+
+191
+00:06:23,933 --> 00:06:25,933
+and pass it to format response
+
+192
+00:06:27,233 --> 00:06:29,500
+which will generate our response string based on
+
+193
+00:06:29,533 --> 00:06:31,100
+what's in the final map
+
+194
+00:06:31,333 --> 00:06:32,466
+and because this is the last
+
+195
+00:06:32,466 --> 00:06:33,933
+expression in our handle function
+
+196
+00:06:33,933 --> 00:06:36,133
+that response string will get implicitly returned
+
+197
+00:06:36,133 --> 00:06:37,266
+by the handle function
+
+198
+00:06:38,266 --> 00:06:39,200
+now this will work
+
+199
+00:06:39,233 --> 00:06:40,266
+but there's a more concise
+
+200
+00:06:40,266 --> 00:06:42,333
+and idiomatic way to represent this
+
+201
+00:06:42,333 --> 00:06:43,966
+using elixir's pipe operator
+
+202
+00:06:43,966 --> 00:06:45,266
+so I'm just going to comment these out
+
+203
+00:06:45,700 --> 00:06:47,400
+and let's express this as a pipeline
+
+204
+00:06:47,633 --> 00:06:48,733
+we're going to take the request
+
+205
+00:06:50,000 --> 00:06:52,200
+pipe it into the parse function
+
+206
+00:06:52,200 --> 00:06:53,166
+so what's going to happen here
+
+207
+00:06:53,166 --> 00:06:54,966
+is the request is going to get past
+
+208
+00:06:54,966 --> 00:06:57,633
+as an argument to the parse function which just has
+
+209
+00:06:57,900 --> 00:07:00,366
+one argument then the result of that function
+
+210
+00:07:00,366 --> 00:07:01,933
+which is our conversation map
+
+211
+00:07:02,000 --> 00:07:03,866
+we want to pass that to the route function
+
+212
+00:07:03,866 --> 00:07:04,900
+so we just pipe that
+
+213
+00:07:04,966 --> 00:07:07,000
+a little bit further into route
+
+214
+00:07:07,300 --> 00:07:08,833
+that's going to return a map
+
+215
+00:07:08,833 --> 00:07:11,266
+our final map which we then want to pass into
+
+216
+00:07:11,300 --> 00:07:12,466
+format response
+
+217
+00:07:14,466 --> 00:07:15,533
+so in a pipeline like this
+
+218
+00:07:15,533 --> 00:07:17,466
+the result of the function on the left
+
+219
+00:07:17,500 --> 00:07:18,866
+is passed as the first
+
+220
+00:07:18,866 --> 00:07:20,466
+argument to the function on the right
+
+221
+00:07:20,700 --> 00:07:21,800
+now in this particular case
+
+222
+00:07:21,800 --> 00:07:23,766
+all of our functions only take one argument
+
+223
+00:07:23,766 --> 00:07:26,133
+but just remember that it's always passed as the
+
+224
+00:07:26,300 --> 00:07:27,666
+first argument to the function
+
+225
+00:07:27,933 --> 00:07:29,100
+and we can make it read more
+
+226
+00:07:29,100 --> 00:07:31,300
+like a list of transformation steps by
+
+227
+00:07:31,300 --> 00:07:32,933
+putting each step on its own line
+
+228
+00:07:33,933 --> 00:07:35,533
+just put those down there like that
+
+229
+00:07:36,133 --> 00:07:38,066
+save that away if I run it
+
+230
+00:07:38,466 --> 00:07:40,133
+and we see the expected response
+
+231
+00:07:40,133 --> 00:07:41,166
+so we know that we've got
+
+232
+00:07:41,166 --> 00:07:42,800
+the basic pipeline all set up
+
+233
+00:07:43,766 --> 00:07:46,433
+so what we've done here is use a pipeline
+
+234
+00:07:46,533 --> 00:07:48,966
+to basically give us an outline of our program
+
+235
+00:07:48,966 --> 00:07:50,466
+or a shell of our program
+
+236
+00:07:50,566 --> 00:07:50,766
+the
+
+237
+00:07:50,766 --> 00:07:53,000
+transformation steps that we want to take it through
+
+238
+00:07:53,166 --> 00:07:55,733
+we're transforming the request here
+
+239
+00:07:56,300 --> 00:07:57,633
+into a response
+
+240
+00:07:57,800 --> 00:07:58,966
+which is the final thing
+
+241
+00:07:59,133 --> 00:08:01,666
+through a series of explicit transformations
+
+242
+00:08:01,666 --> 00:08:04,800
+by piping the result of each function into the next
+
+243
+00:08:05,200 --> 00:08:06,400
+now if you're making a change
+
+244
+00:08:06,400 --> 00:08:09,166
+from oo programming to functional programming
+
+245
+00:08:09,166 --> 00:08:11,533
+one of the big differences is learning to think
+
+246
+00:08:11,533 --> 00:08:13,666
+in terms of transforming data
+
+247
+00:08:13,800 --> 00:08:15,166
+and we're going to see a lot
+
+248
+00:08:15,166 --> 00:08:17,733
+more examples of this throughout the course up
+
+249
+00:08:17,733 --> 00:08:20,500
+next we're specifically going to look at how to parse
+
+250
+00:08:20,500 --> 00:08:21,666
+the request string
+
+251
+00:08:21,833 --> 00:08:22,633
+into them out
+

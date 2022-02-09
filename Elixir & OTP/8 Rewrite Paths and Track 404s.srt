@@ -1,0 +1,1044 @@
+1
+00:00:00,400 --> 00:00:02,566
+so now that we have requests flowing through our
+
+2
+00:00:02,566 --> 00:00:03,900
+pipeline we can add
+
+3
+00:00:03,900 --> 00:00:07,033
+specialized functions to transform either the request
+
+4
+00:00:07,233 --> 00:00:08,400
+or the response
+
+5
+00:00:08,400 --> 00:00:08,966
+for example
+
+6
+00:00:08,966 --> 00:00:12,133
+let's say we get a request for slash wildlife
+
+7
+00:00:12,166 --> 00:00:13,933
+well we want to handle that the same way
+
+8
+00:00:13,933 --> 00:00:16,166
+we would a request for slash wild things
+
+9
+00:00:16,733 --> 00:00:19,866
+ah we can add a transformation that rewrites
+
+10
+00:00:20,066 --> 00:00:21,266
+only those requests
+
+11
+00:00:21,400 --> 00:00:23,900
+and to do that we'll need to pattern match on maps
+
+12
+00:00:23,900 --> 00:00:26,766
+which is a technique that's used extensively in elixir
+
+13
+00:00:26,766 --> 00:00:28,266
+and it's also really powerful
+
+14
+00:00:28,766 --> 00:00:31,533
+we've started by adding a new request for wildlife here
+
+15
+00:00:31,966 --> 00:00:33,700
+now if you're feeling uneasy about all these
+
+16
+00:00:33,700 --> 00:00:34,466
+requests being
+
+17
+00:00:34,466 --> 00:00:36,533
+copied and pasted at the bottom of the file
+
+18
+00:00:36,566 --> 00:00:37,933
+well just go with it for now
+
+19
+00:00:38,100 --> 00:00:39,000
+a bit later on
+
+20
+00:00:39,033 --> 00:00:40,766
+we'll add these to an automated test and
+
+21
+00:00:40,766 --> 00:00:41,733
+get rid of all this
+
+22
+00:00:41,733 --> 00:00:42,766
+duplicated code
+
+23
+00:00:45,066 --> 00:00:46,666
+so we want the request for
+
+24
+00:00:47,200 --> 00:00:51,066
+wildlife to be handled by this function class
+
+25
+00:00:51,133 --> 00:00:53,366
+in order to do that we're going to need to change
+
+26
+00:00:53,400 --> 00:00:56,333
+the path of that request from wildlife
+
+27
+00:00:56,466 --> 00:00:57,466
+to wild things
+
+28
+00:00:57,666 --> 00:00:59,433
+so it matches the function claws
+
+29
+00:00:59,466 --> 00:01:01,433
+and we're going to need to change that path
+
+30
+00:01:01,700 --> 00:01:03,066
+before the route happens
+
+31
+00:01:03,066 --> 00:01:05,033
+so if we just look at our pipeline up here
+
+32
+00:01:05,366 --> 00:01:07,900
+we've got pars log and then rout
+
+33
+00:01:08,066 --> 00:01:10,833
+so it needs to come after pars obviously but before
+
+34
+00:01:11,166 --> 00:01:13,266
+rout and I'm actually going to put it before
+
+35
+00:01:13,266 --> 00:01:15,066
+log as well so that we can log out
+
+36
+00:01:15,333 --> 00:01:16,500
+the final result
+
+37
+00:01:16,500 --> 00:01:17,800
+so right here in the pipeline
+
+38
+00:01:17,800 --> 00:01:20,800
+we're going to add a step called rewrite path
+
+39
+00:01:21,133 --> 00:01:22,700
+and then to define that function
+
+40
+00:01:24,400 --> 00:01:25,533
+be right path
+
+41
+00:01:26,133 --> 00:01:28,466
+well it needs to take a conversation map and
+
+42
+00:01:28,533 --> 00:01:30,066
+also return a conversation map
+
+43
+00:01:31,466 --> 00:01:33,700
+and all we want to do in here is update
+
+44
+00:01:34,066 --> 00:01:37,133
+the given map and change its path to
+
+45
+00:01:37,800 --> 00:01:38,600
+wild things
+
+46
+00:01:39,433 --> 00:01:41,933
+so now if we run it well
+
+47
+00:01:41,933 --> 00:01:44,033
+we see that it pretty much rewrites
+
+48
+00:01:44,033 --> 00:01:45,400
+all of our requests
+
+49
+00:01:45,400 --> 00:01:46,466
+to wild things
+
+50
+00:01:47,033 --> 00:01:49,200
+we only want this function to run
+
+51
+00:01:49,300 --> 00:01:52,833
+if the map has wildlife as the path
+
+52
+00:01:52,833 --> 00:01:55,866
+and we can actually use pattern matching to do that
+
+53
+00:01:56,400 --> 00:01:57,933
+let's play around with pattern matching
+
+54
+00:01:57,933 --> 00:01:59,833
+maps in sex for just a second
+
+55
+00:01:59,833 --> 00:02:02,100
+I've got a conversation map set up here
+
+56
+00:02:02,400 --> 00:02:04,666
+with a key method and a key path
+
+57
+00:02:05,000 --> 00:02:08,233
+and what we want to do is pattern match it to a map
+
+58
+00:02:08,633 --> 00:02:10,266
+that has a path of
+
+59
+00:02:11,000 --> 00:02:12,033
+slash wildlife
+
+60
+00:02:12,733 --> 00:02:14,166
+we use the match operator
+
+61
+00:02:14,466 --> 00:02:16,633
+use that map on the right hand side like that
+
+62
+00:02:17,000 --> 00:02:18,033
+and it matches
+
+63
+00:02:18,033 --> 00:02:20,233
+even though the map on the left
+
+64
+00:02:20,433 --> 00:02:23,333
+doesn't have the same number of keys as the map
+
+65
+00:02:23,333 --> 00:02:27,100
+on the right as long as this left hand side is a map
+
+66
+00:02:27,266 --> 00:02:30,566
+and it has a path key with wildlife as the value
+
+67
+00:02:30,733 --> 00:02:32,133
+then this matches
+
+68
+00:02:32,300 --> 00:02:34,400
+in other words we don't have to provide
+
+69
+00:02:34,433 --> 00:02:37,933
+all the keys or values for a successful match
+
+70
+00:02:38,033 --> 00:02:39,066
+and this is great
+
+71
+00:02:39,100 --> 00:02:42,200
+because we're only interested in matching the path
+
+72
+00:02:42,266 --> 00:02:44,033
+we don't care what the method is
+
+73
+00:02:44,700 --> 00:02:45,500
+now let's say we change
+
+74
+00:02:45,500 --> 00:02:48,766
+this around and set a wildlife we use bears right here
+
+75
+00:02:49,366 --> 00:02:50,533
+well that's not going to be a match
+
+76
+00:02:50,533 --> 00:02:52,233
+because the value of the path key
+
+77
+00:02:52,300 --> 00:02:53,500
+in the term and the right
+
+78
+00:02:53,733 --> 00:02:55,866
+is not bears it's actually wildlife so
+
+79
+00:02:56,000 --> 00:02:57,133
+we get a no match air
+
+80
+00:02:57,766 --> 00:03:00,333
+so we'll set it back to wildlife
+
+81
+00:03:00,800 --> 00:03:03,466
+and then what happens if we have a key name
+
+82
+00:03:03,600 --> 00:03:06,233
+with a value mic on this left hand side
+
+83
+00:03:07,066 --> 00:03:09,166
+well that's not a match because the
+
+84
+00:03:09,533 --> 00:03:13,633
+map on the right hand side doesn't have a key name
+
+85
+00:03:14,066 --> 00:03:15,533
+and the keys in the pattern
+
+86
+00:03:15,533 --> 00:03:17,700
+must exist in the map on the right
+
+87
+00:03:18,266 --> 00:03:18,933
+now if we were
+
+88
+00:03:18,933 --> 00:03:21,066
+only interested in get requests we could do something
+
+89
+00:03:21,066 --> 00:03:23,633
+like this method is get
+
+90
+00:03:24,100 --> 00:03:25,600
+and that will match the conversation
+
+91
+00:03:25,600 --> 00:03:26,300
+it will match
+
+92
+00:03:26,300 --> 00:03:29,100
+any map on the right hand side that has a method of get
+
+93
+00:03:29,666 --> 00:03:31,333
+now let's suppose we want to check
+
+94
+00:03:31,366 --> 00:03:35,366
+that the path matches wildlife and if it does
+
+95
+00:03:35,366 --> 00:03:38,166
+then also extract the value of the method
+
+96
+00:03:38,700 --> 00:03:40,600
+so instead of using a literal git here
+
+97
+00:03:40,600 --> 00:03:42,333
+we'll just use a variable method
+
+98
+00:03:42,433 --> 00:03:46,233
+and then path will use a literal wildlife
+
+99
+00:03:47,000 --> 00:03:48,800
+and it matches and now
+
+100
+00:03:49,000 --> 00:03:50,933
+the value of the method
+
+101
+00:03:51,033 --> 00:03:53,366
+is bound to that variable method
+
+102
+00:03:53,900 --> 00:03:54,266
+it's
+
+103
+00:03:54,266 --> 00:03:56,800
+also worth noting that we can bind multiple variables
+
+104
+00:03:56,800 --> 00:03:57,700
+in one go
+
+105
+00:03:58,233 --> 00:04:00,033
+yeah we'll just bind method and
+
+106
+00:04:00,066 --> 00:04:02,566
+also the path we don't care about the literal string
+
+107
+00:04:02,566 --> 00:04:03,400
+we just want to
+
+108
+00:04:03,533 --> 00:04:06,433
+bind whatever path we have to the variable path
+
+109
+00:04:07,266 --> 00:04:08,300
+and we get that as well
+
+110
+00:04:09,000 --> 00:04:09,900
+so this gives us
+
+111
+00:04:10,133 --> 00:04:12,266
+everything we need to finish our function clause
+
+112
+00:04:12,533 --> 00:04:15,033
+yeah remember we just have an argument co nv here
+
+113
+00:04:15,066 --> 00:04:16,533
+but we'll pattern match it
+
+114
+00:04:16,533 --> 00:04:19,433
+we'll say we want it to be a path
+
+115
+00:04:19,866 --> 00:04:21,833
+with the literal slash wildlife
+
+116
+00:04:22,466 --> 00:04:24,600
+and then we can use the match operator right here
+
+117
+00:04:24,933 --> 00:04:26,533
+so what this is going to do is
+
+118
+00:04:26,533 --> 00:04:29,166
+match the incoming argument against this map
+
+119
+00:04:29,233 --> 00:04:32,833
+and also assign it to the variable co n
+
+120
+00:04:33,166 --> 00:04:35,066
+and we need to do that because we need to use
+
+121
+00:04:35,100 --> 00:04:37,433
+co and v in the function body here
+
+122
+00:04:37,433 --> 00:04:40,466
+to update that conversation map and return a new one
+
+123
+00:04:40,700 --> 00:04:42,933
+if you didn't need to use it in the function body
+
+124
+00:04:42,933 --> 00:04:44,233
+well you could just do it just like this
+
+125
+00:04:44,233 --> 00:04:46,333
+and it would match the argument that's coming in
+
+126
+00:04:46,433 --> 00:04:49,300
+and only run this function if that matches
+
+127
+00:04:49,300 --> 00:04:51,433
+but in our case we need to capture that
+
+128
+00:04:51,566 --> 00:04:52,400
+so we can do that
+
+129
+00:04:52,833 --> 00:04:54,800
+so let's give that a save and run it
+
+130
+00:04:55,133 --> 00:04:56,600
+ooh and we get an error here
+
+131
+00:04:57,433 --> 00:04:58,666
+it's saying that there's no
+
+132
+00:04:58,733 --> 00:04:59,800
+function claws
+
+133
+00:04:59,800 --> 00:05:00,233
+that's
+
+134
+00:05:00,233 --> 00:05:03,600
+matching a map where the method is get and the path is
+
+135
+00:05:04,200 --> 00:05:05,000
+wild things
+
+136
+00:05:05,333 --> 00:05:08,200
+well that's because we're calling rewrite path for
+
+137
+00:05:08,266 --> 00:05:10,200
+every request in the pipeline
+
+138
+00:05:10,533 --> 00:05:12,133
+but the function claws here
+
+139
+00:05:12,266 --> 00:05:13,533
+only matches
+
+140
+00:05:13,633 --> 00:05:16,600
+when the argument is a map with the path key of
+
+141
+00:05:16,933 --> 00:05:19,066
+wildlife not wild things
+
+142
+00:05:19,666 --> 00:05:22,866
+so we also need a default function clause
+
+143
+00:05:22,866 --> 00:05:24,633
+for all the other paths
+
+144
+00:05:24,666 --> 00:05:25,866
+and since we know that order
+
+145
+00:05:25,866 --> 00:05:27,733
+matters we need to define it last
+
+146
+00:05:28,266 --> 00:05:29,366
+right we'll put it right here
+
+147
+00:05:29,566 --> 00:05:30,633
+rewrite path
+
+148
+00:05:30,766 --> 00:05:33,666
+it's just going to take any map we'll call it co n
+
+149
+00:05:34,333 --> 00:05:35,900
+and since this is a single line function
+
+150
+00:05:35,900 --> 00:05:36,833
+we'll make it more concise
+
+151
+00:05:36,833 --> 00:05:38,500
+using this deuce intact
+
+152
+00:05:38,533 --> 00:05:41,633
+and then we just want to return that map unchanged
+
+153
+00:05:42,000 --> 00:05:42,966
+so this is going to
+
+154
+00:05:43,100 --> 00:05:45,533
+match any requests where the path is wildlife
+
+155
+00:05:45,533 --> 00:05:46,033
+and then for
+
+156
+00:05:46,033 --> 00:05:47,433
+everything else it's going to fall through
+
+157
+00:05:47,700 --> 00:05:49,433
+and this function clause will get run
+
+158
+00:05:49,500 --> 00:05:51,966
+just returning the conversation map unchanged
+
+159
+00:05:52,300 --> 00:05:54,333
+if we give that a save and run it
+
+160
+00:05:54,633 --> 00:05:55,333
+well sure enough
+
+161
+00:05:55,333 --> 00:05:57,033
+now all of our requests are
+
+162
+00:05:57,033 --> 00:05:58,433
+matching the way we would expect
+
+163
+00:05:59,333 --> 00:06:02,333
+now we can use this same technique to add some tracking
+
+164
+00:06:02,333 --> 00:06:04,333
+let's say every time we get a four or four
+
+165
+00:06:04,533 --> 00:06:06,266
+let's log the missing path
+
+166
+00:06:06,366 --> 00:06:07,033
+well to do that
+
+167
+00:06:07,033 --> 00:06:08,366
+we'll just add a function
+
+168
+00:06:08,366 --> 00:06:10,633
+that matches a four or four status code
+
+169
+00:06:10,633 --> 00:06:12,100
+and then extracts the path
+
+170
+00:06:12,766 --> 00:06:15,200
+now we'll need to wait until the conversation map
+
+171
+00:06:15,200 --> 00:06:16,533
+has a status key
+
+172
+00:06:16,533 --> 00:06:18,666
+and that happens in the route function
+
+173
+00:06:19,100 --> 00:06:21,466
+so we'll slip in a new track function right
+
+174
+00:06:21,633 --> 00:06:23,333
+after it in the pipeline
+
+175
+00:06:23,700 --> 00:06:24,833
+and then we'll define it
+
+176
+00:06:25,866 --> 00:06:27,933
+we only want this function clause to run
+
+177
+00:06:28,100 --> 00:06:29,933
+when the status is a four or four
+
+178
+00:06:29,933 --> 00:06:31,500
+so we'll use a pattern match for it
+
+179
+00:06:31,766 --> 00:06:33,500
+status needs to be four or four
+
+180
+00:06:33,900 --> 00:06:35,400
+and then we want to capture the path
+
+181
+00:06:35,400 --> 00:06:37,866
+and we'll just capture it in a variable call path
+
+182
+00:06:37,933 --> 00:06:39,300
+and we'll assign that to co
+
+183
+00:06:39,300 --> 00:06:41,800
+n so we can use it in the function body
+
+184
+00:06:42,433 --> 00:06:45,100
+now we could do anything we want with this information
+
+185
+00:06:45,100 --> 00:06:48,266
+but for now let's just print out warning
+
+186
+00:06:48,566 --> 00:06:51,600
+the name of our path is on the loose
+
+187
+00:06:52,966 --> 00:06:55,833
+we can use path inside of the function body because
+
+188
+00:06:55,866 --> 00:06:57,600
+we pattern matched on path here
+
+189
+00:06:57,800 --> 00:06:59,200
+and because this is a variable
+
+190
+00:06:59,233 --> 00:07:00,466
+then it's just going to be bound
+
+191
+00:07:00,566 --> 00:07:03,000
+to whatever value is in the path
+
+192
+00:07:03,300 --> 00:07:05,800
+and we need to remember to return the conversation map
+
+193
+00:07:05,800 --> 00:07:07,666
+so it continues flowing through the pipeline
+
+194
+00:07:08,166 --> 00:07:10,033
+now as we learn with the rewrite function
+
+195
+00:07:10,033 --> 00:07:11,400
+we also need to define
+
+196
+00:07:11,400 --> 00:07:14,133
+a default function clause that matches all
+
+197
+00:07:14,133 --> 00:07:15,766
+the other conversation maps
+
+198
+00:07:16,100 --> 00:07:16,733
+yeah that's right
+
+199
+00:07:16,733 --> 00:07:17,833
+so this one just takes
+
+200
+00:07:17,833 --> 00:07:20,300
+a conversation map and returns it unchanged
+
+201
+00:07:20,500 --> 00:07:22,100
+if we give that a save and run it
+
+202
+00:07:22,400 --> 00:07:24,633
+and if we scroll up to the bigfoot request
+
+203
+00:07:25,333 --> 00:07:27,233
+well we see the response was a four or four
+
+204
+00:07:27,733 --> 00:07:30,000
+and we printed out that bigfoot is on the loose
+
+205
+00:07:30,900 --> 00:07:32,800
+so you may have seen this coming
+
+206
+00:07:32,800 --> 00:07:35,600
+but now that we know how to pattern match on maps
+
+207
+00:07:35,600 --> 00:07:38,766
+there's a different way to design our route functions
+
+208
+00:07:38,833 --> 00:07:39,633
+aha
+
+209
+00:07:40,433 --> 00:07:41,266
+in the pipeline
+
+210
+00:07:41,266 --> 00:07:43,533
+we're currently calling this route function
+
+211
+00:07:43,533 --> 00:07:44,900
+that takes one argument
+
+212
+00:07:44,900 --> 00:07:46,366
+this conversation map
+
+213
+00:07:46,500 --> 00:07:47,666
+and then we delegate
+
+214
+00:07:47,666 --> 00:07:50,200
+to the route function that takes three arguments
+
+215
+00:07:50,366 --> 00:07:53,200
+and then we have multiple function clauses
+
+216
+00:07:53,200 --> 00:07:56,600
+that pattern match on two string arguments the method
+
+217
+00:07:56,966 --> 00:07:59,066
+and the path but we
+
+218
+00:07:59,066 --> 00:07:59,300
+now
+
+219
+00:07:59,300 --> 00:08:01,333
+know that we can just pattern match on what's in this
+
+220
+00:08:01,333 --> 00:08:02,366
+conversation map
+
+221
+00:08:02,700 --> 00:08:04,500
+so let's start by commenting this out
+
+222
+00:08:04,500 --> 00:08:05,466
+because we won't need it
+
+223
+00:08:05,500 --> 00:08:08,300
+and then we can update this to just take one argument
+
+224
+00:08:08,566 --> 00:08:09,833
+I'm just going to copy these
+
+225
+00:08:10,800 --> 00:08:12,166
+we want this just to take a
+
+226
+00:08:12,166 --> 00:08:14,500
+conversation map and then we can pattern match on it
+
+227
+00:08:14,500 --> 00:08:16,000
+so we'll have our map here
+
+228
+00:08:16,000 --> 00:08:17,300
+I'm going to paste those in
+
+229
+00:08:18,500 --> 00:08:20,933
+like that and then this is going to be the method
+
+230
+00:08:21,533 --> 00:08:22,733
+and this is the path
+
+231
+00:08:24,200 --> 00:08:25,233
+now we need to change
+
+232
+00:08:25,233 --> 00:08:26,966
+each of these function clauses to just
+
+233
+00:08:26,966 --> 00:08:27,933
+take one argument
+
+234
+00:08:27,933 --> 00:08:29,566
+so that they can get cold in the pipeline
+
+235
+00:08:29,566 --> 00:08:30,733
+so I'll take this one
+
+236
+00:08:30,900 --> 00:08:32,133
+I'll just paste it down here
+
+237
+00:08:32,166 --> 00:08:33,833
+and this is just going to be bears
+
+238
+00:08:34,933 --> 00:08:36,133
+we take this one
+
+239
+00:08:36,866 --> 00:08:37,933
+paste it down here
+
+240
+00:08:38,000 --> 00:08:40,233
+this one's a bit different because we need to
+
+241
+00:08:40,233 --> 00:08:41,833
+pattern match on that parameter
+
+242
+00:08:41,900 --> 00:08:43,666
+and we can do that right inside of here
+
+243
+00:08:43,933 --> 00:08:46,666
+using that binary concatenation operator less than
+
+244
+00:08:46,666 --> 00:08:48,733
+greater than and then our id
+
+245
+00:08:49,133 --> 00:08:50,000
+so that's kind of neat
+
+246
+00:08:50,000 --> 00:08:52,066
+we can use this matching inside
+
+247
+00:08:52,066 --> 00:08:55,200
+of a map that we're matching on the left hand side
+
+248
+00:08:55,933 --> 00:08:58,033
+and then for our catch all route down here
+
+249
+00:08:58,133 --> 00:08:59,266
+well we'll get rid of these
+
+250
+00:09:00,833 --> 00:09:02,166
+and the map will look like this
+
+251
+00:09:02,166 --> 00:09:03,033
+all we care about
+
+252
+00:09:03,033 --> 00:09:05,800
+is the path and we want to extract its value
+
+253
+00:09:05,800 --> 00:09:07,466
+so we'll just restructure it that way
+
+254
+00:09:07,866 --> 00:09:11,266
+and now all of these function clauses take just one
+
+255
+00:09:11,266 --> 00:09:12,900
+argument the conversation map
+
+256
+00:09:13,166 --> 00:09:16,266
+and the pipeline calls route with one argument
+
+257
+00:09:16,266 --> 00:09:17,166
+so these should just work
+
+258
+00:09:17,166 --> 00:09:18,033
+we save that away
+
+259
+00:09:18,666 --> 00:09:20,433
+sure enough it works just as before
+
+260
+00:09:21,200 --> 00:09:23,933
+as always there are multiple ways to do the same thing
+
+261
+00:09:24,133 --> 00:09:26,233
+and it's often simply a matter of preference
+

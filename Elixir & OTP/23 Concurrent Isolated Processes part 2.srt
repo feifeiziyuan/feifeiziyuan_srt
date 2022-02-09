@@ -1,0 +1,1164 @@
+1
+00:00:00,433 --> 00:00:01,233
+so you might think
+
+2
+00:00:01,233 --> 00:00:01,966
+our request
+
+3
+00:00:01,966 --> 00:00:04,533
+handling process that we spawned previously
+
+4
+00:00:04,533 --> 00:00:07,566
+is the only process running in the uranium
+
+5
+00:00:07,833 --> 00:00:10,700
+but it turns out that elixir apps are made up of a
+
+6
+00:00:10,700 --> 00:00:12,133
+lot of processes
+
+7
+00:00:12,200 --> 00:00:12,900
+in fact
+
+8
+00:00:12,900 --> 00:00:15,466
+let's see how many processes are currently running
+
+9
+00:00:15,933 --> 00:00:18,166
+yeah to do that I'll fire up an ix session
+
+10
+00:00:18,700 --> 00:00:20,166
+and as we saw in the previous video
+
+11
+00:00:20,333 --> 00:00:22,466
+elixir has a process module
+
+12
+00:00:22,633 --> 00:00:24,200
+and we can call a list function
+
+13
+00:00:24,433 --> 00:00:25,966
+wow that's a lot of processes
+
+14
+00:00:25,966 --> 00:00:27,166
+we see all those kids
+
+15
+00:00:27,166 --> 00:00:29,066
+and it's a list of kids and in fact there's a
+
+16
+00:00:29,066 --> 00:00:31,066
+dot dot meaning there's a bunch more of these
+
+17
+00:00:31,066 --> 00:00:34,466
+so let's take this and we'll pipe it into enzyme count
+
+18
+00:00:35,700 --> 00:00:38,466
+and wow there's 83 processes currently running
+
+19
+00:00:38,600 --> 00:00:40,266
+so what are these processes doing
+
+20
+00:00:40,366 --> 00:00:42,900
+well to find out we could use this tool called observer
+
+21
+00:00:42,900 --> 00:00:44,933
+it's an early module observer
+
+22
+00:00:45,200 --> 00:00:47,033
+and the name of the function is start
+
+23
+00:00:47,100 --> 00:00:47,800
+and this is just the
+
+24
+00:00:47,800 --> 00:00:49,333
+gooey that lets us see what's going
+
+25
+00:00:49,333 --> 00:00:50,866
+on inside of the earlyn vm
+
+26
+00:00:51,833 --> 00:00:52,600
+and this system
+
+27
+00:00:52,600 --> 00:00:54,633
+tab just gives us some high level information
+
+28
+00:00:54,633 --> 00:00:56,866
+we see the number of cores on my computer
+
+29
+00:00:56,866 --> 00:00:58,166
+it's eight cores here
+
+30
+00:00:58,733 --> 00:00:59,066
+see over here
+
+31
+00:00:59,066 --> 00:01:01,400
+we've got the memory usage which is pretty cool
+
+32
+00:01:01,566 --> 00:01:02,666
+we've got the up time
+
+33
+00:01:02,700 --> 00:01:03,200
+well this has
+
+34
+00:01:03,200 --> 00:01:05,466
+only been up for 1min because we just started it
+
+35
+00:01:05,600 --> 00:01:07,166
+and we see the number of processes here
+
+36
+00:01:07,166 --> 00:01:09,466
+it says 98 processes
+
+37
+00:01:09,500 --> 00:01:11,100
+we're over here it said 83
+
+38
+00:01:11,100 --> 00:01:12,400
+but that's because when we started
+
+39
+00:01:12,400 --> 00:01:13,566
+the observer itself
+
+40
+00:01:13,733 --> 00:01:15,733
+it had to fire up some new processes
+
+41
+00:01:15,733 --> 00:01:16,900
+to let it do its work
+
+42
+00:01:17,400 --> 00:01:19,133
+to actually see which processes are running
+
+43
+00:01:19,133 --> 00:01:20,933
+let's go over to the process tab
+
+44
+00:01:21,300 --> 00:01:22,866
+and we get a full breakdown of
+
+45
+00:01:22,900 --> 00:01:25,766
+all the processes currently running in their early vm
+
+46
+00:01:26,300 --> 00:01:26,433
+now
+
+47
+00:01:26,433 --> 00:01:28,500
+if you look at the name of these processes they're not
+
+48
+00:01:28,500 --> 00:01:29,833
+recognizable as
+
+49
+00:01:29,966 --> 00:01:31,466
+any of our application code
+
+50
+00:01:31,466 --> 00:01:33,100
+so let's go ahead and sort this by name
+
+51
+00:01:33,100 --> 00:01:34,400
+just click on name here
+
+52
+00:01:34,733 --> 00:01:37,000
+and we'll click it again that way it's alphabetical
+
+53
+00:01:37,500 --> 00:01:40,633
+and you see all this stuff starting with elixir dot
+
+54
+00:01:40,833 --> 00:01:43,666
+while elixir modules in early are prefixed
+
+55
+00:01:43,666 --> 00:01:45,533
+with the name elixir dot
+
+56
+00:01:45,833 --> 00:01:47,566
+and so if we start at the top here we see
+
+57
+00:01:47,566 --> 00:01:49,300
+there's some stuff related to the
+
+58
+00:01:49,400 --> 00:01:50,133
+hex module
+
+59
+00:01:50,133 --> 00:01:52,700
+and we know that hex's elixir's package manager
+
+60
+00:01:52,900 --> 00:01:54,633
+so it has three processes here
+
+61
+00:01:54,633 --> 00:01:56,533
+just sitting in a loop doing something
+
+62
+00:01:56,566 --> 00:01:57,933
+not sure exactly what it is
+
+63
+00:01:58,166 --> 00:01:59,733
+but they're waiting on something there
+
+64
+00:02:00,133 --> 00:02:03,033
+then we see some processes related to is
+
+65
+00:02:03,300 --> 00:02:05,166
+and this one in the middle is an evaluate
+
+66
+00:02:05,166 --> 00:02:06,233
+and it's sitting in a loop
+
+67
+00:02:06,233 --> 00:02:08,366
+and it has the pid 150
+
+68
+00:02:08,633 --> 00:02:10,600
+well that shouldn't match our sex session
+
+69
+00:02:10,600 --> 00:02:12,566
+so if I come over here and use self
+
+70
+00:02:13,033 --> 00:02:14,900
+to get the current process as pid
+
+71
+00:02:15,100 --> 00:02:15,900
+well sure enough
+
+72
+00:02:16,000 --> 00:02:19,166
+our in session is pied 150 so that matches up
+
+73
+00:02:19,233 --> 00:02:20,033
+right here
+
+74
+00:02:20,433 --> 00:02:23,600
+then we see some processes related to elixir's logger
+
+75
+00:02:23,866 --> 00:02:26,700
+there's some processes related to mix itself
+
+76
+00:02:27,100 --> 00:02:27,700
+and then it gets
+
+77
+00:02:27,700 --> 00:02:30,166
+into some erelong functions here and if we scroll down
+
+78
+00:02:30,633 --> 00:02:32,100
+there's a bunch of stuff going on here
+
+79
+00:02:32,233 --> 00:02:34,300
+here's the processes related to the observer
+
+80
+00:02:34,300 --> 00:02:35,833
+I said when we fired up the gooey
+
+81
+00:02:36,100 --> 00:02:38,400
+the observer created some processes to do its work
+
+82
+00:02:38,400 --> 00:02:39,966
+well here are those processes
+
+83
+00:02:40,300 --> 00:02:41,200
+here's the thing
+
+84
+00:02:41,433 --> 00:02:44,233
+all elixir code runs in a process
+
+85
+00:02:44,333 --> 00:02:45,766
+so to demonstrate that
+
+86
+00:02:45,900 --> 00:02:48,733
+let's sort by pit in descending order
+
+87
+00:02:49,200 --> 00:02:51,400
+and then we'll go fire up our server
+
+88
+00:02:53,100 --> 00:02:56,266
+now let's send in a hibernate request for 10 seconds
+
+89
+00:02:57,566 --> 00:02:59,733
+okay we see the pit of the process that's working on
+
+90
+00:02:59,733 --> 00:03:02,633
+it is two o four thirty nine so if we come over here
+
+91
+00:03:03,766 --> 00:03:06,866
+there it is right there two o four thirty nine oh
+
+92
+00:03:06,866 --> 00:03:08,466
+and then that request is done
+
+93
+00:03:08,466 --> 00:03:10,366
+so this process should exit
+
+94
+00:03:10,466 --> 00:03:12,233
+and it'll get removed from this list
+
+95
+00:03:12,933 --> 00:03:15,533
+what's cool about the observer is that we cannot only
+
+96
+00:03:15,533 --> 00:03:17,833
+see what's going on in the early vm
+
+97
+00:03:17,833 --> 00:03:20,900
+we can also interact with our running application
+
+98
+00:03:21,233 --> 00:03:21,833
+for example
+
+99
+00:03:21,833 --> 00:03:24,633
+let's suppose we have a process that's gone rogue like
+
+100
+00:03:24,733 --> 00:03:26,700
+let's hibernate for a full minute
+
+101
+00:03:27,466 --> 00:03:31,100
+okay that's process 2 2 5 1 3 that's working on that
+
+102
+00:03:31,533 --> 00:03:33,333
+there it is 2 2 5 1 3
+
+103
+00:03:33,533 --> 00:03:35,900
+but we don't want this process gumming up the works
+
+104
+00:03:35,900 --> 00:03:36,933
+so let's go ahead and kill it
+
+105
+00:03:36,933 --> 00:03:38,300
+I'll just right click on this
+
+106
+00:03:38,733 --> 00:03:39,933
+kill that process
+
+107
+00:03:40,366 --> 00:03:41,333
+and boom it's gone
+
+108
+00:03:41,333 --> 00:03:43,033
+and as we saw in the previous section
+
+109
+00:03:43,200 --> 00:03:45,400
+the request handling process is isolated
+
+110
+00:03:45,400 --> 00:03:47,700
+so killing it doesn't crash the server
+
+111
+00:03:48,133 --> 00:03:48,700
+so if I just come
+
+112
+00:03:48,700 --> 00:03:49,333
+back over here
+
+113
+00:03:49,333 --> 00:03:51,900
+I'm just going to control c out of that and we run
+
+114
+00:03:52,700 --> 00:03:56,966
+api bears well we see that our server still responding
+
+115
+00:03:57,500 --> 00:03:57,700
+now
+
+116
+00:03:57,700 --> 00:04:01,433
+when we started the server from ix the server code ran
+
+117
+00:04:01,466 --> 00:04:03,433
+in the sex process
+
+118
+00:04:03,633 --> 00:04:04,866
+yeah let's find that again
+
+119
+00:04:05,900 --> 00:04:07,800
+here it is right here this evaluate
+
+120
+00:04:07,933 --> 00:04:10,600
+and we see that it's running the except function
+
+121
+00:04:10,866 --> 00:04:12,866
+which is waiting for the client connection
+
+122
+00:04:13,033 --> 00:04:14,833
+because that's what the server over here is doing
+
+123
+00:04:14,833 --> 00:04:15,800
+it's inexpert
+
+124
+00:04:15,900 --> 00:04:18,066
+just blocking waiting for that client connection
+
+125
+00:04:18,500 --> 00:04:19,800
+and because we ran it this way
+
+126
+00:04:19,800 --> 00:04:21,566
+it ties up the sex session
+
+127
+00:04:21,566 --> 00:04:23,866
+I don't have a prompt right here so we can't do
+
+128
+00:04:23,966 --> 00:04:25,433
+anything else in sex
+
+129
+00:04:25,600 --> 00:04:27,333
+but we could spawn the server
+
+130
+00:04:27,333 --> 00:04:29,033
+so that it runs concurrently
+
+131
+00:04:29,166 --> 00:04:30,766
+in its own process
+
+132
+00:04:30,900 --> 00:04:33,033
+and we know how to do that by calling spawn
+
+133
+00:04:33,400 --> 00:04:35,300
+all right because my sex session is tied up
+
+134
+00:04:35,300 --> 00:04:36,866
+I'm going to have to quit out of there
+
+135
+00:04:37,333 --> 00:04:38,366
+that kills the observer
+
+136
+00:04:38,366 --> 00:04:39,500
+because we started observer from
+
+137
+00:04:39,500 --> 00:04:42,066
+if I'll start fix up again
+
+138
+00:04:42,733 --> 00:04:44,533
+so instead of starting our server like this
+
+139
+00:04:44,700 --> 00:04:46,733
+we want to start it in this bond function
+
+140
+00:04:47,566 --> 00:04:48,766
+so let's capture the pid
+
+141
+00:04:49,800 --> 00:04:50,866
+we would call spawn
+
+142
+00:04:51,366 --> 00:04:53,033
+and we could give it an anonymous function
+
+143
+00:04:53,033 --> 00:04:53,833
+that does this
+
+144
+00:04:55,433 --> 00:04:56,200
+and we know that'll work
+
+145
+00:04:56,200 --> 00:04:57,766
+we saw that in the previous section
+
+146
+00:04:58,033 --> 00:04:58,500
+but remember
+
+147
+00:04:58,500 --> 00:05:00,833
+we said that you can call spawn in two different ways
+
+148
+00:05:00,833 --> 00:05:03,466
+with an anonymous function or with a name function
+
+149
+00:05:03,633 --> 00:05:05,000
+so let's use a name function
+
+150
+00:05:05,000 --> 00:05:07,933
+here to do that we drop the anonymous function
+
+151
+00:05:08,833 --> 00:05:10,433
+the first argument to spawn
+
+152
+00:05:10,433 --> 00:05:12,400
+is the name of the module service
+
+153
+00:05:12,800 --> 00:05:16,166
+http server the name of the second argument is then
+
+154
+00:05:16,166 --> 00:05:17,300
+the function to run
+
+155
+00:05:17,533 --> 00:05:19,266
+as an atom so it's going to be start
+
+156
+00:05:19,700 --> 00:05:23,233
+and then the third parameter is a list of arguments
+
+157
+00:05:27,700 --> 00:05:29,666
+so instead of passing an anonymous function
+
+158
+00:05:29,866 --> 00:05:31,633
+we pass it three arguments
+
+159
+00:05:31,800 --> 00:05:33,733
+the name of the module the name of the function
+
+160
+00:05:33,933 --> 00:05:35,566
+and then any arguments in a list
+
+161
+00:05:36,900 --> 00:05:37,033
+okay
+
+162
+00:05:37,033 --> 00:05:39,533
+and it starts up and it's listening for a connection
+
+163
+00:05:39,866 --> 00:05:42,066
+but because we spawn that in its own process
+
+164
+00:05:42,066 --> 00:05:43,866
+notice we have an ix prompt
+
+165
+00:05:43,866 --> 00:05:45,500
+ix isn't tied up anymore
+
+166
+00:05:45,733 --> 00:05:48,133
+because our servers running in a process
+
+167
+00:05:48,166 --> 00:05:49,666
+with the pid one fifty four
+
+168
+00:05:50,200 --> 00:05:51,733
+so now we can start our observer
+
+169
+00:05:54,200 --> 00:05:55,733
+we'll go over to processes
+
+170
+00:05:55,866 --> 00:05:57,366
+I'm going to sort this by name
+
+171
+00:05:57,766 --> 00:06:00,433
+and we're looking for the sex evaluate there it is
+
+172
+00:06:00,700 --> 00:06:01,833
+and now we notice
+
+173
+00:06:01,866 --> 00:06:04,566
+that the current function is not accept anymore
+
+174
+00:06:05,033 --> 00:06:06,533
+it's actually loop
+
+175
+00:06:06,600 --> 00:06:08,800
+because it's looping waiting for us to enter something
+
+176
+00:06:08,800 --> 00:06:10,233
+at the six prompt
+
+177
+00:06:10,500 --> 00:06:14,500
+but now we have this new process elixir server
+
+178
+00:06:14,533 --> 00:06:15,800
+has the pid one fifty four
+
+179
+00:06:15,800 --> 00:06:17,466
+which matches this pid over here
+
+180
+00:06:17,800 --> 00:06:20,433
+and it's sitting in an accept loop as we would expect
+
+181
+00:06:21,166 --> 00:06:23,533
+so now let's go ahead and send that hibernate request
+
+182
+00:06:23,533 --> 00:06:24,333
+again
+
+183
+00:06:25,333 --> 00:06:27,000
+we'll hibernate for 10 seconds
+
+184
+00:06:27,800 --> 00:06:28,800
+come back over here
+
+185
+00:06:28,833 --> 00:06:30,300
+I'm going to sort by pit
+
+186
+00:06:30,300 --> 00:06:31,800
+it's going to be the highest pit there it
+
+187
+00:06:31,800 --> 00:06:34,533
+is right there it's sleeping 3 2 5 9
+
+188
+00:06:34,600 --> 00:06:36,300
+which is the same as this one over here
+
+189
+00:06:37,166 --> 00:06:38,333
+all right and then it went away
+
+190
+00:06:38,766 --> 00:06:39,966
+so we saw that we had two
+
+191
+00:06:39,966 --> 00:06:42,100
+spawn processes in the observer
+
+192
+00:06:42,166 --> 00:06:45,100
+both the server itself and the one to hibernate
+
+193
+00:06:45,766 --> 00:06:48,266
+so what happens now if we kill the server itself
+
+194
+00:06:48,300 --> 00:06:49,233
+just right click
+
+195
+00:06:49,333 --> 00:06:50,700
+we'll kill that process
+
+196
+00:06:51,766 --> 00:06:52,666
+well it goes away
+
+197
+00:06:53,366 --> 00:06:55,333
+so if we try to send a request to hibernate
+
+198
+00:06:56,100 --> 00:06:57,766
+well it can't connect to our server
+
+199
+00:06:57,766 --> 00:06:58,933
+because the server is dead
+
+200
+00:06:59,266 --> 00:07:01,800
+but if we come up to fix well it's still running
+
+201
+00:07:02,433 --> 00:07:05,066
+and it has the same pid 150 that it's always had
+
+202
+00:07:05,600 --> 00:07:08,900
+so killing the web server didn't kill the sex session
+
+203
+00:07:09,033 --> 00:07:09,833
+that's right
+
+204
+00:07:10,100 --> 00:07:13,000
+but what happens if we do kill the sex session
+
+205
+00:07:13,566 --> 00:07:14,366
+let's over here
+
+206
+00:07:14,366 --> 00:07:17,033
+this evaluate that's sitting in a loop pit 150
+
+207
+00:07:17,033 --> 00:07:18,100
+let's kill it off
+
+208
+00:07:19,100 --> 00:07:20,133
+well this is interesting
+
+209
+00:07:20,133 --> 00:07:23,233
+notice our last six prompt was 6 3
+
+210
+00:07:23,633 --> 00:07:26,966
+it got this exit that pid was killed pid 150
+
+211
+00:07:27,166 --> 00:07:28,866
+and now we're back at 6 1
+
+212
+00:07:28,866 --> 00:07:32,433
+so it restarted an ix session automatically
+
+213
+00:07:32,433 --> 00:07:34,100
+in fact if we look at self now
+
+214
+00:07:34,500 --> 00:07:36,566
+it's not 150 as it was before
+
+215
+00:07:36,766 --> 00:07:38,566
+it's now 7 6 6 2
+
+216
+00:07:38,566 --> 00:07:41,600
+so it's a brand new process with a different pid
+
+217
+00:07:42,133 --> 00:07:43,800
+now it automatically restarted
+
+218
+00:07:43,800 --> 00:07:44,400
+because something
+
+219
+00:07:44,400 --> 00:07:47,866
+called a supervisor is monitoring the sex process
+
+220
+00:07:47,866 --> 00:07:49,966
+and the supervisor restarts lie
+
+221
+00:07:49,966 --> 00:07:53,400
+if it dies we'll learn more about supervisors later on
+
+222
+00:07:54,066 --> 00:07:56,633
+so we've seen that an elixir application is made up of
+
+223
+00:07:56,633 --> 00:07:59,066
+lots of isolated processes running concurrently
+
+224
+00:07:59,300 --> 00:07:59,666
+some of the
+
+225
+00:07:59,666 --> 00:08:02,400
+processes are spawned automatically when the app starts
+
+226
+00:08:02,400 --> 00:08:04,766
+and continue running for the life of the application
+
+227
+00:08:05,133 --> 00:08:07,066
+other processes are spawned on demand
+
+228
+00:08:07,066 --> 00:08:09,733
+and run for a relatively short amount of time now
+
+229
+00:08:09,733 --> 00:08:11,700
+unlike operating system processes
+
+230
+00:08:11,700 --> 00:08:14,100
+elixir processes are lightweight and
+
+231
+00:08:14,133 --> 00:08:15,466
+also fast to spawn
+
+232
+00:08:15,900 --> 00:08:16,100
+small
+
+233
+00:08:16,100 --> 00:08:18,833
+applications might be running hundreds of processes
+
+234
+00:08:18,833 --> 00:08:20,933
+whereas larger applications might be running
+
+235
+00:08:20,933 --> 00:08:22,833
+hundreds of thousands of processes
+
+236
+00:08:22,833 --> 00:08:24,100
+during peak times
+
+237
+00:08:24,366 --> 00:08:24,733
+all these
+
+238
+00:08:24,733 --> 00:08:27,233
+lightweight elixir processes are running inside
+
+239
+00:08:27,233 --> 00:08:28,533
+of an earland vm
+
+240
+00:08:28,633 --> 00:08:30,100
+otherwise known as beam
+
+241
+00:08:30,333 --> 00:08:33,133
+the vm itself runs in a single operating system
+
+242
+00:08:33,166 --> 00:08:36,033
+process that started when you start an elixir app
+
+243
+00:08:36,433 --> 00:08:37,533
+when the vm starts
+
+244
+00:08:37,533 --> 00:08:39,733
+it also starts a scheduler thread
+
+245
+00:08:39,833 --> 00:08:40,833
+whose job it is to run
+
+246
+00:08:40,833 --> 00:08:43,333
+each process can currently on the cpu
+
+247
+00:08:43,900 --> 00:08:45,500
+but running concurrently doesn't mean
+
+248
+00:08:45,500 --> 00:08:46,966
+that multiple processes run
+
+249
+00:08:46,966 --> 00:08:48,566
+at exactly the same time
+
+250
+00:08:49,100 --> 00:08:49,933
+the way it works is
+
+251
+00:08:49,933 --> 00:08:52,633
+that the scheduler allocates a slice of cpu time
+
+252
+00:08:52,633 --> 00:08:55,166
+to a process it's a tiny amount of time
+
+253
+00:08:55,666 --> 00:08:56,600
+when the time is up
+
+254
+00:08:56,600 --> 00:08:57,333
+the scheduler
+
+255
+00:08:57,333 --> 00:09:00,400
+preps or suspends the running process and
+
+256
+00:09:00,400 --> 00:09:01,300
+allocates time
+
+257
+00:09:01,300 --> 00:09:02,733
+to another process
+
+258
+00:09:02,833 --> 00:09:05,800
+and then another process gets its turn and so on
+
+259
+00:09:06,066 --> 00:09:07,466
+in this way the scheduler
+
+260
+00:09:07,466 --> 00:09:10,300
+actually switches between processes so fast
+
+261
+00:09:10,333 --> 00:09:12,700
+that they appear to be running simultaneously
+
+262
+00:09:12,800 --> 00:09:16,600
+consider this diagram like a very slow motion replay
+
+263
+00:09:16,966 --> 00:09:17,800
+the upshot here
+
+264
+00:09:17,800 --> 00:09:20,600
+is that a long running process won't tie up the cpu
+
+265
+00:09:21,066 --> 00:09:22,766
+every process gets its fair share
+
+266
+00:09:23,333 --> 00:09:24,366
+here's where the story gets
+
+267
+00:09:24,366 --> 00:09:25,066
+even better
+
+268
+00:09:25,066 --> 00:09:28,233
+it's unlikely that your computer has just one cpu
+
+269
+00:09:28,433 --> 00:09:30,466
+in fact you saw in the observer gooey
+
+270
+00:09:30,466 --> 00:09:33,833
+that even our aging laptop has multiple cpu cores
+
+271
+00:09:34,033 --> 00:09:36,300
+to take full advantage of multicore computers
+
+272
+00:09:36,333 --> 00:09:39,266
+the vm actually creates one scheduler thread per
+
+273
+00:09:39,266 --> 00:09:40,233
+cpu core
+
+274
+00:09:40,400 --> 00:09:43,100
+so a four core computer will have four schedulers
+
+275
+00:09:43,400 --> 00:09:44,600
+in each of those schedulers
+
+276
+00:09:44,600 --> 00:09:46,966
+is running multiple processes concurrently
+
+277
+00:09:47,100 --> 00:09:48,866
+which means at any given point in time
+
+278
+00:09:49,233 --> 00:09:52,233
+four processes are running at exactly the same time
+
+279
+00:09:52,533 --> 00:09:54,633
+in other words they're running in parallel
+
+280
+00:09:55,166 --> 00:09:56,766
+we hope this gives you an appreciation
+
+281
+00:09:56,766 --> 00:09:57,600
+for what's happening
+
+282
+00:09:57,600 --> 00:10:00,466
+inside the early vm when you call spawn
+
+283
+00:10:00,633 --> 00:10:01,800
+it's pretty incredible
+
+284
+00:10:01,800 --> 00:10:02,600
+the way the vm
+
+285
+00:10:02,600 --> 00:10:05,533
+takes care of scheduling processes across multiple
+
+286
+00:10:05,533 --> 00:10:06,666
+cpu cores
+
+287
+00:10:06,800 --> 00:10:09,966
+as to achieve both concurrency and parallelism
+
+288
+00:10:10,166 --> 00:10:10,833
+all the while
+
+289
+00:10:10,833 --> 00:10:13,500
+keeping the application responsive to new demands
+
+290
+00:10:13,766 --> 00:10:16,166
+in the next section we'll see how processes communicate
+
+291
+00:10:16,166 --> 00:10:17,266
+via messages
+

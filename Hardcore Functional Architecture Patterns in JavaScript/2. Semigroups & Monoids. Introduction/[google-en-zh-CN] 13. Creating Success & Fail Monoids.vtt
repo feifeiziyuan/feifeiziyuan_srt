@@ -1,0 +1,391 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:02.390
+所以，这不是很好。
+So, this isn't great.
+
+2
+00:00:02.390 --> 00:00:06.880
+所以让我们继续制作一个类型，它可以做我们想要它做的事情。
+So let's go ahead and make a type that does what we want it to do.
+
+3
+00:00:06.880 --> 00:00:11.630
+所以取得成功，那将需要一些x。
+So make a Success, and that'll be take some x.
+
+4
+00:00:13.150 --> 00:00:19.330
+所以把这个 x 带入 concat，另一个，other.x。
+And so take this x into concat, another one, other.x.
+
+5
+00:00:19.330 --> 00:00:22.310
+我们必须保持在类型内，对吗？
+We gotta stay within the type, right?
+
+6
+00:00:22.310 --> 00:00:27.450
+所以我们要做成功和失败。
+So we're gonna make Success and a failure.
+
+7
+00:00:27.450 --> 00:00:32.010
+他们都是，我们要定义这个
+And they're both, we're gonna kinda define this
+
+8
+00:00:32.010 --> 00:00:36.290
+作为验证结果超类的子类或其他东西。
+as subclasses of the superclass of validation result or something.
+
+9
+00:00:36.290 --> 00:00:39.120
+所以它是封闭的，因为它会
+So it's closed in that it will
+
+10
+00:00:39.120 --> 00:00:43.250
+无论成功还是失败，始终向您返回验证结果。
+always return you a validation result whether that's a success or a failure.
+
+11
+00:00:43.250 --> 00:00:44.690
+与Either一样，
+Same thing with Either,
+
+12
+00:00:44.690 --> 00:00:47.500
+当您连接到Either 时，您并不总是能立即恢复原状。
+you don't always get it right back when you concat to Either.
+
+13
+00:00:47.500 --> 00:00:48.750
+就像你可以向右或向左一样。
+Like you can get it right or left.
+
+14
+00:00:48.750 --> 00:00:51.730
+它在任何类型的保护伞下关闭。
+It's closed under the Either type umbrella.
+
+15
+00:00:51.730 --> 00:00:53.410
+但我们将在这里做同样的事情。
+But so we'll do the same thing here.
+
+16
+00:00:53.410 --> 00:00:56.640
+所以我们会说让我们做一个失败。
+So we'll say let's make a Fail.
+
+17
+00:00:58.930 --> 00:01:02.548
+我们会在这里说 isFail 这样我们就知道它是什么了。
+We'll say like isFail here so we know what it is.
+
+18
+00:01:02.548 --> 00:01:07.920
+[笑] 而且 isFail：这里是假的，所以。
+[LAUGH] And isFail: false up here, so that.
+
+19
+00:01:07.920 --> 00:01:12.065
+如果另一个我会说好的
+I will say okay if the other one
+
+20
+00:01:12.065 --> 00:01:17.730
+isFail，那么我们要做的就是保留另一个，对吧？
+isFail, then what we want to do is keep the other one, right?
+
+21
+00:01:17.730 --> 00:01:23.160
+因为那就像我不想那样，我总是想保留失败。
+Because that's just like I don't want to, I always want to keep the failures.
+
+22
+00:01:23.160 --> 00:01:27.017
+但如果没有，我们会保持自己，并且
+But if not, we'll keep ourselves, and
+
+23
+00:01:27.017 --> 00:01:31.980
+我们将用 x 重建一个 Success ，很酷。
+we'll just reconstruct a Success with x, cool.
+
+24
+00:01:31.980 --> 00:01:36.957
+你知道，如果我们在一个班级，我们可以这样做，但我只是在重新制作它。
+You know, if we were in a class, we could just do this, but I'm just remaking it.
+
+25
+00:01:36.957 --> 00:01:41.811
+关于它是如何工作的或为什么有效的任何问题？
+Any questions on how that works or why that works?
+
+26
+00:01:41.811 --> 00:01:45.618
+如果我试图将成功与失败联系起来，
+if I'm trying to concat a success with a failure,
+
+27
+00:01:45.618 --> 00:01:50.606
+我要保留失败，因为我希望失败继续
+I'm gonna keep the failure because I want the failure to continue
+
+28
+00:01:50.606 --> 00:01:55.605
+就成为结果，因为我不想不小心通过。
+on to be the result, because I don't want to accidentally pass.
+
+29
+00:01:55.605 --> 00:01:59.844
+有了失败，我们会说得很好，所以我知道我是个失败者。
+And with Fail, we'll say well, so I know I'm a failure.
+
+30
+00:01:59.844 --> 00:02:02.343
+[笑]我知道我很失败。
+[LAUGH] I do know I'm a failure.
+
+31
+00:02:02.343 --> 00:02:06.302
+但是如果另一个失败，那么我们实际上想要连接，对吗？
+But if the other one is a failure, then we actually want to concat, right?
+
+32
+00:02:06.302 --> 00:02:11.212
+所以我们会说 other.x.concat，将我们的 x 与另一个 x 连接起来。
+So we'll say other.x.concat, concat our x with the other x.
+
+33
+00:02:11.212 --> 00:02:16.335
+这有点像相反
+This is kind of like the opposite
+
+34
+00:02:16.335 --> 00:02:20.520
+要么在那里，对吧？
+of Either there, right?
+
+35
+00:02:20.520 --> 00:02:25.419
+失败现在正在连接它们，这将收集所有错误和
+The failures are now concating their which would be collecting all the errors and
+
+36
+00:02:25.419 --> 00:02:26.188
+成功。
+the success.
+
+37
+00:02:26.188 --> 00:02:31.436
+因此，如果另一个失败，我们实际上会将它们连接起来，
+So if the other one's a failure, we'll actually concat them both,
+
+38
+00:02:31.436 --> 00:02:34.160
+离开把它放回失败这里。
+left to put it back in the Fail here.
+
+39
+00:02:34.160 --> 00:02:39.110
+否则，我们只会保持自己，甜蜜。
+And otherwise, we'll just keep ourselves, sweet.
+
+40
+00:02:40.450 --> 00:02:43.610
+好吧，看起来它可能有用，让我们试一试。
+All right, that looks like it might work, let's give it a shot.
+
+41
+00:02:43.610 --> 00:02:48.790
+我们会说，好吧，我们会做一个成功，而不是一个权利。
+And we'll say, all right, instead of a Right, we'll do a Success.
+
+42
+00:02:48.790 --> 00:02:51.190
+而不是左派，我们会失败。
+Instead of a Left, we'll do a fail.
+
+43
+00:02:51.190 --> 00:02:55.140
+让我们看看这里发生了什么。
+And let's see what's happening here.
+
+44
+00:02:56.480 --> 00:02:59.460
+运行它，另一个爆炸。
+Run it, another blow up.
+
+45
+00:02:59.460 --> 00:03:03.390
+这是一个，我无法在第一次尝试时就得到它，我不知道你们都是如何编程的，但是
+It's a, I can't ever get it on the first try, I don't know how you all program but
+
+46
+00:03:03.390 --> 00:03:03.965
+我很烂。
+I suck.
+
+47
+00:03:03.965 --> 00:03:12.520
+[笑] 所以 type 是 81，它说 other.fold 不是一个函数，好吧。
+[LAUGH] So type is 81, it says other.fold is not a function, all right.
+
+48
+00:03:12.520 --> 00:03:17.420
+让我们看看这里发生了什么，可能看起来像。
+Let's see what's happening here, looks like perhaps.
+
+49
+00:03:17.420 --> 00:03:24.790
+我有一个 concat，我有一个 concat，返回成功和失败。
+I have a concat, I have a concat, returning Success and a failure.
+
+50
+00:03:24.790 --> 00:03:28.680
+我们从“要么”开始，就这样。
+We're starting with an Either, there we go.
+
+51
+00:03:28.680 --> 00:03:33.410
+所以让我们从 Success 开始，
+So let's start with a Success with that in there,
+
+52
+00:03:33.410 --> 00:03:36.660
+因为我试图比较两种不同的东西。
+because I'm trying to compare two different things.
+
+53
+00:03:36.660 --> 00:03:39.560
+仍然爆炸，相同的功能。
+And still blew up, same function.
+
+54
+00:03:39.560 --> 00:03:41.180
+它实际上在这里。
+It's actually here.
+
+55
+00:03:41.180 --> 00:03:46.040
+德普，在我回来之前要么折叠起来。
+Derp, before I was returning Either in folding it out.
+
+56
+00:03:46.040 --> 00:03:52.520
+实际上，让我们在这里做一个漂亮的小折叠，这样我们就可以摆脱这里的类型。
+Actually, let's make a nice little fold here so we can get out of our type here.
+
+57
+00:03:52.520 --> 00:03:55.790
+所以我们得到 af 和 ag，就像两者一样。
+So we get a f and a g, just like Either.
+
+58
+00:03:55.790 --> 00:04:00.810
+在 Success 案例中，我们将使用 x 运行右侧。
+And on the Success case, we'll run the right side with x.
+
+59
+00:04:00.810 --> 00:04:05.930
+在他失败的情况下，我们将运行左边的 f。
+And on he Fail case, we will run the f, the left one.
+
+60
+00:04:05.930 --> 00:04:10.100
+好吧，就像Either一样，这将命中console.error或console.log。
+All right, so just like Either, this will hit the console.error or the console.log.
+
+61
+00:04:11.690 --> 00:04:12.260
+我们走了。
+And there we go.
+
+62
+00:04:12.260 --> 00:04:13.612
+我们得到什么？
+What do we get?
+
+63
+00:04:13.612 --> 00:04:15.935
+我们明白了，这是行不通的。
+We get, well this isn't working.
+
+64
+00:04:15.935 --> 00:04:20.700
+[笑] 所以看起来我们没有通过它就通过了。
+[LAUGH] So looks like we passed it without it getting through.
+
+65
+00:04:20.700 --> 00:04:22.239
+这是怎么运作的？
+How's that working?
+
+66
+00:04:22.239 --> 00:04:25.881
+我们有一个对象键的规范，我们正在运行这个函数。
+We have a spec of an object key, and we're running this function.
+
+67
+00:04:25.881 --> 00:04:32.830
+如果返回true，则为Success，如果返回false，则为Fail。
+If it returns true, it will be a Success, if returns false, it is a Fail.
+
+68
+00:04:32.830 --> 00:04:37.990
+所以我们仍然收到电子邮件为空，这很高兴。
+So we're still getting the email as empty and it's happy.
+
+69
+00:04:37.990 --> 00:04:43.220
+如果我们抬头看这里，我们可以看到我实际上是
+And if we look up here, we can see that I'm actually
+
+70
+00:04:43.220 --> 00:04:48.520
+在 x 上调用 IsFail，我不想这样做，我想在类型本身上调用它。
+calling IsFail on the x, I don't wanna do that, I wanna call it on the type itself.
+
+71
+00:04:49.590 --> 00:04:53.790
+所以在那里，在那里，那里有一个小错误。
+So there, and up here, a little typo over there.
+
+72
+00:04:53.790 --> 00:04:57.510
+这应该可以解决问题，让我们看看会发生什么。
+And that should do the trick, let's see what happens.
+
+73
+00:04:57.510 --> 00:04:58.688
+我们走了，电子邮件不好。
+There we go, email bad.
+
+74
+00:04:58.688 --> 00:05:01.770
+如果我两者都做，我们会得到两者吗？
+If I do both, do we get both?
+
+75
+00:05:01.770 --> 00:05:03.890
+我们做到了，我们都得到了，太棒了。
+We do, we get both, awesome.
+
+76
+00:05:03.890 --> 00:05:08.595
+如果我输入姓名、brian 和电子邮件，我们会收到吗？
+If I put in a name, brian, and an email do we get?
+
+77
+00:05:08.595 --> 00:05:14.596
+@hello.com，这里发生了什么？
+@hello.com, what happens here?
+
+78
+00:05:14.596 --> 00:05:17.284
+太好了，我们得到了一个只有对象的数组，太棒了。
+Great, we get an array of just the object, terrific.

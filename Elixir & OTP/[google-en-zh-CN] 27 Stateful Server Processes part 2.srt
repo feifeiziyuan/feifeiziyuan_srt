@@ -1,0 +1,1665 @@
+1
+00:00:00,466 --> 00:00:02,833
+回到我们的承诺服务器模块，我们会出来
+back in our pledge server module we'll come in out
+
+2
+00:00:02,833 --> 00:00:05,333
+立即创建承诺和最近的承诺
+create pledge and recent pledges for now
+
+3
+00:00:05,666 --> 00:00:06,900
+我们稍后再讨论这些
+we'll come back to these later
+
+4
+00:00:06,900 --> 00:00:08,733
+但现在我们想从循环开始
+but for now we want to start with the loop
+
+5
+00:00:08,900 --> 00:00:10,500
+我要把它放在最上面
+I'm going to put that right up at the top here
+
+6
+00:00:10,833 --> 00:00:13,066
+我们需要一个不断接收和接收的函数
+and we need a function that continuously receives and
+
+7
+00:00:13,066 --> 00:00:14,133
+处理消息
+handles messages
+
+8
+00:00:14,133 --> 00:00:15,466
+在无限循环中
+in an endless loop
+
+9
+00:00:16,033 --> 00:00:18,333
+所以我们只调用那个函数listen loop
+so we'll just call that function listen loop
+
+10
+00:00:18,966 --> 00:00:20,200
+你可以随心所欲地称呼它
+you can call this whatever you want
+
+11
+00:00:20,433 --> 00:00:22,133
+然后我们将开始打印
+and then we'll start off by printing out
+
+12
+00:00:24,100 --> 00:00:25,266
+等待消息
+waiting for a message
+
+13
+00:00:27,000 --> 00:00:28,466
+然后我们需要接收块
+and then we need to receive block
+
+14
+00:00:28,900 --> 00:00:30,200
+所以当调用监听循环时
+so when listen loop is called
+
+15
+00:00:30,200 --> 00:00:31,866
+它转身接听电话
+it turns around and calls receive
+
+16
+00:00:31,933 --> 00:00:32,866
+这将阻止
+which will block
+
+17
+00:00:32,966 --> 00:00:34,300
+暂停进程
+suspend the process
+
+18
+00:00:34,466 --> 00:00:35,933
+等待匹配的消息
+waiting for a matching message
+
+19
+00:00:35,933 --> 00:00:38,066
+到达进程的邮箱
+to arrive in the process's mailbox
+
+20
+00:00:38,300 --> 00:00:39,033
+但要记住
+but remember
+
+21
+00:00:39,033 --> 00:00:42,300
+接收只处理邮箱中的一封邮件
+receive only processes one message in the mailbox
+
+22
+00:00:42,466 --> 00:00:44,266
+所以要处理多个消息
+so to handle more than one message
+
+23
+00:00:44,733 --> 00:00:47,033
+收到消息后我们需要循环回
+after receiving a message we need to loop back
+
+24
+00:00:47,033 --> 00:00:48,066
+最多接收
+up to receive
+
+25
+00:00:48,266 --> 00:00:50,966
+所以服务器进程可以等待下一条消息
+so the server process can wait for the next message
+
+26
+00:00:51,366 --> 00:00:52,266
+并做到这一点
+and to do that
+
+27
+00:00:52,266 --> 00:00:54,600
+我们将在这里递归地调用监听循环
+we'll recursively call listen loop right here
+
+28
+00:00:56,700 --> 00:00:59,033
+所以我们将匹配消息然后我们将运行一些代码
+so we'll match the message then we'll run some code
+
+29
+00:00:59,200 --> 00:01:01,733
+然后我们将在这里循环回听循环
+and then we'll loop back up to listen loop here
+
+30
+00:01:01,933 --> 00:01:04,133
+这会说好的等待另一条消息
+which is going to say okay waiting for another message
+
+31
+00:01:04,300 --> 00:01:06,333
+然后它将阻止此接收
+and then it's going to block on this receive
+
+32
+00:01:06,400 --> 00:01:08,033
+等待下一条消息
+waiting for the next message
+
+33
+00:01:08,733 --> 00:01:11,133
+好的，所以我们要处理的第一条消息
+okay so the first message we want to handle
+
+34
+00:01:11,133 --> 00:01:12,333
+有这个图案
+has this pattern
+
+35
+00:01:13,233 --> 00:01:15,333
+它将让原子创建承诺
+it's going to have the atom create pledge
+
+36
+00:01:16,100 --> 00:01:17,700
+那么第二个元素将是名称
+then the second element will be the name
+
+37
+00:01:17,700 --> 00:01:18,766
+第三个元素是
+and the third element will be
+
+38
+00:01:18,766 --> 00:01:19,566
+数量
+the amount
+
+39
+00:01:19,866 --> 00:01:22,166
+那么就代码而言，我们想要做的是
+then in terms of the code what we want to do is
+
+40
+00:01:22,566 --> 00:01:24,600
+在外部服务处发送该承诺
+send that pledge at the external service
+
+41
+00:01:24,600 --> 00:01:26,200
+所以我要把它贴在那里
+so I'm just going to paste that right there
+
+42
+00:01:26,700 --> 00:01:28,166
+所以我们只提取名称
+so we just extract the name
+
+43
+00:01:28,166 --> 00:01:29,333
+以及消息中的金额
+and the amount from the message
+
+44
+00:01:29,333 --> 00:01:30,500
+穿梭其中
+and shuttle those through
+
+45
+00:01:30,500 --> 00:01:33,200
+到将其发送到外部服务的那个函数
+to that function that sends it to the external service
+
+46
+00:01:33,333 --> 00:01:34,733
+然后我将使用打印输出
+and then I'm going to use a print out
+
+47
+00:01:36,266 --> 00:01:37,966
+名字承诺
+name pledged
+
+48
+00:01:38,633 --> 00:01:39,433
+数量
+the amount
+
+49
+00:01:40,433 --> 00:01:42,133
+然后我们循环回听循环
+and then we loop back up to listen loop
+
+50
+00:01:42,533 --> 00:01:46,200
+现在我们还想将质押添加到本地现金中
+now we also want to add the pledge to the local cash
+
+51
+00:01:46,200 --> 00:01:49,200
+这将是服务器进程存储的状态
+which will be the state stored by the server process
+
+52
+00:01:49,666 --> 00:01:50,466
+好吧，我们想这样做
+well we want to do that
+
+53
+00:01:50,466 --> 00:01:52,733
+在我们将其发送到外部服务之后
+right after we've sent it to the external service
+
+54
+00:01:53,000 --> 00:01:54,866
+我们的现金将成为灵丹妙药
+and our cash is going to be an elixir list
+
+55
+00:01:54,866 --> 00:01:56,000
+我要说现金
+I'm going to say cash
+
+56
+00:01:56,333 --> 00:01:57,400
+这是清单
+here's the list
+
+57
+00:01:57,900 --> 00:01:59,766
+然后列表的每个元素都是一个元组
+and then each element of the list is a tuple
+
+58
+00:01:59,766 --> 00:02:00,733
+所以这将是名字
+so it'll be the name
+
+59
+00:02:00,833 --> 00:02:02,166
+以及质押金额
+and the amount of the pledge
+
+60
+00:02:02,533 --> 00:02:05,566
+但这每次都会创造新的现金
+but this is going to create a new cash each time
+
+61
+00:02:05,666 --> 00:02:06,866
+通过这个监听循环
+through this listen loop
+
+62
+00:02:06,866 --> 00:02:07,000
+因为
+because
+
+63
+00:02:07,033 --> 00:02:09,333
+这只是我们在这里分配的一个局部变量
+this is just a local variable that we assign to here
+
+64
+00:02:09,766 --> 00:02:11,033
+所以我们需要
+so instead we need to
+
+65
+00:02:11,033 --> 00:02:13,200
+记住现金并添加到每个
+remember the cash and add to it each
+
+66
+00:02:13,200 --> 00:02:14,266
+通过循环的时间
+time through the loop
+
+67
+00:02:14,266 --> 00:02:17,100
+因为我们希望承诺最终出现在一个列表中
+because we want the pledges to end up in a single list
+
+68
+00:02:17,333 --> 00:02:19,733
+换句话说，我们需要服务器进程
+in other words we need the server process
+
+69
+00:02:19,766 --> 00:02:22,600
+将现金保持为内部状态
+to maintain the cash as internal state
+
+70
+00:02:23,000 --> 00:02:23,166
+现在
+now
+
+71
+00:02:23,166 --> 00:02:25,933
+当我们解析 http 标头时，我们学会了如何做到这一点
+we learned how to do that when we parsed http headers
+
+72
+00:02:25,933 --> 00:02:27,100
+在课程的早期
+earlier on in the course
+
+73
+00:02:27,700 --> 00:02:29,666
+我们只需要传递状态
+we just need to pass the state which
+
+74
+00:02:29,666 --> 00:02:31,100
+在这种情况下是一个列表
+is a list in this case
+
+75
+00:02:31,166 --> 00:02:34,566
+作为这个监听循环递归函数的参数
+as an argument to this listen loop recursive function
+
+76
+00:02:34,966 --> 00:02:36,633
+现在而不是调用这个现金
+now rather than calling this cash
+
+77
+00:02:36,633 --> 00:02:38,666
+我要把它改成新的
+I'm going to change it to be new
+
+78
+00:02:39,033 --> 00:02:40,033
+下划线状态
+underscore state
+
+79
+00:02:43,800 --> 00:02:46,466
+所以我们设置了新的状态，然后我们用它重复
+so we set the new state and then we recurs with it
+
+80
+00:02:46,733 --> 00:02:47,700
+现在让它工作
+now for that to work
+
+81
+00:02:47,700 --> 00:02:49,666
+我们需要改变这个监听循环
+we need to change this listen loop
+
+82
+00:02:49,800 --> 00:02:51,666
+以状态为论据
+to take the state as an argument
+
+83
+00:02:51,666 --> 00:02:53,200
+我将称之为一个状态
+and I'm going to call this one state
+
+84
+00:02:53,700 --> 00:02:56,233
+所以一些状态会被传递到监听循环中
+so some states going to get passed into the listen loop
+
+85
+00:02:56,366 --> 00:02:57,200
+然后在这里
+and then down here
+
+86
+00:02:57,200 --> 00:02:58,833
+当我们创造现金时
+when we're creating the cash
+
+87
+00:02:58,833 --> 00:03:02,066
+我们要做的是把这个名字和数量元组
+what we want to do is put this name and amount tuple
+
+88
+00:03:02,200 --> 00:03:04,800
+作为列表状态的负责人
+as the head of the list state
+
+89
+00:03:05,633 --> 00:03:07,600
+所以我们在这里使用 cons 运算符
+so we're using the cons operator here
+
+90
+00:03:07,900 --> 00:03:10,733
+这个承诺将被添加为头部
+and this pledge is going to get added as the head
+
+91
+00:03:11,033 --> 00:03:12,833
+这份清单是我们的州
+of this list which is our state
+
+92
+00:03:13,233 --> 00:03:14,733
+这会给我们一个新的清单
+that's going to give us a new list
+
+93
+00:03:14,733 --> 00:03:16,400
+我们将分配给新状态
+which we're going to assign to new state
+
+94
+00:03:16,666 --> 00:03:18,000
+然后我们再重复一遍
+and then we recurs with that
+
+95
+00:03:18,233 --> 00:03:18,433
+哪个
+which
+
+96
+00:03:18,433 --> 00:03:20,433
+将成为在监听中传递的值
+will become the value that gets passed in the listen
+
+97
+00:03:20,433 --> 00:03:23,233
+循环，下一个质押将成为头部
+loop and the next pledge will become the head
+
+98
+00:03:23,433 --> 00:03:24,300
+那个新的状态
+of that new state
+
+99
+00:03:24,933 --> 00:03:26,466
+现在暂时看看新的状态
+now for now to see the new state
+
+100
+00:03:26,666 --> 00:03:28,000
+我们将它打印到屏幕上
+we'll print it to the screen
+
+101
+00:03:28,500 --> 00:03:30,733
+所以就在我打印出坐骑的名字之后
+so just after I print out the name of the mount
+
+102
+00:03:30,733 --> 00:03:31,533
+我们将打印出来
+we'll print out
+
+103
+00:03:32,966 --> 00:03:33,966
+新状态是
+new state is
+
+104
+00:03:35,533 --> 00:03:36,766
+然后我们将调用检查
+and then we'll call inspect
+
+105
+00:03:38,100 --> 00:03:38,966
+关于新状态
+on the new state
+
+106
+00:03:39,933 --> 00:03:40,966
+所以现在我们有了这个
+so now that we have this
+
+107
+00:03:40,966 --> 00:03:42,166
+听循环功能
+listen loop function
+
+108
+00:03:42,166 --> 00:03:45,233
+在无限循环中接收和处理消息
+that receives and handles messages in an endless loop
+
+109
+00:03:45,366 --> 00:03:48,266
+我们可以生成一个运行该函数的进程
+we can spawn a process that run that function
+
+110
+00:03:48,600 --> 00:03:49,166
+现在我们
+for now we
+
+111
+00:03:49,166 --> 00:03:51,700
+只是想试验一下这个服务器进程
+just want to experiment with this server process
+
+112
+00:03:51,700 --> 00:03:54,333
+我们稍后实际上会将它连接到我们的控制器
+we'll actually hook it up later to our controller
+
+113
+00:03:54,533 --> 00:03:56,700
+所以让我们在 if 中生成它
+so let's just spawn it in if
+
+114
+00:03:57,066 --> 00:03:57,966
+我们知道怎么做
+we know how to do that
+
+115
+00:03:58,400 --> 00:03:59,533
+我们只叫 spawn
+we just call spawn
+
+116
+00:03:59,766 --> 00:04:02,500
+我们将给它我们的模块调查承诺服务器
+we're going to give it our module survey pledge server
+
+117
+00:04:03,500 --> 00:04:05,200
+然后是我们要运行的函数的名称
+then the name of the function we wanted to run
+
+118
+00:04:05,233 --> 00:04:06,600
+它被称为监听循环
+it's called listen loop
+
+119
+00:04:06,700 --> 00:04:08,100
+然后第三个参数是
+and then the third argument is
+
+120
+00:04:08,100 --> 00:04:10,133
+要发送的参数列表
+a list of arguments to send
+
+121
+00:04:10,433 --> 00:04:12,600
+到那个函数或传递给那个函数
+to that function or to pass to that function
+
+122
+00:04:12,833 --> 00:04:15,100
+记住监听循环采用初始状态
+remember listen loop takes the initial state
+
+123
+00:04:15,333 --> 00:04:17,466
+我们希望初始状态是一个空列表
+we want the initial state to be an empty list
+
+124
+00:04:17,733 --> 00:04:19,666
+所以我们将在那里传递一个空列表
+so we're going to pass in an empty list there
+
+125
+00:04:19,666 --> 00:04:20,700
+所以我们有一个清单
+so we've got a list
+
+126
+00:04:20,733 --> 00:04:22,266
+里面有一个空列表
+that has an empty list inside of it
+
+127
+00:04:23,100 --> 00:04:24,766
+并且进程正在等待消息
+and the process is waiting for a message
+
+128
+00:04:24,766 --> 00:04:26,533
+我们看到坑是一六十五
+we see the pit is one sixty five
+
+129
+00:04:27,166 --> 00:04:29,166
+现在还记得我们在 ix 会话中的时候
+now remember when we're in an ix session
+
+130
+00:04:29,166 --> 00:04:30,666
+我们已经在一个过程中
+we're already in a process
+
+131
+00:04:30,766 --> 00:04:33,566
+现在我们要向邮箱发送消息
+and now we want to send a message to the mailbox
+
+132
+00:04:33,666 --> 00:04:35,566
+衍生的服务器进程
+of the spawned server process
+
+133
+00:04:35,866 --> 00:04:37,766
+所以你可以把 ix 会话想象成一个
+so you can think of the ix session like a
+
+134
+00:04:37,766 --> 00:04:39,000
+客户端进程
+client process
+
+135
+00:04:39,433 --> 00:04:41,766
+所以要向我们调用 send 的服务器发送消息
+so to send a message to the server where we call send
+
+136
+00:04:42,100 --> 00:04:43,833
+然后我们给它服务器的坑
+and then we give it the pit of the server
+
+137
+00:04:44,233 --> 00:04:46,066
+然后我们给它我们想要发送的信息
+and then we give it the message we want to send
+
+138
+00:04:46,400 --> 00:04:47,200
+看起来像这样
+looks like this
+
+139
+00:04:47,433 --> 00:04:48,333
+创建承诺
+create pledge
+
+140
+00:04:49,800 --> 00:04:50,933
+我们要说拉里
+we're going to say larry
+
+141
+00:04:51,833 --> 00:04:53,933
+是名字和 $10
+is the name and $10
+
+142
+00:04:54,566 --> 00:04:56,700
+现在你注意到我没有在这里使用括号
+now you notice I didn't use parentheses right here
+
+143
+00:04:57,266 --> 00:04:58,100
+sin是一个函数
+sin is a function
+
+144
+00:04:58,100 --> 00:04:59,633
+你可以在那里使用假肢
+and you can use prostheses right there
+
+145
+00:04:59,866 --> 00:05:01,500
+但我认为移除假肢
+but I think removing the prostheses
+
+146
+00:05:01,500 --> 00:05:02,566
+它只是说清楚
+it just makes it clear
+
+147
+00:05:02,700 --> 00:05:04,733
+这两个参数在做什么，所以它是一个 pid
+what those two arguments are doing so it's a pid
+
+148
+00:05:04,900 --> 00:05:07,700
+然后是一条消息，以便您可以以任何您想要的方式执行此操作
+and then a message so you can do this any way you want
+
+149
+00:05:07,766 --> 00:05:09,600
+我现在就用这种风格
+I'm just going to use this style for now
+
+150
+00:05:10,700 --> 00:05:11,966
+很酷，消息已收到
+cool the message was received
+
+151
+00:05:11,966 --> 00:05:14,733
+我们看到了我们所拥有的争议的结果
+we see the output of that disputes that we had
+
+152
+00:05:14,733 --> 00:05:15,700
+在听循环
+in listen loop
+
+153
+00:05:15,833 --> 00:05:18,266
+我们还看到我们的新状态是一个列表
+we also see that our new state is a list
+
+154
+00:05:18,400 --> 00:05:20,266
+与元组 larry 和 tin
+with the tuple larry and tin
+
+155
+00:05:20,700 --> 00:05:22,500
+然后你也看到这个东西印在这里
+and then you also see this thing printed right here
+
+156
+00:05:22,500 --> 00:05:23,500
+这是消息
+which is the message
+
+157
+00:05:23,766 --> 00:05:25,066
+而这个 sin 函数
+while this sin function
+
+158
+00:05:25,166 --> 00:05:27,333
+总是返回已发送的消息
+always returns the message that was sent
+
+159
+00:05:27,366 --> 00:05:28,866
+这就是为什么我们看到这个
+which is why we see this
+
+160
+00:05:29,300 --> 00:05:31,533
+在 ix 中，因为它总是打印出来
+in ix because it always prints out
+
+161
+00:05:31,733 --> 00:05:33,966
+您刚刚调用的函数的返回
+the return of the function that you just called
+
+162
+00:05:34,200 --> 00:05:35,866
+然后我们的监听循环重新返回
+and then our listen loop re back
+
+163
+00:05:35,866 --> 00:05:37,400
+自己等待下一条消息
+on itself to wait for the next message
+
+164
+00:05:37,400 --> 00:05:39,433
+这就是为什么我们看到等待消息
+which is why we see waiting for message
+
+165
+00:05:40,066 --> 00:05:41,900
+所以 10 美元不会让我们非常满意
+so $10 isn't going to get us very
+
+166
+00:05:41,900 --> 00:05:44,200
+远在我们的鳄鱼承诺驱动器上
+far on our crocodile pledge drive
+
+167
+00:05:44,233 --> 00:05:45,800
+所以让我们创建另一个承诺
+so let's create another pledge
+
+168
+00:05:45,800 --> 00:05:48,700
+假设 mo 给了我们 20 美元
+let's say mo gives us $20
+
+169
+00:05:51,933 --> 00:05:54,800
+好的，我们看到状态已更新，我们的现金现在有
+okay we see the state was updated our cash now has
+
+170
+00:05:54,966 --> 00:05:57,466
+莫以 20 美元排在榜首，然后
+mo at the head of the list with $20 and then
+
+171
+00:05:57,666 --> 00:05:59,533
+拉里是列表中的第二个
+larry is the second one in the list
+
+172
+00:06:00,100 --> 00:06:02,033
+现在你可能会注意到我点击返回的时候
+now you probably notice when I hit return there
+
+173
+00:06:02,033 --> 00:06:04,533
+那森并没有阻止等待响应
+that sen didn't block waiting for a response
+
+174
+00:06:04,533 --> 00:06:06,133
+它只是将消息放入
+it simply puts the message in the
+
+175
+00:06:06,133 --> 00:06:07,900
+服务器进程作为邮箱
+server process as mailbox
+
+176
+00:06:07,966 --> 00:06:09,633
+然后几乎立即返回
+and then returns almost immediately
+
+177
+00:06:09,633 --> 00:06:11,433
+所以我们可以继续做其他事情
+so we can carry on doing other things
+
+178
+00:06:11,800 --> 00:06:13,933
+而服务器进程处理消息
+while the server process handles the message
+
+179
+00:06:14,333 --> 00:06:16,533
+只记得发送消息是
+just remember sending a message is
+
+180
+00:06:16,633 --> 00:06:18,900
+总是异步操作
+always an asynchronous operation
+
+181
+00:06:19,366 --> 00:06:21,333
+curly想要参与第二个动作
+curly wants to get in on the action two
+
+182
+00:06:21,433 --> 00:06:23,233
+所以他会给我们30块钱
+so he's going to give us 30 bucks
+
+183
+00:06:24,133 --> 00:06:26,800
+现在很酷，我们的现金有三个承诺
+cool now our cash has three pledges
+
+184
+00:06:27,000 --> 00:06:28,900
+并且 curly 位于列表的首位
+and curly is at the head of the list
+
+185
+00:06:29,366 --> 00:06:31,633
+所以因为监听循环是一个递归循环
+so because listen loop is a recursive loop
+
+186
+00:06:31,666 --> 00:06:33,900
+生成过程永远不会终止
+the spawn process never terminates
+
+187
+00:06:33,933 --> 00:06:36,900
+它连续运行接收和处理消息
+it runs continuously receiving and handling messages
+
+188
+00:06:36,900 --> 00:06:39,100
+我们现在看到它正在等待下一条消息
+and we see right now it's waiting for the next message
+
+189
+00:06:39,533 --> 00:06:41,333
+现在你可能会担心这个递归
+now you might be concerned that this recursive
+
+190
+00:06:41,333 --> 00:06:43,533
+循环会浪费一堆 cpu 周期
+loop would waste a bunch of cpu cycles
+
+191
+00:06:43,566 --> 00:06:44,766
+但大多数时候
+but most of the time
+
+192
+00:06:45,033 --> 00:06:47,333
+该过程被阻止而不被欺骗
+the process is blocked undeceived
+
+193
+00:06:47,366 --> 00:06:48,466
+所以调度程序
+and so the scheduler
+
+194
+00:06:48,466 --> 00:06:51,100
+抢占或暂停阻塞进程
+preempts or suspends the block process
+
+195
+00:06:51,133 --> 00:06:52,966
+所以它不会对cpu征税
+so it doesn't tax the cpu
+
+196
+00:06:53,566 --> 00:06:55,366
+到目前为止，我们只有三个承诺
+we only have three pledges so far
+
+197
+00:06:55,366 --> 00:06:55,966
+所以我们真的
+so we really
+
+198
+00:06:55,966 --> 00:06:57,966
+不必担心只保留最
+don't have to worry about keeping just the most
+
+199
+00:06:57,966 --> 00:06:58,966
+最近的承诺
+recent pledges
+
+200
+00:06:58,966 --> 00:07:00,466
+但我们稍后会谈到
+but we'll get to that later
+
+201
+00:07:00,733 --> 00:07:01,533
+虽然现在
+for now though
+
+202
+00:07:01,633 --> 00:07:03,300
+而不是服务器进程
+instead of the server process
+
+203
+00:07:03,300 --> 00:07:05,166
+只需将现金打印到屏幕上
+simply printing the cash to screen
+
+204
+00:07:05,566 --> 00:07:08,533
+我们想要这里的 ix 客户端进程
+we want the client process which is ix right here
+
+205
+00:07:08,900 --> 00:07:11,366
+能够以现金获得承诺
+to be able to get the pledges in the cash
+
+206
+00:07:11,800 --> 00:07:13,400
+为此，客户将发送一个
+to do that the client will send a
+
+207
+00:07:13,400 --> 00:07:15,933
+服务器需要处理的不同消息
+different message that the server needs to handle
+
+208
+00:07:16,366 --> 00:07:18,000
+接收可以处理各种
+receive can handle various
+
+209
+00:07:18,000 --> 00:07:20,333
+使用模式匹配壁橱的消息
+messages using pattern matching closets
+
+210
+00:07:20,400 --> 00:07:22,100
+类似于 case 表达式
+similar to a case expression
+
+211
+00:07:22,200 --> 00:07:24,433
+所以我们可以在这里添加一个新模式
+so we can just add a new pattern right here
+
+212
+00:07:24,933 --> 00:07:27,633
+消息将看起来像最近的承诺
+the message is going to look like this recent pledges
+
+213
+00:07:27,833 --> 00:07:29,600
+它只是一个原子，没有元组
+it's just an atom there's no tuple
+
+214
+00:07:30,900 --> 00:07:32,366
+当它收到这条消息时
+when it receives this message
+
+215
+00:07:32,366 --> 00:07:35,166
+它需要当前状态的现金
+it needs this in the cash which is the current state
+
+216
+00:07:35,600 --> 00:07:37,866
+使用 send 返回客户端进程
+back to the client process using send
+
+217
+00:07:39,833 --> 00:07:41,633
+当我们寄回现金时
+and when we send back the cash
+
+218
+00:07:41,633 --> 00:07:43,466
+我们将它包装在一个看起来像这样的消息中
+we'll wrap it in a message that looks like this
+
+219
+00:07:43,466 --> 00:07:45,200
+我们只会得到原子响应
+we'll just have the atom response
+
+220
+00:07:45,266 --> 00:07:47,000
+然后我们需要发回状态
+and then we need to send back the state
+
+221
+00:07:47,533 --> 00:07:49,666
+现在您可以将状态作为消息发回
+now you could just send back the state as the message
+
+222
+00:07:49,666 --> 00:07:50,100
+但是我们
+but we
+
+223
+00:07:50,100 --> 00:07:52,833
+将其标记为响应只是为了减少歧义
+tagged it as response just to make it less ambiguous
+
+224
+00:07:53,200 --> 00:07:54,000
+然后最后
+and then finally
+
+225
+00:07:54,000 --> 00:07:54,933
+虽然处理这个
+although handling this
+
+226
+00:07:54,933 --> 00:07:56,500
+消息不更新状态
+message doesn't update the state
+
+227
+00:07:56,600 --> 00:07:59,266
+它仍然需要与当前环回
+it still needs to loop back with the current
+
+228
+00:07:59,333 --> 00:08:01,133
+未修改的未修改状态
+unmodified unchanged state
+
+229
+00:08:05,100 --> 00:08:06,433
+因为我们这里没有改变状态
+because we haven't changed the state here
+
+230
+00:08:06,433 --> 00:08:07,833
+我们只是把它传回去
+we just pass it back through
+
+231
+00:08:08,400 --> 00:08:10,266
+只有一个问题
+there's just one problem
+
+232
+00:08:11,033 --> 00:08:12,166
+什么是猪
+what's the pig
+
+233
+00:08:12,766 --> 00:08:14,966
+好吧，这是客户端进程的坑
+well it's the pit of the client process
+
+234
+00:08:14,966 --> 00:08:17,133
+那是要求他们最近的承诺
+that's asking for their recent pledges
+
+235
+00:08:17,300 --> 00:08:19,233
+服务器进程需要知道的坑
+the server process needs to know the pit
+
+236
+00:08:19,233 --> 00:08:20,500
+客户端进程
+of the client process
+
+237
+00:08:20,500 --> 00:08:22,100
+为了发回承诺
+in order to send the pledges back
+
+238
+00:08:22,100 --> 00:08:23,466
+记住它
+to it and remember
+
+239
+00:08:23,766 --> 00:08:27,133
+进程只能通过消息进行通信
+processes can only communicate via messages
+
+240
+00:08:27,233 --> 00:08:29,933
+所以发送这个消息的客户端进程
+so the client process that sends this message
+
+241
+00:08:30,266 --> 00:08:33,133
+必须在该消息中包含其 pid
+must include its pid in that message
+
+242
+00:08:33,566 --> 00:08:35,833
+所以我们会让客户端进程发送它的pid
+so we'll have the client process send its pid
+
+243
+00:08:35,833 --> 00:08:38,066
+作为消息中的第一个元素
+as the first element in the message
+
+244
+00:08:38,366 --> 00:08:39,566
+我们将把它变成一个元组
+we'll make this a tuple
+
+245
+00:08:40,666 --> 00:08:42,966
+然后第一个元素将调用 sender
+and then the first element will call sender
+
+246
+00:08:43,333 --> 00:08:45,733
+然后是消息中的第一个元素
+and then whatever that first element is in the message
+
+247
+00:08:45,733 --> 00:08:46,466
+会被束缚
+will be bound
+
+248
+00:08:46,466 --> 00:08:48,000
+到这个变量发件人
+to this variable sender
+
+249
+00:08:48,433 --> 00:08:48,633
+现在
+now
+
+250
+00:08:48,633 --> 00:08:50,533
+这不一定是元组中的第一个元素
+this doesn't have to be the first element in the tuple
+
+251
+00:08:50,533 --> 00:08:53,300
+但是发件人通常是第一个元素
+but it's common for the sender to be the first element
+
+252
+00:08:53,300 --> 00:08:54,866
+所以我们要坚持这个成语
+so we're going to stick with that idiom
+
+253
+00:08:55,166 --> 00:08:56,866
+你可以把它想象成回报
+you can think of it like the return
+
+254
+00:08:56,866 --> 00:08:58,400
+消息发送者的地址
+address of the message sender
+
+255
+00:08:58,433 --> 00:08:59,366
+它在说嘿
+it's saying hey
+
+256
+00:08:59,500 --> 00:09:00,500
+给我回复
+send me the reply
+
+257
+00:09:01,300 --> 00:09:03,933
+然后我们可以使用 sender 发送消息
+then we can use the sender to send a message
+
+258
+00:09:03,966 --> 00:09:05,666
+回到那个客户进程
+back to that client process
+
+259
+00:09:05,933 --> 00:09:07,100
+只是想看看发生了什么
+and just to see what's happening
+
+260
+00:09:07,100 --> 00:09:08,866
+我们会将发件人打印到屏幕上
+we'll print the sender to the screen
+
+261
+00:09:10,466 --> 00:09:13,000
+所以我只会说气味承诺
+so I'll just say scent pledges to
+
+262
+00:09:13,466 --> 00:09:15,700
+然后我会检查中心
+and then I'll inspect the center
+
+263
+00:09:16,666 --> 00:09:18,533
+所以现在我们有两种模式
+so now we have two patterns
+
+264
+00:09:18,533 --> 00:09:20,900
+这意味着接收将等待消息
+which means receive will wait for a message
+
+265
+00:09:20,900 --> 00:09:23,500
+匹配任何这些模式
+that matches any of those patterns
+
+266
+00:09:23,766 --> 00:09:25,333
+和案例一样
+and just as with case
+
+267
+00:09:25,366 --> 00:09:27,800
+从上到下的消息或模式匹配
+messages or pattern match from top to bottom
+
+268
+00:09:27,800 --> 00:09:29,933
+第一个匹配的模式有
+and the first pattern that matches has
+
+269
+00:09:29,933 --> 00:09:32,600
+其相关的代码块执行
+its associated block of code executed
+
+270
+00:09:33,600 --> 00:09:35,433
+好的，让我们在 ix 中试一试
+okay let's give this a whirl in ix
+
+271
+00:09:35,433 --> 00:09:37,200
+我只是要重新加载
+I'm just going to reload the
+
+272
+00:09:37,933 --> 00:09:39,533
+服务器模块，因为我们改变了它
+server module since we changed that
+
+273
+00:09:41,633 --> 00:09:42,833
+那我就清理一下
+then I'm just going to clean that up
+
+274
+00:09:42,866 --> 00:09:44,600
+现在我们可以继续重生
+and now we can go ahead and respawn
+
+275
+00:09:45,100 --> 00:09:46,566
+我们的质押服务器监听循环
+our pledge server listen loop
+
+276
+00:09:47,366 --> 00:09:48,733
+我们将为拉里创建一个承诺
+we'll create a pledge for larry
+
+277
+00:09:49,300 --> 00:09:50,200
+有一个给莫
+there's one for mo
+
+278
+00:09:50,800 --> 00:09:52,166
+最后是卷曲的
+and finally there's curly
+
+279
+00:09:52,733 --> 00:09:54,066
+现在在以后的某个时间
+now at some later time
+
+280
+00:09:54,133 --> 00:09:55,800
+我们想得到最近的承诺
+we want to get the recent pledges
+
+281
+00:09:55,800 --> 00:09:57,066
+所以我们需要发送
+so we can need to send
+
+282
+00:09:57,066 --> 00:09:59,033
+给我们的服务器进程的消息
+a message to our server process
+
+283
+00:09:59,266 --> 00:10:01,633
+并且消息有两个元素记住
+and the message has two elements remember
+
+284
+00:10:01,933 --> 00:10:04,366
+第一个是过程的坑
+the first one is the pit of the process
+
+285
+00:10:04,366 --> 00:10:05,466
+服务器应该
+that the server should
+
+286
+00:10:05,466 --> 00:10:07,200
+将响应发送回
+send the response back to
+
+287
+00:10:07,733 --> 00:10:10,033
+好吧，我们想将响应发送回
+well we wanted to send response back to
+
+288
+00:10:10,100 --> 00:10:12,200
+这个过程 ix 过程
+this process the ix process
+
+289
+00:10:12,200 --> 00:10:13,833
+我们可以通过使用 self
+we can get that by using self
+
+290
+00:10:14,100 --> 00:10:15,833
+然后是消息的第二个元素
+and then the second element of the message
+
+291
+00:10:16,000 --> 00:10:17,166
+就是这个原子
+is just this atom
+
+292
+00:10:17,166 --> 00:10:18,200
+最近的承诺
+recent pledges
+
+293
+00:10:20,400 --> 00:10:20,566
+好的
+okay
+
+294
+00:10:20,566 --> 00:10:23,933
+我们看到服务器发送承诺的输出
+we see the output that the server sent the pledges to
+
+295
+00:10:24,200 --> 00:10:25,500
+pid 一六十三
+pid one sixty three
+
+296
+00:10:25,766 --> 00:10:27,533
+这是我们的 ix 进程 ID
+that's our ix process id
+
+297
+00:10:28,000 --> 00:10:30,833
+所以让我们在我们的邮箱中选择我们使用该信息功能
+so let's pick in our mailbox we use that info function
+
+298
+00:10:32,133 --> 00:10:34,166
+坑是自我的，我们想要信息
+the pit is self and we want the info
+
+299
+00:10:34,166 --> 00:10:35,666
+我们想看消息
+we want to see the messages
+
+300
+00:10:36,033 --> 00:10:37,800
+果然我们有消息
+and sure enough we have a message
+
+301
+00:10:37,966 --> 00:10:41,533
+标记响应，这是我们的承诺清单
+tag response and it's a list of our pledges
+
+302
+00:10:42,066 --> 00:10:42,400
+现在
+now that
+
+303
+00:10:42,400 --> 00:10:44,700
+让我们看看邮箱里的消息
+just let us peek at the messages in the mailbox to
+
+304
+00:10:44,700 --> 00:10:46,400
+实际收到消息
+actually receive the messages
+
+305
+00:10:46,500 --> 00:10:47,966
+从客户的邮箱
+from the client's mailbox
+
+306
+00:10:48,033 --> 00:10:49,433
+我们需要调用接收
+we need to call receive
+
+307
+00:10:49,800 --> 00:10:51,266
+从客户端进程
+from the client process
+
+308
+00:10:51,266 --> 00:10:52,466
+我们在客户进程中
+and we're in the client process
+
+309
+00:10:52,466 --> 00:10:53,766
+因为我们在分裂中
+because we're in the secession
+
+310
+00:10:54,466 --> 00:10:58,066
+所以收到我们想要匹配的模式是响应
+so receive due the pattern we want to match is response
+
+311
+00:10:58,333 --> 00:11:00,866
+然后我们将绑定这个地方的任何值
+and then we'll bind whatever value is at this place
+
+312
+00:11:00,933 --> 00:11:02,466
+在消息中作为承诺
+in the message as pledges
+
+313
+00:11:02,466 --> 00:11:03,766
+你可以随便叫它
+you can call that whatever you want
+
+314
+00:11:04,133 --> 00:11:06,866
+然后我们将提取它并返回它
+and then we're just going to extract that and return it
+
+315
+00:11:07,133 --> 00:11:09,300
+作为接收语句的返回
+as the return of the receive statement
+
+316
+00:11:09,933 --> 00:11:11,533
+我们回到承诺清单
+and we get back to the list of pledges
+
+317
+00:11:12,166 --> 00:11:14,466
+现在我们使用 ix 作为客户端进程
+now we use ix as the client process
+
+318
+00:11:14,466 --> 00:11:16,300
+只是为了试验服务器
+just to experiment with the server
+
+319
+00:11:16,433 --> 00:11:18,733
+但最终是客户端进程
+but ultimately the client process
+
+320
+00:11:18,766 --> 00:11:21,166
+将是一个请求处理过程
+will be a request handling process
+
+321
+00:11:21,166 --> 00:11:22,900
+从我们的网络服务器产生的
+that spawn from our web server
+
+322
+00:11:23,200 --> 00:11:26,033
+所以当我们收到一个关于承诺的帖子请求时
+so when we get a post request for pledges
+
+323
+00:11:26,233 --> 00:11:28,033
+这个函数将被运行
+this function is going to be run
+
+324
+00:11:28,466 --> 00:11:30,666
+在请求处理过程中
+in the request handling process
+
+325
+00:11:30,933 --> 00:11:32,966
+所以这将是客户端进程
+so it's going to be the client process
+
+326
+00:11:32,966 --> 00:11:34,666
+呼吁创造承诺
+that calls create pledge
+
+327
+00:11:35,000 --> 00:11:37,833
+如果我们收到最近承诺的获取请求
+and if we get a get request for recent pledges
+
+328
+00:11:37,900 --> 00:11:39,433
+然后这个函数将运行
+then this function is going to run
+
+329
+00:11:39,700 --> 00:11:41,533
+在请求处理过程中
+in a request handling process
+
+330
+00:11:41,700 --> 00:11:44,400
+所以它将是调用的客户端进程
+so it's going to be the client process that calls
+
+331
+00:11:44,400 --> 00:11:45,466
+最近的承诺
+recent pledges
+
+332
+00:11:45,800 --> 00:11:48,200
+为此，我们需要实施这些
+for this to work we need to implement these
+
+333
+00:11:48,200 --> 00:11:50,900
+两个函数创建质押和最近质押
+two functions create pledge and recent pledges
+

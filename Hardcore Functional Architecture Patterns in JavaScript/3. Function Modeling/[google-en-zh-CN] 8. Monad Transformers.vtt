@@ -1,0 +1,651 @@
+WEBVTT
+
+1
+00:00:00.180 --> 00:00:04.980
+Monad 变压器不是最漂亮的东西，他们没有井
+Monad transformers are not the prettiest thing they don't have a well
+
+2
+00:00:04.980 --> 00:00:09.708
+建立理论和数学就像是解决这个问题的一种方法。
+founded theory and math are just like a way to get through this problem.
+
+3
+00:00:09.708 --> 00:00:14.303
+我们将研究具有良好理论基础的自由 monad。
+And we're gonna look at free monads which do have a well founded theory.
+
+4
+00:00:14.303 --> 00:00:16.291
+但这是一个组合，
+But this is one compose,
+
+5
+00:00:16.291 --> 00:00:22.360
+我只是想证明函子可以组合，但 monad 不能。
+I just wanted to show that functors compose, but monads do not.
+
+6
+00:00:22.360 --> 00:00:25.952
+所以让我们在这里跳到变压器。
+So let's jump into transformers here.
+
+7
+00:00:25.952 --> 00:00:26.629
+好的，
+All right,
+
+8
+00:00:26.629 --> 00:00:30.910
+让我们进入一种情况，其中有一个变压器会很有用。
+let's get into a situation where it would be useful to have a transformer.
+
+9
+00:00:30.910 --> 00:00:35.813
+[笑] 所以让我们继续说，我们有一个应用程序，
+[LAUGH] So let's go ahead and say, we have an app,
+
+10
+00:00:35.813 --> 00:00:39.410
+这个应用程序会非常酷。
+and this app is gonna be super cool.
+
+11
+00:00:40.700 --> 00:00:44.440
+与我们之前所做的非常相似，我们有这些嵌套类型
+Very similar to what we were doing before, we have these nested types
+
+12
+00:00:44.440 --> 00:00:47.310
+在其他类型中，我们因此遇到了这些问题。
+inside other types and we run into these problems because of that.
+
+13
+00:00:47.310 --> 00:00:50.752
+所以每当我试图找到一些东西时，我都会有一个任务和一个要么
+So I have a task and an Either whenever I try to find something,
+
+14
+00:00:50.752 --> 00:00:55.750
+它会尝试在表中找到一些东西，因为我的查询会放它
+it's gonna try to find something in the table given my query is gonna put it
+
+15
+00:00:55.750 --> 00:00:59.560
+或者说我可能没有找到它，我们要把它放在一个任务中。
+in an either saying I might not have found it, we're gonna put that in a task.
+
+16
+00:00:59.560 --> 00:01:03.870
+因为我们正在尝试对数据库类型的交互进行建模。
+Because we're trying to model a database kind of interaction.
+
+17
+00:01:03.870 --> 00:01:07.660
+所以我们在这里要做的是说我要
+So what we'll do here is say I'm going to
+
+18
+00:01:07.660 --> 00:01:11.902
+找到 ID 为 1 的用户，这就是我。
+find the users where ID is 1, so that's me.
+
+19
+00:01:11.902 --> 00:01:13.570
+好的，马克在这儿。
+All right, Mark's over here.
+
+20
+00:01:13.570 --> 00:01:19.190
+看起来我在关注
+And it looks like I'm following
+
+21
+00:01:19.190 --> 00:01:23.280
+那边的这个人，我在跟踪马克，而马克也在跟踪我。
+this person over there, and I'm following Mark, and Mark's following me.
+
+22
+00:01:24.560 --> 00:01:28.720
+很酷，所以我们要做的就是让我们映射一下。
+Cool, so what we're gonna try to do is all right let's map over this.
+
+23
+00:01:28.720 --> 00:01:31.230
+我想做的是找到我的追随者。
+What I wanna do is find my follower.
+
+24
+00:01:32.320 --> 00:01:36.225
+所以它实际上是一个链条，因为我们要做另一个发现，对吧？
+So it's actually a chain because we're gonna do another find, right?
+
+25
+00:01:36.225 --> 00:01:37.660
+给自己留点空间。
+Give myself some room.
+
+26
+00:01:40.810 --> 00:01:43.760
+好的，所以我们得到了这个，无论是用户，对吧？
+All right, so we get this, Either user, right?
+
+27
+00:01:45.230 --> 00:01:48.146
+并且与铁杆功能类中的任一个用户，
+And with the Either user in the hardcore functional class,
+
+28
+00:01:48.146 --> 00:01:51.299
+无论你在做什么都是在运行自然转换
+whatever you're doing was running natural transformations to
+
+29
+00:01:51.299 --> 00:01:55.106
+把两者都变成一项任务，这样我们就可以在每次进行的时候把它们弄下来。
+turn the Either into a task so we can kind of crunch them down each time as we go.
+
+30
+00:01:55.106 --> 00:01:57.320
+在这里，我们将采取不同的方法。
+Here we're gonna take a different approach.
+
+31
+00:01:57.320 --> 00:02:02.430
+我们要制作这种怪物，这个任务要么使用 monad 转换器。
+We're gonna make this kind of monstrosity, this task Either using monad transformers.
+
+32
+00:02:02.430 --> 00:02:07.230
+但让我进一步说明我们为什么要这样做。
+But let me demonstrate a little bit further on why we wanna do this.
+
+33
+00:02:07.230 --> 00:02:11.440
+因为我有一个Either 用户，所以我不能，我没有用户。
+So because I have an Either user, I can't, I don't have a user.
+
+34
+00:02:11.440 --> 00:02:14.357
+因为我正在调用链，所以我必须返回另一个任务，对吗？
+And because I'm calling chain, I have to return another task, right?
+
+35
+00:02:14.357 --> 00:02:16.765
+这是一项任务，用户和
+This is a task and Either the user and
+
+36
+00:02:16.765 --> 00:02:20.470
+如果我要链接，我必须返回另一个任务。
+if I'm gonna chain that I have to return another task.
+
+37
+00:02:20.470 --> 00:02:25.366
+所以我要做的就是折叠我什至不知道如何做任务得到
+So what I'll do is fold out the Either I don't even know how to do tasks get
+
+38
+00:02:25.366 --> 00:02:27.145
+在这里被拒绝，我猜。
+rejected here, I guess.
+
+39
+00:02:27.145 --> 00:02:32.202
+然后在这里，我们有一个用户，
+And then over here, we've got a user,
+
+40
+00:02:32.202 --> 00:02:38.791
+好的，现在我们想从下表中找到，
+okay, now we wanna find from the following table,
+
+41
+00:02:38.791 --> 00:02:43.890
+其中 user_id 是我的 u.id，好吗？
+where the user_id is my u.id, okay?
+
+42
+00:02:43.890 --> 00:02:49.525
+好吧，所以找，其实我觉得是follow_id是我的用户id，
+All right, so find, actually I think it is follow_id is my user id,
+
+43
+00:02:49.525 --> 00:02:55.450
+follow_id，无所谓。
+follow_id, doesn't really matter.
+
+44
+00:02:55.450 --> 00:02:59.660
+这只是为了证明我想得到这个正确的。
+This is just just to demonstrate I wanna get this correct.
+
+45
+00:02:59.660 --> 00:03:01.610
+我们会找到错误的追随者。
+We're gonna find the wrong followers.
+
+46
+00:03:01.610 --> 00:03:03.860
+好吧，太酷了。
+All right, so cool.
+
+47
+00:03:03.860 --> 00:03:06.660
+但是现在我们有另一个用户，对吧？
+But now we have another Either user, right?
+
+48
+00:03:06.660 --> 00:03:10.460
+这是一个痛苦的屁股，我们不断遇到这些Either用户。
+It's a pain in the butt, we keep running into these Either users.
+
+49
+00:03:10.460 --> 00:03:12.338
+现在我们必须折叠它。
+And now we have to fold that.
+
+50
+00:03:12.338 --> 00:03:18.120
+[笑]好吧，另一个在这里被拒绝，然后
+[LAUGH] All right another rejected here, and then
+
+51
+00:03:18.120 --> 00:03:23.360
+现在我们有喜欢的追随者。
+now we have our like following.
+
+52
+00:03:23.360 --> 00:03:27.910
+让我们暂时称之为 fo，我想从用户表中找到，
+Let's call it fo for now, and I wanna find from the users table,
+
+53
+00:03:27.910 --> 00:03:33.330
+具有来自以下用户 ID 的 ID 的实际用户。
+the actual user with ID that comes from the followings user ID.
+
+54
+00:03:33.330 --> 00:03:37.160
+好的，你看到这里发生了什么，我正在尝试使用此链接表来查找谁
+Okay, you see what's happening here, I'm trying to use this link table to find who
+
+55
+00:03:37.160 --> 00:03:41.480
+是我的追随者，然后返回用户表以找到该用户。
+are my followers and then go back to the user table to find that user.
+
+56
+00:03:41.480 --> 00:03:45.404
+这只是一场灾难 我只是不断地遇到这些任务
+And it's just a disaster I just keep running into these tasks Either and
+
+57
+00:03:45.404 --> 00:03:47.910
+他们必须不断地折叠它们。
+they have to keep folding them out.
+
+58
+00:03:47.910 --> 00:03:49.866
+让我们看看我们得到的答案。
+Let's see what we get as an answer.
+
+59
+00:03:49.866 --> 00:03:57.860
+所以我要做的是 fork 那个错误，console.log。
+So what I'm gonna do is fork that error, console.log.
+
+60
+00:03:57.860 --> 00:04:00.370
+因为我在这里找到了一个发现。
+And because I ended on a find here.
+
+61
+00:04:00.370 --> 00:04:02.910
+[笑] 或者我可以换一个，对吧？
+[LAUGH] Or I can another Either, right?
+
+62
+00:04:02.910 --> 00:04:07.060
+所以你再次得到一个Either用户，再一次
+So you get a Either user again, once again and
+
+63
+00:04:07.060 --> 00:04:14.020
+那么就在这里，我们将把用户折叠到一个 console.error 或 console.log。
+then right here we'll fold out either user to a console.error, or console.log.
+
+64
+00:04:14.020 --> 00:04:14.815
+让我们打电话。
+And let's call up.
+
+65
+00:04:14.815 --> 00:04:18.190
+我们必须分叉它等待我们在那里分叉那很好。
+And we have to fork it wait we fork it there that's fine.
+
+66
+00:04:18.190 --> 00:04:19.790
+只需在那里分叉，称之为应用程序。
+Just fork it there call it app.
+
+67
+00:04:19.790 --> 00:04:24.309
+通常你想在外面叉，但是
+Normally you want to fork outside but
+
+68
+00:04:24.309 --> 00:04:29.140
+无论如何，清除变形金刚/1。
+whatever, c lear Transformers/1.
+
+69
+00:04:29.140 --> 00:04:35.913
+很酷，我们找到了 Mark，所以我们给了它我的 ID，然后我们找到了关注者 ID。
+Cool we found Mark so we gave it my ID, and then we found the follower ID.
+
+70
+00:04:35.913 --> 00:04:39.449
+然后我们从用户中找到了以下用户 ID 和
+And then we found from the users that user ID from the following and
+
+71
+00:04:39.449 --> 00:04:40.810
+然后我们得到马克，很酷。
+then we get Mark, cool.
+
+72
+00:04:42.070 --> 00:04:45.520
+那么我们如何用 monad 变压器来解决这个问题呢？
+So how do we solve this with monad transformers?
+
+73
+00:04:45.520 --> 00:04:48.244
+每个人都明白这个问题吗，比如这有多糟糕。
+Does everybody understand the problem, like how much this sucks.
+
+74
+00:04:48.244 --> 00:04:52.676
+[笑]好吧，这很糟糕的原因。
+[LAUGH] All right, the reason why this sucks.
+
+75
+00:04:52.676 --> 00:04:54.380
+[笑] 所以
+[LAUGH] So
+
+76
+00:04:54.380 --> 00:04:59.140
+我们能做的就是说，好吧，我要制作一个名为 TaskEither 的新东西。
+what we can do is is say, all right, I'm gonna make a new thing called TaskEither.
+
+77
+00:04:59.140 --> 00:05:05.636
+所以我会说任务转换器，我们要给它喂食，或者叫它 TaskEither。
+So I'll say task transformer and we're gonna feed it either call that TaskEither.
+
+78
+00:05:05.636 --> 00:05:10.720
+好的，这样做是任务转换器创建了一个新任务
+All right, what that did is task transformer created a new task much
+
+79
+00:05:10.720 --> 00:05:15.620
+像 compose 一样，创建了一个知道如何映射的新类型。
+like compose, created a new type that knew how to map.
+
+80
+00:05:16.650 --> 00:05:18.915
+这东西知道怎么换链。
+This thing knows how to change chain.
+
+81
+00:05:18.915 --> 00:05:22.643
+[笑] 但它是特定于每个 monad 的。
+[LAUGH] But it's specific to each monad.
+
+82
+00:05:22.643 --> 00:05:29.170
+所以每个 monad 都应该有，有一个 elseT 和一个 IdT 等等。
+So each monad should have, there's an EitherT, and an IdT and so on.
+
+83
+00:05:29.170 --> 00:05:33.490
+所以因为每个 monad 只能知道如何
+So because each monad can only know how to
+
+84
+00:05:33.490 --> 00:05:37.940
+处理一些它自己的效果，然后在它里面的任何东西上调用chain。
+deal with some its own effects, and then just call chain on whatever it has inside.
+
+85
+00:05:37.940 --> 00:05:41.240
+在这一点上它是通用的，但在这里是特定的。
+It's like generic to this point, but it's specific here.
+
+86
+00:05:41.240 --> 00:05:46.337
+如果我想有趣地恢复任务，我现在可以给一个Id，现在我有任务了，
+If I wanna recover task interestingly I can just give an Id now I have tasks back,
+
+87
+00:05:46.337 --> 00:05:47.820
+只是有点整洁。
+just kinda neat.
+
+88
+00:05:47.820 --> 00:05:50.294
+这是一个美丽的财产，通过。
+That's a little bit of a beautiful property that carries through.
+
+89
+00:05:50.294 --> 00:05:52.978
+所以你可以只定义变压器和
+So you can define just the transformer and
+
+90
+00:05:52.978 --> 00:05:57.591
+只需将其应用于恒等函子即可恢复原始类型。
+recover the original type just by applying it to the identity functor.
+
+91
+00:05:57.591 --> 00:06:02.205
+但我们在这里感兴趣的是 TaskT(Either)。
+But what we're interested here is TaskT(Either).
+
+92
+00:06:03.740 --> 00:06:05.830
+那么我该如何处理这件事呢？
+So how do I work with this thing?
+
+93
+00:06:05.830 --> 00:06:07.310
+让我告诉你它解决了什么问题。
+Let me show you what problem it solves.
+
+94
+00:06:07.310 --> 00:06:12.340
+然后我们将在这里深入研究变压器的 API。
+And then we'll kinda dig in play with the API of transformers here.
+
+95
+00:06:12.340 --> 00:06:19.400
+所以我们要说 TaskEither，这是一个问题。
+So we're gonna say TaskEither, and here's something that's a problem.
+
+96
+00:06:19.400 --> 00:06:21.890
+任务要么接受，如果我说，
+TaskEither will take, if I say of,
+
+97
+00:06:21.890 --> 00:06:26.460
+的 on TaskEither 会给我一个任务，要么有一个 x，对吧？
+of on TaskEither will give me a task of an either have an x, right?
+
+98
+00:06:26.460 --> 00:06:31.123
+任务要么，我在这里有一个要么给我
+Task either, and I have an Either here so that would give me
+
+99
+00:06:31.123 --> 00:06:36.850
+一个 TaskEither(Either(x)，他们会看到这就是 up 的作用。
+a TaskEither(Either(x), they'll see that that's what up does.
+
+100
+00:06:36.850 --> 00:06:44.430
+它现在在两种类型中都放置了一个值，而我正在尝试放置一个它们不是。
+It puts a value in both types now and I'm trying to put a Either they're not.
+
+101
+00:06:44.430 --> 00:06:47.322
+所以我要尝试做的事情，而不是我要做的事情叫做提升。
+So what I'm gonna try to do, what I'm gonna do instead is called lift.
+
+102
+00:06:47.322 --> 00:06:51.730
+我想把我的要么提升到 TaskEither 中，所以
+I wanna lift my Either into the TaskEither, so
+
+103
+00:06:51.730 --> 00:06:54.790
+它就像 of，但它不会复制那个内部类型。
+it's just like of, but it won't duplicate that inner type.
+
+104
+00:06:56.130 --> 00:06:56.830
+大家看到了吗？
+Does everybody see that?
+
+105
+00:06:56.830 --> 00:07:01.810
+So of 会给我Either(Either (x))。
+So of would have given me Either(Either (x).
+
+106
+00:07:01.810 --> 00:07:07.270
+但是提升只是把它放在一个层次上
+But lift just puts it one level in so
+
+107
+00:07:07.270 --> 00:07:11.130
+这是我们稍后将再次讨论的内容。
+that's something that we're gonna look at in a minute again.
+
+108
+00:07:11.130 --> 00:07:13.110
+但那是一回事。
+But that is a thing.
+
+109
+00:07:13.110 --> 00:07:20.220
+所以现在，如果我运行这个和生命编码的幽灵
+So now, if I run this and the ghost of life coding
+
+110
+00:07:20.220 --> 00:07:25.550
+真好，我们可以说，好吧，现在我
+is kind, we will be able to say, all right, well now I
+
+111
+00:07:25.550 --> 00:07:29.880
+不要获得任何用户，因为它知道如何正确链接这两种类型。
+don't get an Either user because it knows how to chain correctly over both types.
+
+112
+00:07:29.880 --> 00:07:33.060
+所以我只会得到一个用户，这有多好？
+So I'll just get a user, how nice is that?
+
+113
+00:07:33.060 --> 00:07:34.720
+现在我们可以找到东西，对吧？
+Now we could just find stuff, right?
+
+114
+00:07:34.720 --> 00:07:40.920
+再说一次，如果我链接它，我只会得到另一个用户，对吗？
+And again, if I chain that, I just get a another user, right?
+
+115
+00:07:40.920 --> 00:07:42.335
+好吧，我想这已经结束了，佛。
+Well, I guess this is up, fo.
+
+116
+00:07:46.598 --> 00:07:50.064
+但是，是的，这里发生了什么，现在我有一个任务（要么）和
+But yeah, so what's happened here, is now I had a Task(Either) and
+
+117
+00:07:50.064 --> 00:07:53.026
+我已经改变了它，所以我仍然有任务（或者（用户））。
+I've changed it so I still have Task(Either(User)).
+
+118
+00:07:53.026 --> 00:07:58.750
+再一次，我已经链接了它，并且我得到了一个 Task(Either(User))。
+And again, I've chained that, and I get a Task(Either(User)).
+
+119
+00:07:58.750 --> 00:08:03.250
+最后，我们 .fork 任务，我们还没有任务中的任一个用户，
+And finally, we .fork the task, we still haven't Either user inside the task,
+
+120
+00:08:03.250 --> 00:08:08.370
+一个重要的区别是任务要么知道如何链接。
+that's an important distinction is that task either knows how to chain.
+
+121
+00:08:08.370 --> 00:08:10.640
+但归根结底，这仍然是一项任务。
+But at the end of the day, it's still a task holding an either.
+
+122
+00:08:10.640 --> 00:08:15.880
+因此，当我 fork 任务时，我会得到两者之一，而不仅仅是将用户给我。
+So when I fork the task, I get the Either, it's not just gonna give me the user out.
+
+123
+00:08:15.880 --> 00:08:18.030
+它只是定义了那个东西的链。
+It just defines chain on that thing.
+
+124
+00:08:19.150 --> 00:08:20.710
+所以现在如果我们运行它。
+So now if we run it.
+
+125
+00:08:20.710 --> 00:08:23.655
+好吧，效果很好。
+All right, it works great.
+
+126
+00:08:23.655 --> 00:08:28.327
+[笑] 将此更改为用户 ID，我们将得到
+[LAUGH] For change this to user id, we'll get
+
+127
+00:08:28.327 --> 00:08:33.810
+另一个用户退出，是的，让我退出，很酷。
+a different user out, yeah let me back out, cool.
+
+128
+00:08:33.810 --> 00:08:39.768
+所以关于 monad 转换器的问题，我们会多谈一点，但是
+So questions on monad transformers, we are gonna talk a little bit more about it but
+
+129
+00:08:39.768 --> 00:08:43.518
+我只是不想留下这个例子来说明它正在解决什么问题，
+I just don't wanna leave this example of what it's solving for,
+
+130
+00:08:43.518 --> 00:08:45.688
+然后我们将更多地了解它们的机制。
+and then we'll play around with more about the mechanics of them.

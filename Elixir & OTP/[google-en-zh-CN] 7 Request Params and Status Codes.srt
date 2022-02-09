@@ -1,0 +1,1220 @@
+1
+00:00:00,300 --> 00:00:00,733
+所以我们离开了
+so we left
+
+2
+00:00:00,733 --> 00:00:02,700
+你在结尾处有点悬崖峭壁
+you with a bit of a cliff hanger at the end of
+
+3
+00:00:02,700 --> 00:00:03,833
+最后一个模块
+the last module
+
+4
+00:00:03,866 --> 00:00:07,233
+是否在我们的野生动物保护区发现了大脚怪
+has bigfoot been spotted at our wildlife refuge or not
+
+5
+00:00:07,500 --> 00:00:09,866
+不幸的是，没有
+well unfortunately no it hasn't been
+
+6
+00:00:12,333 --> 00:00:13,900
+在任一情况下
+in either case
+
+7
+00:00:13,900 --> 00:00:17,033
+当我们的服务器中的路由不匹配时会发生什么
+what happens when a route doesn't match in our server
+
+8
+00:00:17,233 --> 00:00:17,400
+好
+well
+
+9
+00:00:17,400 --> 00:00:20,266
+我们还应该处理带参数的请求
+we should also handle requests that take parameters
+
+10
+00:00:20,500 --> 00:00:21,966
+我们决定建立网络的原因之一
+one of the reasons we decided to build a web
+
+11
+00:00:21,966 --> 00:00:22,800
+本课程中的服务器
+server in this course
+
+12
+00:00:22,866 --> 00:00:25,366
+是否提供了不同的学习场景
+is it presents different scenarios to learn
+
+13
+00:00:25,500 --> 00:00:26,766
+灵药的不同特点
+different features of elixir
+
+14
+00:00:26,966 --> 00:00:29,433
+所以让我们看看更多的模式匹配技术
+so let's look at some more pattern matching techniques
+
+15
+00:00:29,433 --> 00:00:31,800
+因为它们是构建 elixir 应用程序的核心
+as they're central to building elixir apps
+
+16
+00:00:32,466 --> 00:00:34,566
+所以这是我们到目前为止定义的两条路线
+so here are the two routes we have defined so far
+
+17
+00:00:34,566 --> 00:00:35,500
+一种用于野生动物
+one for wild things
+
+18
+00:00:35,533 --> 00:00:37,366
+1 4 只熊和这些
+1 4 bears and these
+
+19
+00:00:37,366 --> 00:00:39,800
+是我们的应用程序知道的两个资源
+are the two resources that our application knows about
+
+20
+00:00:40,033 --> 00:00:41,266
+但对于其他一切
+but for everything else
+
+21
+00:00:41,266 --> 00:00:42,966
+对于我们收到的任何其他请求
+for any other requests that we get
+
+22
+00:00:43,066 --> 00:00:44,900
+我们要发送一个四行四响应
+we want to send a four row four response
+
+23
+00:00:44,900 --> 00:00:46,466
+说可以找到资源
+saying that the resource can be found
+
+24
+00:00:46,566 --> 00:00:49,100
+为此，我们将定义一条捕获所有路线
+and to do that we'll define a catch all route
+
+25
+00:00:49,233 --> 00:00:50,466
+我就在这里做
+I'm just going to do it right up here
+
+26
+00:00:51,900 --> 00:00:54,200
+所以是路线它会采取我们的对话地图
+so be route it's going to take our conversation map
+
+27
+00:00:54,333 --> 00:00:56,900
+然后而不是使用像 get 这样的文字字符串
+and then instead of using a literal string like get
+
+28
+00:00:56,900 --> 00:00:58,333
+我只是要使用方法
+I'm just going to use method
+
+29
+00:00:58,500 --> 00:00:59,866
+这是一个将得到的变量
+that's a variable that will get
+
+30
+00:00:59,866 --> 00:01:02,133
+匹配传入的任何参数
+matched to whatever argument is passed in
+
+31
+00:01:02,300 --> 00:01:03,533
+作为那里的第二个论点
+as the second argument there
+
+32
+00:01:03,833 --> 00:01:06,066
+然后以同样的方式我们想要匹配任何路径
+and then in the same way we want to match any path
+
+33
+00:01:06,066 --> 00:01:07,900
+所以我将在那里使用可变路径
+so I'm just going to use a variable path there
+
+34
+00:01:07,900 --> 00:01:09,566
+这将匹配任何东西
+which will match anything
+
+35
+00:01:10,100 --> 00:01:11,166
+然后在里面
+and then inside of here
+
+36
+00:01:11,966 --> 00:01:13,000
+好吧，我们只是返回
+well we just return
+
+37
+00:01:13,000 --> 00:01:15,900
+更新的对话地图，所以 co 和 v
+a updated conversation map so co and v
+
+38
+00:01:16,066 --> 00:01:18,600
+我们的竖线，然后是我们的响应体
+our vertical bar and then our response body
+
+39
+00:01:18,866 --> 00:01:20,166
+在这种情况下会说
+in this case is going to say
+
+40
+00:01:20,466 --> 00:01:21,266
+不
+no
+
+41
+00:01:21,700 --> 00:01:22,900
+这里的路径
+path here
+
+42
+00:01:23,533 --> 00:01:25,766
+所以不管第三个论点是什么
+so whatever the third argument is that gets past
+
+43
+00:01:25,766 --> 00:01:27,166
+这个函数将被绑定
+this function is going to get bound
+
+44
+00:01:27,366 --> 00:01:29,233
+到我们可以使用的变量路径
+to the variable path which we can use
+
+45
+00:01:29,266 --> 00:01:30,700
+函数体内
+inside of the function body
+
+46
+00:01:30,866 --> 00:01:32,100
+如果我们现在运行它
+and if we run this right now
+
+47
+00:01:32,100 --> 00:01:34,766
+我们会收到一条警告说没有使用该方法
+we'll get a warning saying that method wasn't used
+
+48
+00:01:34,800 --> 00:01:36,066
+函数体内
+inside of the function body
+
+49
+00:01:36,066 --> 00:01:37,866
+所以我们可以忽略那个警告
+so we can just ignore that warning
+
+50
+00:01:37,933 --> 00:01:39,333
+加下划线
+by putting an underscore
+
+51
+00:01:39,766 --> 00:01:40,833
+在那个变量之前
+before that variable
+
+52
+00:01:41,400 --> 00:01:43,166
+如果我们把它保存起来并运行它
+if we save that away and run it
+
+53
+00:01:43,366 --> 00:01:46,000
+好吧，我们在底部没有看到大脚怪，但是
+well we see no bigfoot here at the bottom but
+
+54
+00:01:46,233 --> 00:01:47,166
+这里没有熊
+no bears here
+
+55
+00:01:47,266 --> 00:01:48,400
+这里没有野东西
+no wild things here
+
+56
+00:01:49,000 --> 00:01:50,200
+一切都匹配这个
+everything is matching this
+
+57
+00:01:50,466 --> 00:01:52,866
+返回的路线在这里知道什么
+route that's returning know whatever here
+
+58
+00:01:53,000 --> 00:01:55,033
+如果我们走到顶部，我们会看到这个警告
+if we go to the top we see we get this warning
+
+59
+00:01:55,133 --> 00:01:57,166
+此功能爪无法匹配
+this function claws cannot match
+
+60
+00:01:57,166 --> 00:01:58,500
+因为以前的爪子在线
+because of previous claws online
+
+61
+00:01:58,500 --> 00:02:00,100
+26 总是匹配
+26 always matches
+
+62
+00:02:00,566 --> 00:02:01,166
+那是因为
+and that's because
+
+63
+00:02:01,166 --> 00:02:03,733
+elixir 尝试匹配来自的函数子句
+elixir tries to match function clauses from
+
+64
+00:02:03,733 --> 00:02:04,966
+从上到下
+top to bottom
+
+65
+00:02:05,033 --> 00:02:07,533
+按照文件中指定的顺序
+in the order they're specified in the file
+
+66
+00:02:07,933 --> 00:02:10,333
+没错，我们可以找到所有路线
+that's right and we have our catch all route to find
+
+67
+00:02:10,366 --> 00:02:13,433
+在我们的其他路线之上，我们在这里使用了变量
+above our other routes and we used variables here
+
+68
+00:02:13,700 --> 00:02:16,900
+所以传入的任何值都是第二个参数
+so whatever value is passed in is the second argument
+
+69
+00:02:16,966 --> 00:02:18,600
+它会自动匹配
+it's going to match automatically
+
+70
+00:02:18,600 --> 00:02:19,933
+到那个可变方法
+to that variable method
+
+71
+00:02:19,933 --> 00:02:21,333
+或者它将绑定该值
+or it's going to bind that value
+
+72
+00:02:21,366 --> 00:02:21,966
+一样的方法
+the same way
+
+73
+00:02:21,966 --> 00:02:24,966
+第三个参数值将绑定到路径
+the third argument value is going to be bound to path
+
+74
+00:02:25,133 --> 00:02:28,266
+所以这将匹配任何方法和路径
+so this is going to match any method and path
+
+75
+00:02:28,433 --> 00:02:30,966
+并且因为它匹配所有请求
+and because it matches all requests it's going to
+
+76
+00:02:30,966 --> 00:02:33,800
+我们尝试处理的每个请求都会被调用
+get called for every request that we try to handle
+
+77
+00:02:33,966 --> 00:02:35,400
+所以任何路线都可以找到
+so any routes to find
+
+78
+00:02:35,400 --> 00:02:37,200
+低于这个永远不会被考虑
+below this are never going to be considered
+
+79
+00:02:37,600 --> 00:02:39,933
+所以我们只希望调用这个函数
+so we only want this function to be called
+
+80
+00:02:39,933 --> 00:02:41,600
+如果没有其他子句匹配
+if no other clauses match
+
+81
+00:02:41,600 --> 00:02:44,733
+换句话说，它是默认函数子句
+in other words it's the default function clause
+
+82
+00:02:44,733 --> 00:02:46,500
+所以我们需要最后定义它
+so we need to define it last
+
+83
+00:02:47,033 --> 00:02:48,566
+是的，我们将把它从顶部取下来
+yeah we'll just take it off the top here
+
+84
+00:02:48,633 --> 00:02:50,600
+把它放在我们其他路线的下面
+put it down below our other routes
+
+85
+00:02:51,133 --> 00:02:52,666
+如果我们把它保存起来并运行它
+and if we save that away and run it
+
+86
+00:02:52,900 --> 00:02:55,200
+好吧，我们这里没有大脚怪，这就是我们所期望的
+well we get no bigfoot here that's what we expected
+
+87
+00:02:55,433 --> 00:02:56,233
+但我们所有的
+but all of our
+
+88
+00:02:56,233 --> 00:02:58,933
+其他请求正在按我们的预期处理
+other requests are getting handled as we would expect
+
+89
+00:02:59,800 --> 00:03:01,433
+我们应该提到的另一件事
+one other thing we should mention
+
+90
+00:03:01,566 --> 00:03:04,600
+对函数子句进行分组不仅有帮助
+not only is it helpful to group the function clauses
+
+91
+00:03:04,600 --> 00:03:06,900
+在一起，这样您就可以轻松查看订单
+together so you can easily see the order
+
+92
+00:03:07,200 --> 00:03:10,400
+但是如果您将所有路线从组中移出
+but if you move the catch all route out of the group
+
+93
+00:03:10,400 --> 00:03:13,200
+假设我们将其移至格式响应下方
+say we move it below format response
+
+94
+00:03:13,333 --> 00:03:15,200
+然后我们运行得很好
+and then we run it well
+
+95
+00:03:15,200 --> 00:03:15,966
+如果我们向上滚动
+if we scroll up
+
+96
+00:03:15,966 --> 00:03:17,066
+我们会看到一个警告
+we'll see a warning
+
+97
+00:03:17,066 --> 00:03:18,900
+这表示它们需要组合在一起
+that says they need to be grouped together
+
+98
+00:03:19,766 --> 00:03:21,933
+所以在继续之前，我们将撤消它
+so before moving on we'll just undo that
+
+99
+00:03:23,133 --> 00:03:25,400
+所以我们的响应正文正在更新
+so our response body is being updated
+
+100
+00:03:25,566 --> 00:03:28,533
+但是 200 ok 是我们的状态
+but the 200 ok is our status
+
+101
+00:03:28,533 --> 00:03:30,133
+那真的不正确
+well that really isn't correct
+
+102
+00:03:30,133 --> 00:03:32,266
+真的应该是四四
+it really should be a four or four
+
+103
+00:03:32,766 --> 00:03:36,866
+但现在它在我们的响应字符串中被硬覆盖
+but right now it's hard coated in our response string
+
+104
+00:03:37,300 --> 00:03:38,666
+所以要让它更有活力
+so to make this more dynamic
+
+105
+00:03:38,666 --> 00:03:40,100
+我们需要能够退出
+we need to be able to pull out
+
+106
+00:03:40,133 --> 00:03:42,600
+我们对话地图中的状态码
+the status code from our conversation map
+
+107
+00:03:42,766 --> 00:03:44,800
+然后我们可以在这里插值
+and then we can just interpolate that down here
+
+108
+00:03:45,433 --> 00:03:47,366
+所以我们需要添加一个状态字段到
+so we need to add a status field to the
+
+109
+00:03:47,366 --> 00:03:49,933
+对话地图，就在顶部
+conversation map and that's just up here at the top
+
+110
+00:03:50,233 --> 00:03:51,400
+我要把这些分开
+I'm going to split these out
+
+111
+00:03:51,533 --> 00:03:52,433
+成多行
+into multiple line
+
+112
+00:03:52,433 --> 00:03:54,100
+只是为了让它更容易阅读
+just to make it a little bit easier to read
+
+113
+00:03:56,133 --> 00:03:56,966
+我们就会有感觉
+and we'll just have a feel
+
+114
+00:03:56,966 --> 00:03:59,566
+称为状态，我们最初将其设置为 nil
+called status and we'll set it to nil initially
+
+115
+00:04:00,066 --> 00:04:02,766
+然后在我们的捕获所有路线底部
+then down in our catch all route which is at the bottom
+
+116
+00:04:02,766 --> 00:04:05,933
+在这里我们可以将状态设置为四或四
+here we can set the status to four or four
+
+117
+00:04:06,166 --> 00:04:07,066
+这只是证明
+and this just demonstrates
+
+118
+00:04:07,100 --> 00:04:07,900
+你可以更新
+you can update
+
+119
+00:04:07,900 --> 00:04:10,700
+使用语法的地图中的多个字段
+multiple fields in a map using the syntax
+
+120
+00:04:10,700 --> 00:04:12,233
+记住你会得到一个
+and just remember you're going to get back a
+
+121
+00:04:12,333 --> 00:04:13,566
+这张地图的新副本
+new copy of this map
+
+122
+00:04:14,133 --> 00:04:16,600
+然后我们还需要在这里设置一个状态
+and then we also need to set a status here
+
+123
+00:04:16,666 --> 00:04:19,166
+这将是成功的状态 200
+this is going to be status 200 that was successful
+
+124
+00:04:19,333 --> 00:04:21,766
+这也将是状态 200
+as well this is going to be status 200
+
+125
+00:04:22,433 --> 00:04:23,133
+然后最后
+and then finally
+
+126
+00:04:23,133 --> 00:04:25,966
+我们可以插值而不是硬编码的 200
+we can interpolate that instead of a hard coded 200
+
+127
+00:04:25,966 --> 00:04:27,333
+在这里，我们将只使用
+here we'll just use
+
+128
+00:04:27,766 --> 00:04:29,433
+通讯状态
+com status
+
+129
+00:04:30,000 --> 00:04:33,033
+现在状态码有相应的原因短语
+now status codes have a corresponding reason phrase
+
+130
+00:04:33,033 --> 00:04:35,433
+例如 200 是可以的
+for example 200 is okay
+
+131
+00:04:35,500 --> 00:04:37,466
+但是四四个没有找到
+but four or four is not found
+
+132
+00:04:37,900 --> 00:04:38,666
+所以这样做
+so to do that
+
+133
+00:04:38,666 --> 00:04:40,966
+我们需要将状态码映射到它们的
+we need a mapping of the status codes to their
+
+134
+00:04:40,966 --> 00:04:42,200
+相应的原因
+corresponding reason
+
+135
+00:04:42,466 --> 00:04:43,966
+并快速解决这个问题
+and to make quick work of this
+
+136
+00:04:43,966 --> 00:04:45,400
+我这里有一个功能
+I have a function here
+
+137
+00:04:45,400 --> 00:04:47,366
+我们可以粘贴进去
+that we can just paste in to do this
+
+138
+00:04:47,833 --> 00:04:49,166
+现在有时你想定义
+now sometimes you want to define
+
+139
+00:04:49,166 --> 00:04:50,533
+可以的私有函数
+private functions that can
+
+140
+00:04:50,533 --> 00:04:52,600
+只能在模块内调用
+only be called within the module
+
+141
+00:04:52,600 --> 00:04:53,733
+它们被定义在
+that they're defined in
+
+142
+00:04:53,933 --> 00:04:56,600
+为此，您使用 def 而不是 def
+and to do that you use def instead of def
+
+143
+00:04:56,800 --> 00:04:58,233
+所以只是为了证明
+so just to demonstrate that
+
+144
+00:04:58,400 --> 00:05:00,066
+我们已设置此状态原因
+we've set this status reason
+
+145
+00:05:00,200 --> 00:05:03,233
+成为一个私人功能，因此它不能
+to be a private function and as such it can't
+
+146
+00:05:03,233 --> 00:05:05,033
+在模块外调用
+be called outside the module
+
+147
+00:05:05,466 --> 00:05:07,833
+它需要一个参数
+and it takes a single argument the code
+
+148
+00:05:07,833 --> 00:05:09,366
+然后在函数体内
+and then inside of the function body
+
+149
+00:05:09,366 --> 00:05:10,700
+我们有一张地图
+we have a map
+
+150
+00:05:10,966 --> 00:05:12,333
+在这种特殊情况下
+in this particular case
+
+151
+00:05:12,333 --> 00:05:15,133
+我们正在尝试将状态代码映射到他们的原因
+we're trying to map status codes to their reasons
+
+152
+00:05:15,166 --> 00:05:17,600
+所以这张地图中的键是数字
+and so the keys in this map are numbers
+
+153
+00:05:17,600 --> 00:05:18,733
+它们不是原子
+they're not atoms
+
+154
+00:05:18,833 --> 00:05:22,266
+那么我们需要使用这个 a 来
+then as such we need to use this a to
+
+155
+00:05:22,533 --> 00:05:24,433
+将键与值联系起来
+tie the key to the value
+
+156
+00:05:24,566 --> 00:05:25,666
+这会很熟悉
+and this will be familiar
+
+157
+00:05:25,666 --> 00:05:27,566
+如果你是一名 ruby 程序员，因为你使用
+if you are a ruby programmer because you use
+
+158
+00:05:27,600 --> 00:05:30,300
+ruby 哈希中的类似箭头语法
+similar arrow syntax in ruby hashes
+
+159
+00:05:30,600 --> 00:05:31,700
+所以给了一个代码
+so given a code
+
+160
+00:05:31,800 --> 00:05:33,900
+我们可以使用方括号语法
+we can use a square bracket syntax
+
+161
+00:05:33,933 --> 00:05:36,600
+访问与该代码关联的值
+to access the value that's associated with that code
+
+162
+00:05:37,100 --> 00:05:39,800
+给定这个函数，我们可以插值
+given this function then we can interpolate
+
+163
+00:05:39,933 --> 00:05:42,266
+状态原因而不是硬编码
+the status reason instead of the hardcoded
+
+164
+00:05:42,266 --> 00:05:44,133
+好吧，我们只是插值
+okay we just interpolate
+
+165
+00:05:44,700 --> 00:05:45,600
+状态原因
+status reason
+
+166
+00:05:46,333 --> 00:05:49,733
+并以 cv status 的状态传递它
+and pass it in the status which is cv status
+
+167
+00:05:50,066 --> 00:05:51,600
+保存并运行它
+save that away and run it
+
+168
+00:05:51,833 --> 00:05:53,266
+现在没有大脚怪
+now for no bigfoot
+
+169
+00:05:53,266 --> 00:05:55,366
+在这里我们看到它是一个四或四个没有找到
+here we see it's a four or four not found
+
+170
+00:05:55,666 --> 00:05:58,666
+但对于其他一切，它应该是 200 好的
+but for everything else it should be a 200 ok
+
+171
+00:06:00,133 --> 00:06:02,066
+所以让我们创建一个新请求
+so let's create a new request
+
+172
+00:06:02,366 --> 00:06:05,300
+让我们接受熊的请求
+let's take the request for bears
+
+173
+00:06:05,400 --> 00:06:07,566
+并将其更改为熊一
+and change it to bears one
+
+174
+00:06:07,966 --> 00:06:10,866
+这样我们就可以通过它的 id 得到一个特定的熊
+that way we can get a specific bear by its id
+
+175
+00:06:10,866 --> 00:06:13,200
+熊一熊二熊三随便
+bear one bear two bear three whatever
+
+176
+00:06:13,533 --> 00:06:16,200
+现在如果我们把它保存起来并在我们没有得到的时候运行它
+now if we save that away and we run it while we get no
+
+177
+00:06:16,200 --> 00:06:17,333
+这里有一个
+bears one here
+
+178
+00:06:17,566 --> 00:06:20,133
+它被我们的全部路线所接收
+and it's getting picked up by our catch all route
+
+179
+00:06:20,566 --> 00:06:21,266
+处理这个
+to handle this
+
+180
+00:06:21,266 --> 00:06:24,233
+我们需要定义一个路由函数子句
+we're going to need to define a route function clause
+
+181
+00:06:24,233 --> 00:06:26,000
+与路径匹配
+that matches the path with
+
+182
+00:06:26,633 --> 00:06:28,800
+一开始就熊
+bears at the beginning
+
+183
+00:06:29,033 --> 00:06:30,900
+然后是最后的任何数字
+and then any number at the end
+
+184
+00:06:31,233 --> 00:06:33,000
+有一个很酷的方法可以做到这一点
+and there's a really cool way to do this
+
+185
+00:06:33,000 --> 00:06:33,766
+并设置它
+and to set it up
+
+186
+00:06:33,766 --> 00:06:34,833
+我要跳进我
+I'm going to jump into I
+
+187
+00:06:34,933 --> 00:06:38,266
+x 所以假设我们有绳子熊
+x so let's say we have the string bears
+
+188
+00:06:39,333 --> 00:06:40,733
+我们想连接
+and we want to concatenate
+
+189
+00:06:40,733 --> 00:06:42,833
+该字符串末尾的 No.1
+the No.1 to the end of that string
+
+190
+00:06:43,000 --> 00:06:45,133
+在长生不老药中，字符串是二进制文件
+well in elixir strings are binaries
+
+191
+00:06:45,133 --> 00:06:46,666
+并连接二进制文件
+and to concatenate binaries
+
+192
+00:06:46,666 --> 00:06:49,033
+我们使用小于大于运算符
+we use the less than greater than operator
+
+193
+00:06:49,200 --> 00:06:51,066
+然后我只给它一个字符串
+and then I just give it the string one
+
+194
+00:06:51,066 --> 00:06:52,833
+我们拿回斜线熊一个
+we get back slash bears one
+
+195
+00:06:53,333 --> 00:06:55,033
+但很酷的是我们也可以使用
+but what's cool is we can also use
+
+196
+00:06:55,033 --> 00:06:55,633
+小于
+the less than
+
+197
+00:06:55,633 --> 00:06:56,566
+大于运算符
+greater than operator
+
+198
+00:06:56,566 --> 00:06:59,333
+在模式匹配中匹配字符串的开头
+to match the beginning of a string in a pattern match
+
+199
+00:06:59,800 --> 00:07:01,933
+所以让我们替换这个
+so let's just replace this one
+
+200
+00:07:02,100 --> 00:07:03,533
+带有变量 id
+with a variable id
+
+201
+00:07:03,566 --> 00:07:05,366
+然后我们将使用匹配运算符和
+and then we'll use the match operator and
+
+202
+00:07:05,366 --> 00:07:06,666
+看看是否匹配
+see if that matches
+
+203
+00:07:07,433 --> 00:07:08,233
+熊
+bears
+
+204
+00:07:09,133 --> 00:07:13,266
+一并且它做了它所做的就是它绑定了值一
+one and it does what it did is it bound the value one
+
+205
+00:07:13,766 --> 00:07:16,400
+到要制作的变量 id
+to the variable id to make
+
+206
+00:07:16,566 --> 00:07:19,066
+此模式匹配右侧
+this pattern match the right hand side
+
+207
+00:07:19,566 --> 00:07:22,333
+如果我们仔细观察 id 变量，它的值为 1
+and if we look at the id variable well its value is one
+
+208
+00:07:22,833 --> 00:07:24,500
+所以它匹配字符串的开头
+so it matched the beginning of the string
+
+209
+00:07:24,500 --> 00:07:26,066
+然后字符串的其余部分被绑定
+and then the rest of the string was bound
+
+210
+00:07:26,066 --> 00:07:27,166
+到变量id
+to the variable id
+
+211
+00:07:27,666 --> 00:07:29,500
+所以我们可以用它来定义一个新的
+so we can use this to define a new
+
+212
+00:07:29,533 --> 00:07:30,833
+路由功能子句
+route function clause
+
+213
+00:07:32,533 --> 00:07:33,900
+这将是一个获取请求
+it's going to be a get request
+
+214
+00:07:34,966 --> 00:07:37,200
+然后我们要匹配一个以开头的字符串
+and then we want to match a string beginning with
+
+215
+00:07:37,200 --> 00:07:40,333
+带有斜线，然后有一个 id
+bears slash and then having an id after that
+
+216
+00:07:40,600 --> 00:07:42,033
+然后在函数体中
+and then in the function body
+
+217
+00:07:42,166 --> 00:07:44,333
+我们将返回更新的对话地图
+we'll return an updated conversation map
+
+218
+00:07:44,733 --> 00:07:46,300
+状态为 200
+where the status is 200
+
+219
+00:07:47,033 --> 00:07:48,933
+和响应体
+and the response body
+
+220
+00:07:49,700 --> 00:07:51,600
+是裸露的，然后我们可以使用
+is bare and then we can use
+
+221
+00:07:51,866 --> 00:07:54,933
+像这样绑定到变量 id 的值
+the value that's bound to the variable id like that
+
+222
+00:07:55,333 --> 00:07:58,100
+这是有效的，因为模式匹配适用
+and this works because pattern matching applies
+
+223
+00:07:58,166 --> 00:08:01,166
+任何时候我们需要将值绑定到变量
+anytime we need to bind values to variables
+
+224
+00:08:01,233 --> 00:08:04,000
+在这种情况下，当调用此函数时
+in this case when this function is called
+
+225
+00:08:04,266 --> 00:08:05,833
+第三个论点
+the third argument
+
+226
+00:08:05,833 --> 00:08:08,800
+将获得与此模式匹配的模式
+is going to get pattern matched against this pattern
+
+227
+00:08:09,133 --> 00:08:12,100
+所以争论会像熊一样
+so the argument will be like bears one
+
+228
+00:08:12,433 --> 00:08:15,600
+它匹配模式并且因为它匹配它绑定
+it matches the pattern and because it matches it binds
+
+229
+00:08:15,633 --> 00:08:16,900
+价值一
+the value one
+
+230
+00:08:17,100 --> 00:08:19,733
+to id 所以这与这些不同
+to id so this is different from these
+
+231
+00:08:19,733 --> 00:08:20,666
+其他路由功能
+other route functions
+
+232
+00:08:20,700 --> 00:08:22,133
+因为在这里我们只是匹配
+because here we were just matching
+
+233
+00:08:22,300 --> 00:08:23,500
+文字字符串
+literal strings
+
+234
+00:08:23,533 --> 00:08:26,300
+这里我们实际上在模式中有一个变量
+here we actually have a variable in the pattern
+
+235
+00:08:26,366 --> 00:08:27,166
+我们匹配的
+that we match against
+
+236
+00:08:27,166 --> 00:08:27,833
+然后我们可以使用
+and then we can use
+
+237
+00:08:27,833 --> 00:08:29,733
+函数体内的那个变量
+that variable inside of the function body
+
+238
+00:08:30,133 --> 00:08:31,800
+现在如果我们把它保存起来并运行它
+now if we save this away and run it
+
+239
+00:08:32,033 --> 00:08:34,233
+好吧，我们得到了 200 ok 的请求
+well we get 200 ok for that request
+
+240
+00:08:34,300 --> 00:08:36,033
+它只是说熊一
+and it just says bear one
+
+241
+00:08:37,466 --> 00:08:38,466
+想象所有
+imagine all the
+
+242
+00:08:38,466 --> 00:08:40,733
+如果我们有会参观我们野生动物保护区的人
+people who would visit our wildlife refuge if we had
+
+243
+00:08:40,733 --> 00:08:41,600
+大脚怪
+a bigfoot
+
+244
+00:08:41,700 --> 00:08:44,533
+我们可以为大脚怪自拍收取一笔巨款
+we could charge a fortune for selfies with bigfoot
+

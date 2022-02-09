@@ -1,0 +1,1600 @@
+1
+00:00:00,300 --> 00:00:02,566
+now this module is completely optional
+
+2
+00:00:02,566 --> 00:00:04,166
+but in case you're learning elixir
+
+3
+00:00:04,166 --> 00:00:05,966
+because you're on your way to Phoenix next
+
+4
+00:00:05,966 --> 00:00:07,733
+well we have good news for you
+
+5
+00:00:07,966 --> 00:00:09,900
+it's gonna look pretty familiar
+
+6
+00:00:10,133 --> 00:00:11,933
+yeah it's a bit like learning a new language
+
+7
+00:00:11,933 --> 00:00:13,233
+before an international trip
+
+8
+00:00:13,366 --> 00:00:14,666
+you pick up a language course
+
+9
+00:00:14,766 --> 00:00:17,000
+you learn some common words and phrases
+
+10
+00:00:17,000 --> 00:00:19,566
+and then you practice them around the office k
+
+11
+00:00:20,000 --> 00:00:21,600
+then when you turn up at your destination
+
+12
+00:00:21,600 --> 00:00:23,800
+some of the sights and sounds feel familiar
+
+13
+00:00:24,033 --> 00:00:25,933
+so let's start by looking at a Phoenix app
+
+14
+00:00:26,600 --> 00:00:27,533
+just so you don't think we have
+
+15
+00:00:27,533 --> 00:00:28,633
+any tricks up our sleeve
+
+16
+00:00:28,633 --> 00:00:29,866
+we'll generate a Phoenix app
+
+17
+00:00:29,866 --> 00:00:31,433
+from scratch and see what we get
+
+18
+00:00:31,433 --> 00:00:32,233
+for free
+
+19
+00:00:32,400 --> 00:00:34,900
+now I already have Phoenix installed on this computer
+
+20
+00:00:35,000 --> 00:00:35,600
+check the notes
+
+21
+00:00:35,600 --> 00:00:37,133
+if you need installation instructions
+
+22
+00:00:37,133 --> 00:00:38,566
+to get it set up on your computer
+
+23
+00:00:38,833 --> 00:00:39,800
+and to generate the app
+
+24
+00:00:39,800 --> 00:00:42,733
+we say mix p new in the name of the app
+
+25
+00:00:42,800 --> 00:00:44,500
+in this case we're going to call it refuge
+
+26
+00:00:44,633 --> 00:00:45,566
+now just make sure
+
+27
+00:00:45,700 --> 00:00:47,000
+that you're not in the survey directory
+
+28
+00:00:47,000 --> 00:00:48,833
+when you run this you can be anywhere else
+
+29
+00:00:48,933 --> 00:00:50,900
+I'm in an empty apps directory right now
+
+30
+00:00:52,133 --> 00:00:53,800
+and that went ahead and generated a bunch of code
+
+31
+00:00:53,800 --> 00:00:54,600
+and then asked us
+
+32
+00:00:54,600 --> 00:00:56,266
+if we want to install the dependencies
+
+33
+00:00:56,433 --> 00:00:57,433
+sure go ahead and do that
+
+34
+00:00:58,233 --> 00:00:59,700
+then it's going to download the dependencies
+
+35
+00:00:59,700 --> 00:01:00,766
+and compile them and get
+
+36
+00:01:00,800 --> 00:01:01,600
+everything set up
+
+37
+00:01:01,800 --> 00:01:03,000
+and through the magic of video
+
+38
+00:01:03,033 --> 00:01:04,166
+we'll speed this up a bit
+
+39
+00:01:04,933 --> 00:01:05,633
+then we'll change
+
+40
+00:01:05,633 --> 00:01:07,466
+into that refuge directory that it created
+
+41
+00:01:07,900 --> 00:01:10,000
+and we'll want to generate some scaffold code
+
+42
+00:01:10,000 --> 00:01:10,966
+for creating
+
+43
+00:01:10,966 --> 00:01:14,066
+reading updating and deleting our bear resources
+
+44
+00:01:14,166 --> 00:01:15,966
+yeah Phoenix has a number of generators
+
+45
+00:01:15,966 --> 00:01:19,866
+we're going to generate an html app so let's say mix p
+
+46
+00:01:20,233 --> 00:01:23,766
+dot gm html then once the name of a context
+
+47
+00:01:23,766 --> 00:01:25,466
+I'll explain that a bit later we're going to call our
+
+48
+00:01:25,466 --> 00:01:26,266
+wild things
+
+49
+00:01:26,700 --> 00:01:28,366
+the name of the resource is going to be bear
+
+50
+00:01:28,366 --> 00:01:30,533
+then it wants the plural name it'll be bears
+
+51
+00:01:30,600 --> 00:01:32,266
+and then we give it attributes for the resource
+
+52
+00:01:32,266 --> 00:01:33,200
+so we're going to have a name
+
+53
+00:01:33,300 --> 00:01:34,366
+that's going to be a string
+
+54
+00:01:34,600 --> 00:01:35,866
+a type will be a string
+
+55
+00:01:36,233 --> 00:01:37,966
+and we'll have hibernating
+
+56
+00:01:38,300 --> 00:01:39,666
+which will be a boolean
+
+57
+00:01:41,433 --> 00:01:43,100
+and it went ahead and generated all the files
+
+58
+00:01:43,100 --> 00:01:44,600
+for managing that resource
+
+59
+00:01:44,900 --> 00:01:46,633
+so now we'll go ahead and open it in our editor
+
+60
+00:01:46,633 --> 00:01:47,833
+and I'm using sublime
+
+61
+00:01:48,566 --> 00:01:50,300
+and I have our survey app on the left
+
+62
+00:01:50,300 --> 00:01:51,700
+and the Phoenix app on the right
+
+63
+00:01:52,300 --> 00:01:54,966
+let's dive right into the controller of the Phoenix app
+
+64
+00:01:55,466 --> 00:01:57,233
+yeah it's done in the live directory
+
+65
+00:01:57,500 --> 00:01:59,566
+there's a directory called refuge
+
+66
+00:01:59,766 --> 00:02:01,633
+and then if we go inside of web
+
+67
+00:02:02,000 --> 00:02:04,033
+well there's a sub directory called controllers
+
+68
+00:02:04,133 --> 00:02:05,400
+I'll open that up just a little bit more
+
+69
+00:02:05,400 --> 00:02:06,200
+so we can see it
+
+70
+00:02:06,200 --> 00:02:07,533
+and there's the bare controller
+
+71
+00:02:07,800 --> 00:02:09,100
+and didn't just save space
+
+72
+00:02:09,100 --> 00:02:10,966
+I'm going to close that sidebar
+
+73
+00:02:11,500 --> 00:02:13,500
+and just like our bare controller on the left
+
+74
+00:02:13,600 --> 00:02:15,766
+it's a module that defines
+
+75
+00:02:15,766 --> 00:02:17,733
+functions called actions
+
+76
+00:02:18,466 --> 00:02:19,766
+to handle different requests
+
+77
+00:02:20,100 --> 00:02:22,733
+so starting from the top here the first line is this
+
+78
+00:02:22,800 --> 00:02:25,966
+use line and it's a meta programming incantation
+
+79
+00:02:26,066 --> 00:02:28,533
+which requires this web module
+
+80
+00:02:28,600 --> 00:02:30,633
+which in turn injects some code
+
+81
+00:02:31,100 --> 00:02:32,233
+into our controller
+
+82
+00:02:32,266 --> 00:02:33,966
+now this is a Phoenix specific thing
+
+83
+00:02:34,066 --> 00:02:35,033
+don't worry about it
+
+84
+00:02:35,333 --> 00:02:37,633
+and then it aliases this wild things
+
+85
+00:02:37,633 --> 00:02:39,366
+module which we'll look at in a minute
+
+86
+00:02:39,566 --> 00:02:41,366
+then we have the index action
+
+87
+00:02:41,633 --> 00:02:42,533
+now in Phoenix
+
+88
+00:02:42,533 --> 00:02:43,833
+each action takes two
+
+89
+00:02:43,833 --> 00:02:46,533
+parameters which the Phoenix framework provides
+
+90
+00:02:46,566 --> 00:02:47,733
+when the action is run
+
+91
+00:02:48,100 --> 00:02:50,833
+the first parameter is always co n n
+
+92
+00:02:50,933 --> 00:02:52,733
+it's an abbreviation for connection
+
+93
+00:02:52,733 --> 00:02:54,866
+it's similar to our con
+
+94
+00:02:55,033 --> 00:02:56,033
+it's a structure
+
+95
+00:02:56,033 --> 00:02:58,033
+that holds information about the request
+
+96
+00:02:58,400 --> 00:02:59,800
+the second parameter is
+
+97
+00:02:59,800 --> 00:03:03,200
+para which is a map that holds any request parameters
+
+98
+00:03:03,233 --> 00:03:04,733
+similar to our param's map
+
+99
+00:03:04,933 --> 00:03:07,033
+now the index action in this case doesn't use
+
+100
+00:03:07,033 --> 00:03:07,933
+the parameters
+
+101
+00:03:08,033 --> 00:03:09,300
+so it uses underscore
+
+102
+00:03:09,300 --> 00:03:11,333
+parameters so that we don't get a compiler warning
+
+103
+00:03:11,500 --> 00:03:12,733
+about it not being used
+
+104
+00:03:13,133 --> 00:03:15,733
+now our index action just takes conv
+
+105
+00:03:15,933 --> 00:03:18,233
+as the first parameter doesn't have a second parameter
+
+106
+00:03:18,433 --> 00:03:21,033
+because we don't use the para in our index action
+
+107
+00:03:21,233 --> 00:03:22,433
+but you know how to pass those through
+
+108
+00:03:22,433 --> 00:03:23,433
+if you wanted to do that
+
+109
+00:03:24,133 --> 00:03:26,100
+just like our app calls wild things
+
+110
+00:03:26,300 --> 00:03:28,033
+list bears to get all the bears
+
+111
+00:03:28,066 --> 00:03:29,366
+if we look in the Phoenix app
+
+112
+00:03:29,500 --> 00:03:31,633
+the first line in index action does the same thing
+
+113
+00:03:31,633 --> 00:03:32,966
+we've got a module wild things
+
+114
+00:03:33,133 --> 00:03:35,266
+and calls a function to list bears and
+
+115
+00:03:35,266 --> 00:03:37,400
+both return a list of bear struck
+
+116
+00:03:37,800 --> 00:03:40,533
+then it calls render passing conn
+
+117
+00:03:40,766 --> 00:03:44,100
+and it also passes the template name index html
+
+118
+00:03:44,200 --> 00:03:45,900
+now Phoenix uses a slightly
+
+119
+00:03:45,900 --> 00:03:47,500
+different naming convention than ours
+
+120
+00:03:47,533 --> 00:03:49,833
+but both templates render html
+
+121
+00:03:50,033 --> 00:03:52,166
+and then the third parameter is the bindings
+
+122
+00:03:52,166 --> 00:03:54,466
+so they're going to bind bears to bears
+
+123
+00:03:54,500 --> 00:03:56,800
+just like we did over here when we called our render
+
+124
+00:03:57,233 --> 00:03:59,033
+now let's dig one level deeper
+
+125
+00:03:59,066 --> 00:04:00,733
+into this wild things module
+
+126
+00:04:01,133 --> 00:04:02,300
+open up the sidebar again
+
+127
+00:04:02,666 --> 00:04:05,033
+it's down here in a directory called wild things
+
+128
+00:04:05,600 --> 00:04:07,600
+and there's a wild things ex
+
+129
+00:04:08,633 --> 00:04:10,500
+and we'll do the same over here in our survey app
+
+130
+00:04:11,066 --> 00:04:12,766
+we just have everything under survey
+
+131
+00:04:13,300 --> 00:04:14,900
+and there's our wild things module
+
+132
+00:04:15,633 --> 00:04:17,033
+so if we look at the wild things
+
+133
+00:04:17,033 --> 00:04:18,733
+module generated by Phoenix
+
+134
+00:04:18,733 --> 00:04:21,266
+it's a simple abstraction for creating reading
+
+135
+00:04:21,266 --> 00:04:24,366
+updating and deleting a resource bears in our case
+
+136
+00:04:24,700 --> 00:04:26,600
+now if you look to the Phoenix documentation
+
+137
+00:04:26,600 --> 00:04:29,533
+they're going to refer to this thing as a context
+
+138
+00:04:29,600 --> 00:04:32,133
+and the comment says that it's a boundary for the wild
+
+139
+00:04:32,133 --> 00:04:32,933
+things system
+
+140
+00:04:33,300 --> 00:04:35,966
+so basically this is a data access layer
+
+141
+00:04:35,966 --> 00:04:37,233
+it encapsulates
+
+142
+00:04:37,333 --> 00:04:38,366
+everything related to
+
+143
+00:04:38,433 --> 00:04:39,833
+getting bears creating bears
+
+144
+00:04:39,833 --> 00:04:41,500
+updating bears and deleting bears
+
+145
+00:04:41,866 --> 00:04:44,366
+so if we look at this list bears function right here
+
+146
+00:04:44,533 --> 00:04:47,600
+it calls below passing bear
+
+147
+00:04:47,933 --> 00:04:50,200
+well the re module is part of the
+
+148
+00:04:50,200 --> 00:04:53,166
+ecto library and this is the database rapper library
+
+149
+00:04:53,166 --> 00:04:54,366
+used by Phoenix
+
+150
+00:04:54,533 --> 00:04:57,433
+and repo represents a connection to a database which
+
+151
+00:04:57,433 --> 00:04:58,366
+by default is going to be
+
+152
+00:04:58,366 --> 00:04:59,733
+a post risk database
+
+153
+00:04:59,900 --> 00:05:00,933
+so calling rep
+
+154
+00:05:01,433 --> 00:05:04,633
+queries the database to fetch all the bears in our app
+
+155
+00:05:04,633 --> 00:05:06,566
+we just have an in memory database
+
+156
+00:05:06,566 --> 00:05:09,500
+so our list bears just returns a list of bears
+
+157
+00:05:09,966 --> 00:05:10,800
+then back over here
+
+158
+00:05:10,800 --> 00:05:12,166
+if we scroll down a little bit further
+
+159
+00:05:12,366 --> 00:05:15,700
+they have a get bear function that calls repo dot get
+
+160
+00:05:15,766 --> 00:05:17,333
+passing the bear in the id
+
+161
+00:05:17,566 --> 00:05:19,366
+which will issue a database query to find
+
+162
+00:05:19,366 --> 00:05:20,600
+the bear with the given id
+
+163
+00:05:20,966 --> 00:05:22,466
+it's pretty similar to our get bear
+
+164
+00:05:22,466 --> 00:05:23,733
+except we're using email
+
+165
+00:05:23,733 --> 00:05:24,866
+find to find
+
+166
+00:05:24,866 --> 00:05:26,333
+the bear within the list of bears
+
+167
+00:05:26,333 --> 00:05:27,700
+that has that matching id
+
+168
+00:05:28,433 --> 00:05:30,466
+now you notice if we scroll down over and wild things
+
+169
+00:05:30,666 --> 00:05:32,266
+they have a function for creating a bear
+
+170
+00:05:32,500 --> 00:05:34,066
+there's a function for updating a bear
+
+171
+00:05:34,500 --> 00:05:36,633
+and also for deleting a bear from the database
+
+172
+00:05:37,266 --> 00:05:37,700
+now let's go
+
+173
+00:05:37,700 --> 00:05:39,566
+have a look at that index template to see what's going
+
+174
+00:05:39,566 --> 00:05:41,766
+on in there so in the Phoenix app
+
+175
+00:05:41,766 --> 00:05:43,833
+under the web directory you'll find a template
+
+176
+00:05:43,833 --> 00:05:44,733
+sub directory
+
+177
+00:05:44,866 --> 00:05:47,033
+and then it has these organized by the controller
+
+178
+00:05:47,033 --> 00:05:48,933
+so all the templates for the bare controller are
+
+179
+00:05:48,933 --> 00:05:50,500
+under the bare sub directory
+
+180
+00:05:50,700 --> 00:05:52,066
+and there's the index for that
+
+181
+00:05:52,800 --> 00:05:54,933
+and you notice they use the naming convention index
+
+182
+00:05:54,933 --> 00:05:56,633
+that html ex
+
+183
+00:05:56,633 --> 00:05:59,066
+it's just a different naming convention than we used
+
+184
+00:05:59,233 --> 00:06:00,100
+the intent here is
+
+185
+00:06:00,100 --> 00:06:01,466
+you know by looking at the name
+
+186
+00:06:01,500 --> 00:06:03,100
+that this generates html
+
+187
+00:06:03,766 --> 00:06:06,166
+thus open up our index template over here
+
+188
+00:06:06,900 --> 00:06:07,966
+down in templates
+
+189
+00:06:08,500 --> 00:06:09,300
+there it is
+
+190
+00:06:09,933 --> 00:06:11,333
+hey check this out in the same way
+
+191
+00:06:11,333 --> 00:06:13,066
+we use a comprehension to
+
+192
+00:06:13,166 --> 00:06:14,466
+loop through all the bears
+
+193
+00:06:14,500 --> 00:06:16,433
+and then we're using less than % equals
+
+194
+00:06:16,600 --> 00:06:17,833
+well they're doing the same thing here
+
+195
+00:06:17,833 --> 00:06:19,700
+there's a comprehension for bear
+
+196
+00:06:19,900 --> 00:06:22,700
+notice the bears has an at sign before it
+
+197
+00:06:22,966 --> 00:06:25,166
+this is just the way Phoenix sets up data
+
+198
+00:06:25,266 --> 00:06:26,266
+in the actions
+
+199
+00:06:26,266 --> 00:06:28,900
+so to get access to the value bound to the bears name
+
+200
+00:06:28,900 --> 00:06:30,900
+you have to use at bears in Phoenix
+
+201
+00:06:31,266 --> 00:06:32,533
+and then inside of that loop
+
+202
+00:06:32,533 --> 00:06:33,433
+they use the same
+
+203
+00:06:33,466 --> 00:06:35,700
+syntax to get all the attributes of the bear
+
+204
+00:06:36,166 --> 00:06:37,866
+so far this is all pretty familiar
+
+205
+00:06:38,333 --> 00:06:39,900
+now let's go back to the controller
+
+206
+00:06:40,866 --> 00:06:41,833
+bear controller here
+
+207
+00:06:43,533 --> 00:06:44,700
+and the bare controller here
+
+208
+00:06:45,333 --> 00:06:46,233
+let's have a look at this
+
+209
+00:06:46,233 --> 00:06:48,466
+show action in the Phoenix generated app
+
+210
+00:06:48,466 --> 00:06:50,366
+here is put them side by side
+
+211
+00:06:50,833 --> 00:06:53,000
+and you notice just like our show action
+
+212
+00:06:53,000 --> 00:06:54,033
+the second parameters
+
+213
+00:06:54,033 --> 00:06:56,300
+these para and they're using pattern matching
+
+214
+00:06:56,333 --> 00:06:58,033
+to extract this id
+
+215
+00:06:58,400 --> 00:06:59,600
+then they turn around and call
+
+216
+00:06:59,600 --> 00:07:01,966
+get bear with that id to get the bear struck
+
+217
+00:07:01,966 --> 00:07:04,866
+then they call render with the template show html
+
+218
+00:07:05,000 --> 00:07:07,300
+and pass the bear as a bound value
+
+219
+00:07:07,633 --> 00:07:09,400
+the same way we extract the id
+
+220
+00:07:09,700 --> 00:07:11,633
+get the bear from our wild things module
+
+221
+00:07:11,633 --> 00:07:13,033
+and render the show template
+
+222
+00:07:13,766 --> 00:07:15,600
+now what about this crate action over here
+
+223
+00:07:15,766 --> 00:07:16,500
+well in our app
+
+224
+00:07:16,500 --> 00:07:18,566
+we didn't actually create a bear in the database
+
+225
+00:07:18,566 --> 00:07:20,366
+that's sort of outside the scope of this course
+
+226
+00:07:20,700 --> 00:07:21,366
+but if we look at
+
+227
+00:07:21,366 --> 00:07:23,400
+how the generated crate action does it
+
+228
+00:07:23,466 --> 00:07:24,600
+it's familiar code
+
+229
+00:07:25,066 --> 00:07:26,666
+we notice its pattern matching
+
+230
+00:07:26,800 --> 00:07:27,933
+on the para
+
+231
+00:07:27,933 --> 00:07:30,800
+to extract the bear para into this variable
+
+232
+00:07:31,133 --> 00:07:33,433
+and the way these para come in is they're nested
+
+233
+00:07:33,433 --> 00:07:34,900
+under a key called bear
+
+234
+00:07:34,966 --> 00:07:37,200
+so it's a map inside of another map
+
+235
+00:07:37,533 --> 00:07:38,800
+then they call the create
+
+236
+00:07:38,800 --> 00:07:40,933
+bear function with those bear prams
+
+237
+00:07:40,933 --> 00:07:43,100
+and that can succeed or fail
+
+238
+00:07:43,366 --> 00:07:45,000
+so they're using a case expression
+
+239
+00:07:45,000 --> 00:07:46,433
+and then they can pattern match
+
+240
+00:07:46,433 --> 00:07:47,700
+on the success or failure
+
+241
+00:07:47,700 --> 00:07:50,833
+so if it succeeds we're going to get an ok atom
+
+242
+00:07:50,833 --> 00:07:52,000
+and then we're going to have a bear
+
+243
+00:07:52,400 --> 00:07:54,433
+in that case they take the connection
+
+244
+00:07:54,700 --> 00:07:55,466
+and they call
+
+245
+00:07:55,500 --> 00:07:58,000
+put flash on it to put a flash message
+
+246
+00:07:58,000 --> 00:07:59,266
+inside of that connection
+
+247
+00:07:59,533 --> 00:08:02,200
+this just adds extra information of the connection
+
+248
+00:08:02,333 --> 00:08:04,900
+in the same way that we plugged in functions
+
+249
+00:08:04,966 --> 00:08:07,100
+using things like log and track
+
+250
+00:08:07,533 --> 00:08:09,200
+and then it redirects to the show action
+
+251
+00:08:09,200 --> 00:08:10,233
+to show the new bear
+
+252
+00:08:10,766 --> 00:08:12,633
+otherwise if creating the bear fails
+
+253
+00:08:12,633 --> 00:08:15,166
+then we get this tuple and pattern match on it
+
+254
+00:08:15,533 --> 00:08:16,300
+we get an error
+
+255
+00:08:16,300 --> 00:08:17,966
+and then we have this thing called a change
+
+256
+00:08:17,966 --> 00:08:19,333
+set that they pattern match on
+
+257
+00:08:19,566 --> 00:08:20,366
+and that change
+
+258
+00:08:20,366 --> 00:08:23,533
+set will include any validation errors to be displayed
+
+259
+00:08:23,966 --> 00:08:25,633
+so they extract the change set
+
+260
+00:08:25,766 --> 00:08:27,733
+and then they render the new template
+
+261
+00:08:27,900 --> 00:08:29,000
+giving it the change
+
+262
+00:08:29,000 --> 00:08:31,166
+set so it can pull out the validation errors
+
+263
+00:08:31,400 --> 00:08:32,666
+and if you scroll through this file
+
+264
+00:08:32,666 --> 00:08:34,300
+you'll see that the generator implemented
+
+265
+00:08:34,300 --> 00:08:35,633
+other restful actions
+
+266
+00:08:35,933 --> 00:08:38,733
+like edit there's update down here
+
+267
+00:08:38,800 --> 00:08:40,200
+there's a delete action
+
+268
+00:08:40,300 --> 00:08:42,833
+but there's really no new syntax or concepts here
+
+269
+00:08:43,100 --> 00:08:45,833
+the router is more interesting so let's hop over there
+
+270
+00:08:46,300 --> 00:08:49,133
+the router is over in the directory web
+
+271
+00:08:50,100 --> 00:08:52,933
+if you scroll down here there's a file router ex
+
+272
+00:08:53,566 --> 00:08:54,700
+and just for comparison
+
+273
+00:08:54,700 --> 00:08:54,933
+over here
+
+274
+00:08:54,933 --> 00:08:56,966
+I'm going to open up our handler because that has our
+
+275
+00:08:56,966 --> 00:08:58,333
+route function inside of it
+
+276
+00:08:59,133 --> 00:09:01,133
+now this router module looks pretty
+
+277
+00:09:01,233 --> 00:09:03,333
+different than other modules that we've seen
+
+278
+00:09:03,633 --> 00:09:05,166
+rather than defining functions
+
+279
+00:09:05,166 --> 00:09:06,533
+it uses macros
+
+280
+00:09:06,533 --> 00:09:09,166
+so it feels more like a domain specific language
+
+281
+00:09:09,366 --> 00:09:10,966
+and the macros get expanded
+
+282
+00:09:10,966 --> 00:09:12,733
+into functions at compile time
+
+283
+00:09:12,933 --> 00:09:14,366
+now there's a lot going on in here
+
+284
+00:09:14,366 --> 00:09:15,433
+so let's break it down
+
+285
+00:09:16,066 --> 00:09:18,233
+forget about these pipelines for just a minute
+
+286
+00:09:18,233 --> 00:09:19,233
+we'll come back to those
+
+287
+00:09:19,466 --> 00:09:21,566
+let's focus on this route right here
+
+288
+00:09:21,933 --> 00:09:25,666
+so it matches a git request for the path slash
+
+289
+00:09:25,800 --> 00:09:28,233
+and then it's going to call the page controllers
+
+290
+00:09:28,466 --> 00:09:30,900
+index action to handle that request
+
+291
+00:09:31,333 --> 00:09:32,700
+now Phoenix generated the page
+
+292
+00:09:32,733 --> 00:09:34,700
+controller in the index action by default
+
+293
+00:09:34,733 --> 00:09:36,966
+because it just wants to display a welcome page and
+
+294
+00:09:36,966 --> 00:09:37,533
+have something
+
+295
+00:09:37,533 --> 00:09:38,733
+there for people to look at
+
+296
+00:09:39,133 --> 00:09:41,100
+but we want a route for listing bearers
+
+297
+00:09:41,133 --> 00:09:42,500
+so I'm just going to copy this
+
+298
+00:09:43,566 --> 00:09:44,966
+put it below this route
+
+299
+00:09:45,833 --> 00:09:48,133
+and when we go to slash bears
+
+300
+00:09:48,433 --> 00:09:50,400
+we want to run our bear controller
+
+301
+00:09:50,933 --> 00:09:52,433
+index action now
+
+302
+00:09:52,433 --> 00:09:54,166
+I mentioned that this module makes heavy use
+
+303
+00:09:54,166 --> 00:09:55,433
+of macros and
+
+304
+00:09:55,433 --> 00:09:56,900
+get is a macro
+
+305
+00:09:57,100 --> 00:09:59,533
+and it's going to get expanded at compile time
+
+306
+00:09:59,766 --> 00:10:01,633
+into a function called match
+
+307
+00:10:01,633 --> 00:10:02,666
+it looks something like this
+
+308
+00:10:02,666 --> 00:10:04,333
+I'm just going to paste it outside of here
+
+309
+00:10:04,666 --> 00:10:06,333
+so the function is called match
+
+310
+00:10:06,333 --> 00:10:06,733
+it
+
+311
+00:10:06,733 --> 00:10:10,166
+takes a conn that's their connection or conversation
+
+312
+00:10:10,533 --> 00:10:12,633
+did it pattern matches on the hdp verb
+
+313
+00:10:12,633 --> 00:10:13,866
+in this case it's going to be a get
+
+314
+00:10:13,866 --> 00:10:14,966
+because we used get there
+
+315
+00:10:15,366 --> 00:10:17,400
+and then the third parameter is
+
+316
+00:10:17,400 --> 00:10:19,000
+a list that they pattern match on
+
+317
+00:10:19,000 --> 00:10:20,766
+and this is the path slash bears
+
+318
+00:10:21,200 --> 00:10:23,666
+so the match function takes three arguments
+
+319
+00:10:23,766 --> 00:10:26,600
+if we look over at our route function for slash bears
+
+320
+00:10:26,600 --> 00:10:28,033
+we're just taking one argument
+
+321
+00:10:28,133 --> 00:10:30,233
+it's the co and v our connection
+
+322
+00:10:30,600 --> 00:10:32,433
+and then we pattern match on
+
+323
+00:10:32,533 --> 00:10:34,300
+what's inside of that connection
+
+324
+00:10:34,366 --> 00:10:35,433
+so we're pattern matching
+
+325
+00:10:35,433 --> 00:10:37,400
+whatever's inside of the conversation map
+
+326
+00:10:37,400 --> 00:10:38,500
+as one argument
+
+327
+00:10:39,100 --> 00:10:40,566
+and their pattern matching on the
+
+328
+00:10:40,566 --> 00:10:43,433
+verb and the path separately is two separate arguments
+
+329
+00:10:43,666 --> 00:10:44,666
+but that's no big deal
+
+330
+00:10:44,666 --> 00:10:46,166
+now that you know how to pattern match
+
+331
+00:10:46,166 --> 00:10:48,166
+you could pattern match on one argument that has
+
+332
+00:10:48,500 --> 00:10:49,400
+everything inside of a map
+
+333
+00:10:49,633 --> 00:10:51,533
+or you could pattern match on separate arguments
+
+334
+00:10:51,533 --> 00:10:53,433
+it's six and one half a dozen of the other
+
+335
+00:10:54,033 --> 00:10:54,900
+so I'm going to get rid of this
+
+336
+00:10:54,900 --> 00:10:57,033
+because again that's generated at compile time
+
+337
+00:10:57,200 --> 00:10:59,733
+by the macro but let's say we wanted the full
+
+338
+00:10:59,733 --> 00:11:02,100
+complementary route to manage a bear resource
+
+339
+00:11:02,233 --> 00:11:03,133
+well we could do this
+
+340
+00:11:03,133 --> 00:11:04,433
+by putting a bunch of routes in here
+
+341
+00:11:04,433 --> 00:11:06,000
+and I'm just going to paste in a
+
+342
+00:11:06,000 --> 00:11:06,900
+list I already have
+
+343
+00:11:07,500 --> 00:11:09,500
+and each of these is a macro
+
+344
+00:11:09,500 --> 00:11:10,966
+that's going to get expanded
+
+345
+00:11:10,966 --> 00:11:12,333
+into a match function
+
+346
+00:11:12,500 --> 00:11:13,933
+so we're going to end up with eight
+
+347
+00:11:13,933 --> 00:11:15,833
+multi clause match functions
+
+348
+00:11:15,833 --> 00:11:18,333
+and we know how multi clause functions behave
+
+349
+00:11:18,600 --> 00:11:21,133
+elixir tries to match them from top to bottom
+
+350
+00:11:21,200 --> 00:11:21,833
+and the first
+
+351
+00:11:21,833 --> 00:11:24,366
+clause that matches the verb and the path will be run
+
+352
+00:11:24,966 --> 00:11:25,866
+now as you might expect
+
+353
+00:11:25,866 --> 00:11:28,533
+there's a shortcut to adding all these restful routes
+
+354
+00:11:28,633 --> 00:11:29,733
+so if we comment this out
+
+355
+00:11:30,333 --> 00:11:33,000
+shorthand way of doing this is to say resources
+
+356
+00:11:33,266 --> 00:11:34,300
+slash bears
+
+357
+00:11:35,966 --> 00:11:37,233
+and then bare controller
+
+358
+00:11:37,600 --> 00:11:40,666
+and that itself is a macro that's going to expand
+
+359
+00:11:40,666 --> 00:11:41,666
+to give us all
+
+360
+00:11:41,800 --> 00:11:43,766
+eight clauses of the match function
+
+361
+00:11:44,333 --> 00:11:46,000
+so now let's double back and look at this
+
+362
+00:11:46,000 --> 00:11:47,566
+pipeline stuff at the top here
+
+363
+00:11:48,200 --> 00:11:50,333
+and remember we have our own pipeline
+
+364
+00:11:50,333 --> 00:11:51,633
+over in this handle function
+
+365
+00:11:51,633 --> 00:11:53,466
+we're using the pipe operator to do that
+
+366
+00:11:53,800 --> 00:11:55,000
+it pipes the request
+
+367
+00:11:55,000 --> 00:11:56,733
+through various functions we've written
+
+368
+00:11:57,000 --> 00:11:59,300
+while Phoenix has two separate pipelines
+
+369
+00:11:59,300 --> 00:12:00,600
+one of them's called browser
+
+370
+00:12:00,600 --> 00:12:02,300
+and one of them's called api
+
+371
+00:12:02,600 --> 00:12:05,066
+and they perform different transformations inside
+
+372
+00:12:05,133 --> 00:12:06,100
+this one for the browsers
+
+373
+00:12:06,100 --> 00:12:08,366
+a little bit more involved than the one for the api
+
+374
+00:12:08,600 --> 00:12:10,066
+because they have different needs
+
+375
+00:12:10,266 --> 00:12:12,366
+instead of using the pipe operator
+
+376
+00:12:12,366 --> 00:12:14,400
+they use this plug function
+
+377
+00:12:14,700 --> 00:12:15,466
+right here
+
+378
+00:12:15,466 --> 00:12:17,600
+and then they give it the name of a function
+
+379
+00:12:17,633 --> 00:12:19,533
+so this plugs the accepts function
+
+380
+00:12:19,600 --> 00:12:21,933
+the fetch session function and so on
+
+381
+00:12:22,100 --> 00:12:24,466
+but it's basically the same thing it's a
+
+382
+00:12:24,466 --> 00:12:27,033
+pipeline of transformation functions
+
+383
+00:12:27,066 --> 00:12:28,733
+they get applied to the request
+
+384
+00:12:29,233 --> 00:12:31,433
+then because these pipelines have names
+
+385
+00:12:31,433 --> 00:12:34,066
+if we look down here under scope slash
+
+386
+00:12:34,066 --> 00:12:36,700
+it says pipe through browser
+
+387
+00:12:37,066 --> 00:12:39,933
+so browser based requests get piped through
+
+388
+00:12:40,033 --> 00:12:41,100
+this pipeline
+
+389
+00:12:41,266 --> 00:12:42,166
+which means
+
+390
+00:12:42,166 --> 00:12:45,066
+any of the requests that match these routes will have
+
+391
+00:12:45,066 --> 00:12:46,800
+already gone through this pipeline
+
+392
+00:12:47,233 --> 00:12:49,233
+likewise if you scroll down a little bit further
+
+393
+00:12:49,233 --> 00:12:51,033
+there is a scope for
+
+394
+00:12:51,300 --> 00:12:54,600
+api and it gets piped through the api pipeline
+
+395
+00:12:55,033 --> 00:12:57,333
+now we've barely scratched the surface of Phoenix
+
+396
+00:12:57,333 --> 00:12:59,233
+it's a full stack web framework
+
+397
+00:12:59,233 --> 00:13:01,233
+after all with lots of bells and whistles
+
+398
+00:13:01,500 --> 00:13:03,933
+but hopefully this quick walkthrough has given you more
+
+399
+00:13:03,933 --> 00:13:05,733
+confidence before setting sail
+
+400
+00:13:05,833 --> 00:13:07,633
+for the fiery land of Phoenix
+

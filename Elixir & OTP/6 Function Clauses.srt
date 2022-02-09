@@ -1,0 +1,708 @@
+1
+00:00:00,300 --> 00:00:01,900
+so we're making good progress
+
+2
+00:00:01,900 --> 00:00:03,733
+but our server's still kind of dumb
+
+3
+00:00:03,900 --> 00:00:05,633
+after all it can only handle one request
+
+4
+00:00:05,733 --> 00:00:07,500
+well let's create a second request
+
+5
+00:00:07,500 --> 00:00:09,166
+I was thinking this one could be for
+
+6
+00:00:09,166 --> 00:00:11,266
+just the bears at our wildlife refuge
+
+7
+00:00:11,333 --> 00:00:12,500
+oh that sounds like fun
+
+8
+00:00:13,000 --> 00:00:14,266
+now before we do that
+
+9
+00:00:14,466 --> 00:00:16,233
+let's print out the request
+
+10
+00:00:16,266 --> 00:00:17,866
+so we can see what it looks like
+
+11
+00:00:18,066 --> 00:00:19,300
+before it gets routed
+
+12
+00:00:19,700 --> 00:00:20,533
+so we want to add some
+
+13
+00:00:20,533 --> 00:00:22,500
+logging into the pipeline and it's going to be
+
+14
+00:00:22,500 --> 00:00:23,100
+after the parts
+
+15
+00:00:23,100 --> 00:00:25,733
+but before the route so we'll just add a step here
+
+16
+00:00:25,866 --> 00:00:27,500
+and I'm going to call the function log
+
+17
+00:00:28,000 --> 00:00:29,500
+what's cool about this pipeline
+
+18
+00:00:29,500 --> 00:00:30,866
+design is we can plug in
+
+19
+00:00:30,966 --> 00:00:33,000
+any function that takes a conversation map
+
+20
+00:00:33,000 --> 00:00:34,733
+and returns a conversation map
+
+21
+00:00:35,066 --> 00:00:36,500
+so then we can define log
+
+22
+00:00:36,966 --> 00:00:37,966
+just put it right here
+
+23
+00:00:38,766 --> 00:00:40,733
+it's going to take a co n map
+
+24
+00:00:40,833 --> 00:00:42,533
+it's going to have to return one as well
+
+25
+00:00:42,533 --> 00:00:43,766
+to work in that pipeline
+
+26
+00:00:44,033 --> 00:00:46,133
+and then right here I'm going to use io inspect
+
+27
+00:00:46,133 --> 00:00:47,333
+we want to print out a map
+
+28
+00:00:47,333 --> 00:00:49,833
+so instead of using put us I'm going to use inspect
+
+29
+00:00:50,133 --> 00:00:51,766
+and we want to inspect that map
+
+30
+00:00:52,333 --> 00:00:54,666
+now this will work but we can make it more concise
+
+31
+00:00:54,833 --> 00:00:57,633
+because inspect prints the data structure and
+
+32
+00:00:57,900 --> 00:01:01,233
+also returns the given data structure unchanged
+
+33
+00:01:01,433 --> 00:01:03,633
+and because of that we could remove this line
+
+34
+00:01:03,633 --> 00:01:05,033
+and now we're just left with a
+
+35
+00:01:05,033 --> 00:01:07,566
+single line function here and there's a more concise
+
+36
+00:01:07,566 --> 00:01:09,100
+way to represent single
+
+37
+00:01:09,100 --> 00:01:11,433
+line functions that's to put a comma here
+
+38
+00:01:11,966 --> 00:01:13,233
+a colon after do
+
+39
+00:01:13,466 --> 00:01:15,366
+then we can just bring this up here
+
+40
+00:01:15,933 --> 00:01:17,066
+and then get rid of the end
+
+41
+00:01:17,400 --> 00:01:19,533
+then if we save this and run it well
+
+42
+00:01:19,533 --> 00:01:20,466
+we notice we've got
+
+43
+00:01:20,466 --> 00:01:22,833
+a representation of our map being printed out
+
+44
+00:01:22,966 --> 00:01:25,033
+right here before we see the response so we
+
+45
+00:01:25,100 --> 00:01:26,533
+see what we're getting in as a request
+
+46
+00:01:27,200 --> 00:01:29,533
+so let's handle another get request
+
+47
+00:01:29,533 --> 00:01:31,166
+so let's take the one we have
+
+48
+00:01:31,166 --> 00:01:33,833
+and change it for slash bears
+
+49
+00:01:34,366 --> 00:01:36,133
+okay I'm just going to take the request we have
+
+50
+00:01:36,133 --> 00:01:36,966
+and all this stuff
+
+51
+00:01:36,966 --> 00:01:38,600
+and I'm just going to copy it for now
+
+52
+00:01:38,966 --> 00:01:42,066
+and we'll change the request from wild things to bears
+
+53
+00:01:43,000 --> 00:01:44,733
+but if we run it now
+
+54
+00:01:45,500 --> 00:01:48,033
+well we get the same response before
+
+55
+00:01:48,133 --> 00:01:50,933
+because our route function currently returns
+
+56
+00:01:51,066 --> 00:01:52,333
+only one response
+
+57
+00:01:52,400 --> 00:01:55,166
+yeah both of these are returning bears lions and tigers
+
+58
+00:01:55,600 --> 00:01:57,333
+so to fix that we'll just look at our
+
+59
+00:01:57,433 --> 00:01:58,733
+route function here
+
+60
+00:01:58,733 --> 00:02:00,933
+and a conventional solution would be to use
+
+61
+00:02:00,933 --> 00:02:01,933
+an if statement
+
+62
+00:02:02,300 --> 00:02:03,533
+elixir it looks like this
+
+63
+00:02:03,900 --> 00:02:05,333
+if do else end
+
+64
+00:02:05,633 --> 00:02:07,166
+nothing really surprising here
+
+65
+00:02:07,500 --> 00:02:11,000
+so we could look at the co and v it has a path key
+
+66
+00:02:11,266 --> 00:02:14,233
+we'll say if that equals wild things
+
+67
+00:02:14,866 --> 00:02:17,000
+well then we want to return this map
+
+68
+00:02:18,733 --> 00:02:22,166
+otherwise we're getting a request for just bears
+
+69
+00:02:22,166 --> 00:02:24,700
+so we'll return a list of bears which would be like
+
+70
+00:02:24,966 --> 00:02:28,233
+teddy smoky and paddington
+
+71
+00:02:29,133 --> 00:02:30,366
+and if we run it well
+
+72
+00:02:30,366 --> 00:02:32,000
+that works for our first request we
+
+73
+00:02:32,000 --> 00:02:33,533
+get back bears lines and tigers
+
+74
+00:02:33,533 --> 00:02:35,000
+because we're requesting wild things
+
+75
+00:02:35,000 --> 00:02:36,433
+when we request bears
+
+76
+00:02:36,433 --> 00:02:38,666
+we get back teddy smoking paddington
+
+77
+00:02:38,966 --> 00:02:40,333
+but in elixir you don't use
+
+78
+00:02:40,333 --> 00:02:42,000
+if conditionals as often as you would
+
+79
+00:02:42,000 --> 00:02:44,100
+in imperative languages such as ruby
+
+80
+00:02:44,333 --> 00:02:45,133
+instead
+
+81
+00:02:45,133 --> 00:02:48,300
+it's more idiomatic to control the flow of the program
+
+82
+00:02:48,400 --> 00:02:50,566
+using pattern matching and functions
+
+83
+00:02:50,966 --> 00:02:52,733
+in this case we can use pattern matching
+
+84
+00:02:52,733 --> 00:02:54,333
+to match incoming requests
+
+85
+00:02:54,333 --> 00:02:56,100
+and run an appropriate function
+
+86
+00:02:56,233 --> 00:02:58,033
+to fill in the response body
+
+87
+00:02:58,200 --> 00:03:00,700
+so we'll have a function called route
+
+88
+00:03:00,833 --> 00:03:01,633
+it's going to take
+
+89
+00:03:01,633 --> 00:03:04,300
+a co and v as the first argument and we need that
+
+90
+00:03:04,300 --> 00:03:06,366
+so that we can update the response body
+
+91
+00:03:06,600 --> 00:03:07,966
+and then it's going to take in the path
+
+92
+00:03:07,966 --> 00:03:10,166
+in this case this one will be for wild things
+
+93
+00:03:11,000 --> 00:03:12,533
+and when that function gets run
+
+94
+00:03:12,533 --> 00:03:14,533
+while we want to return this map
+
+95
+00:03:16,433 --> 00:03:18,766
+then we'll define a second route function
+
+96
+00:03:19,733 --> 00:03:21,333
+this one will also take the map
+
+97
+00:03:21,333 --> 00:03:24,333
+but it will have the path of bears
+
+98
+00:03:24,700 --> 00:03:25,800
+and when that function is run
+
+99
+00:03:25,800 --> 00:03:27,333
+we want to return this map
+
+100
+00:03:29,200 --> 00:03:32,833
+so we have two function definitions with the same name
+
+101
+00:03:32,833 --> 00:03:34,433
+and the same number of arguments
+
+102
+00:03:34,433 --> 00:03:35,966
+in this case two arguments
+
+103
+00:03:36,100 --> 00:03:37,433
+and in elixir parlance
+
+104
+00:03:37,600 --> 00:03:40,400
+we refer to these as function clauses
+
+105
+00:03:40,600 --> 00:03:42,700
+and if a function has several clauses
+
+106
+00:03:42,700 --> 00:03:43,866
+elixir will try
+
+107
+00:03:43,866 --> 00:03:46,366
+each clause until it finds one that matches
+
+108
+00:03:46,900 --> 00:03:50,000
+now these functions take two arguments
+
+109
+00:03:50,000 --> 00:03:54,033
+but in the pipeline route gets past a single argument
+
+110
+00:03:54,066 --> 00:03:57,200
+con right and that's this function here it
+
+111
+00:03:57,200 --> 00:03:59,366
+has an ability of one co and v so
+
+112
+00:03:59,500 --> 00:04:00,766
+inside of here we don't want to do this
+
+113
+00:04:00,766 --> 00:04:03,400
+we've got this represented in our function clauses
+
+114
+00:04:03,566 --> 00:04:06,800
+so what we need to do is take this one arty function
+
+115
+00:04:06,866 --> 00:04:08,433
+and call a route method
+
+116
+00:04:08,433 --> 00:04:10,833
+that takes two arguments or has an ability of two
+
+117
+00:04:11,033 --> 00:04:12,866
+so we'll just pass along conv
+
+118
+00:04:13,033 --> 00:04:15,933
+and we'll also pass along conv path
+
+119
+00:04:16,400 --> 00:04:17,900
+so we've got a one arty function
+
+120
+00:04:17,900 --> 00:04:19,700
+calling a two ability function
+
+121
+00:04:19,866 --> 00:04:21,866
+and when that two ability function is called
+
+122
+00:04:21,866 --> 00:04:23,066
+elixir will run
+
+123
+00:04:23,166 --> 00:04:26,500
+the first function clause that matches that pattern
+
+124
+00:04:26,900 --> 00:04:28,333
+so pattern matching applies
+
+125
+00:04:28,533 --> 00:04:30,900
+anytime we need to bind values to variables
+
+126
+00:04:30,900 --> 00:04:32,866
+for example when calling a function
+
+127
+00:04:32,966 --> 00:04:34,633
+and passing arguments to it
+
+128
+00:04:34,933 --> 00:04:36,866
+so we're going to call this function like this
+
+129
+00:04:36,966 --> 00:04:38,900
+co and v is going to match that
+
+130
+00:04:39,300 --> 00:04:41,933
+and then whatever the literal value of the path is
+
+131
+00:04:42,033 --> 00:04:44,166
+we'll match the second parameter there
+
+132
+00:04:44,166 --> 00:04:46,466
+so it's going to do pattern matching on those strings
+
+133
+00:04:47,000 --> 00:04:47,866
+and does it work
+
+134
+00:04:48,466 --> 00:04:49,866
+if we run it we get teddy
+
+135
+00:04:49,866 --> 00:04:52,266
+smoky and paddington for the second request and bears
+
+136
+00:04:52,266 --> 00:04:53,233
+lions and tigers
+
+137
+00:04:54,000 --> 00:04:58,033
+now http requests are uniquely identified by their path
+
+138
+00:04:58,066 --> 00:04:59,233
+and their method
+
+139
+00:04:59,433 --> 00:05:02,400
+get post etc so let's change
+
+140
+00:05:02,400 --> 00:05:04,800
+the function clause to include the method too
+
+141
+00:05:05,366 --> 00:05:07,900
+yeah we'll put the method as the second argument
+
+142
+00:05:08,033 --> 00:05:09,333
+so these are begets
+
+143
+00:05:10,733 --> 00:05:12,033
+put that one down here as well
+
+144
+00:05:12,566 --> 00:05:14,966
+so now these functions have an ability of three
+
+145
+00:05:15,233 --> 00:05:17,533
+so when we call it here we need to
+
+146
+00:05:17,533 --> 00:05:20,400
+also pass the comfort method
+
+147
+00:05:20,833 --> 00:05:22,966
+so now we have a one arty function calling a
+
+148
+00:05:22,966 --> 00:05:24,100
+three arty function
+
+149
+00:05:24,733 --> 00:05:25,566
+so we're on a roll
+
+150
+00:05:25,566 --> 00:05:29,133
+let's try a third request this one for bigfoot
+
+151
+00:05:29,566 --> 00:05:31,566
+all right I'm just going to copy these down here again
+
+152
+00:05:31,566 --> 00:05:32,833
+we'll clean this up a little bit later
+
+153
+00:05:32,833 --> 00:05:34,200
+but for now we're just on a roll
+
+154
+00:05:34,200 --> 00:05:34,900
+so we're going to
+
+155
+00:05:34,900 --> 00:05:35,833
+keep going with this
+
+156
+00:05:36,200 --> 00:05:39,033
+instead of bears I've got a request for bigfoot
+
+157
+00:05:39,633 --> 00:05:42,033
+now we know we don't have a function clause that
+
+158
+00:05:42,033 --> 00:05:43,533
+matches this request
+
+159
+00:05:43,733 --> 00:05:45,200
+so what's going to happen
+
+160
+00:05:46,033 --> 00:05:48,933
+well when we run it we get an error says no function
+
+161
+00:05:48,933 --> 00:05:50,166
+claws matching
+
+162
+00:05:50,666 --> 00:05:53,633
+route three and we see that the path is
+
+163
+00:05:54,400 --> 00:05:58,333
+bigfoot so elixir tried to find a matching function
+
+164
+00:05:58,700 --> 00:05:59,733
+but it doesn't exist
+
+165
+00:05:59,766 --> 00:06:01,900
+because we're only matching wild things and bears
+
+166
+00:06:02,133 --> 00:06:04,133
+now we'll go ahead and fix that in the next section
+
+167
+00:06:04,133 --> 00:06:05,800
+but one thing we've noticed so far
+
+168
+00:06:05,800 --> 00:06:08,133
+is that pattern matching removes the need for
+
+169
+00:06:08,300 --> 00:06:09,700
+if else conditionals
+
+170
+00:06:09,766 --> 00:06:10,966
+and we know we're going to handle
+
+171
+00:06:10,966 --> 00:06:12,300
+more requests coming up
+
+172
+00:06:12,533 --> 00:06:14,233
+and so we're not going to end up with this
+
+173
+00:06:14,300 --> 00:06:15,633
+long fl's conditional
+
+174
+00:06:15,633 --> 00:06:16,966
+instead we're just going to use
+
+175
+00:06:17,133 --> 00:06:19,766
+function clauses to match on those requests
+
+176
+00:06:20,100 --> 00:06:20,700
+that's right
+
+177
+00:06:20,700 --> 00:06:23,766
+instead we can write short declarative functions
+

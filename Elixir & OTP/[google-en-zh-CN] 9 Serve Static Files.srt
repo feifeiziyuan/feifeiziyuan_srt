@@ -1,0 +1,1585 @@
+1
+00:00:00,333 --> 00:00:02,200
+现在我们关注的最后几个部分
+now the last few sections we focused on
+
+2
+00:00:02,200 --> 00:00:02,966
+模式匹配
+pattern matching
+
+3
+00:00:02,966 --> 00:00:04,766
+特别是字符串和映射
+specifically with strings and maps
+
+4
+00:00:05,000 --> 00:00:06,266
+因为模式匹配是一个
+because pattern matching is a
+
+5
+00:00:06,266 --> 00:00:07,900
+不同的编程思维方式
+different way of thinking about programming
+
+6
+00:00:07,900 --> 00:00:09,233
+这需要一些练习
+and it takes a bit of practice
+
+7
+00:00:09,366 --> 00:00:11,566
+你会到处使用模式匹配
+and you'll use pattern matching all over the place
+
+8
+00:00:11,566 --> 00:00:13,433
+即使是某种东西的灵丹妙药
+an elixir even for something
+
+9
+00:00:13,466 --> 00:00:16,533
+像阅读文件一样简单和熟悉
+as straightforward and familiar as reading a file
+
+10
+00:00:16,666 --> 00:00:18,733
+我在想也许你有一个文件
+I'm thinking maybe you have a file in mind
+
+11
+00:00:19,166 --> 00:00:20,066
+事实上
+as a matter of fact
+
+12
+00:00:20,066 --> 00:00:23,533
+我创建了一个顶级页面目录，其中包含 about
+I've created a top level pages directory with an about
+
+13
+00:00:23,866 --> 00:00:25,300
+html文件在里面
+html file in it
+
+14
+00:00:25,466 --> 00:00:27,266
+现在你可以制作自己的文件了
+now you can make your own file
+
+15
+00:00:27,266 --> 00:00:29,700
+或者您可以在代码包中找到此文件
+or you can find this file in the code bundle
+
+16
+00:00:30,200 --> 00:00:32,600
+我们希望在收到请求时提供此文件
+and we want to serve this file when we get a request
+
+17
+00:00:32,600 --> 00:00:33,966
+斜线约
+for slash about
+
+18
+00:00:33,966 --> 00:00:36,966
+所以我们手头已经有一个请求奶嘴了
+so we already have a request teat up over in hand
+
+19
+00:00:37,000 --> 00:00:40,133
+例如，请求是斜线
+ex the request is get slash about
+
+20
+00:00:40,366 --> 00:00:41,966
+我们准备了一个路由函数
+and we've prepared a route function that
+
+21
+00:00:41,966 --> 00:00:43,100
+匹配请求
+matches the request
+
+22
+00:00:43,100 --> 00:00:45,266
+因为这里没有什么新东西要学
+since there's nothing new to learn here
+
+23
+00:00:46,300 --> 00:00:47,333
+它看起来像这样
+it just looks like this
+
+24
+00:00:47,633 --> 00:00:49,800
+我们将在路径斜杠上进行模式匹配
+we're going to pattern match on the path slash about
+
+25
+00:00:49,933 --> 00:00:51,433
+然后显然我们要填写
+and then obviously we want to fill in
+
+26
+00:00:51,433 --> 00:00:52,833
+响应体
+the response body
+
+27
+00:00:52,833 --> 00:00:54,300
+与文件的内容
+with the contents of the file
+
+28
+00:00:54,566 --> 00:00:56,566
+现在，如果我们运行它，它应该可以工作
+for now though if we run it it should work
+
+29
+00:00:56,966 --> 00:00:58,066
+是的，我们刚回来
+yep we just get back
+
+30
+00:00:58,133 --> 00:00:59,566
+文件内容so
+contents of file so
+
+31
+00:00:59,600 --> 00:01:02,100
+我们需要将文件作为这些内容提供
+we need to serve the file as those contents
+
+32
+00:01:02,400 --> 00:01:02,966
+所以让我们跳吧
+so let's hop
+
+33
+00:01:02,966 --> 00:01:05,533
+转到 ix 会话以查看如何读取文件
+over to an ix session to see how to read a file
+
+34
+00:01:05,533 --> 00:01:06,500
+我将使用 h
+I'm going to use the h
+
+35
+00:01:06,500 --> 00:01:07,200
+辅助函数
+helper function
+
+36
+00:01:07,200 --> 00:01:07,733
+然后
+and then the
+
+37
+00:01:07,733 --> 00:01:09,966
+文件模块包含一堆函数
+file module contains a bunch of functions for
+
+38
+00:01:09,966 --> 00:01:10,966
+处理文件
+working with files
+
+39
+00:01:11,133 --> 00:01:12,800
+我们想读取一个文件，所以不足为奇
+we want to read a file so no surprise
+
+40
+00:01:12,800 --> 00:01:14,333
+该函数称为读取
+the function is called a read
+
+41
+00:01:14,833 --> 00:01:17,000
+它说它返回这个
+and it says that it returns this
+
+42
+00:01:17,100 --> 00:01:20,000
+如果读取文件成功或这件事
+if reading the file was successful or this thing
+
+43
+00:01:20,000 --> 00:01:21,700
+如果读取文件是一个错误
+if reading the file was an error
+
+44
+00:01:21,933 --> 00:01:23,866
+那么花括号中的这些东西是什么
+so what are these things in curly braces
+
+45
+00:01:23,900 --> 00:01:25,433
+好吧，这就是所谓的元组
+well it's something called a tuple
+
+46
+00:01:25,600 --> 00:01:26,900
+元组只是一个有序的
+and a tuple is just an ordered
+
+47
+00:01:26,900 --> 00:01:28,900
+花括号中的值集合
+collection of values in curly braces
+
+48
+00:01:28,900 --> 00:01:30,266
+最常见的你会看到
+most commonly you'll see like
+
+49
+00:01:30,266 --> 00:01:31,866
+这些中的两到四个值
+two to four values in these
+
+50
+00:01:32,133 --> 00:01:33,666
+所以在成功的情况下
+so in the case of success
+
+51
+00:01:33,666 --> 00:01:35,233
+元组的第一个元素
+the first element of the tuple
+
+52
+00:01:35,533 --> 00:01:37,533
+在这种情况下是一个原子没关系
+is an atom in this case it's okay
+
+53
+00:01:37,800 --> 00:01:39,666
+然后第二个元素是二进制
+and then the second element is a binary
+
+54
+00:01:39,666 --> 00:01:41,800
+记住字符串是长生不老药中的二进制文件，所以
+remember strings are binaries in elixir so
+
+55
+00:01:41,900 --> 00:01:43,633
+这将是文件中的内容
+this is going to be the contents in the file
+
+56
+00:01:44,000 --> 00:01:44,966
+如果有错误
+and if there's an error
+
+57
+00:01:44,966 --> 00:01:47,066
+那么第一个元素是原子错误
+then the first element is the atom error
+
+58
+00:01:47,166 --> 00:01:49,133
+然后我们将得到一个原因变量
+and then we're going to get a reason variable
+
+59
+00:01:49,200 --> 00:01:51,333
+这必然会产生一些结果
+and that'll be bound to some result
+
+60
+00:01:51,333 --> 00:01:53,733
+如果我们往下看，我们会看到典型的错误
+and if we look down below we see the typical error
+
+61
+00:01:53,733 --> 00:01:56,166
+原因类似于原子
+reasons would be something like the atom
+
+62
+00:01:56,166 --> 00:01:59,566
+e 和 to 表示文件不存在
+e and to which indicates that the file does not exist
+
+63
+00:02:00,200 --> 00:02:02,200
+许多内置的长生不老药功能使用
+many built in elixir functions use
+
+64
+00:02:02,200 --> 00:02:04,100
+这个返回元组的成语
+this idiom that returns a tuple
+
+65
+00:02:04,433 --> 00:02:07,100
+那么我们如何检查读取文件是否成功
+so how do we check that reading a file was successful
+
+66
+00:02:07,100 --> 00:02:09,000
+如果是这样，提取其内容
+and if so extract its contents
+
+67
+00:02:09,000 --> 00:02:09,966
+你猜对了
+well you guessed it
+
+68
+00:02:10,200 --> 00:02:13,100
+通过在返回元组上使用模式匹配
+by using pattern matching on the return tuple
+
+69
+00:02:13,566 --> 00:02:14,733
+我们只是要清理这个
+we're just going to clean this up
+
+70
+00:02:14,733 --> 00:02:16,233
+所以我们回到顶部
+so we go back up to the top
+
+71
+00:02:16,333 --> 00:02:18,466
+所以我们可以使用文件点读取和
+so we can use file dot read and
+
+72
+00:02:18,600 --> 00:02:22,033
+因为我在顶级调查目录中启动了 ix
+because I started ix in the top level survey directory
+
+73
+00:02:22,233 --> 00:02:25,666
+那么我们关于文件的相对路径将是
+then the relative path to our about file is going to be
+
+74
+00:02:26,033 --> 00:02:26,833
+页面
+pages
+
+75
+00:02:27,733 --> 00:02:31,533
+关于 html，我们知道这将返回一个元组
+about html and we know that's going to return a tuple
+
+76
+00:02:31,600 --> 00:02:33,366
+我们希望这会成功
+and we expect this to succeed
+
+77
+00:02:33,366 --> 00:02:35,533
+所以我们可以将它与原子匹配
+so we can match it against the atom
+
+78
+00:02:36,000 --> 00:02:38,533
+好的，然后内容将被绑定
+okay and then the contents will get bound
+
+79
+00:02:38,633 --> 00:02:40,333
+到那个文件的内容
+to the contents of that file
+
+80
+00:02:40,633 --> 00:02:43,366
+如果我们看内容，果然是匹配的
+and sure enough it's a match if we look at contents
+
+81
+00:02:43,600 --> 00:02:45,300
+好吧，我们已经有了文件的内容
+well we've had the contents of our file
+
+82
+00:02:45,766 --> 00:02:47,500
+好吧，让我们看看该文件不存在
+well let's see that the file doesn't exist
+
+83
+00:02:47,533 --> 00:02:50,866
+例如我们看起来很陌生关于我们的文件
+for example we look foreign about us file
+
+84
+00:02:51,166 --> 00:02:51,966
+是的，如果我们尝试
+yeah if we try that
+
+85
+00:02:51,966 --> 00:02:53,033
+然后比赛失败
+then the match fails
+
+86
+00:02:53,033 --> 00:02:54,700
+因为它实际上是返回一个元组
+because it's actually returning a tuple
+
+87
+00:02:54,766 --> 00:02:57,533
+错误作为第一个元素，然后这个
+with error as the first element and then this
+
+88
+00:02:57,766 --> 00:02:59,900
+文件不存在原子作为第二个元素
+file not exist atom as the second element
+
+89
+00:03:00,233 --> 00:03:02,533
+那么我们要如何处理失败的情况
+so how do we want to handle the case where it fails
+
+90
+00:03:02,533 --> 00:03:04,200
+好吧，我们可以为此写一场比赛
+well we can write a match for that
+
+91
+00:03:04,833 --> 00:03:06,700
+是的，我们将在这里更改比赛
+yeah we'll just change the match here
+
+92
+00:03:07,266 --> 00:03:08,666
+这将匹配一个错误
+this is going to match an error
+
+93
+00:03:08,666 --> 00:03:11,133
+然后我们要捕获实际的错误
+and then we want to capture the actual error in
+
+94
+00:03:11,233 --> 00:03:12,533
+原因变量
+a reason variable
+
+95
+00:03:12,933 --> 00:03:14,533
+这是一场比赛，如果我们看看原因
+and that's a match and if we look at reason
+
+96
+00:03:15,033 --> 00:03:15,766
+嗯，就是那个原子
+well it's that atom
+
+97
+00:03:15,766 --> 00:03:17,366
+告诉我们该文件不存在
+that tells us that the file doesn't exist
+
+98
+00:03:17,966 --> 00:03:19,366
+所以现在回到我们的路线功能
+so now back in our route function
+
+99
+00:03:19,366 --> 00:03:19,733
+我们首先
+we first
+
+100
+00:03:19,733 --> 00:03:21,700
+需要读取文件，我们知道该怎么做
+need to read the file and we know how to do that
+
+101
+00:03:22,200 --> 00:03:25,100
+但相对于处理程序的目录
+but relative to the directory of the handler
+
+102
+00:03:25,166 --> 00:03:28,166
+ex 文件是两个目录，所以我们将使用
+ex file it's two directories up so we're going to use
+
+103
+00:03:29,466 --> 00:03:30,666
+就这样斜线
+slash just like that
+
+104
+00:03:30,966 --> 00:03:31,966
+然后我们可以使用
+and then we can use a
+
+105
+00:03:31,966 --> 00:03:33,533
+case 表达式来处理
+case expression to handle the
+
+106
+00:03:33,533 --> 00:03:34,966
+成功与失败场景
+success and failure scenario
+
+107
+00:03:34,966 --> 00:03:37,666
+所以我们说case，然后do，end
+so we say case and then do and end
+
+108
+00:03:38,000 --> 00:03:39,200
+然后在箱子里面
+and then inside of the case
+
+109
+00:03:39,200 --> 00:03:41,366
+我们可以匹配文件的结果
+we can match the result of the file
+
+110
+00:03:41,400 --> 00:03:44,133
+针对多种模式的芦苇表达
+reed expression against multiple patterns
+
+111
+00:03:44,500 --> 00:03:46,100
+所以第一个匹配的模式将是
+so the first pattern will match will be
+
+112
+00:03:46,833 --> 00:03:50,300
+好的，然后内容，我们用一个小箭头
+okay and then content and we use a little arrow
+
+113
+00:03:50,733 --> 00:03:53,466
+在那种特殊情况下，我们想要采取
+in that particular case we want to take the
+
+114
+00:03:54,266 --> 00:03:57,933
+co 和 v 映射并将状态更新为 200
+co and v map and update the status to be a 200
+
+115
+00:03:58,133 --> 00:03:59,500
+和响应体
+and the response body
+
+116
+00:03:59,766 --> 00:04:01,666
+无论内容是什么
+is going to be whatever that content is
+
+117
+00:04:02,166 --> 00:04:03,833
+然后在有错误的情况下
+then in the case that there's an error
+
+118
+00:04:03,866 --> 00:04:06,333
+我们会有元组错误
+we'll have the tuple error
+
+119
+00:04:06,933 --> 00:04:08,033
+然后我们将捕获原因
+and then we'll capture the reason
+
+120
+00:04:08,033 --> 00:04:10,000
+就像我们在 ix
+just like we did in ix
+
+121
+00:04:11,233 --> 00:04:13,133
+在这种情况下，我们要返回
+in this case we want to return
+
+122
+00:04:13,133 --> 00:04:14,966
+对话地图有
+a conversation map that has
+
+123
+00:04:15,000 --> 00:04:16,966
+状态为 500
+a status of 500
+
+124
+00:04:17,466 --> 00:04:18,933
+和响应体
+and the response body
+
+125
+00:04:19,100 --> 00:04:20,066
+我们只想说
+we're just going to say
+
+126
+00:04:20,900 --> 00:04:23,733
+归档空气，然后将插入原因
+file air and then will interpolate the reason
+
+127
+00:04:24,766 --> 00:04:27,366
+所以我们有一个匹配所有错误的模式
+so we have a pattern that matches all errors
+
+128
+00:04:27,366 --> 00:04:29,133
+但是假设我们要返回一个四
+but let's say we want to return a four
+
+129
+00:04:29,133 --> 00:04:30,933
+或四个有特定错误
+or four with a specific error
+
+130
+00:04:30,933 --> 00:04:32,233
+如果找不到文件
+if the file isn't found
+
+131
+00:04:32,666 --> 00:04:35,733
+好吧，我们可以在最后一个分支之上添加那个分支
+well we can add that branch above this final branch
+
+132
+00:04:35,800 --> 00:04:37,533
+所以模式看起来像错误
+so the pattern's going to look like error
+
+133
+00:04:37,533 --> 00:04:39,000
+但这将是一个特定的错误
+but it's going to be a specific error
+
+134
+00:04:39,000 --> 00:04:41,366
+就是那个 e 和 to amp t atom
+it's that e and to amp t atom
+
+135
+00:04:41,933 --> 00:04:42,400
+在那里面
+in that
+
+136
+00:04:42,400 --> 00:04:44,800
+如果我们要打开一张看起来像这样的地图
+case we were going to turn a map that looks like this
+
+137
+00:04:46,100 --> 00:04:48,100
+状态将是四或四
+the status is going to be a four or four
+
+138
+00:04:48,333 --> 00:04:50,433
+身体会说
+and the body is just going to say
+
+139
+00:04:51,700 --> 00:04:52,600
+文件未找到
+file not found
+
+140
+00:04:53,333 --> 00:04:56,133
+所以请记住这里的顺序很重要
+so just remember that the order here matters
+
+141
+00:04:56,166 --> 00:04:59,166
+第一个匹配的模式将获胜并且
+the first pattern that matches is going to win and
+
+142
+00:04:59,200 --> 00:05:00,300
+这就是为什么我们放置
+that's why we placed
+
+143
+00:05:00,366 --> 00:05:02,966
+这个模式在这个模式之上，因为这是一个更
+this pattern above this pattern because this is a more
+
+144
+00:05:02,966 --> 00:05:05,200
+通用形式它只会捕捉任何原因
+generic form it's just going to capture any reason
+
+145
+00:05:05,200 --> 00:05:06,400
+在那个原因变量
+in that reason variable
+
+146
+00:05:06,500 --> 00:05:09,100
+这是一个特定的文字匹配
+where this is a specific literal match
+
+147
+00:05:09,233 --> 00:05:11,300
+在那个亚当上，而且经常
+on that adam e and often
+
+148
+00:05:11,566 --> 00:05:13,766
+以及任何模式匹配的结果
+and the result of whichever pattern matches
+
+149
+00:05:13,766 --> 00:05:15,233
+成为的结果
+becomes the result of the
+
+150
+00:05:15,233 --> 00:05:16,533
+整体案例表达
+overall case expression
+
+151
+00:05:16,866 --> 00:05:18,633
+所以我们在这里不需要这条线
+so we don't need this line down here
+
+152
+00:05:19,166 --> 00:05:22,133
+因为我们的案例将返回更新后的地图
+because our case is going to return the updated map
+
+153
+00:05:22,433 --> 00:05:23,400
+现在如果我们运行它
+now if we run it
+
+154
+00:05:23,433 --> 00:05:25,533
+我们看到我们得到的报价是
+we see we've got the quote as the
+
+155
+00:05:25,566 --> 00:05:27,533
+该响应的正文
+body of that response
+
+156
+00:05:28,933 --> 00:05:32,400
+现在如果我们把它改成关于我们然后运行它
+now if we change it to about us and then run it
+
+157
+00:05:32,900 --> 00:05:34,933
+好吧，我们应该看到那里找不到文件
+well we should see the file not found there
+
+158
+00:05:35,133 --> 00:05:36,733
+是的，我们得到了四个或四个
+yep we get a four or four
+
+159
+00:05:37,333 --> 00:05:39,733
+所以现在让我们把它改回大约
+so now let's change it back to about
+
+160
+00:05:39,933 --> 00:05:41,666
+让我们从命令行运行它
+and let's run it from the command line
+
+161
+00:05:41,966 --> 00:05:43,366
+好的，我已经改了
+alright I've got it changed
+
+162
+00:05:43,666 --> 00:05:44,500
+然后在命令行
+and then at the command line
+
+163
+00:05:44,500 --> 00:05:46,000
+我在调查目录的顶层
+I'm at the top level of survey directory
+
+164
+00:05:46,000 --> 00:05:47,300
+所以我运行长生不老药
+so I run elixir
+
+165
+00:05:47,733 --> 00:05:49,833
+lib调查处理程序前
+lib survey handler ex
+
+166
+00:05:50,466 --> 00:05:52,733
+哦，它说找不到文件
+ooh and it says file not found
+
+167
+00:05:53,033 --> 00:05:55,000
+那是因为我们在顶层运行
+and that's because we're running at the top level
+
+168
+00:05:55,000 --> 00:05:56,233
+调查目录
+survey directory
+
+169
+00:05:56,333 --> 00:05:59,500
+在我们的代码中，我们试图找到关于页面
+and in our code we're trying to find the about page
+
+170
+00:05:59,800 --> 00:06:01,833
+相对于这个目录
+relative to this directory
+
+171
+00:06:03,233 --> 00:06:04,800
+现在斜线页面
+slash pages now
+
+172
+00:06:04,800 --> 00:06:07,766
+这适用于崇高，因为当前目录是
+this works in sublime because the current directory is
+
+173
+00:06:07,766 --> 00:06:09,266
+lib斜线调查
+lib slash survey
+
+174
+00:06:09,633 --> 00:06:12,833
+所以我们需要得到about的绝对路径
+so we need to get the absolute path to the about
+
+175
+00:06:13,066 --> 00:06:15,633
+html文件，所以可以找到
+html file so it can be found
+
+176
+00:06:15,633 --> 00:06:17,966
+无论在哪个目录中
+regardless of which directory were in
+
+177
+00:06:17,966 --> 00:06:19,033
+应用程序运行时
+when the app is run
+
+178
+00:06:19,566 --> 00:06:21,466
+这是获取绝对路径的方法
+here's how to get the absolute path
+
+179
+00:06:21,466 --> 00:06:22,266
+我将使用
+and I'm going to use
+
+180
+00:06:22,266 --> 00:06:23,633
+一分钟的临时变量
+temporary variables for a minute
+
+181
+00:06:23,633 --> 00:06:25,300
+但我们会用管道清理它
+but we'll clean this up with a pipeline
+
+182
+00:06:25,300 --> 00:06:26,333
+稍晚一些
+a little bit later
+
+183
+00:06:26,533 --> 00:06:29,133
+所以假设我们有一个页面路径变量
+so let's say we have a pages path variable
+
+184
+00:06:29,466 --> 00:06:29,966
+然后
+and then the
+
+185
+00:06:29,966 --> 00:06:32,200
+elixir 中的路径模块有一大堆功能
+path module in elixir has a whole bunch of functions
+
+186
+00:06:32,200 --> 00:06:33,200
+用于处理路径
+for dealing with paths
+
+187
+00:06:33,200 --> 00:06:35,333
+其中一项功能是展开
+one of those functions is expand
+
+188
+00:06:35,600 --> 00:06:38,066
+而我们要做的就是拓展这条路
+and what we want to do is expand this path
+
+189
+00:06:39,600 --> 00:06:43,666
+相对于所在目录的页面
+pages relative to the directory in which
+
+190
+00:06:43,866 --> 00:06:45,033
+该文件已定义
+this file is defined
+
+191
+00:06:45,033 --> 00:06:46,866
+我们可以通过使用下划线来得到它
+and we can get that by using underscore
+
+192
+00:06:47,866 --> 00:06:49,000
+下划线 下划线
+underscore underscore
+
+193
+00:06:49,533 --> 00:06:52,500
+所以这将返回的绝对路径
+so this returns the absolute path of the
+
+194
+00:06:52,500 --> 00:06:54,066
+当前文件的目录
+directory of the current file
+
+195
+00:06:54,066 --> 00:06:55,100
+其中处理程序
+wherein handler
+
+196
+00:06:55,200 --> 00:06:58,433
+ex 所以这将是通往 lib 的绝对路径
+ex so that's going to be the absolute path down to lib
+
+197
+00:06:58,500 --> 00:07:03,100
+服务然后路径扩展将扩展此路径
+serve and then path expand is going to expand this path
+
+198
+00:07:03,133 --> 00:07:05,233
+相对于第二条路径
+relative to this 2nd path
+
+199
+00:07:05,533 --> 00:07:08,766
+所以页面路径将是绝对路径
+so pages path is going to be the absolute path
+
+200
+00:07:08,766 --> 00:07:10,766
+到这个页面目录
+down to this pages directory
+
+201
+00:07:11,033 --> 00:07:12,666
+现在这给了我们目录
+now that gives us the directory
+
+202
+00:07:12,666 --> 00:07:15,666
+但我们还需要加入实际文件
+but we also need to join on the actual file
+
+203
+00:07:15,666 --> 00:07:16,533
+所以这样做
+so to do that
+
+204
+00:07:17,333 --> 00:07:20,066
+我们将有一个变量文件，它将是路径
+we'll have a variable file and it's going to be path
+
+205
+00:07:20,066 --> 00:07:23,433
+有一个连接功能，它需要我们的页面路径
+there's a join function and it takes in our pages path
+
+206
+00:07:23,666 --> 00:07:25,466
+然后我们想加入关于
+and then we want to join on about
+
+207
+00:07:25,600 --> 00:07:27,733
+html，这将确保
+html and that'll make sure to
+
+208
+00:07:27,766 --> 00:07:29,533
+使用适当的文件分隔符
+use a proper file separator
+
+209
+00:07:30,166 --> 00:07:31,666
+所以现在我们知道了这些函数是如何工作的
+so now that we know how these functions work
+
+210
+00:07:31,666 --> 00:07:32,833
+以及他们采取的论据
+and the arguments they take
+
+211
+00:07:32,966 --> 00:07:34,933
+让我们删除临时变量和
+let's remove the temporary variables and
+
+212
+00:07:34,933 --> 00:07:36,400
+改用管道
+use a pipeline instead
+
+213
+00:07:36,733 --> 00:07:38,866
+所以最终我们想要一个文件
+so ultimately we want a file
+
+214
+00:07:39,166 --> 00:07:41,833
+我们可以采取扩展路径
+we can take the expanded path
+
+215
+00:07:42,200 --> 00:07:43,866
+然后通过管道将其输入
+and then pipe it into
+
+216
+00:07:44,166 --> 00:07:47,000
+路径联合，这意味着这条路径将是
+path joint which means this path is going to be
+
+217
+00:07:47,000 --> 00:07:48,433
+第一个传入的参数
+the first argument that's piped in
+
+218
+00:07:48,433 --> 00:07:49,500
+所以我们可以摆脱它
+so we can get rid of that
+
+219
+00:07:49,800 --> 00:07:51,433
+然后在文件点读取
+and then down in file dot read
+
+220
+00:07:51,566 --> 00:07:53,200
+而我们只是传递那个文件
+while we just pass it that file
+
+221
+00:07:53,700 --> 00:07:56,200
+所以让我们以崇高的方式运行它并且它可以工作
+so let's run it in sublime and it works
+
+222
+00:07:56,300 --> 00:07:58,066
+如果我们从命令行运行它
+and if we run it from the command line
+
+223
+00:07:58,166 --> 00:07:59,100
+它也可以
+it works as well
+
+224
+00:08:00,033 --> 00:08:02,100
+现在我们要在这里做出设计决定
+now we have a design decision to make here
+
+225
+00:08:02,133 --> 00:08:05,033
+键的表达式只是有条件地运行的一种方式
+a key's expression is just a way to conditionally run
+
+226
+00:08:05,033 --> 00:08:06,966
+基于模式匹配的代码
+code based on pattern matches
+
+227
+00:08:06,966 --> 00:08:09,833
+我们知道有条件地运行代码的另一种方式
+and we know a different way to run code conditionally
+
+228
+00:08:09,933 --> 00:08:11,433
+多子句函数
+multi clause functions
+
+229
+00:08:11,833 --> 00:08:13,400
+所以我要复制我们的版本
+so I'm going to copy the version of our
+
+230
+00:08:13,400 --> 00:08:15,133
+使用 case 的路由函数
+route function that uses case
+
+231
+00:08:15,333 --> 00:08:16,466
+我要评论它
+and I'm going to comment it out
+
+232
+00:08:16,466 --> 00:08:18,333
+只是这样我们在这里完成后可以比较它
+just so we can compare it when we're done here
+
+233
+00:08:18,600 --> 00:08:20,233
+然后粘贴到上面
+and then paste it in up above
+
+234
+00:08:20,633 --> 00:08:23,400
+然后我将注释掉这个 case 表达式
+and then I'm going to comment out this case expression
+
+235
+00:08:23,900 --> 00:08:26,233
+所以让我们继续我们的管道并表达
+so let's continue on with our pipeline and express
+
+236
+00:08:26,233 --> 00:08:27,200
+我们在这里想要什么
+what we want here
+
+237
+00:08:27,433 --> 00:08:30,966
+此时我们有一个加入的绝对路径
+at this point we have a joined absolute path
+
+238
+00:08:31,200 --> 00:08:33,500
+我们想通过管道将其导入文件读取
+we want to pipe that into file read
+
+239
+00:08:33,833 --> 00:08:35,966
+我们知道这将返回一个元组
+and we know that's going to return a tuple
+
+240
+00:08:36,200 --> 00:08:38,566
+那么我们可以转过身来管道那个元组
+so then we can turn around and pipe that tuple
+
+241
+00:08:38,633 --> 00:08:40,233
+进入一个我们还没有写的新函数
+into a new function we haven't written yet
+
+242
+00:08:40,233 --> 00:08:41,933
+我将其称为句柄文件
+I'm going to call it handle file
+
+243
+00:08:42,133 --> 00:08:44,566
+它将把元组作为第一个参数
+it's going to take the tuple as the first argument
+
+244
+00:08:44,633 --> 00:08:47,300
+而且我们还需要传入对话地图
+and we also need to pass in the conversation map
+
+245
+00:08:47,300 --> 00:08:49,166
+所以这将是第二个论点
+so that's going to be the second argument
+
+246
+00:08:49,400 --> 00:08:52,233
+这将返回一个更新的对话地图
+and that's going to return an updated conversation map
+
+247
+00:08:52,233 --> 00:08:54,400
+所以我们可以平等地摆脱这个文件
+so we can get rid of this file equal
+
+248
+00:08:54,600 --> 00:08:55,633
+那将是
+and that's going to be the
+
+249
+00:08:55,633 --> 00:08:57,333
+整个函数体就在那里
+entire function body right there
+
+250
+00:08:58,066 --> 00:08:59,333
+然后我们只需要定义这个
+and then we just need to define this
+
+251
+00:08:59,333 --> 00:09:00,433
+处理文件功能
+handle file function
+
+252
+00:09:00,433 --> 00:09:01,733
+只是为了让它多一点空间
+and just to make it a little bit more space
+
+253
+00:09:01,733 --> 00:09:02,833
+让我们继续并摆脱这个
+let's just go ahead and get rid of this
+
+254
+00:09:02,833 --> 00:09:04,533
+因为我们在下面的函数中得到了它
+because we've got it in the function down below
+
+255
+00:09:05,566 --> 00:09:07,633
+所以看起来像这个句柄文件
+so it looks like this handle file
+
+256
+00:09:07,966 --> 00:09:09,133
+我们知道这需要倾倒
+we know it takes a topple
+
+257
+00:09:09,133 --> 00:09:10,533
+我们可以在上面进行模式匹配
+and we can pattern match on that
+
+258
+00:09:10,533 --> 00:09:12,800
+所以如果没关系和内容
+so if it's okay and content
+
+259
+00:09:13,833 --> 00:09:15,266
+记住还有第二个论点
+remember there's a second argument
+
+260
+00:09:15,300 --> 00:09:17,833
+就是这里的对话
+it's the conversation that got passed in right here
+
+261
+00:09:18,400 --> 00:09:18,633
+所以
+so
+
+262
+00:09:18,633 --> 00:09:21,100
+第一个参数得到管道，第二个参数
+the first argument gets piped and the second argument
+
+263
+00:09:21,133 --> 00:09:23,200
+我们只是传递 co no 那样
+we just pass in co no like that
+
+264
+00:09:24,666 --> 00:09:26,533
+所以如果那个模式匹配
+so if that pattern matches
+
+265
+00:09:26,533 --> 00:09:28,566
+那么我们要做的是返回
+then what we want to do is return
+
+266
+00:09:29,333 --> 00:09:30,533
+这张更新的地图
+this updated map
+
+267
+00:09:31,833 --> 00:09:33,366
+所以我想你知道这是怎么回事
+so I think you see where this is going
+
+268
+00:09:33,466 --> 00:09:36,933
+我们可以定义另一个句柄文件函数子句
+we can define another handle file function clause
+
+269
+00:09:37,200 --> 00:09:40,366
+我们要在这里匹配的模式就是这个
+and the pattern we want to match here is this one
+
+270
+00:09:41,833 --> 00:09:43,333
+然后它需要 co 和 v
+and then it takes co and v
+
+271
+00:09:45,133 --> 00:09:47,166
+然后在那种情况下，我们将返回
+and then in that case we were going to return
+
+272
+00:09:47,166 --> 00:09:48,300
+这张更新的地图
+this updated map
+
+273
+00:09:49,700 --> 00:09:52,133
+还有一次我们得到了句柄文件
+and one more time we've got handle file
+
+274
+00:09:52,666 --> 00:09:55,066
+把这个模式带到这里
+that takes this pattern down here
+
+275
+00:09:56,533 --> 00:09:57,333
+地图
+the map
+
+276
+00:09:58,500 --> 00:09:59,700
+它应该返回
+and it should return
+
+277
+00:10:00,133 --> 00:10:01,366
+这张更新的地图
+this updated map
+
+278
+00:10:03,033 --> 00:10:04,100
+所以我们有三个
+so we have three
+
+279
+00:10:04,200 --> 00:10:06,033
+使用模式匹配的函数子句
+function clauses that use pattern matching
+
+280
+00:10:06,033 --> 00:10:08,733
+并记住一个函数是否有多个子句
+and remember if a function has multiple clauses
+
+281
+00:10:08,733 --> 00:10:09,900
+而长生不老药会尝试
+while elixir will try
+
+282
+00:10:09,933 --> 00:10:12,333
+每个子句，直到找到匹配的子句
+each clause until it finds one that matches
+
+283
+00:10:12,333 --> 00:10:14,600
+并运行第一个匹配的函数子句
+and the first function clause that matches is run
+
+284
+00:10:14,966 --> 00:10:15,966
+所以如果我们把它保存起来
+so if we save that away
+
+285
+00:10:16,266 --> 00:10:17,100
+试一试
+and give it a go
+
+286
+00:10:17,333 --> 00:10:19,966
+虽然我们仍然得到我们的报价作为内容
+while we still get our quote as the content of that
+
+287
+00:10:19,966 --> 00:10:21,300
+正在提供的文件
+file that's being served
+
+288
+00:10:21,700 --> 00:10:23,366
+所以我们得到完全相同的输出
+so we get the exact same output
+
+289
+00:10:23,500 --> 00:10:25,466
+就像我们在使用 case 表达式时所做的那样
+as we did when we use the case expression
+
+290
+00:10:25,933 --> 00:10:26,900
+那么哪种方式更好
+so which way is better
+
+291
+00:10:26,933 --> 00:10:29,333
+使用 case 或 multi 子句函数
+using case or multi clause functions
+
+292
+00:10:29,500 --> 00:10:30,800
+就像我之前提到的
+well as I mentioned earlier
+
+293
+00:10:30,800 --> 00:10:32,433
+这真的是一个设计决定
+it's really a design decision and
+
+294
+00:10:32,466 --> 00:10:34,100
+没有正确或错误的答案
+there's no right or wrong answer
+
+295
+00:10:34,300 --> 00:10:35,233
+你做出的选择
+the choice you make
+
+296
+00:10:35,266 --> 00:10:37,200
+将根据情况和您的
+will vary depending on the situation and your
+
+297
+00:10:37,200 --> 00:10:38,133
+个人喜好
+personal preference
+
+298
+00:10:38,400 --> 00:10:41,833
+在这种情况下，情况很简单，可以阅读
+in this situation the case is simple enough to read
+
+299
+00:10:41,966 --> 00:10:44,166
+它有三个分支和
+it has three branches and
+
+300
+00:10:44,300 --> 00:10:46,933
+与每个分支关联的一行
+one line associated with each branch
+
+301
+00:10:47,666 --> 00:10:49,533
+现在如果它有更多的分支或
+now if it had more branches or
+
+302
+00:10:49,666 --> 00:10:52,166
+每个分支的多行表达式
+multiline expressions for each of those branches
+
+303
+00:10:52,466 --> 00:10:54,300
+然后可读性开始受到影响
+then the readability starts to suffer
+
+304
+00:10:54,300 --> 00:10:56,533
+我会改用多子句函数
+and I'd use multi clause functions instead
+
+305
+00:10:56,766 --> 00:10:57,800
+唯一的缺点
+the only downside
+
+306
+00:10:57,800 --> 00:11:00,766
+多子句功能是你必须定义
+to multi clause functions is that you have to define
+
+307
+00:11:01,033 --> 00:11:03,700
+每个分支的单独功能
+separate functions for each branch
+
+308
+00:11:03,766 --> 00:11:06,400
+但我真的很喜欢分开的声明感
+but I really like the declarative feel of separate
+
+309
+00:11:06,400 --> 00:11:07,466
+小功能
+small functions
+
+310
+00:11:07,466 --> 00:11:09,233
+具有模式匹配的参数
+with arguments that are pattern matched
+
+311
+00:11:09,233 --> 00:11:10,266
+只是感觉更多
+it just feels more
+
+312
+00:11:10,266 --> 00:11:12,400
+符合灵丹妙药的做事方式
+congruent with the elixir way of doing things
+
+313
+00:11:12,766 --> 00:11:15,333
+话虽如此，我们并不完全一致
+that being said we're not totally consistent
+
+314
+00:11:15,433 --> 00:11:18,533
+所以尝试这两种方法来发展你自己的喜好
+so try both approaches to develop your own preferences
+
+315
+00:11:18,533 --> 00:11:19,666
+鉴于情况
+given the situation
+
+316
+00:11:19,900 --> 00:11:21,500
+不要害怕改变主意
+and don't be afraid to change your mind
+
+317
+00:11:21,700 --> 00:11:22,766
+并更改您的代码
+and change your code
+

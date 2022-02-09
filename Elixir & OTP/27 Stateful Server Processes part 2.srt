@@ -1,0 +1,1332 @@
+1
+00:00:00,466 --> 00:00:02,833
+back in our pledge server module we'll come in out
+
+2
+00:00:02,833 --> 00:00:05,333
+create pledge and recent pledges for now
+
+3
+00:00:05,666 --> 00:00:06,900
+we'll come back to these later
+
+4
+00:00:06,900 --> 00:00:08,733
+but for now we want to start with the loop
+
+5
+00:00:08,900 --> 00:00:10,500
+I'm going to put that right up at the top here
+
+6
+00:00:10,833 --> 00:00:13,066
+and we need a function that continuously receives and
+
+7
+00:00:13,066 --> 00:00:14,133
+handles messages
+
+8
+00:00:14,133 --> 00:00:15,466
+in an endless loop
+
+9
+00:00:16,033 --> 00:00:18,333
+so we'll just call that function listen loop
+
+10
+00:00:18,966 --> 00:00:20,200
+you can call this whatever you want
+
+11
+00:00:20,433 --> 00:00:22,133
+and then we'll start off by printing out
+
+12
+00:00:24,100 --> 00:00:25,266
+waiting for a message
+
+13
+00:00:27,000 --> 00:00:28,466
+and then we need to receive block
+
+14
+00:00:28,900 --> 00:00:30,200
+so when listen loop is called
+
+15
+00:00:30,200 --> 00:00:31,866
+it turns around and calls receive
+
+16
+00:00:31,933 --> 00:00:32,866
+which will block
+
+17
+00:00:32,966 --> 00:00:34,300
+suspend the process
+
+18
+00:00:34,466 --> 00:00:35,933
+waiting for a matching message
+
+19
+00:00:35,933 --> 00:00:38,066
+to arrive in the process's mailbox
+
+20
+00:00:38,300 --> 00:00:39,033
+but remember
+
+21
+00:00:39,033 --> 00:00:42,300
+receive only processes one message in the mailbox
+
+22
+00:00:42,466 --> 00:00:44,266
+so to handle more than one message
+
+23
+00:00:44,733 --> 00:00:47,033
+after receiving a message we need to loop back
+
+24
+00:00:47,033 --> 00:00:48,066
+up to receive
+
+25
+00:00:48,266 --> 00:00:50,966
+so the server process can wait for the next message
+
+26
+00:00:51,366 --> 00:00:52,266
+and to do that
+
+27
+00:00:52,266 --> 00:00:54,600
+we'll recursively call listen loop right here
+
+28
+00:00:56,700 --> 00:00:59,033
+so we'll match the message then we'll run some code
+
+29
+00:00:59,200 --> 00:01:01,733
+and then we'll loop back up to listen loop here
+
+30
+00:01:01,933 --> 00:01:04,133
+which is going to say okay waiting for another message
+
+31
+00:01:04,300 --> 00:01:06,333
+and then it's going to block on this receive
+
+32
+00:01:06,400 --> 00:01:08,033
+waiting for the next message
+
+33
+00:01:08,733 --> 00:01:11,133
+okay so the first message we want to handle
+
+34
+00:01:11,133 --> 00:01:12,333
+has this pattern
+
+35
+00:01:13,233 --> 00:01:15,333
+it's going to have the atom create pledge
+
+36
+00:01:16,100 --> 00:01:17,700
+then the second element will be the name
+
+37
+00:01:17,700 --> 00:01:18,766
+and the third element will be
+
+38
+00:01:18,766 --> 00:01:19,566
+the amount
+
+39
+00:01:19,866 --> 00:01:22,166
+then in terms of the code what we want to do is
+
+40
+00:01:22,566 --> 00:01:24,600
+send that pledge at the external service
+
+41
+00:01:24,600 --> 00:01:26,200
+so I'm just going to paste that right there
+
+42
+00:01:26,700 --> 00:01:28,166
+so we just extract the name
+
+43
+00:01:28,166 --> 00:01:29,333
+and the amount from the message
+
+44
+00:01:29,333 --> 00:01:30,500
+and shuttle those through
+
+45
+00:01:30,500 --> 00:01:33,200
+to that function that sends it to the external service
+
+46
+00:01:33,333 --> 00:01:34,733
+and then I'm going to use a print out
+
+47
+00:01:36,266 --> 00:01:37,966
+name pledged
+
+48
+00:01:38,633 --> 00:01:39,433
+the amount
+
+49
+00:01:40,433 --> 00:01:42,133
+and then we loop back up to listen loop
+
+50
+00:01:42,533 --> 00:01:46,200
+now we also want to add the pledge to the local cash
+
+51
+00:01:46,200 --> 00:01:49,200
+which will be the state stored by the server process
+
+52
+00:01:49,666 --> 00:01:50,466
+well we want to do that
+
+53
+00:01:50,466 --> 00:01:52,733
+right after we've sent it to the external service
+
+54
+00:01:53,000 --> 00:01:54,866
+and our cash is going to be an elixir list
+
+55
+00:01:54,866 --> 00:01:56,000
+I'm going to say cash
+
+56
+00:01:56,333 --> 00:01:57,400
+here's the list
+
+57
+00:01:57,900 --> 00:01:59,766
+and then each element of the list is a tuple
+
+58
+00:01:59,766 --> 00:02:00,733
+so it'll be the name
+
+59
+00:02:00,833 --> 00:02:02,166
+and the amount of the pledge
+
+60
+00:02:02,533 --> 00:02:05,566
+but this is going to create a new cash each time
+
+61
+00:02:05,666 --> 00:02:06,866
+through this listen loop
+
+62
+00:02:06,866 --> 00:02:07,000
+because
+
+63
+00:02:07,033 --> 00:02:09,333
+this is just a local variable that we assign to here
+
+64
+00:02:09,766 --> 00:02:11,033
+so instead we need to
+
+65
+00:02:11,033 --> 00:02:13,200
+remember the cash and add to it each
+
+66
+00:02:13,200 --> 00:02:14,266
+time through the loop
+
+67
+00:02:14,266 --> 00:02:17,100
+because we want the pledges to end up in a single list
+
+68
+00:02:17,333 --> 00:02:19,733
+in other words we need the server process
+
+69
+00:02:19,766 --> 00:02:22,600
+to maintain the cash as internal state
+
+70
+00:02:23,000 --> 00:02:23,166
+now
+
+71
+00:02:23,166 --> 00:02:25,933
+we learned how to do that when we parsed http headers
+
+72
+00:02:25,933 --> 00:02:27,100
+earlier on in the course
+
+73
+00:02:27,700 --> 00:02:29,666
+we just need to pass the state which
+
+74
+00:02:29,666 --> 00:02:31,100
+is a list in this case
+
+75
+00:02:31,166 --> 00:02:34,566
+as an argument to this listen loop recursive function
+
+76
+00:02:34,966 --> 00:02:36,633
+now rather than calling this cash
+
+77
+00:02:36,633 --> 00:02:38,666
+I'm going to change it to be new
+
+78
+00:02:39,033 --> 00:02:40,033
+underscore state
+
+79
+00:02:43,800 --> 00:02:46,466
+so we set the new state and then we recurs with it
+
+80
+00:02:46,733 --> 00:02:47,700
+now for that to work
+
+81
+00:02:47,700 --> 00:02:49,666
+we need to change this listen loop
+
+82
+00:02:49,800 --> 00:02:51,666
+to take the state as an argument
+
+83
+00:02:51,666 --> 00:02:53,200
+and I'm going to call this one state
+
+84
+00:02:53,700 --> 00:02:56,233
+so some states going to get passed into the listen loop
+
+85
+00:02:56,366 --> 00:02:57,200
+and then down here
+
+86
+00:02:57,200 --> 00:02:58,833
+when we're creating the cash
+
+87
+00:02:58,833 --> 00:03:02,066
+what we want to do is put this name and amount tuple
+
+88
+00:03:02,200 --> 00:03:04,800
+as the head of the list state
+
+89
+00:03:05,633 --> 00:03:07,600
+so we're using the cons operator here
+
+90
+00:03:07,900 --> 00:03:10,733
+and this pledge is going to get added as the head
+
+91
+00:03:11,033 --> 00:03:12,833
+of this list which is our state
+
+92
+00:03:13,233 --> 00:03:14,733
+that's going to give us a new list
+
+93
+00:03:14,733 --> 00:03:16,400
+which we're going to assign to new state
+
+94
+00:03:16,666 --> 00:03:18,000
+and then we recurs with that
+
+95
+00:03:18,233 --> 00:03:18,433
+which
+
+96
+00:03:18,433 --> 00:03:20,433
+will become the value that gets passed in the listen
+
+97
+00:03:20,433 --> 00:03:23,233
+loop and the next pledge will become the head
+
+98
+00:03:23,433 --> 00:03:24,300
+of that new state
+
+99
+00:03:24,933 --> 00:03:26,466
+now for now to see the new state
+
+100
+00:03:26,666 --> 00:03:28,000
+we'll print it to the screen
+
+101
+00:03:28,500 --> 00:03:30,733
+so just after I print out the name of the mount
+
+102
+00:03:30,733 --> 00:03:31,533
+we'll print out
+
+103
+00:03:32,966 --> 00:03:33,966
+new state is
+
+104
+00:03:35,533 --> 00:03:36,766
+and then we'll call inspect
+
+105
+00:03:38,100 --> 00:03:38,966
+on the new state
+
+106
+00:03:39,933 --> 00:03:40,966
+so now that we have this
+
+107
+00:03:40,966 --> 00:03:42,166
+listen loop function
+
+108
+00:03:42,166 --> 00:03:45,233
+that receives and handles messages in an endless loop
+
+109
+00:03:45,366 --> 00:03:48,266
+we can spawn a process that run that function
+
+110
+00:03:48,600 --> 00:03:49,166
+for now we
+
+111
+00:03:49,166 --> 00:03:51,700
+just want to experiment with this server process
+
+112
+00:03:51,700 --> 00:03:54,333
+we'll actually hook it up later to our controller
+
+113
+00:03:54,533 --> 00:03:56,700
+so let's just spawn it in if
+
+114
+00:03:57,066 --> 00:03:57,966
+we know how to do that
+
+115
+00:03:58,400 --> 00:03:59,533
+we just call spawn
+
+116
+00:03:59,766 --> 00:04:02,500
+we're going to give it our module survey pledge server
+
+117
+00:04:03,500 --> 00:04:05,200
+then the name of the function we wanted to run
+
+118
+00:04:05,233 --> 00:04:06,600
+it's called listen loop
+
+119
+00:04:06,700 --> 00:04:08,100
+and then the third argument is
+
+120
+00:04:08,100 --> 00:04:10,133
+a list of arguments to send
+
+121
+00:04:10,433 --> 00:04:12,600
+to that function or to pass to that function
+
+122
+00:04:12,833 --> 00:04:15,100
+remember listen loop takes the initial state
+
+123
+00:04:15,333 --> 00:04:17,466
+we want the initial state to be an empty list
+
+124
+00:04:17,733 --> 00:04:19,666
+so we're going to pass in an empty list there
+
+125
+00:04:19,666 --> 00:04:20,700
+so we've got a list
+
+126
+00:04:20,733 --> 00:04:22,266
+that has an empty list inside of it
+
+127
+00:04:23,100 --> 00:04:24,766
+and the process is waiting for a message
+
+128
+00:04:24,766 --> 00:04:26,533
+we see the pit is one sixty five
+
+129
+00:04:27,166 --> 00:04:29,166
+now remember when we're in an ix session
+
+130
+00:04:29,166 --> 00:04:30,666
+we're already in a process
+
+131
+00:04:30,766 --> 00:04:33,566
+and now we want to send a message to the mailbox
+
+132
+00:04:33,666 --> 00:04:35,566
+of the spawned server process
+
+133
+00:04:35,866 --> 00:04:37,766
+so you can think of the ix session like a
+
+134
+00:04:37,766 --> 00:04:39,000
+client process
+
+135
+00:04:39,433 --> 00:04:41,766
+so to send a message to the server where we call send
+
+136
+00:04:42,100 --> 00:04:43,833
+and then we give it the pit of the server
+
+137
+00:04:44,233 --> 00:04:46,066
+and then we give it the message we want to send
+
+138
+00:04:46,400 --> 00:04:47,200
+looks like this
+
+139
+00:04:47,433 --> 00:04:48,333
+create pledge
+
+140
+00:04:49,800 --> 00:04:50,933
+we're going to say larry
+
+141
+00:04:51,833 --> 00:04:53,933
+is the name and $10
+
+142
+00:04:54,566 --> 00:04:56,700
+now you notice I didn't use parentheses right here
+
+143
+00:04:57,266 --> 00:04:58,100
+sin is a function
+
+144
+00:04:58,100 --> 00:04:59,633
+and you can use prostheses right there
+
+145
+00:04:59,866 --> 00:05:01,500
+but I think removing the prostheses
+
+146
+00:05:01,500 --> 00:05:02,566
+it just makes it clear
+
+147
+00:05:02,700 --> 00:05:04,733
+what those two arguments are doing so it's a pid
+
+148
+00:05:04,900 --> 00:05:07,700
+and then a message so you can do this any way you want
+
+149
+00:05:07,766 --> 00:05:09,600
+I'm just going to use this style for now
+
+150
+00:05:10,700 --> 00:05:11,966
+cool the message was received
+
+151
+00:05:11,966 --> 00:05:14,733
+we see the output of that disputes that we had
+
+152
+00:05:14,733 --> 00:05:15,700
+in listen loop
+
+153
+00:05:15,833 --> 00:05:18,266
+we also see that our new state is a list
+
+154
+00:05:18,400 --> 00:05:20,266
+with the tuple larry and tin
+
+155
+00:05:20,700 --> 00:05:22,500
+and then you also see this thing printed right here
+
+156
+00:05:22,500 --> 00:05:23,500
+which is the message
+
+157
+00:05:23,766 --> 00:05:25,066
+while this sin function
+
+158
+00:05:25,166 --> 00:05:27,333
+always returns the message that was sent
+
+159
+00:05:27,366 --> 00:05:28,866
+which is why we see this
+
+160
+00:05:29,300 --> 00:05:31,533
+in ix because it always prints out
+
+161
+00:05:31,733 --> 00:05:33,966
+the return of the function that you just called
+
+162
+00:05:34,200 --> 00:05:35,866
+and then our listen loop re back
+
+163
+00:05:35,866 --> 00:05:37,400
+on itself to wait for the next message
+
+164
+00:05:37,400 --> 00:05:39,433
+which is why we see waiting for message
+
+165
+00:05:40,066 --> 00:05:41,900
+so $10 isn't going to get us very
+
+166
+00:05:41,900 --> 00:05:44,200
+far on our crocodile pledge drive
+
+167
+00:05:44,233 --> 00:05:45,800
+so let's create another pledge
+
+168
+00:05:45,800 --> 00:05:48,700
+let's say mo gives us $20
+
+169
+00:05:51,933 --> 00:05:54,800
+okay we see the state was updated our cash now has
+
+170
+00:05:54,966 --> 00:05:57,466
+mo at the head of the list with $20 and then
+
+171
+00:05:57,666 --> 00:05:59,533
+larry is the second one in the list
+
+172
+00:06:00,100 --> 00:06:02,033
+now you probably notice when I hit return there
+
+173
+00:06:02,033 --> 00:06:04,533
+that sen didn't block waiting for a response
+
+174
+00:06:04,533 --> 00:06:06,133
+it simply puts the message in the
+
+175
+00:06:06,133 --> 00:06:07,900
+server process as mailbox
+
+176
+00:06:07,966 --> 00:06:09,633
+and then returns almost immediately
+
+177
+00:06:09,633 --> 00:06:11,433
+so we can carry on doing other things
+
+178
+00:06:11,800 --> 00:06:13,933
+while the server process handles the message
+
+179
+00:06:14,333 --> 00:06:16,533
+just remember sending a message is
+
+180
+00:06:16,633 --> 00:06:18,900
+always an asynchronous operation
+
+181
+00:06:19,366 --> 00:06:21,333
+curly wants to get in on the action two
+
+182
+00:06:21,433 --> 00:06:23,233
+so he's going to give us 30 bucks
+
+183
+00:06:24,133 --> 00:06:26,800
+cool now our cash has three pledges
+
+184
+00:06:27,000 --> 00:06:28,900
+and curly is at the head of the list
+
+185
+00:06:29,366 --> 00:06:31,633
+so because listen loop is a recursive loop
+
+186
+00:06:31,666 --> 00:06:33,900
+the spawn process never terminates
+
+187
+00:06:33,933 --> 00:06:36,900
+it runs continuously receiving and handling messages
+
+188
+00:06:36,900 --> 00:06:39,100
+and we see right now it's waiting for the next message
+
+189
+00:06:39,533 --> 00:06:41,333
+now you might be concerned that this recursive
+
+190
+00:06:41,333 --> 00:06:43,533
+loop would waste a bunch of cpu cycles
+
+191
+00:06:43,566 --> 00:06:44,766
+but most of the time
+
+192
+00:06:45,033 --> 00:06:47,333
+the process is blocked undeceived
+
+193
+00:06:47,366 --> 00:06:48,466
+and so the scheduler
+
+194
+00:06:48,466 --> 00:06:51,100
+preempts or suspends the block process
+
+195
+00:06:51,133 --> 00:06:52,966
+so it doesn't tax the cpu
+
+196
+00:06:53,566 --> 00:06:55,366
+we only have three pledges so far
+
+197
+00:06:55,366 --> 00:06:55,966
+so we really
+
+198
+00:06:55,966 --> 00:06:57,966
+don't have to worry about keeping just the most
+
+199
+00:06:57,966 --> 00:06:58,966
+recent pledges
+
+200
+00:06:58,966 --> 00:07:00,466
+but we'll get to that later
+
+201
+00:07:00,733 --> 00:07:01,533
+for now though
+
+202
+00:07:01,633 --> 00:07:03,300
+instead of the server process
+
+203
+00:07:03,300 --> 00:07:05,166
+simply printing the cash to screen
+
+204
+00:07:05,566 --> 00:07:08,533
+we want the client process which is ix right here
+
+205
+00:07:08,900 --> 00:07:11,366
+to be able to get the pledges in the cash
+
+206
+00:07:11,800 --> 00:07:13,400
+to do that the client will send a
+
+207
+00:07:13,400 --> 00:07:15,933
+different message that the server needs to handle
+
+208
+00:07:16,366 --> 00:07:18,000
+receive can handle various
+
+209
+00:07:18,000 --> 00:07:20,333
+messages using pattern matching closets
+
+210
+00:07:20,400 --> 00:07:22,100
+similar to a case expression
+
+211
+00:07:22,200 --> 00:07:24,433
+so we can just add a new pattern right here
+
+212
+00:07:24,933 --> 00:07:27,633
+the message is going to look like this recent pledges
+
+213
+00:07:27,833 --> 00:07:29,600
+it's just an atom there's no tuple
+
+214
+00:07:30,900 --> 00:07:32,366
+when it receives this message
+
+215
+00:07:32,366 --> 00:07:35,166
+it needs this in the cash which is the current state
+
+216
+00:07:35,600 --> 00:07:37,866
+back to the client process using send
+
+217
+00:07:39,833 --> 00:07:41,633
+and when we send back the cash
+
+218
+00:07:41,633 --> 00:07:43,466
+we'll wrap it in a message that looks like this
+
+219
+00:07:43,466 --> 00:07:45,200
+we'll just have the atom response
+
+220
+00:07:45,266 --> 00:07:47,000
+and then we need to send back the state
+
+221
+00:07:47,533 --> 00:07:49,666
+now you could just send back the state as the message
+
+222
+00:07:49,666 --> 00:07:50,100
+but we
+
+223
+00:07:50,100 --> 00:07:52,833
+tagged it as response just to make it less ambiguous
+
+224
+00:07:53,200 --> 00:07:54,000
+and then finally
+
+225
+00:07:54,000 --> 00:07:54,933
+although handling this
+
+226
+00:07:54,933 --> 00:07:56,500
+message doesn't update the state
+
+227
+00:07:56,600 --> 00:07:59,266
+it still needs to loop back with the current
+
+228
+00:07:59,333 --> 00:08:01,133
+unmodified unchanged state
+
+229
+00:08:05,100 --> 00:08:06,433
+because we haven't changed the state here
+
+230
+00:08:06,433 --> 00:08:07,833
+we just pass it back through
+
+231
+00:08:08,400 --> 00:08:10,266
+there's just one problem
+
+232
+00:08:11,033 --> 00:08:12,166
+what's the pig
+
+233
+00:08:12,766 --> 00:08:14,966
+well it's the pit of the client process
+
+234
+00:08:14,966 --> 00:08:17,133
+that's asking for their recent pledges
+
+235
+00:08:17,300 --> 00:08:19,233
+the server process needs to know the pit
+
+236
+00:08:19,233 --> 00:08:20,500
+of the client process
+
+237
+00:08:20,500 --> 00:08:22,100
+in order to send the pledges back
+
+238
+00:08:22,100 --> 00:08:23,466
+to it and remember
+
+239
+00:08:23,766 --> 00:08:27,133
+processes can only communicate via messages
+
+240
+00:08:27,233 --> 00:08:29,933
+so the client process that sends this message
+
+241
+00:08:30,266 --> 00:08:33,133
+must include its pid in that message
+
+242
+00:08:33,566 --> 00:08:35,833
+so we'll have the client process send its pid
+
+243
+00:08:35,833 --> 00:08:38,066
+as the first element in the message
+
+244
+00:08:38,366 --> 00:08:39,566
+we'll make this a tuple
+
+245
+00:08:40,666 --> 00:08:42,966
+and then the first element will call sender
+
+246
+00:08:43,333 --> 00:08:45,733
+and then whatever that first element is in the message
+
+247
+00:08:45,733 --> 00:08:46,466
+will be bound
+
+248
+00:08:46,466 --> 00:08:48,000
+to this variable sender
+
+249
+00:08:48,433 --> 00:08:48,633
+now
+
+250
+00:08:48,633 --> 00:08:50,533
+this doesn't have to be the first element in the tuple
+
+251
+00:08:50,533 --> 00:08:53,300
+but it's common for the sender to be the first element
+
+252
+00:08:53,300 --> 00:08:54,866
+so we're going to stick with that idiom
+
+253
+00:08:55,166 --> 00:08:56,866
+you can think of it like the return
+
+254
+00:08:56,866 --> 00:08:58,400
+address of the message sender
+
+255
+00:08:58,433 --> 00:08:59,366
+it's saying hey
+
+256
+00:08:59,500 --> 00:09:00,500
+send me the reply
+
+257
+00:09:01,300 --> 00:09:03,933
+then we can use the sender to send a message
+
+258
+00:09:03,966 --> 00:09:05,666
+back to that client process
+
+259
+00:09:05,933 --> 00:09:07,100
+and just to see what's happening
+
+260
+00:09:07,100 --> 00:09:08,866
+we'll print the sender to the screen
+
+261
+00:09:10,466 --> 00:09:13,000
+so I'll just say scent pledges to
+
+262
+00:09:13,466 --> 00:09:15,700
+and then I'll inspect the center
+
+263
+00:09:16,666 --> 00:09:18,533
+so now we have two patterns
+
+264
+00:09:18,533 --> 00:09:20,900
+which means receive will wait for a message
+
+265
+00:09:20,900 --> 00:09:23,500
+that matches any of those patterns
+
+266
+00:09:23,766 --> 00:09:25,333
+and just as with case
+
+267
+00:09:25,366 --> 00:09:27,800
+messages or pattern match from top to bottom
+
+268
+00:09:27,800 --> 00:09:29,933
+and the first pattern that matches has
+
+269
+00:09:29,933 --> 00:09:32,600
+its associated block of code executed
+
+270
+00:09:33,600 --> 00:09:35,433
+okay let's give this a whirl in ix
+
+271
+00:09:35,433 --> 00:09:37,200
+I'm just going to reload the
+
+272
+00:09:37,933 --> 00:09:39,533
+server module since we changed that
+
+273
+00:09:41,633 --> 00:09:42,833
+then I'm just going to clean that up
+
+274
+00:09:42,866 --> 00:09:44,600
+and now we can go ahead and respawn
+
+275
+00:09:45,100 --> 00:09:46,566
+our pledge server listen loop
+
+276
+00:09:47,366 --> 00:09:48,733
+we'll create a pledge for larry
+
+277
+00:09:49,300 --> 00:09:50,200
+there's one for mo
+
+278
+00:09:50,800 --> 00:09:52,166
+and finally there's curly
+
+279
+00:09:52,733 --> 00:09:54,066
+now at some later time
+
+280
+00:09:54,133 --> 00:09:55,800
+we want to get the recent pledges
+
+281
+00:09:55,800 --> 00:09:57,066
+so we can need to send
+
+282
+00:09:57,066 --> 00:09:59,033
+a message to our server process
+
+283
+00:09:59,266 --> 00:10:01,633
+and the message has two elements remember
+
+284
+00:10:01,933 --> 00:10:04,366
+the first one is the pit of the process
+
+285
+00:10:04,366 --> 00:10:05,466
+that the server should
+
+286
+00:10:05,466 --> 00:10:07,200
+send the response back to
+
+287
+00:10:07,733 --> 00:10:10,033
+well we wanted to send response back to
+
+288
+00:10:10,100 --> 00:10:12,200
+this process the ix process
+
+289
+00:10:12,200 --> 00:10:13,833
+we can get that by using self
+
+290
+00:10:14,100 --> 00:10:15,833
+and then the second element of the message
+
+291
+00:10:16,000 --> 00:10:17,166
+is just this atom
+
+292
+00:10:17,166 --> 00:10:18,200
+recent pledges
+
+293
+00:10:20,400 --> 00:10:20,566
+okay
+
+294
+00:10:20,566 --> 00:10:23,933
+we see the output that the server sent the pledges to
+
+295
+00:10:24,200 --> 00:10:25,500
+pid one sixty three
+
+296
+00:10:25,766 --> 00:10:27,533
+that's our ix process id
+
+297
+00:10:28,000 --> 00:10:30,833
+so let's pick in our mailbox we use that info function
+
+298
+00:10:32,133 --> 00:10:34,166
+the pit is self and we want the info
+
+299
+00:10:34,166 --> 00:10:35,666
+we want to see the messages
+
+300
+00:10:36,033 --> 00:10:37,800
+and sure enough we have a message
+
+301
+00:10:37,966 --> 00:10:41,533
+tag response and it's a list of our pledges
+
+302
+00:10:42,066 --> 00:10:42,400
+now that
+
+303
+00:10:42,400 --> 00:10:44,700
+just let us peek at the messages in the mailbox to
+
+304
+00:10:44,700 --> 00:10:46,400
+actually receive the messages
+
+305
+00:10:46,500 --> 00:10:47,966
+from the client's mailbox
+
+306
+00:10:48,033 --> 00:10:49,433
+we need to call receive
+
+307
+00:10:49,800 --> 00:10:51,266
+from the client process
+
+308
+00:10:51,266 --> 00:10:52,466
+and we're in the client process
+
+309
+00:10:52,466 --> 00:10:53,766
+because we're in the secession
+
+310
+00:10:54,466 --> 00:10:58,066
+so receive due the pattern we want to match is response
+
+311
+00:10:58,333 --> 00:11:00,866
+and then we'll bind whatever value is at this place
+
+312
+00:11:00,933 --> 00:11:02,466
+in the message as pledges
+
+313
+00:11:02,466 --> 00:11:03,766
+you can call that whatever you want
+
+314
+00:11:04,133 --> 00:11:06,866
+and then we're just going to extract that and return it
+
+315
+00:11:07,133 --> 00:11:09,300
+as the return of the receive statement
+
+316
+00:11:09,933 --> 00:11:11,533
+and we get back to the list of pledges
+
+317
+00:11:12,166 --> 00:11:14,466
+now we use ix as the client process
+
+318
+00:11:14,466 --> 00:11:16,300
+just to experiment with the server
+
+319
+00:11:16,433 --> 00:11:18,733
+but ultimately the client process
+
+320
+00:11:18,766 --> 00:11:21,166
+will be a request handling process
+
+321
+00:11:21,166 --> 00:11:22,900
+that spawn from our web server
+
+322
+00:11:23,200 --> 00:11:26,033
+so when we get a post request for pledges
+
+323
+00:11:26,233 --> 00:11:28,033
+this function is going to be run
+
+324
+00:11:28,466 --> 00:11:30,666
+in the request handling process
+
+325
+00:11:30,933 --> 00:11:32,966
+so it's going to be the client process
+
+326
+00:11:32,966 --> 00:11:34,666
+that calls create pledge
+
+327
+00:11:35,000 --> 00:11:37,833
+and if we get a get request for recent pledges
+
+328
+00:11:37,900 --> 00:11:39,433
+then this function is going to run
+
+329
+00:11:39,700 --> 00:11:41,533
+in a request handling process
+
+330
+00:11:41,700 --> 00:11:44,400
+so it's going to be the client process that calls
+
+331
+00:11:44,400 --> 00:11:45,466
+recent pledges
+
+332
+00:11:45,800 --> 00:11:48,200
+for this to work we need to implement these
+
+333
+00:11:48,200 --> 00:11:50,900
+two functions create pledge and recent pledges
+

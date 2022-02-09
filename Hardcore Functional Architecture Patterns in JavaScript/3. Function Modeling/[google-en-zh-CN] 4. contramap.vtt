@@ -1,0 +1,421 @@
+WEBVTT
+
+1
+00:00:00.150 --> 00:00:06.002
+所以逆变函子是对它们的第一个值进行操作的函子。
+So contravariant functors are functors that operate on their first value.
+
+2
+00:00:06.002 --> 00:00:09.383
+所以如果我有一个从 a 到字符串的函数，
+So if I have a function from a to string,
+
+3
+00:00:09.383 --> 00:00:13.904
+是的，我知道它总是会返回一个字符串。
+right, and I know it will always return me a string.
+
+4
+00:00:13.904 --> 00:00:16.680
+但我可以接受任何一个开始。
+But I can take in any a to begin with.
+
+5
+00:00:16.680 --> 00:00:22.200
+我可以映射 a 并将其转换为 ab，但它总是以字符串结尾。
+I can map over the a and turn it into a b but it will always end up on a string.
+
+6
+00:00:22.200 --> 00:00:24.305
+所以一个例子，和
+SO an example of that, and
+
+7
+00:00:24.305 --> 00:00:29.530
+我们可以用排序函数、谓词函数来做到这一点。
+we could do this with sort functions, predicate functions.
+
+8
+00:00:29.530 --> 00:00:34.650
+谓词函数接受任何东西并返回一个布尔值，对，
+Predicate functions take in anything and return a Bool, right,
+
+9
+00:00:34.650 --> 00:00:39.970
+排序函数返回 -1、0、1 或其他值的枚举。
+sorting functions return an enum of -1, 0, 1, or something.
+
+10
+00:00:39.970 --> 00:00:42.588
+但是我们能够映射到论点，并且
+But we're able to map over to the argument, and
+
+11
+00:00:42.588 --> 00:00:45.330
+这有点像超能力，对吧？
+this is kind of like a superpower, right?
+
+12
+00:00:45.330 --> 00:00:49.920
+所以如果我从一个函数开始
+So if I start off with a function,
+
+13
+00:00:49.920 --> 00:00:54.370
+让我们做 Reducer 因为那有点有趣。
+let's do Reducer because that one's kinda fun.
+
+14
+00:00:54.370 --> 00:00:56.370
+所以这需要，我会说运行。
+So this takes, I'll say run.
+
+15
+00:00:56.370 --> 00:00:57.338
+而且，Reducer 持有什么？
+And, what is Reducer holding?
+
+16
+00:00:57.338 --> 00:01:00.958
+这是一个累加器和一个 x 或
+It's a taking an accumulator and an x or
+
+17
+00:01:00.958 --> 00:01:05.600
+一些返回一个新的累加器，对吗？
+some a returning a new accumulator, right?
+
+18
+00:01:05.600 --> 00:01:07.425
+所以，蓄能器固定。
+So, accumulators fixed.
+
+19
+00:01:07.425 --> 00:01:09.575
+我无法映射它，它无法改变它。
+I can't map over it, it can't change that.
+
+20
+00:01:09.575 --> 00:01:14.655
+但是它可以将这些值中的每一个更改为 ab 因为这并不重要，
+But it can change each of these values a to a b cuz it doesn't really matter,
+
+21
+00:01:14.655 --> 00:01:18.224
+以便它设置为我可以映射的输入类型。
+so that it sets like an input type that I can map over.
+
+22
+00:01:18.224 --> 00:01:20.670
+所以让我们继续建模Reducers。
+So let's go ahead and model Reducers.
+
+23
+00:01:22.377 --> 00:01:24.980
+我们公开了一个运行函数。
+And we have a run function exposed.
+
+24
+00:01:24.980 --> 00:01:27.120
+我们有一个连接。
+And we have a concat.
+
+25
+00:01:27.120 --> 00:01:31.060
+那么让我们看看如何连接两个Reducer。
+So let's just so how we can concat two Reducers.
+
+26
+00:01:31.060 --> 00:01:35.260
+我们可以带一个减速器，我实际上不会提供你可以
+We could take a Reducer, I'm actually not gonna deliver that you can
+
+27
+00:01:35.260 --> 00:01:40.330
+只需通过合并累加器或选择一个或另一个来连接两个 Reducer。
+concat two Reducers just by merging the accumulators or picking one or the other.
+
+28
+00:01:40.330 --> 00:01:41.580
+让我们做违禁品。
+Let's do contramap.
+
+29
+00:01:41.580 --> 00:01:45.355
+这是我们关注的事情。
+This is the thing we're focused on.
+
+30
+00:01:45.355 --> 00:01:47.723
+所以， contramap 需要一个函数 f。
+So, contramap takes a function f.
+
+31
+00:01:47.723 --> 00:01:51.314
+而不是在我们映射输出的地方写地图，
+And instead of writing map where we would map over the output,
+
+32
+00:01:51.314 --> 00:01:54.504
+我们要映射输入，看起来像。
+we're gonna map over the input, does that look like.
+
+33
+00:01:54.504 --> 00:01:57.649
+我们正在返回一个新的 Reducer，因为我们正在映射，
+We're returning a new Reducer because we're mapping,
+
+34
+00:01:57.649 --> 00:01:59.820
+我们拿我们的累加器和我们的价值。
+we take our accumulator and our value.
+
+35
+00:01:59.820 --> 00:02:04.104
+我们将在累加器上运行我们的东西，然后
+And we're gonna run our thing on the accumulator, and
+
+36
+00:02:04.104 --> 00:02:08.660
+我们会在它到达之前击中那个 x。
+we're gonna hit that x before it ever gets there.
+
+37
+00:02:08.660 --> 00:02:13.461
+所以，我们所做的是在值到达我们的函数之前对其进行转换。
+So, what we've done is transformed the value before it got to our function.
+
+38
+00:02:13.461 --> 00:02:16.578
+我们能够做这些违禁品。
+And we're able to do these contramaps.
+
+39
+00:02:16.578 --> 00:02:23.220
+如果您有一堆要组合的功能，这将很有用。
+And that is useful if you have a bunch of functions you're gonna combine.
+
+40
+00:02:23.220 --> 00:02:25.080
+所以，我可以做一些Reducer。
+So, I can make a few Reducers.
+
+41
+00:02:25.080 --> 00:02:32.376
+我们可以在这里快速编写 concat，但是假设我们有像 login 一样的 Reducer。
+We could write concat here real quick, but let's say we have Reducer like login.
+
+42
+00:02:32.376 --> 00:02:35.094
+另一个我们要连接
+And another we're gonna concat
+
+43
+00:02:35.094 --> 00:02:40.031
+使用 Reducer 就像更改页面或其他什么一样。
+that with a Reducer that's like change page or whatever.
+
+44
+00:02:40.031 --> 00:02:44.831
+问题是如果我想像有效载荷一样运行它，
+And the thing is if I wanna run this with just like a payload,
+
+45
+00:02:44.831 --> 00:02:49.643
+只是某种喜欢，让我们说这就像动作。
+just some kind of like, let's say this is like the action.
+
+46
+00:02:49.643 --> 00:02:52.778
+它有一个用户，用户有一堆东西，
+It has a user and the user has a bunch of stuff and
+
+47
+00:02:52.778 --> 00:02:57.053
+它就像一个环境，里面有很多东西。
+it's got like an environment and that's got a bunch of stuff.
+
+48
+00:02:57.053 --> 00:03:03.973
+当我能够做的实际上是限制这些功能中的每一个并且
+When I'm able to do is actually contramap each of these functions and
+
+49
+00:03:03.973 --> 00:03:08.043
+实际上从有效载荷中提取值。
+actually pluck values off the payload.
+
+50
+00:03:08.043 --> 00:03:13.549
+所以我们会在这里获取用户，然后我们连接
+So we'll get the user here, And then we concat
+
+51
+00:03:13.549 --> 00:03:19.805
+更改页面应该带我们使它成为路由器或当前页面。
+that with change page which should take us make this the router or the current page.
+
+52
+00:03:19.805 --> 00:03:24.359
+更改页面应该会违禁
+Change page should will contramap
+
+53
+00:03:24.359 --> 00:03:29.705
+有效载荷并获取当前页面。
+the payload and taken the current page.
+
+54
+00:03:32.174 --> 00:03:37.073
+好的，我们已经完成了两个Reducers的组合，它们都有
+All right so, we've done is combined two Reducers, both of them have
+
+55
+00:03:37.073 --> 00:03:42.139
+提前被限制以获取这一输入并将其转换为
+been contramapped in advance to take this one input and transform it into
+
+56
+00:03:42.139 --> 00:03:46.891
+他们实际上正在寻找什么作为其功能的输入。
+what they're actually looking for as an input to their functions.
+
+57
+00:03:46.891 --> 00:03:51.305
+然后，我用一些状态和一些新的有效载荷运行它，
+And then, I'm running it with some state and some payload new,
+
+58
+00:03:51.305 --> 00:03:53.360
+获取所有这些并运行它。
+get all those and run it.
+
+59
+00:03:53.360 --> 00:03:58.084
+所以重点是， contramap 在它进来之前就命中参数。
+So the point is, contramap hits arguments before it comes in.
+
+60
+00:03:58.084 --> 00:03:59.620
+这是练习的一部分。
+That's part of the exercises.
+
+61
+00:03:59.620 --> 00:04:01.050
+所以我想说出来。
+So I wanted to call that out.
+
+62
+00:04:01.050 --> 00:04:03.725
+有人对 contramap 的工作原理有任何疑问吗？
+Does anybody have any questions on how contramap works?
+
+63
+00:04:06.553 --> 00:04:09.880
+很酷，这很顺利，事情很难。
+Cool, this is going swimmingly, stuff is hard.
+
+64
+00:04:09.880 --> 00:04:12.840
+[笑]好吧，所以我们有，是吗？
+[LAUGH] All right, so we have, yes?
+
+65
+00:04:12.840 --> 00:04:16.493
+&gt;&gt; 所以 contramap 的目的是保持整个有效载荷的运行
+&gt;&gt; So the purpose of contramap is to keep the entire payload going
+
+66
+00:04:16.493 --> 00:04:21.351
+通过这个系统，但是把东西摘下来并传递给内部函数？
+through this system, but plucking things off and passing it to inner functions?
+
+67
+00:04:21.351 --> 00:04:23.280
+&gt;&gt; 这是个好问题。
+&gt;&gt; That's a good question.
+
+68
+00:04:23.280 --> 00:04:26.350
+这是你可以做的一个用例，你可以说就像我结合了一堆
+That is one use case you can do, you can say like I'm combining a bunch of
+
+69
+00:04:26.350 --> 00:04:29.730
+函数，但它们都采用不同的输入，对吗？
+functions but they all take different inputs, right?
+
+70
+00:04:29.730 --> 00:04:32.760
+在我组合了所有功能后，我将调用 run 一次。
+And I'm gonna call run once after I've combined all my functions.
+
+71
+00:04:32.760 --> 00:04:37.000
+所以这是我使用减速器说的一个用例，嘿，你有所有
+So this is one use case I was using reducers to say like, hey, you have all
+
+72
+00:04:37.000 --> 00:04:39.660
+您组合的这些减速器，但它们都采用不同的输入。
+these reducers that you've combined but they all take different inputs.
+
+73
+00:04:39.660 --> 00:04:42.710
+好吧，我们可以在他们到达之前禁止地图。
+Well we can contramap before they get there.
+
+74
+00:04:42.710 --> 00:04:44.930
+所以如果你把功能合二为一
+So if you're combining functions into one,
+
+75
+00:04:44.930 --> 00:04:47.780
+你可能想在他们到达之前操纵东西。
+you might wanna manipulate stuff before they get there.
+
+76
+00:04:47.780 --> 00:04:51.270
+这提供了它几乎就像一个前钩子。
+And this provides it's almost like a before hook.
+
+77
+00:04:51.270 --> 00:04:54.770
+而地图就像一个后钩。
+Whereas map would be like an after hook.
+
+78
+00:04:54.770 --> 00:04:57.637
+所以这让你有能力进入那里并
+So that gives you the ability to kind of get in there and
+
+79
+00:04:57.637 --> 00:04:59.823
+在论点到来之前改变论点。
+change the argument before it arrives.
+
+80
+00:04:59.823 --> 00:05:04.685
+这往往只在你结合的情况下才有用
+And that tends to really only be useful in situations where you're combining
+
+81
+00:05:04.685 --> 00:05:07.990
+功能合二为一，它们都采用相同的输入。
+functions into one and they all take the same input.
+
+82
+00:05:07.990 --> 00:05:13.810
+它在您有固定输出的情况下也很有用
+And it's also useful in situations where you have a fixed output
+
+83
+00:05:13.810 --> 00:05:18.670
+固定输出是静态的，但输入不是，你可以
+and the fixed output is static, but the input is not, and you're able
+
+84
+00:05:18.670 --> 00:05:23.760
+预组合而不是后组合能够构建应用程序。
+to pre-compose instead of post compose to be able to build out applications.

@@ -1,0 +1,2670 @@
+1
+00:00:00,233 --> 00:00:01,633
+我们回到了避难所
+we're back out here on the refuge
+
+2
+00:00:01,633 --> 00:00:03,233
+除了我们的跟踪摄像头
+and in addition to our trail cams
+
+3
+00:00:03,233 --> 00:00:05,000
+我们还安装了一些传感器
+we've also installed some sensors
+
+4
+00:00:05,033 --> 00:00:07,333
+报告我们野生动物的gps位置
+to report the gps locations of our wild things
+
+5
+00:00:07,533 --> 00:00:09,266
+并获取 gps 坐标
+and to get the gps coordinates
+
+6
+00:00:09,266 --> 00:00:11,666
+我们需要向另一个人发送更多请求
+we're going to need to send more requests to another
+
+7
+00:00:11,666 --> 00:00:13,800
+api 现在在最后一节
+api now in the last section
+
+8
+00:00:13,800 --> 00:00:16,000
+我们在 api 中发送请求并最终创建了很多
+we send a request in api and ended up creating a lot
+
+9
+00:00:16,000 --> 00:00:16,933
+重复的
+of duplication
+
+10
+00:00:17,133 --> 00:00:18,300
+如果我们发送更多请求
+if we send more requests
+
+11
+00:00:18,300 --> 00:00:20,100
+我们可能会得到更多的重复
+we're probably going to end up with more duplication
+
+12
+00:00:20,333 --> 00:00:22,866
+所以我们将创建一个抽象来整理并制作
+so we'll create an abstraction to tidy that up and make
+
+13
+00:00:22,866 --> 00:00:24,366
+我们所有的任务都更容易
+all of our tasks easier
+
+14
+00:00:25,533 --> 00:00:26,600
+回到工作室
+back here in the studio
+
+15
+00:00:26,600 --> 00:00:29,300
+我们看到要获得快照，我们必须做两个
+we see that to get a snapshot we have to do two
+
+16
+00:00:30,166 --> 00:00:31,300
+函数的产生
+spawn of function
+
+17
+00:00:31,300 --> 00:00:33,500
+将结果发送回父级
+that sends the result back to the parent
+
+18
+00:00:33,733 --> 00:00:34,633
+并等待
+and wait for
+
+19
+00:00:34,666 --> 00:00:37,066
+并将结果返回给父进程
+and return the result to the parent process
+
+20
+00:00:37,333 --> 00:00:39,800
+所以我们有相当多的重复来获得这些
+so we've got a fair amount of duplication to get these
+
+21
+00:00:39,800 --> 00:00:41,166
+三个不同的快照
+three different snapshots
+
+22
+00:00:41,166 --> 00:00:42,500
+但是看这段代码
+but looking at this code
+
+23
+00:00:42,533 --> 00:00:44,900
+唯一不同的东西
+the only thing that varies between one and the other
+
+24
+00:00:45,000 --> 00:00:47,633
+只是这个获取快照函数的参数
+is just the argument to this get snapshot function
+
+25
+00:00:47,633 --> 00:00:48,766
+这是相机名称
+which is the camera name
+
+26
+00:00:49,166 --> 00:00:50,766
+所以让我们封装这两个东西
+so let's encapsulate these two things
+
+27
+00:00:50,766 --> 00:00:51,566
+在函数中
+in functions
+
+28
+00:00:51,566 --> 00:00:53,766
+我们会将它们放在一个名为 fetcher 的新模块中
+and we'll put them in a new module named fetcher
+
+29
+00:00:54,966 --> 00:00:56,466
+所以我们会把它放在 lib 调查中
+so we'll put it in the lib survey
+
+30
+00:00:56,533 --> 00:00:57,533
+创建一个新文件
+create a new file
+
+31
+00:00:58,166 --> 00:00:59,333
+获取你的 dx
+fetch your dx
+
+32
+00:01:03,366 --> 00:01:05,966
+然后我们需要从处理程序上吊起一些外套，所以
+then we need to hoist some coat over from handler so
+
+33
+00:01:06,166 --> 00:01:06,666
+我们需要这些
+we need these
+
+34
+00:01:06,666 --> 00:01:08,866
+两行我们得到父母和一个产卵
+two lines where we get the parent and a spawn
+
+35
+00:01:09,200 --> 00:01:10,500
+所以我会把它们贴在这里
+so I'll paste those in here
+
+36
+00:01:10,800 --> 00:01:13,666
+回到这里，我们还需要一个接收块
+come back over here and we also need a receive block
+
+37
+00:01:16,366 --> 00:01:18,600
+然后我们将这段代码分成两个函数
+then we'll partition this code into two functions
+
+38
+00:01:18,600 --> 00:01:20,566
+因为我们在做这两件事
+since we do these two things at
+
+39
+00:01:20,633 --> 00:01:21,733
+不同时期
+different times
+
+40
+00:01:21,733 --> 00:01:23,866
+我们将把第一部分放在一个函数中
+we're going to put this first part in a function
+
+41
+00:01:23,866 --> 00:01:25,066
+称为异步
+called async
+
+42
+00:01:25,133 --> 00:01:27,266
+因为它将异步运行一个函数
+since it's going to run a function asynchronously
+
+43
+00:01:29,833 --> 00:01:30,766
+所以这是一个同步
+so it's a sync
+
+44
+00:01:30,833 --> 00:01:32,633
+我们将传入相机名称
+and we're going to pass in the camera name
+
+45
+00:01:39,300 --> 00:01:41,233
+然后我们在哪里引用这台相机
+and then where we reference this camera
+
+46
+00:01:41,233 --> 00:01:44,000
+我们需要在那里传递相机名称
+we need to pass in camera name there
+
+47
+00:01:44,266 --> 00:01:46,366
+我们还需要将其更改为调查
+we also need to change this to survey
+
+48
+00:01:46,833 --> 00:01:49,000
+com 因为我们在这个文件中没有那个别名
+com because we don't have that aliased in this file
+
+49
+00:01:49,400 --> 00:01:50,533
+我会删除这条评论
+and I'll remove this comment
+
+50
+00:01:50,533 --> 00:01:51,966
+因为父母可能是
+because the parent could be
+
+51
+00:01:52,133 --> 00:01:54,533
+任何过程，而不仅仅是请求处理过程
+any process not just the request handling process
+
+52
+00:01:54,900 --> 00:01:56,766
+然后我们将这个接收块
+and then we'll put this receive block
+
+53
+00:01:56,766 --> 00:01:58,833
+在名为 get result 的函数中
+in a function named get result
+
+54
+00:02:04,766 --> 00:02:06,100
+我可以删除这个作业
+and I can remove this assignment
+
+55
+00:02:06,100 --> 00:02:07,266
+因为我只想回来
+because I just want to return
+
+56
+00:02:07,266 --> 00:02:08,866
+接收的返回值
+the return value of receive
+
+57
+00:02:09,333 --> 00:02:10,433
+所以这会阻止
+so this will block
+
+58
+00:02:10,433 --> 00:02:12,566
+如果邮箱中没有匹配的邮件
+if a matching message isn't in the mailbox
+
+59
+00:02:12,566 --> 00:02:15,166
+否则会立即返回文件名
+otherwise it will return the file name immediately
+
+60
+00:02:15,533 --> 00:02:18,366
+所以在调用接收器之后，我们可以做任何我们想做的事情
+so after calling a sink we can do whatever we want
+
+61
+00:02:18,366 --> 00:02:19,800
+然后在稍后的某个时间
+and then at some later time
+
+62
+00:02:19,800 --> 00:02:22,100
+我们可以通过调用 get result 来得到结果
+we can get the result by calling get result
+
+63
+00:02:22,466 --> 00:02:23,100
+那有什么好
+so what's nice
+
+64
+00:02:23,100 --> 00:02:25,266
+关于这个 fetcher 抽象是一个人
+about this fetcher abstraction is that a person
+
+65
+00:02:25,266 --> 00:02:26,566
+使用它不需要知道
+using it doesn't need to know
+
+66
+00:02:26,566 --> 00:02:28,333
+这些消息的结构
+the structure of these messages
+
+67
+00:02:28,500 --> 00:02:31,066
+例如我们使用这个元组的结果
+for example we used this tuple with a result
+
+68
+00:02:31,066 --> 00:02:31,966
+一开始
+at the beginning
+
+69
+00:02:32,100 --> 00:02:33,966
+然后是表达式的结果
+and then the result of the expression
+
+70
+00:02:34,100 --> 00:02:35,666
+然后我们在这里匹配
+and then we matched it down here
+
+71
+00:02:35,933 --> 00:02:38,766
+但因为这些只是这个文件内的地图
+but because those are only maps inside of this file
+
+72
+00:02:38,833 --> 00:02:40,700
+使用这个模块的人
+the person that's using this module
+
+73
+00:02:40,700 --> 00:02:42,933
+不需要知道这些消息的结构
+doesn't need to know how these messages are structured
+
+74
+00:02:42,933 --> 00:02:43,733
+根本
+at all
+
+75
+00:02:43,966 --> 00:02:46,466
+所以我们会把它保存起来，然后再回来处理
+so we'll save that away then back over and handler
+
+76
+00:02:47,133 --> 00:02:49,100
+在最顶部，我们将把它命名为
+at the very top we're going to alias this in
+
+77
+00:02:52,766 --> 00:02:53,866
+然后在我们的路线上
+and then down in our route
+
+78
+00:02:53,866 --> 00:02:55,300
+我们想继续使用它
+we want to go ahead and use that
+
+79
+00:02:55,800 --> 00:02:57,000
+所以我们可以摆脱这个
+so we can get rid of this
+
+80
+00:02:57,133 --> 00:02:59,100
+因为那是在那个 acing 功能中
+because that's in that acing function
+
+81
+00:02:59,100 --> 00:03:00,100
+我们想要改变
+and we want to change
+
+82
+00:03:00,166 --> 00:03:02,933
+所有这些都可以使用该功能
+all of these to use that acing function
+
+83
+00:03:11,200 --> 00:03:13,300
+以同样的方式我们想要改变所有这些
+in the same way we want to change all of these
+
+84
+00:03:13,800 --> 00:03:15,966
+调用我们的获取结果函数
+to call our get result function
+
+85
+00:03:15,966 --> 00:03:17,800
+而不是在这里有一个接收块
+instead of having a receive block right here
+
+86
+00:03:23,133 --> 00:03:24,166
+然后我们会把它保存起来
+then we'll save that away
+
+87
+00:03:26,466 --> 00:03:28,566
+然后通过前任我们将启动我们的服务器
+then over an ex we'll fire up our server
+
+88
+00:03:31,066 --> 00:03:32,866
+我们不需要在单独的进程中运行它
+and we don't need to run it in a separate process this
+
+89
+00:03:32,866 --> 00:03:33,666
+时间
+time
+
+90
+00:03:34,733 --> 00:03:36,600
+然后如果我们转到一个新的终端会话
+and then if we go over to a new terminal session
+
+91
+00:03:36,633 --> 00:03:38,133
+好吧，它应该像以前一样工作
+well it should work just as before
+
+92
+00:03:38,366 --> 00:03:39,933
+我们所做的只是移动一些代码
+all we've done is move some code around
+
+93
+00:03:41,200 --> 00:03:41,666
+果然
+and sure enough
+
+94
+00:03:41,666 --> 00:03:43,700
+我们在一秒钟内得到所有结果
+we get back all the results in one second
+
+95
+00:03:43,800 --> 00:03:44,700
+就像从前一样
+just like before
+
+96
+00:03:45,266 --> 00:03:46,833
+让我们更进一步
+let's take it a step further
+
+97
+00:03:47,000 --> 00:03:49,200
+现在 fetcher 模块可以
+right now the fetcher module can
+
+98
+00:03:49,200 --> 00:03:51,666
+仅用于获取视频摄像头快照
+only be used to get a video cam snapshot
+
+99
+00:03:51,866 --> 00:03:54,300
+因为这就是 spawn 函数的作用
+because that's what the spawn function does
+
+100
+00:03:54,533 --> 00:03:55,400
+但你可能可以
+but you can probably
+
+101
+00:03:55,400 --> 00:03:58,166
+看看我们如何安排事情以便我们可以产卵
+see how we can arrange things so that we can spawn
+
+102
+00:03:58,400 --> 00:04:00,500
+任何功能是的
+any function yeah to do that
+
+103
+00:04:00,500 --> 00:04:02,433
+而不是调用这个特定的函数
+instead of calling this specific function
+
+104
+00:04:02,433 --> 00:04:04,366
+在这里我们希望能够调用任何函数
+here we want to be able to call any function
+
+105
+00:04:04,466 --> 00:04:05,233
+我们要做的是
+what we're going to do is
+
+106
+00:04:05,233 --> 00:04:05,533
+我们要
+we're going to
+
+107
+00:04:05,566 --> 00:04:07,666
+传入函数而不是相机名称
+pass in the function instead of the camera name
+
+108
+00:04:08,033 --> 00:04:09,700
+所以我要把这个乐趣命名为
+so I'm going to name this fun that's going to be the
+
+109
+00:04:09,700 --> 00:04:11,000
+传入的函数
+function that gets passed in
+
+110
+00:04:11,233 --> 00:04:12,833
+而不是在这里运行这个函数
+and instead of running this function here
+
+111
+00:04:13,266 --> 00:04:15,933
+我们将在函数中运行过去，我们可以做到这一点
+we'll just run the past in function we can do that fun
+
+112
+00:04:16,633 --> 00:04:17,433
+就这样
+just like that
+
+113
+00:04:17,666 --> 00:04:19,666
+所以无论这个函数返回什么
+so whatever this function returns
+
+114
+00:04:19,733 --> 00:04:21,533
+将成为信息的一部分
+is going to be part of the message
+
+115
+00:04:22,000 --> 00:04:22,333
+接着
+and then
+
+116
+00:04:22,333 --> 00:04:24,666
+因为消息不是特定于文件名
+because the message isn't specific to file names
+
+117
+00:04:24,666 --> 00:04:27,300
+我只是将这里的变量更改为值
+I'm just going to change this variable here to value
+
+118
+00:04:27,300 --> 00:04:28,766
+现在它可以在不这样做的情况下工作
+now it'll work without doing this
+
+119
+00:04:28,966 --> 00:04:31,333
+但这只是让它看起来更普通
+but it just makes it more generic to see hey
+
+120
+00:04:31,333 --> 00:04:32,700
+函数返回值
+the function returns to value
+
+121
+00:04:32,700 --> 00:04:34,200
+并且该值是消息的一部分
+and that value is part of the message
+
+122
+00:04:34,700 --> 00:04:37,233
+现在名称获取器不再起作用了
+now the name fetcher doesn't really work anymore
+
+123
+00:04:37,233 --> 00:04:39,366
+但请和我们一起去这里一分钟
+but just go with us here for a minute
+
+124
+00:04:39,800 --> 00:04:41,400
+然后回来处理
+then back over and handler
+
+125
+00:04:41,800 --> 00:04:44,433
+我们需要改变这个 acing 函数的调用方式
+we need to change how this acing function is called
+
+126
+00:04:44,433 --> 00:04:46,366
+确保传递给它一个函数
+making sure to pass it a function
+
+127
+00:04:55,933 --> 00:04:56,733
+就这样
+just like that
+
+128
+00:04:57,466 --> 00:05:00,933
+所以现在它更通用了，我们可以传入任何函数
+so now it's more generic we can pass in any function
+
+129
+00:05:01,333 --> 00:05:02,466
+如果我们把它保存起来
+if we save that away
+
+130
+00:05:04,000 --> 00:05:05,333
+去重启我们的服务器
+go restart our server
+
+131
+00:05:06,400 --> 00:05:08,133
+只需在此处进行快速健全性检查
+just run a quick sanity check here
+
+132
+00:05:08,833 --> 00:05:10,100
+很酷，也很有效
+cool that works too
+
+133
+00:05:10,600 --> 00:05:13,100
+现在让我们假设我们要发送一个请求到
+now let's suppose we want to send a request to
+
+134
+00:05:13,100 --> 00:05:19,033
+另一个 api 让我们创建一个名为 tracker ex 的新文件
+another api let's create a new file called tracker ex
+
+135
+00:05:21,000 --> 00:05:22,766
+然后我们将粘贴一些代码
+and then we're going to paste in some code
+
+136
+00:05:23,333 --> 00:05:26,100
+tracker 模块模拟发送请求
+the tracker module simulates sending a request
+
+137
+00:05:26,133 --> 00:05:27,633
+到外部 api
+to an external api
+
+138
+00:05:27,633 --> 00:05:30,266
+获取野生动物的 GPS 坐标
+to get the gps coordinates of a wild thing
+
+139
+00:05:30,600 --> 00:05:33,166
+这是一些了不起的技术
+it's some amazing technology
+
+140
+00:05:33,566 --> 00:05:34,700
+而且看起来很多
+and it looks a lot
+
+141
+00:05:34,733 --> 00:05:37,566
+就像您之前看到的视频摄像头模块
+like the video cam module that you saw earlier
+
+142
+00:05:38,200 --> 00:05:40,166
+这里我们称之为获取位置
+here we call get location
+
+143
+00:05:40,300 --> 00:05:42,266
+为了一件狂野的事情，然后回来
+for a wild thing and get back
+
+144
+00:05:42,266 --> 00:05:45,200
+它的 gps 坐标作为长生不老药地图
+its gps coordinates as an elixir map
+
+145
+00:05:46,133 --> 00:05:46,400
+所以我们
+so we
+
+146
+00:05:46,400 --> 00:05:49,266
+想从我们的路线中调用这个获取位置功能
+want to call this get location function from our route
+
+147
+00:05:49,266 --> 00:05:50,866
+所以回到处理程序
+so back over in handler
+
+148
+00:05:51,233 --> 00:05:54,266
+让我们继续将这条路线从快照重命名为
+let's go ahead and rename this route from snapshots to
+
+149
+00:05:54,333 --> 00:05:57,200
+传感器，因为现在我们正在获取多个传感器
+sensors since now we're acquiring multiple sensors
+
+150
+00:05:57,600 --> 00:06:00,466
+并异步获取大脚怪的位置
+and to get the location of bigfoot asynchronously
+
+151
+00:06:00,533 --> 00:06:03,166
+我们可以使用 fetcher，因为它可以采用任何功能
+we can use fetcher since it can take any function
+
+152
+00:06:03,800 --> 00:06:05,466
+所以就在这里，我们将调用 fetcher
+so right down here we'll call fetcher
+
+153
+00:06:06,100 --> 00:06:06,900
+水槽
+a sink
+
+154
+00:06:08,200 --> 00:06:09,066
+有一个功能
+with a function
+
+155
+00:06:09,333 --> 00:06:12,233
+在这种情况下，它将是一个调查跟踪器
+in this case it's going to be a survey tracker
+
+156
+00:06:12,333 --> 00:06:13,533
+我没有这个别名
+I don't have this aliased in
+
+157
+00:06:13,533 --> 00:06:14,666
+所以我必须在那里使用调查
+so I've got to use survey there
+
+158
+00:06:14,900 --> 00:06:18,000
+获取我将在大脚怪中经过的位置
+get location I'm going to pass in bigfoot
+
+159
+00:06:21,000 --> 00:06:23,100
+然后我们将通过调用获取位置
+and then we'll get the location by calling
+
+160
+00:06:23,133 --> 00:06:25,200
+得到结果，因为它也是通用的
+get result since it's also generic
+
+161
+00:06:25,200 --> 00:06:26,100
+所以我要这样称呼
+so I'm going to call this
+
+162
+00:06:26,433 --> 00:06:27,700
+大脚在哪里
+where is bigfoot
+
+163
+00:06:30,833 --> 00:06:32,266
+获取你的点得到结果
+fetch your dot get result
+
+164
+00:06:32,933 --> 00:06:35,700
+现在我们想将其包含在我们的响应正文中
+now we want to include this in our response body
+
+165
+00:06:35,700 --> 00:06:37,166
+所以在这里我只是要去检查
+so down here I'm just going to inspect
+
+166
+00:06:37,166 --> 00:06:38,533
+我们有快照
+we've got snapshots right there
+
+167
+00:06:38,533 --> 00:06:39,866
+我实际上要把它放在一个两极
+I'm actually going to put it in a two pole
+
+168
+00:06:39,866 --> 00:06:42,166
+所以第一个元素将是我们的快照
+so the first element is going to be our snapshots
+
+169
+00:06:42,233 --> 00:06:45,066
+第二个元素是大脚怪在哪里
+and the second element is going to be where is bigfoot
+
+170
+00:06:46,766 --> 00:06:48,133
+现在如果我们重新启动我们的服务器
+now if we restart our server
+
+171
+00:06:51,033 --> 00:06:53,400
+然后这次发送传感器请求
+and then send a request this time for sensors
+
+172
+00:06:54,700 --> 00:06:56,533
+嗯，那里出了点问题
+hmm something went awry there
+
+173
+00:06:56,866 --> 00:06:59,033
+我们按预期返回一个元组
+we get back a tuple as we would expect
+
+174
+00:06:59,600 --> 00:07:01,700
+第一个元素应该是
+and the first element is supposed to be a
+
+175
+00:07:01,700 --> 00:07:03,333
+我们的快照图像列表
+list of our snapshot images
+
+176
+00:07:03,333 --> 00:07:04,766
+所以那里有清单
+so there's the list right there
+
+177
+00:07:05,100 --> 00:07:07,100
+第二个元素应该是
+and the second element is supposed to be
+
+178
+00:07:07,533 --> 00:07:10,733
+地图 GPS 坐标的线性地图
+a map a linear map of the gps coordinates
+
+179
+00:07:10,933 --> 00:07:13,900
+但坐标实际上最终出现在快照中
+but the coordinates actually ended up in the snapshot
+
+180
+00:07:13,900 --> 00:07:16,066
+列出我们的坐标应该在哪里
+list and where our coordinates were supposed to be
+
+181
+00:07:16,066 --> 00:07:17,366
+我们有一张快照图像
+we have a snapshot image
+
+182
+00:07:17,800 --> 00:07:18,866
+所以出了什么问题
+so what went wrong
+
+183
+00:07:19,400 --> 00:07:21,066
+好吧，如果我们回顾一下代码
+well if we look back at the code
+
+184
+00:07:21,066 --> 00:07:23,300
+我们产生了四个进程
+we spawned four processes
+
+185
+00:07:23,300 --> 00:07:24,933
+每个都发送了一条消息
+each of which sent a message
+
+186
+00:07:24,933 --> 00:07:27,566
+回到父进程的邮箱
+back to the parent process's mailbox
+
+187
+00:07:27,700 --> 00:07:29,033
+但他们回来了
+but they came back in a
+
+188
+00:07:29,033 --> 00:07:30,666
+与我们预期不同的顺序
+different order than we expected
+
+189
+00:07:31,000 --> 00:07:34,266
+为什么即使我们产生了轨道或最后
+why well even though we spawned the track or last
+
+190
+00:07:34,900 --> 00:07:36,966
+它的反应是最快的
+its response came back the fastest
+
+191
+00:07:37,533 --> 00:07:40,500
+对，如果我们在 tracker 中查看它的代码
+right if we look at its code over here in tracker
+
+192
+00:07:41,000 --> 00:07:41,533
+好吧
+well it
+
+193
+00:07:41,533 --> 00:07:43,333
+只睡五百毫秒
+only sleeps for five hundred milliseconds
+
+194
+00:07:43,333 --> 00:07:44,133
+半秒
+half a second
+
+195
+00:07:44,333 --> 00:07:47,133
+所以这是到达邮箱的第一条消息
+so it was the first message to arrive in the mailbox
+
+196
+00:07:47,533 --> 00:07:51,100
+因此回到这里第一次调用以获得结果
+therefore back over here this first call to get result
+
+197
+00:07:51,433 --> 00:07:53,033
+返回位置
+returns the location
+
+198
+00:07:53,333 --> 00:07:56,100
+不是快照，所以这不会是快照
+not the snapshot so this isn't going to be a snapshot
+
+199
+00:07:56,500 --> 00:07:59,066
+并记住我们的获取结果函数是如何实现的
+and remember how our get result function is implemented
+
+200
+00:07:59,733 --> 00:08:02,233
+接收将匹配任何消息
+the receive is going to match any message
+
+201
+00:08:02,233 --> 00:08:03,366
+用这种模式
+with this pattern
+
+202
+00:08:03,700 --> 00:08:06,600
+并且所有进程都由接收器产生
+and all process is spawned by a sink
+
+203
+00:08:06,600 --> 00:08:08,600
+使用该模式发送消息
+send a message with that pattern
+
+204
+00:08:09,233 --> 00:08:10,733
+所以调用获取结果
+so calling get result
+
+205
+00:08:10,733 --> 00:08:13,666
+只会收到邮箱中的下一条消息
+will simply receive the next message in the mailbox
+
+206
+00:08:13,666 --> 00:08:14,566
+或等待消息
+or wait for a message
+
+207
+00:08:14,566 --> 00:08:16,000
+如果还没有到
+if one hasn't already arrived
+
+208
+00:08:16,600 --> 00:08:20,066
+一个技巧是首先获取 gps 位置结果
+a hack would be to get the gps location results first
+
+209
+00:08:20,633 --> 00:08:23,200
+但这正是它只是一个黑客
+but that's exactly what it is just a hack
+
+210
+00:08:23,533 --> 00:08:25,466
+因为进程同时运行
+because processes run concurrently
+
+211
+00:08:25,466 --> 00:08:27,600
+无法保证其中的顺序
+there's no guarantee of the order in which
+
+212
+00:08:27,600 --> 00:08:29,000
+消息被发送
+the messages are sent
+
+213
+00:08:29,233 --> 00:08:31,033
+谁知道可能需要多长时间
+who knows how long it might take to
+
+214
+00:08:31,133 --> 00:08:32,700
+实际定位大脚
+actually locate bigfoot
+
+215
+00:08:33,000 --> 00:08:36,066
+是的，我们需要一些方法来联系电话以获得结果
+yeah we need some way to tie the call to get result
+
+216
+00:08:36,200 --> 00:08:38,933
+到产生该结果的生成过程
+to the spawn process that produce that result
+
+217
+00:08:39,133 --> 00:08:41,933
+所以这个结果应该来自这个产卵过程
+so this result should come from this spawn process
+
+218
+00:08:41,933 --> 00:08:44,066
+我们称之为 get location for bigfoot
+the one where we call get location for bigfoot
+
+219
+00:08:44,233 --> 00:08:47,133
+当我们在这里调用获取结果时，我们想要快照一个
+when we call get result here we want snapshot one
+
+220
+00:08:47,400 --> 00:08:48,900
+好吧，这就是这个 spawn 函数
+well that's this spawn function
+
+221
+00:08:49,333 --> 00:08:51,566
+快照二是这个债券功能
+snapshot two is this bond function
+
+222
+00:08:51,733 --> 00:08:52,500
+你猜对了
+and you guessed it
+
+223
+00:08:52,500 --> 00:08:54,533
+快照三是生成功能
+snapshot three is that spawn function
+
+224
+00:08:54,900 --> 00:08:56,200
+如果我们能把它们绑在一起
+if we can tie those together
+
+225
+00:08:56,200 --> 00:08:58,366
+那么我们调用的顺序无关紧要
+then it won't matter the order in which we call
+
+226
+00:08:58,366 --> 00:09:00,900
+得到结果它总会得到结果
+get result it will always get the result
+
+227
+00:09:00,900 --> 00:09:02,366
+对于产生它的过程
+for the process that spawned it
+
+228
+00:09:02,766 --> 00:09:03,333
+要做到这一点
+to do that
+
+229
+00:09:03,333 --> 00:09:06,333
+我们需要唯一地识别一个过程，我们
+we need to uniquely identify a process and we
+
+230
+00:09:06,333 --> 00:09:07,566
+实际上知道该怎么做
+actually know how to do that
+
+231
+00:09:07,566 --> 00:09:08,800
+它是由它的 pid
+it's by its pid
+
+232
+00:09:09,133 --> 00:09:10,933
+是的，当我们在这里调用水槽时
+yeah when we call a sink here
+
+233
+00:09:11,033 --> 00:09:13,000
+记得看看那个的实现
+remember looking at the implementation of that
+
+234
+00:09:13,266 --> 00:09:16,633
+此 acing 函数中的最后一个调用是生成
+the last call in this acing function is to spawn
+
+235
+00:09:16,800 --> 00:09:17,900
+我们知道产卵
+and we know that spawn
+
+236
+00:09:18,300 --> 00:09:19,866
+总是返回 pid
+always returns the pid
+
+237
+00:09:20,033 --> 00:09:22,666
+所以这里的返回值会给我们一个pid
+so the return value back here is going to give us a pid
+
+238
+00:09:22,766 --> 00:09:24,166
+所以我要签这个给 pid one
+so I'm going to sign this to pid one
+
+239
+00:09:27,600 --> 00:09:29,133
+坑二等
+pit two and so on
+
+240
+00:09:34,300 --> 00:09:35,500
+现在把它们绑在一起
+now to tie them together
+
+241
+00:09:35,566 --> 00:09:36,966
+让我们假设一分钟
+let's suppose for a minute
+
+242
+00:09:36,966 --> 00:09:38,400
+这还行不通
+this isn't going to work just yet
+
+243
+00:09:38,400 --> 00:09:40,900
+但是让我们假设获取结果函数
+but let's suppose that the get result function
+
+244
+00:09:41,133 --> 00:09:43,133
+以 pid 作为参数
+takes a pid as the argument
+
+245
+00:09:43,200 --> 00:09:44,300
+并返回结果
+and returns the result
+
+246
+00:09:44,300 --> 00:09:46,133
+对于那个过程，我们会说好的
+for that process we would say okay
+
+247
+00:09:46,366 --> 00:09:48,533
+对于大脚怪，我们想传入 pid 4
+for bigfoot we want to pass in pid four
+
+248
+00:09:48,566 --> 00:09:49,666
+我们想要它的结果
+we want its result
+
+249
+00:09:49,733 --> 00:09:50,733
+这将是 pid 之一
+this would be pid one
+
+250
+00:09:51,733 --> 00:09:52,533
+坑二
+pit two
+
+251
+00:09:53,533 --> 00:09:54,333
+和三号坑
+and pit three
+
+252
+00:09:54,900 --> 00:09:56,233
+那将是理想的
+well that would be ideal
+
+253
+00:09:56,300 --> 00:09:58,333
+那么订购就无关紧要了
+then the ordering wouldn't matter
+
+254
+00:09:58,566 --> 00:10:00,933
+让我们暂时离开 fetcher 并跳
+let's step away from fetcher for a moment and hop
+
+255
+00:10:00,933 --> 00:10:02,200
+进入性爱看
+into sex to see
+
+256
+00:10:02,200 --> 00:10:03,300
+我们将如何完成这项工作
+how we'll make this work
+
+257
+00:10:04,033 --> 00:10:05,966
+我将不得不放弃它，我回来
+I'm going to have to quit it that I get back
+
+258
+00:10:05,966 --> 00:10:06,800
+提示
+to a prompt
+
+259
+00:10:07,833 --> 00:10:09,733
+所以让我们模拟一下里面发生的事情
+so let's sort of simulate what's happening inside
+
+260
+00:10:09,733 --> 00:10:11,133
+我们的 acing 功能
+of our acing function
+
+261
+00:10:11,700 --> 00:10:13,733
+它做的第一件事是设置父母
+the first thing it does is set up the parent
+
+262
+00:10:14,166 --> 00:10:15,500
+它只是把它分配给自己
+and it just assigns it to self
+
+263
+00:10:15,500 --> 00:10:17,966
+那是调用进程或父进程
+that's the calling process or the parent process
+
+264
+00:10:18,133 --> 00:10:19,933
+然后就像我们刚刚看到的最后一个
+and then as we just saw the last
+
+265
+00:10:20,033 --> 00:10:21,966
+我们的 acing 函数行称为 spawn
+line of our acing function called spawn
+
+266
+00:10:21,966 --> 00:10:22,966
+并返回一个 pid
+and returns a pid
+
+267
+00:10:26,200 --> 00:10:27,566
+在 spawn 函数内部
+inside of the spawn function
+
+268
+00:10:27,566 --> 00:10:29,233
+它只是发回给父母
+it just sends back to the parent
+
+269
+00:10:29,566 --> 00:10:30,366
+一些信息
+some message
+
+270
+00:10:31,033 --> 00:10:32,833
+现在看起来像这个结果
+right now it looks like this result
+
+271
+00:10:33,000 --> 00:10:35,066
+我就放一张硬涂层的快照
+and I'll just put in a hard coated snapshot
+
+272
+00:10:38,000 --> 00:10:39,733
+所以这就是它目前的工作方式
+so that's the way it currently works
+
+273
+00:10:39,733 --> 00:10:41,700
+但我们要做的是包括
+but what we'll do is include
+
+274
+00:10:41,700 --> 00:10:43,666
+生成的进程是 pied
+the spawned process is pied
+
+275
+00:10:43,666 --> 00:10:45,900
+在它发回给父母的消息中
+in the message that it sends back to the parent
+
+276
+00:10:46,366 --> 00:10:47,766
+所以元组目前有
+so the tuple currently has
+
+277
+00:10:47,766 --> 00:10:49,600
+两个元素导致图像
+two elements result in the image
+
+278
+00:10:49,833 --> 00:10:52,333
+我们想在这个前面放一个新元素
+we want to put a new element on the front of this
+
+279
+00:10:52,366 --> 00:10:53,200
+我们可以把它放在任何地方
+we could put it anywhere
+
+280
+00:10:53,200 --> 00:10:54,600
+但我们要选择它的前面
+but we're going to choose the front of it
+
+281
+00:10:54,633 --> 00:10:56,966
+它将成为这个生成过程的 pid
+and it's going to be the pid of this spawn process
+
+282
+00:10:57,266 --> 00:10:59,800
+那么我们如何获得生成过程的pid
+well how do we get the pid of the spawn process
+
+283
+00:10:59,866 --> 00:11:01,000
+好吧，我们称自己
+well we call self
+
+284
+00:11:01,366 --> 00:11:03,900
+它总是返回当前进程的pid
+it always returns the pid of the current process
+
+285
+00:11:04,200 --> 00:11:08,366
+所以当 spawn 在这种情况下被称为 self
+and so when spawn is called self in this context
+
+286
+00:11:08,600 --> 00:11:11,166
+将成为该进程的 pid
+is going to be the pid of that process
+
+287
+00:11:11,533 --> 00:11:13,833
+这将与一号坑相同
+which is going to be the same thing as pit one
+
+288
+00:11:14,066 --> 00:11:15,833
+但我们将其包含在消息中
+but we're including it in the message
+
+289
+00:11:16,066 --> 00:11:17,233
+这样我们就可以拿起它
+so that we can pick it up on
+
+290
+00:11:17,233 --> 00:11:18,400
+事物的接收方
+the received side of things
+
+291
+00:11:19,000 --> 00:11:20,633
+所以在这种情况下，我会发送一个快照
+so in this case I'll send a snapshot
+
+292
+00:11:21,100 --> 00:11:22,700
+然后我要发送第二条消息
+then I'm going to send a second message
+
+293
+00:11:23,300 --> 00:11:24,900
+这次不是发送字符串
+this time instead of sending a string
+
+294
+00:11:25,100 --> 00:11:25,700
+我要使用
+I'm going to use
+
+295
+00:11:25,700 --> 00:11:27,866
+一个长生不老药垫，我们把坐标放在那里
+an elixir mat where we put our coordinates in there
+
+296
+00:11:27,866 --> 00:11:29,500
+我只会用 x 一个
+I'm just going to use x one
+
+297
+00:11:30,400 --> 00:11:31,266
+y 是二
+y is two
+
+298
+00:11:32,166 --> 00:11:32,966
+没关系
+doesn't really matter
+
+299
+00:11:32,966 --> 00:11:35,533
+我们只想要不同于快照名称的东西
+we just want something different than a snapshot name
+
+300
+00:11:35,800 --> 00:11:38,133
+我需要把这个 pid 改成 pid 2
+and I need to change this pid over to pid two
+
+301
+00:11:39,000 --> 00:11:40,166
+然后是第三条消息
+and then for the third message
+
+302
+00:11:40,166 --> 00:11:41,733
+我要发送另一个快照
+I'm going to send another snapshot
+
+303
+00:11:42,100 --> 00:11:43,700
+我们将把这张快照称为一张
+we'll just call this one snapshot one
+
+304
+00:11:43,766 --> 00:11:45,666
+所以它是不同的，这将是 pid 3
+so that it's different and this will be pid three
+
+305
+00:11:47,033 --> 00:11:48,933
+好的，现在让我们看看邮箱内部
+okay now let's peek inside of the mailbox
+
+306
+00:11:50,366 --> 00:11:52,933
+那是家长的邮箱信息
+that's the parent's mailbox messages
+
+307
+00:11:53,966 --> 00:11:56,166
+好的，很酷，我们在这里收到了三条消息
+okay cool we've got three messages inside of here
+
+308
+00:11:56,166 --> 00:11:58,466
+你注意到每个消息元组
+and you notice that each of the message tuples
+
+309
+00:11:58,466 --> 00:12:00,400
+有一个 pid 作为第一个元素
+has a pid as the first element
+
+310
+00:12:00,566 --> 00:12:02,633
+所以快照三是一五十八
+so snapshot three was one fifty eight
+
+311
+00:12:02,866 --> 00:12:04,566
+那是对的 一点五十八
+and that's right one fifty eight there
+
+312
+00:12:05,533 --> 00:12:08,000
+我们的坐标是一六十一
+our coordinates were one sixty one that matches up
+
+313
+00:12:08,100 --> 00:12:10,800
+一六十三是我们最后的快照
+and one sixty three is our final snapshot
+
+314
+00:12:11,200 --> 00:12:13,333
+所以正如我所说，在这里调用自我
+so as I said calling self inside of here
+
+315
+00:12:13,566 --> 00:12:15,633
+将与此处返回的 pid 相同
+is going to be the same pid that gets returned here
+
+316
+00:12:15,633 --> 00:12:16,433
+我们看到了
+and we see that
+
+317
+00:12:16,900 --> 00:12:19,166
+所以现在假设我们想要接收消息
+so now suppose we want to receive the message
+
+318
+00:12:19,166 --> 00:12:20,666
+与 gps 坐标
+with the gps coordinates
+
+319
+00:12:21,433 --> 00:12:22,500
+我们收到的
+what we do receive
+
+320
+00:12:23,733 --> 00:12:25,533
+然后我们要匹配的模式是
+and then the pattern we want to match is
+
+321
+00:12:26,000 --> 00:12:26,800
+一个pid
+a pid
+
+322
+00:12:27,366 --> 00:12:30,166
+然后是原子结果，然后是我们的坐标
+and then the atom result and then our coordinates
+
+323
+00:12:30,433 --> 00:12:31,733
+我就叫绳子
+which I'll just call cords
+
+324
+00:12:32,333 --> 00:12:33,200
+当匹配时
+when that matches
+
+325
+00:12:33,200 --> 00:12:35,200
+我们只想返回坐标
+we just want to return the coordinates
+
+326
+00:12:35,666 --> 00:12:38,266
+但问题是我们要匹配什么 pid
+but the question is what pid do we want to match
+
+327
+00:12:38,300 --> 00:12:40,566
+好吧，坐标在这里
+well the coordinates are here
+
+328
+00:12:40,766 --> 00:12:43,400
+一六十一，这是pid号2
+one sixty one and that's pid number two
+
+329
+00:12:43,566 --> 00:12:44,500
+一六十一
+one sixty one
+
+330
+00:12:44,933 --> 00:12:46,500
+所以这应该是pid 2
+so this should be pid two
+
+331
+00:12:47,000 --> 00:12:48,300
+但没那么快
+but not so fast
+
+332
+00:12:48,766 --> 00:12:49,966
+这是一个变量
+this is a variable
+
+333
+00:12:49,966 --> 00:12:51,833
+我们不想绑定那个变量
+and we don't want to bind that variable
+
+334
+00:12:51,833 --> 00:12:53,400
+到消息中的值
+to the value that's in the message
+
+335
+00:12:53,400 --> 00:12:55,033
+这将是这个 pid
+which would be this pid
+
+336
+00:12:55,400 --> 00:12:57,400
+相反，我们想要一个模式匹配
+instead we want a pattern match
+
+337
+00:12:57,400 --> 00:12:59,566
+pid 也存在的值
+pid too's existing value
+
+338
+00:12:59,566 --> 00:13:01,333
+这是这里的pid结构
+which is this pid structure right here
+
+339
+00:13:01,800 --> 00:13:04,133
+所以要做到这一点，我们需要使用 pin 运算符
+so to do that we need to use the pin operator
+
+340
+00:13:04,366 --> 00:13:05,900
+就是那个胡萝卜
+that's that carrot right there
+
+341
+00:13:06,400 --> 00:13:07,133
+那将是
+and that's going to
+
+342
+00:13:07,133 --> 00:13:09,833
+匹配变量现有值
+match against the variables existing value
+
+343
+00:13:09,833 --> 00:13:11,433
+不将其绑定到新值
+not bind it to a new value
+
+344
+00:13:11,866 --> 00:13:13,600
+所以这是说这个
+so this is saying that this
+
+345
+00:13:14,000 --> 00:13:16,800
+必须与 pid 2 的确切值匹配
+must match the exact value of pid two
+
+346
+00:13:17,166 --> 00:13:18,066
+如果我们这样做
+and if we do that
+
+347
+00:13:18,500 --> 00:13:20,566
+井接收器打开匹配的消息
+well receiver turns the matching message
+
+348
+00:13:20,966 --> 00:13:23,700
+即使它不是邮箱中的第一条消息
+even though it's not the first message in the mailbox
+
+349
+00:13:23,766 --> 00:13:26,066
+这实际上是邮箱中的第二条消息
+it was actually the second message in the mailbox
+
+350
+00:13:26,400 --> 00:13:27,566
+这是正确的，如果第一个
+that's right if the first
+
+351
+00:13:27,566 --> 00:13:28,966
+消息不匹配
+message doesn't match
+
+352
+00:13:28,966 --> 00:13:31,933
+它继续检查剩余的消息
+it continues examining the remaining messages
+
+353
+00:13:31,933 --> 00:13:33,400
+直到找到匹配
+until it finds a match
+
+354
+00:13:33,500 --> 00:13:35,266
+如果它根本找不到匹配项
+and if it doesn't find a match at all
+
+355
+00:13:35,466 --> 00:13:37,466
+它等待新消息到达
+it waits for a new message to arrive
+
+356
+00:13:38,066 --> 00:13:39,033
+现在回到处理程序
+now back in handler
+
+357
+00:13:39,033 --> 00:13:41,200
+我们需要做一些改变才能完成这项工作
+we need to make a couple changes to make this work
+
+358
+00:13:41,266 --> 00:13:43,600
+记得我说过在获取结果中传递一个 pid
+remember I said passing a pid in the get result
+
+359
+00:13:43,700 --> 00:13:44,733
+还不行
+won't work yet
+
+360
+00:13:44,733 --> 00:13:46,166
+所以让我们继续进行更改
+so let's go ahead and make the changes
+
+361
+00:13:46,200 --> 00:13:47,033
+这样就可以了
+so that will work
+
+362
+00:13:47,600 --> 00:13:48,933
+所以在 fetcher
+so over in fetcher
+
+363
+00:13:49,133 --> 00:13:51,000
+当我们发送这个时我们需要做的第一件事
+the first thing we need to do when we're sending this
+
+364
+00:13:51,000 --> 00:13:53,400
+回消息是包括
+message back is include the
+
+365
+00:13:53,400 --> 00:13:54,866
+生成进程是 pid
+spawn process is pid
+
+366
+00:13:55,133 --> 00:13:56,300
+就像我们在 ex 中所做的一样
+just like we did in ex
+
+367
+00:13:56,300 --> 00:13:57,666
+这将是自我在这里
+it's going to be self right here
+
+368
+00:13:58,533 --> 00:14:01,133
+那么我们的gib结果函数需要取pid
+then our gib result function needs to take the pid
+
+369
+00:14:01,266 --> 00:14:01,933
+接着
+and then
+
+370
+00:14:01,933 --> 00:14:04,333
+使用该 pin 运算符对其进行模式匹配
+pattern match against it using that pin operator
+
+371
+00:14:04,966 --> 00:14:06,066
+所以会发生什么
+so what happens is
+
+372
+00:14:06,066 --> 00:14:08,300
+我们调用 self 来获取生成过程
+we call self to get the spawn process as
+
+373
+00:14:08,300 --> 00:14:09,666
+坑并粘贴在消息中
+pit and stick it in the message
+
+374
+00:14:09,900 --> 00:14:10,933
+那将是一样的
+that's going to be the same
+
+375
+00:14:10,933 --> 00:14:12,966
+值作为 spawn 返回的 pid
+value as the pid returned by spawn
+
+376
+00:14:13,233 --> 00:14:15,133
+这是同步的返回值
+which is the return value of sync
+
+377
+00:14:15,933 --> 00:14:18,866
+因此，当处理程序调用同步时，它会返回那个坑
+so when handler calls a sync it gets that pit back
+
+378
+00:14:19,200 --> 00:14:21,966
+然后它在调用 get result 时使用那个坑
+then it uses that pit when it calls get result
+
+379
+00:14:22,000 --> 00:14:23,900
+所以在这种情况下得到结果坑一
+so in this case get result pit one
+
+380
+00:14:24,466 --> 00:14:25,566
+被传入
+that gets passed in
+
+381
+00:14:26,266 --> 00:14:27,933
+然后我们对它进行模式匹配
+and then we pattern match against it
+
+382
+00:14:28,633 --> 00:14:32,166
+所以这只会接收由
+so this will only receive messages that were sent by
+
+383
+00:14:32,433 --> 00:14:33,866
+这个绑定过程
+this bond process
+
+384
+00:14:34,166 --> 00:14:35,733
+现在我们需要确保把它保存起来
+now we need to make sure to save this away
+
+385
+00:14:36,100 --> 00:14:37,333
+还需要保存处理程序
+also need to save away the handler
+
+386
+00:14:37,333 --> 00:14:38,866
+因为它目前没有保存
+because it's currently not saved
+
+387
+00:14:39,166 --> 00:14:41,166
+我们已经准备好再次启动我们的服务器了
+and we're ready to fire up our server one more time
+
+388
+00:14:41,633 --> 00:14:42,966
+确保我们有一张白纸
+to make sure we have a clean slate
+
+389
+00:14:42,966 --> 00:14:45,466
+我杀死了一切，然后我会再次启动 ix
+I killed everything and then I'll fire up ix again
+
+390
+00:14:45,966 --> 00:14:47,200
+然后重启我们的服务器
+and then restart our server
+
+391
+00:14:47,766 --> 00:14:49,533
+现在如果我们发送传感器请求
+now if we send a request for sensors
+
+392
+00:14:50,100 --> 00:14:51,266
+一切都井井有条
+well everything's in the right order
+
+393
+00:14:51,266 --> 00:14:53,666
+我们在第一个列表中有我们所有的快照
+we have all of our snapshots in that first list
+
+394
+00:14:53,766 --> 00:14:56,033
+我们有我们的gps坐标作为第二个
+and we have our gps coordinates as the second
+
+395
+00:14:56,033 --> 00:14:57,133
+该元组的元素
+element of that tuple
+
+396
+00:14:57,566 --> 00:14:58,500
+所以修复了它
+so that fixed it
+
+397
+00:14:58,966 --> 00:15:01,133
+现在在快照的情况下，我们有三个
+now in the case of snapshots we have three
+
+398
+00:15:01,200 --> 00:15:02,500
+调用接收器
+calls to a sink
+
+399
+00:15:02,666 --> 00:15:04,666
+和三个电话以获得结果
+and three calls to get result
+
+400
+00:15:04,900 --> 00:15:05,833
+原来有
+it turns out there's
+
+401
+00:15:05,833 --> 00:15:08,566
+使用管道更简洁的方法
+a more concise way to do this using a pipeline
+
+402
+00:15:09,266 --> 00:15:11,533
+是的，让我们在这里重新安排一些东西来设置它
+yeah let's rearrange things a bit here to set that up
+
+403
+00:15:12,366 --> 00:15:13,733
+我们想把这些放在一个列表中
+we want to put these inside of a list
+
+404
+00:15:13,733 --> 00:15:15,066
+所以让我们摆脱 p
+so let's get rid of the p
+
+405
+00:15:16,300 --> 00:15:17,466
+这将是一个列表
+and this will be a list
+
+406
+00:15:19,833 --> 00:15:22,166
+我需要在这里加一个逗号，在这里加一个逗号
+I need to put a comma here and a comma here
+
+407
+00:15:24,366 --> 00:15:25,166
+就这样
+just like that
+
+408
+00:15:25,833 --> 00:15:28,033
+所以这要做的是产生三个函数
+so what this is going to do is spawn three functions
+
+409
+00:15:28,033 --> 00:15:29,200
+每个相机一个
+one for each camera
+
+410
+00:15:29,200 --> 00:15:31,600
+我们最终会得到一个包含三个坑的列表
+and we're going to end up with a list of three pits
+
+411
+00:15:32,066 --> 00:15:34,866
+现在我们可以做的是获取 pid 列表
+now what we can do is take that list of pids
+
+412
+00:15:34,866 --> 00:15:37,266
+并将其通过管道传输到鸸鹋地图
+and pipe it into emu map
+
+413
+00:15:38,666 --> 00:15:41,333
+对于每一个我们想称之为 fetcher 的孩子
+and for every one of those kids we want to call fetcher
+
+414
+00:15:41,333 --> 00:15:42,766
+得到结果我们知道怎么做
+get result we know how to do that
+
+415
+00:15:42,766 --> 00:15:44,733
+我们可以使用捕获操作符来做到这一点
+we can use the capture operator to do that
+
+416
+00:15:44,933 --> 00:15:46,066
+它只是取回器
+it's just going to be fetcher
+
+417
+00:15:47,400 --> 00:15:48,200
+得到结果
+get result
+
+418
+00:15:49,366 --> 00:15:50,500
+然后我们可以使用
+and then we can either use
+
+419
+00:15:51,200 --> 00:15:53,200
+像这样的和号
+ampersand one like that
+
+420
+00:15:53,300 --> 00:15:54,333
+或者正如我们之前所学
+or as we learned earlier
+
+421
+00:15:54,333 --> 00:15:57,266
+有一条捷径，我们可以用现实的捷径
+there's a shortcut we can just use the reality one
+
+422
+00:15:58,000 --> 00:16:00,633
+所以对于这个列表中的每个坑，它都会调用
+so for every pit in this list it's going to call
+
+423
+00:16:00,633 --> 00:16:02,300
+用那个 pid 得到结果
+get result with that pid
+
+424
+00:16:02,433 --> 00:16:04,100
+当所有过程完成时
+and when all the process is finished
+
+425
+00:16:04,100 --> 00:16:05,233
+虽然我们已经收集
+while we've collected
+
+426
+00:16:05,300 --> 00:16:07,300
+三个文件放大器的列表
+a list of three file amps fact
+
+427
+00:16:07,300 --> 00:16:09,866
+我们将继续并将其分配给快照
+we'll just go ahead and assign that to snapshots
+
+428
+00:16:12,833 --> 00:16:14,333
+然后我们可以在这里摆脱它
+and then we can get rid of that down here
+
+429
+00:16:15,033 --> 00:16:17,066
+并摆脱所有得到的结果
+and get rid of all the get results
+
+430
+00:16:17,433 --> 00:16:18,366
+所以这会起作用
+so this will work
+
+431
+00:16:18,366 --> 00:16:19,800
+但你注意到我们只是在打电话
+but you notice we're just calling
+
+432
+00:16:19,800 --> 00:16:21,633
+在这里获取快照 3 次
+get snapshot three times here
+
+433
+00:16:21,833 --> 00:16:24,333
+每次都以不同的参数传递它
+passing it in a different argument each time
+
+434
+00:16:24,900 --> 00:16:26,366
+所以我们可以进一步细化这个
+so we can further refine this
+
+435
+00:16:27,533 --> 00:16:30,233
+我们要做的是创建一个相机名称列表，所以
+what we'll do is create a list of camera names so
+
+436
+00:16:32,066 --> 00:16:32,866
+凸轮一
+cam one
+
+437
+00:16:34,500 --> 00:16:36,866
+凸轮二和凸轮三
+cam two and cam three
+
+438
+00:16:37,700 --> 00:16:39,933
+然后而不是调用这三次
+and then instead of calling this three times
+
+439
+00:16:41,133 --> 00:16:44,466
+我们要做的是将该列表通过管道传输到新地图中
+what we want to do is pipe that list into a new map
+
+440
+00:16:45,200 --> 00:16:47,800
+对于我们想要调用的每一个相机名称
+and for every one of those camera names we want to call
+
+441
+00:16:48,166 --> 00:16:49,833
+这个 fetcher acing 函数
+this fetcher acing function
+
+442
+00:16:50,200 --> 00:16:53,033
+将它传递给函数调用获取快照
+passing it the function calls get snapshot
+
+443
+00:16:54,100 --> 00:16:56,033
+然后在这里代替凸轮三
+and then instead of cam three right here
+
+444
+00:16:56,333 --> 00:16:57,700
+而我们只想通过
+while we just want to pass in
+
+445
+00:16:57,900 --> 00:16:59,800
+此列表中的下一个摄像机名称
+the next camera name from this list
+
+446
+00:17:00,100 --> 00:17:01,766
+然后我们通过管道将其传递给 get result
+and then we pipe that into get result
+
+447
+00:17:01,766 --> 00:17:03,200
+调用得到结果
+which calls get result
+
+448
+00:17:03,233 --> 00:17:04,166
+对于每一个
+for every one of the
+
+449
+00:17:04,166 --> 00:17:06,500
+此地图返回的列表中的孩子
+kids that are in the list returned by this map
+
+450
+00:17:07,433 --> 00:17:08,633
+让我们继续保存它
+let's go ahead and save that away
+
+451
+00:17:09,900 --> 00:17:11,066
+我们将重新启动我们的服务器
+we'll restart our server
+
+452
+00:17:13,500 --> 00:17:14,733
+给它一个快速的健全性检查
+give it a quick sanity check
+
+453
+00:17:15,433 --> 00:17:16,966
+很酷，仍然有效
+and cool that still works
+
+454
+00:17:17,400 --> 00:17:19,300
+这种方法的一个优点是它
+one advantage to this approach is that it
+
+455
+00:17:19,300 --> 00:17:20,766
+总是调用 git result
+always calls git result
+
+456
+00:17:20,766 --> 00:17:22,133
+对于每个过程
+for each process
+
+457
+00:17:22,133 --> 00:17:23,100
+我们不必记住
+we don't have to remember
+
+458
+00:17:23,100 --> 00:17:25,266
+调用它一定次数
+to call it a certain number of times
+
+459
+00:17:25,633 --> 00:17:29,200
+一个缺点是我们的跟踪器流程就在这里
+one disadvantage is our tracker process right here
+
+460
+00:17:29,533 --> 00:17:31,066
+直到
+doesn't get spawn until
+
+461
+00:17:31,233 --> 00:17:33,333
+收到快照后
+after the snapshots have been received
+
+462
+00:17:33,600 --> 00:17:35,533
+这意味着我们创建了一个不需要的
+which means we've created an unwanted
+
+463
+00:17:35,533 --> 00:17:37,200
+我们代码中的同步点
+synchronization point in our code
+
+464
+00:17:37,200 --> 00:17:37,833
+再次
+again
+
+465
+00:17:37,833 --> 00:17:40,100
+我们必须等待所有这些快照回来
+we've got to wait for all these snapshots to come back
+
+466
+00:17:40,233 --> 00:17:42,266
+在我们去弄清楚大脚怪在哪里之前
+before we can then go figure out where bigfoot is
+
+467
+00:17:42,600 --> 00:17:44,700
+所以在这种情况下，我们想先生成所有东西
+so in this case we want to spawn everything first
+
+468
+00:17:44,700 --> 00:17:46,066
+所以我要把它移到这里
+so I'm going to move this up here
+
+469
+00:17:47,500 --> 00:17:50,333
+我们将生成获取位置去寻找大脚怪
+we'll spawn the get location go look for bigfoot
+
+470
+00:17:50,700 --> 00:17:52,466
+然后我们将继续生成我们的 get
+and then we'll go ahead and spawn our get
+
+471
+00:17:52,466 --> 00:17:55,033
+快照我们将等待快照
+snapshots we'll wait for the snapshots
+
+472
+00:17:55,166 --> 00:17:56,433
+然后他们回来的时候
+and then by the time they're back
+
+473
+00:17:56,500 --> 00:17:58,233
+好吧，我们也应该有一个大脚怪的结果
+well we should have a result for bigfoot too
+
+474
+00:17:58,266 --> 00:17:59,566
+所以我们会得到那个结果
+so we'll just get that result
+
+475
+00:18:00,000 --> 00:18:02,300
+现在产生一个一次性的过程
+now spawning a process for a one off
+
+476
+00:18:02,366 --> 00:18:04,100
+像这样的同步任务
+a synchronous task like this
+
+477
+00:18:04,100 --> 00:18:06,200
+并在以后得到结果
+and getting its result at a later time
+
+478
+00:18:06,200 --> 00:18:08,966
+如此普遍，以至于 elixir 提供了一个抽象
+is so common that elixir provides an abstraction
+
+479
+00:18:09,233 --> 00:18:10,900
+是的，类似于我们的 fetcher 模块
+yeah similar to our fetcher module
+
+480
+00:18:10,900 --> 00:18:12,566
+elixir 有一个任务模块
+elixir has a task module
+
+481
+00:18:12,633 --> 00:18:14,866
+它包括几个便利功能
+it includes several convenience functions
+
+482
+00:18:14,966 --> 00:18:16,633
+其中两个有效地做同样的事情
+two of which effectively do the same
+
+483
+00:18:16,633 --> 00:18:17,700
+作为我们的取物器
+thing as our fetcher
+
+484
+00:18:17,933 --> 00:18:20,033
+并且因为我们按照我们的方式设计了 fetcher
+and because we designed fetcher the way we did
+
+485
+00:18:20,200 --> 00:18:23,066
+眨眼眨眼任务是替代品
+wink wink task is a drop in replacement
+
+486
+00:18:23,300 --> 00:18:25,266
+所以让我们改变我们的路线来使用任务
+so let's change our route to use task
+
+487
+00:18:25,366 --> 00:18:26,833
+我将从这里的大脚开始
+and I'll start with bigfoot here
+
+488
+00:18:27,166 --> 00:18:29,933
+我们只是将此处的 fetcher 模块更改为任务
+we just change the fetcher module here to task
+
+489
+00:18:30,133 --> 00:18:32,333
+和 acing 函数和 fetcher 类似
+and similar to the acing function and fetcher
+
+490
+00:18:32,600 --> 00:18:34,300
+任务具有执行功能
+task has an acing function
+
+491
+00:18:34,366 --> 00:18:36,833
+它产生一个运行函数的进程
+it spawns a process that runs a function
+
+492
+00:18:36,966 --> 00:18:38,566
+然后调用cind发送
+then cind is called to send
+
+493
+00:18:38,566 --> 00:18:41,133
+该函数返回父进程
+that functions result back to the parent process
+
+494
+00:18:41,300 --> 00:18:42,466
+听起来很熟悉
+sounds pretty familiar
+
+495
+00:18:43,400 --> 00:18:46,200
+类似于 fetcher 中的 git result 函数
+in similar to the git result function in fetcher
+
+496
+00:18:46,400 --> 00:18:49,333
+任务模块有一个称为权重的函数
+the task module has a function called a weight
+
+497
+00:18:49,600 --> 00:18:52,000
+在那个函数里面有一个接收块
+and inside of that function there's a receive block
+
+498
+00:18:52,000 --> 00:18:53,600
+匹配并返回
+that matches and returns
+
+499
+00:18:53,600 --> 00:18:55,400
+同步发送的消息
+the message sent by sync
+
+500
+00:18:55,866 --> 00:18:58,533
+现在与 fetcher 不同，我们不会返回 pid
+now unlike the fetcher we don't get back a pid
+
+501
+00:18:58,600 --> 00:19:00,200
+当我们称任务为接收器时
+when we call task a sink
+
+502
+00:19:00,200 --> 00:19:03,000
+我们实际上得到了一个任务结构
+we actually get back a task structure
+
+503
+00:19:03,000 --> 00:19:04,266
+所以我要调用那个任务
+so I'm going to call that task
+
+504
+00:19:04,400 --> 00:19:06,833
+并且被击中的仅包括父进程 pid
+and the struck just includes the parent process pid
+
+505
+00:19:07,166 --> 00:19:10,166
+它称它为所有者，也称其为试用进程 pid
+it calls it the owner and also the trial process pid
+
+506
+00:19:10,333 --> 00:19:12,433
+然后它使用那个任务结构
+and then it uses that task structure
+
+507
+00:19:12,500 --> 00:19:14,733
+匹配生成过程
+to match up the spawn process
+
+508
+00:19:14,733 --> 00:19:16,733
+结果我们必须在这里传递
+with the results we have to pass it in here
+
+509
+00:19:17,000 --> 00:19:19,233
+任务听起来很熟悉
+task sounds pretty familiar
+
+510
+00:19:19,666 --> 00:19:21,200
+然后让我们继续更改我们的管道以使用
+then let's go ahead and change our pipeline to use
+
+511
+00:19:21,200 --> 00:19:23,266
+任务以及这里的任务
+task as well so task here
+
+512
+00:19:24,700 --> 00:19:26,800
+不必改变水槽，但必须改变这个
+don't have to change a sink but have to change this
+
+513
+00:19:26,800 --> 00:19:28,200
+超过一个重量
+over to a weight
+
+514
+00:19:28,700 --> 00:19:31,400
+很酷，所以虽然我们学到了很多写作 fetcher
+cool so while we learned a lot writing fetcher
+
+515
+00:19:31,566 --> 00:19:33,300
+我们实际上不再需要它了
+we don't actually need it anymore
+
+516
+00:19:33,533 --> 00:19:35,700
+当一个计划一起出现时，你不只是喜欢它吗
+don't you just love it when a plan comes together
+
+517
+00:19:36,133 --> 00:19:38,666
+是的，我也喜欢删除这些别名
+yeah I do I also love removing these aliases
+
+518
+00:19:38,700 --> 00:19:40,133
+那是我们必须编写的更少的代码
+that's less code that we have to write
+
+519
+00:19:40,133 --> 00:19:41,533
+所以我会在那里删除它
+so I'll just remove that there
+
+520
+00:19:41,933 --> 00:19:42,733
+把它存起来
+save that away
+
+521
+00:19:44,733 --> 00:19:45,900
+重启我们的服务器
+restart our server
+
+522
+00:19:47,666 --> 00:19:49,400
+最后一次发送请求
+send the request one final time
+
+523
+00:19:50,000 --> 00:19:51,700
+它就像以前一样工作
+and it works just like it did before
+
+524
+00:19:51,833 --> 00:19:53,566
+但现在我们需要维护的代码更少了
+but now we have less code to maintain
+
+525
+00:19:53,966 --> 00:19:56,233
+现在你基本上知道会发生什么了
+now you basically know what happens
+
+526
+00:19:56,233 --> 00:19:58,033
+在任务模块的底层
+under the hood of the task module
+
+527
+00:19:58,400 --> 00:19:59,033
+你会想用
+you'll want to use
+
+528
+00:19:59,033 --> 00:20:01,566
+在需要运行函数的情况下执行任务
+task in situations where you need to run a function
+
+529
+00:20:01,566 --> 00:20:03,700
+异步任务
+a task asynchronously
+
+530
+00:20:03,800 --> 00:20:05,466
+在一个短暂的过程中
+in a short lived process
+
+531
+00:20:05,666 --> 00:20:08,500
+所以在什么其他用例中我们的过程是有用的
+so in what other use cases our process is useful
+
+532
+00:20:08,733 --> 00:20:09,633
+好在下一节
+well in the next section
+
+533
+00:20:09,633 --> 00:20:11,833
+我们将看一个具有
+we'll look at an example of a process that has a
+
+534
+00:20:11,833 --> 00:20:14,833
+更长的使用寿命并响应多条消息
+longer life and responds to multiple messages
+

@@ -1,0 +1,2116 @@
+1
+00:00:00,333 --> 00:00:01,766
+hey folks we're out on the refuge today
+
+2
+00:00:01,766 --> 00:00:03,900
+playing around with some fancy new technology
+
+3
+00:00:04,433 --> 00:00:07,366
+trail cams we're positioning three of these at
+
+4
+00:00:07,366 --> 00:00:08,933
+different areas around the refuge
+
+5
+00:00:09,233 --> 00:00:10,500
+then to keep an eye on things
+
+6
+00:00:10,500 --> 00:00:12,500
+we can get a snapshot image from each
+
+7
+00:00:12,500 --> 00:00:13,933
+camera by sending a request
+
+8
+00:00:13,933 --> 00:00:14,833
+to an api
+
+9
+00:00:15,800 --> 00:00:16,766
+we're back in the studio
+
+10
+00:00:16,766 --> 00:00:18,933
+and you can see that we've added a video cam
+
+11
+00:00:19,166 --> 00:00:21,866
+ex file here and as usual you'll find
+
+12
+00:00:21,966 --> 00:00:24,266
+this and other prepared files in the code bundle
+
+13
+00:00:24,733 --> 00:00:27,533
+in this file just to find a module called video cam
+
+14
+00:00:27,533 --> 00:00:30,233
+that simulates sending a request to an external api
+
+15
+00:00:30,566 --> 00:00:33,766
+then we can get a snapshot image from a video camera
+
+16
+00:00:33,766 --> 00:00:35,833
+so the functions called gets napshot
+
+17
+00:00:36,033 --> 00:00:37,133
+we give it a camera name
+
+18
+00:00:37,400 --> 00:00:37,600
+and
+
+19
+00:00:37,600 --> 00:00:39,533
+here you would put the actual code to send a request
+
+20
+00:00:39,566 --> 00:00:40,666
+to that external api
+
+21
+00:00:40,666 --> 00:00:42,166
+but we're not going to worry about that
+
+22
+00:00:42,433 --> 00:00:43,300
+we're just going to simulate
+
+23
+00:00:43,300 --> 00:00:44,700
+that it can be relatively slow
+
+24
+00:00:44,700 --> 00:00:46,133
+by sleeping for one second
+
+25
+00:00:46,566 --> 00:00:48,266
+and then it's going to return some response
+
+26
+00:00:48,266 --> 00:00:49,866
+and so we've got an example response
+
+27
+00:00:49,866 --> 00:00:50,700
+that would be returned
+
+28
+00:00:50,700 --> 00:00:51,566
+from that api
+
+29
+00:00:51,900 --> 00:00:53,066
+we just take the camera name
+
+30
+00:00:53,266 --> 00:00:55,466
+add a hyphen dashnapshot
+
+31
+00:00:55,666 --> 00:00:56,466
+jpeg
+
+32
+00:00:56,900 --> 00:00:59,000
+now we're just returning the file name of this napshot
+
+33
+00:00:59,000 --> 00:01:01,166
+but you can imagine that it would return a full
+
+34
+00:01:01,166 --> 00:01:04,066
+url to a file living on an image server somewhere
+
+35
+00:01:04,600 --> 00:01:05,966
+so if we call that function
+
+36
+00:01:10,033 --> 00:01:11,533
+I'll just pass in cam one
+
+37
+00:01:13,600 --> 00:01:15,400
+well it takes a second to get a response
+
+38
+00:01:15,400 --> 00:01:17,533
+and it just returns that file name
+
+39
+00:01:18,500 --> 00:01:19,400
+same for cam two
+
+40
+00:01:19,400 --> 00:01:21,233
+we just get a different file name after a second
+
+41
+00:01:21,400 --> 00:01:22,466
+and cam three
+
+42
+00:01:23,200 --> 00:01:26,066
+and in handler dx we already have a
+
+43
+00:01:26,533 --> 00:01:30,000
+snapshot's route that gets us three snapshots
+
+44
+00:01:30,200 --> 00:01:32,066
+yeah it calls that function three times
+
+45
+00:01:32,066 --> 00:01:33,366
+so we get back three
+
+46
+00:01:33,433 --> 00:01:34,300
+different file names
+
+47
+00:01:34,300 --> 00:01:37,433
+we then put those file names into a snapshots list
+
+48
+00:01:37,700 --> 00:01:39,466
+and then we inspect that list
+
+49
+00:01:39,633 --> 00:01:41,966
+and that makes up our response body
+
+50
+00:01:42,300 --> 00:01:44,033
+we won't worry about how the images would get
+
+51
+00:01:44,033 --> 00:01:44,966
+rendered on a page
+
+52
+00:01:45,033 --> 00:01:46,400
+just so we can stay on topic
+
+53
+00:01:46,733 --> 00:01:47,933
+and you'll notice we could call that
+
+54
+00:01:47,933 --> 00:01:49,233
+get snapshot function
+
+55
+00:01:49,300 --> 00:01:50,633
+from the video cam module
+
+56
+00:01:50,633 --> 00:01:52,333
+and that's because we have that aliased in
+
+57
+00:01:52,333 --> 00:01:53,133
+up here at the top
+
+58
+00:01:53,133 --> 00:01:55,033
+alias survey videocam
+
+59
+00:01:55,700 --> 00:01:57,233
+now let's spawn the server in its own
+
+60
+00:01:57,233 --> 00:01:59,666
+process so we can continue to use iex
+
+61
+00:01:59,666 --> 00:02:01,833
+and we learned how to do this in the previous module
+
+62
+00:02:02,066 --> 00:02:04,333
+in this case we'll call spawn with the named function
+
+63
+00:02:04,333 --> 00:02:06,533
+so it's going to be our module hp server
+
+64
+00:02:07,033 --> 00:02:08,966
+the function is going to be start
+
+65
+00:02:09,600 --> 00:02:11,100
+and then we give it a list of arguments
+
+66
+00:02:11,100 --> 00:02:13,233
+we're going to start it on port 4000 again
+
+67
+00:02:14,866 --> 00:02:16,500
+then over in a different terminal session
+
+68
+00:02:16,500 --> 00:02:18,366
+we can send a request to get the snapshots
+
+69
+00:02:18,366 --> 00:02:19,266
+it's just going to be a request
+
+70
+00:02:19,266 --> 00:02:21,533
+to local those 4000 slash snapshots
+
+71
+00:02:22,633 --> 00:02:24,466
+and we have to wait for the request
+
+72
+00:02:24,600 --> 00:02:26,066
+and it's going to take a full
+
+73
+00:02:26,100 --> 00:02:28,266
+3 seconds to get back the response which
+
+74
+00:02:28,266 --> 00:02:30,333
+is at the list of those file names
+
+75
+00:02:30,566 --> 00:02:33,033
+so it shouldn't be any surprise that it takes 3 seconds
+
+76
+00:02:33,033 --> 00:02:35,900
+because the route calls to get snapshot function
+
+77
+00:02:36,100 --> 00:02:38,900
+three times and we know that each api request
+
+78
+00:02:38,933 --> 00:02:39,900
+takes one second
+
+79
+00:02:40,400 --> 00:02:43,000
+ah but we know how to do this more efficiently with
+
+80
+00:02:43,000 --> 00:02:47,366
+processes as we saw iex runs in its own process
+
+81
+00:02:47,566 --> 00:02:51,233
+and while in iex we spawn our http server
+
+82
+00:02:51,233 --> 00:02:53,966
+so the server is running in its own process
+
+83
+00:02:54,166 --> 00:02:56,266
+then when we send a request to our server
+
+84
+00:02:56,266 --> 00:02:57,366
+safer bears
+
+85
+00:02:57,366 --> 00:03:00,600
+it spawns another process to handle that request
+
+86
+00:03:01,133 --> 00:03:03,566
+and once it is send a response back to the client
+
+87
+00:03:03,566 --> 00:03:05,200
+that process exits
+
+88
+00:03:05,466 --> 00:03:06,433
+in the same way
+
+89
+00:03:06,433 --> 00:03:09,533
+our new requests for snapshot spawns yet another
+
+90
+00:03:09,566 --> 00:03:11,533
+process to handle that request
+
+91
+00:03:12,033 --> 00:03:14,533
+right now in that process we send three
+
+92
+00:03:14,566 --> 00:03:16,533
+api requests sequentially
+
+93
+00:03:16,700 --> 00:03:18,666
+and since each request takes one second
+
+94
+00:03:18,800 --> 00:03:21,433
+the process has to wait a full 3 seconds
+
+95
+00:03:21,633 --> 00:03:23,400
+before sending back a response
+
+96
+00:03:23,633 --> 00:03:26,233
+instead we can spawn each api request
+
+97
+00:03:26,233 --> 00:03:29,000
+in its own process so they run in parallel
+
+98
+00:03:29,200 --> 00:03:32,433
+so processes can spawn other processes
+
+99
+00:03:32,600 --> 00:03:34,866
+and that way the request handling process will
+
+100
+00:03:34,866 --> 00:03:37,766
+only take as long as the slowest api request
+
+101
+00:03:37,900 --> 00:03:40,200
+which in our case is just one second
+
+102
+00:03:41,033 --> 00:03:42,033
+in our route function
+
+103
+00:03:42,033 --> 00:03:45,000
+we know how to spawn an api request in its own process
+
+104
+00:03:45,166 --> 00:03:47,300
+so here's the function we'll just call spawn
+
+105
+00:03:47,866 --> 00:03:49,200
+give it anonymous function there
+
+106
+00:03:50,033 --> 00:03:50,533
+run that
+
+107
+00:03:50,533 --> 00:03:53,133
+get snapshot function inside of the anonymous function
+
+108
+00:03:54,033 --> 00:03:54,900
+and what's going to happen if
+
+109
+00:03:54,900 --> 00:03:55,566
+we do this
+
+110
+00:03:55,566 --> 00:03:58,166
+well let's copy it out and just try it in iux
+
+111
+00:03:59,600 --> 00:04:00,500
+so I'll paste it in
+
+112
+00:04:00,566 --> 00:04:02,166
+I need to change this to use
+
+113
+00:04:02,333 --> 00:04:04,400
+servy dot because we don't have the alias here
+
+114
+00:04:05,466 --> 00:04:06,133
+it return
+
+115
+00:04:06,133 --> 00:04:08,133
+and it creates a process and it's going to run
+
+116
+00:04:08,133 --> 00:04:10,600
+that get snapshot function in that process
+
+117
+00:04:10,633 --> 00:04:12,666
+but we just see the pid right here
+
+118
+00:04:12,666 --> 00:04:15,700
+that's what's returned by the spawn function
+
+119
+00:04:16,000 --> 00:04:18,600
+but we don't see the value that's returned by
+
+120
+00:04:18,600 --> 00:04:20,266
+the get snapshot function
+
+121
+00:04:20,500 --> 00:04:21,800
+that's going to be the file name
+
+122
+00:04:22,133 --> 00:04:23,300
+we just get the pid
+
+123
+00:04:23,900 --> 00:04:26,400
+because that's what's returned by the spawn function
+
+124
+00:04:26,833 --> 00:04:28,733
+so now back over in our handler file
+
+125
+00:04:28,733 --> 00:04:30,566
+this really isn't snapshot one
+
+126
+00:04:30,600 --> 00:04:33,000
+this is a pid so let's call it pid one
+
+127
+00:04:33,466 --> 00:04:34,900
+but now we've got a problem right
+
+128
+00:04:34,966 --> 00:04:38,033
+we've got a pid but what we really need is snapshots
+
+129
+00:04:38,033 --> 00:04:41,400
+we need to create a list of snapshots or file names
+
+130
+00:04:41,700 --> 00:04:43,833
+so we need some way to return
+
+131
+00:04:43,866 --> 00:04:46,000
+the file name that's returned by this
+
+132
+00:04:46,000 --> 00:04:47,433
+get snapshot function
+
+133
+00:04:47,666 --> 00:04:49,600
+to the process that spawned it
+
+134
+00:04:49,866 --> 00:04:50,666
+in this case
+
+135
+00:04:50,666 --> 00:04:53,066
+that process is the one that's running this
+
+136
+00:04:53,100 --> 00:04:54,033
+route function
+
+137
+00:04:54,666 --> 00:04:56,733
+so we have two processes and since
+
+138
+00:04:56,733 --> 00:04:58,566
+one process spawned the other
+
+139
+00:04:58,566 --> 00:05:00,866
+you can think of this process as the parent
+
+140
+00:05:00,866 --> 00:05:02,700
+and this process is the child
+
+141
+00:05:02,933 --> 00:05:06,100
+this process gets a file name from an external api
+
+142
+00:05:06,133 --> 00:05:09,633
+and then needs to send that file name to this process
+
+143
+00:05:09,933 --> 00:05:10,866
+but how can it do that
+
+144
+00:05:10,866 --> 00:05:12,933
+if the processes run concurrently and
+
+145
+00:05:12,933 --> 00:05:14,133
+don't share anything
+
+146
+00:05:14,433 --> 00:05:17,033
+well you can think of processes as being kind of like
+
+147
+00:05:17,166 --> 00:05:19,533
+people we're all doing things concurrently
+
+148
+00:05:19,533 --> 00:05:22,133
+and we often need to communicate asynchronously
+
+149
+00:05:22,233 --> 00:05:24,133
+allowing each person to carry on
+
+150
+00:05:24,133 --> 00:05:26,300
+uninterrupted with whatever they're doing
+
+151
+00:05:26,666 --> 00:05:27,733
+how do we do that
+
+152
+00:05:28,000 --> 00:05:29,133
+while we send each other
+
+153
+00:05:29,133 --> 00:05:32,500
+a synchronous messages such as emails and text
+
+154
+00:05:32,533 --> 00:05:34,833
+which end up in some kind of mailbox
+
+155
+00:05:35,166 --> 00:05:37,466
+likewise each process has a mailbox
+
+156
+00:05:37,466 --> 00:05:39,700
+it's created when the process is created
+
+157
+00:05:39,966 --> 00:05:41,033
+in our case we're
+
+158
+00:05:41,033 --> 00:05:42,833
+only concerned with messages sent to the
+
+159
+00:05:42,833 --> 00:05:44,033
+parent process
+
+160
+00:05:44,066 --> 00:05:46,333
+so we'll focus on its mailbox
+
+161
+00:05:46,766 --> 00:05:48,400
+each mailbox has an address
+
+162
+00:05:48,400 --> 00:05:50,400
+it's the pid of the process
+
+163
+00:05:50,533 --> 00:05:52,233
+to send an asynchronous message
+
+164
+00:05:52,233 --> 00:05:53,800
+to the process's mailbox
+
+165
+00:05:53,800 --> 00:05:56,033
+we call send with two arguments
+
+166
+00:05:56,166 --> 00:05:58,733
+the pit of the process to send the message to
+
+167
+00:05:59,000 --> 00:06:02,066
+the parent pid in this case and the message to send
+
+168
+00:06:02,733 --> 00:06:04,833
+messages can be any elixir term
+
+169
+00:06:04,833 --> 00:06:07,400
+for example we could just send the file name
+
+170
+00:06:07,566 --> 00:06:08,933
+but it's common to use a tuple
+
+171
+00:06:08,933 --> 00:06:11,000
+to tag the message with some identifier
+
+172
+00:06:11,000 --> 00:06:14,800
+an atom we've arbitrarily chosen to tag it as result
+
+173
+00:06:14,800 --> 00:06:15,900
+but it could be anything
+
+174
+00:06:16,466 --> 00:06:17,866
+sending a message puts that
+
+175
+00:06:17,866 --> 00:06:20,066
+message in the process's mailbox
+
+176
+00:06:20,466 --> 00:06:23,033
+not unlike how you decide when to check your mailbox
+
+177
+00:06:23,033 --> 00:06:24,366
+a process gets decide
+
+178
+00:06:24,366 --> 00:06:26,300
+when it wants to read its messages
+
+179
+00:06:26,533 --> 00:06:29,300
+when it's ready it calls receive with a block
+
+180
+00:06:29,800 --> 00:06:33,000
+inside the block we use patterns to match messages
+
+181
+00:06:33,333 --> 00:06:35,233
+when a message matches this pattern
+
+182
+00:06:35,233 --> 00:06:37,766
+the process acts upon it in this case
+
+183
+00:06:37,766 --> 00:06:40,600
+we simply want to extract the file name and return it
+
+184
+00:06:41,000 --> 00:06:42,133
+and because the receive
+
+185
+00:06:42,133 --> 00:06:44,200
+function returns the value of the last
+
+186
+00:06:44,200 --> 00:06:46,066
+expression in the matching claws
+
+187
+00:06:46,133 --> 00:06:47,800
+we can bind it to a variable
+
+188
+00:06:48,233 --> 00:06:49,600
+having matched this message
+
+189
+00:06:49,600 --> 00:06:51,566
+it's removed from the mailbox
+
+190
+00:06:52,100 --> 00:06:54,633
+now what we really want to do is spawn three
+
+191
+00:06:54,766 --> 00:06:57,833
+processes all at once so they run in parallel
+
+192
+00:06:58,066 --> 00:06:59,600
+each process will send the final
+
+193
+00:06:59,600 --> 00:07:01,766
+name it got from the external api
+
+194
+00:07:01,800 --> 00:07:03,800
+back to the same parent process
+
+195
+00:07:04,066 --> 00:07:05,066
+when the parent is ready
+
+196
+00:07:05,066 --> 00:07:06,900
+it reads the messages one by one
+
+197
+00:07:06,900 --> 00:07:08,900
+by calling receive three times
+
+198
+00:07:08,900 --> 00:07:10,133
+once for each message
+
+199
+00:07:11,966 --> 00:07:14,066
+in this way the parent process can collect
+
+200
+00:07:14,066 --> 00:07:15,766
+all the file names in a list
+
+201
+00:07:16,266 --> 00:07:17,066
+you'll often hear this
+
+202
+00:07:17,066 --> 00:07:19,800
+referred to as the actor model of concurrency
+
+203
+00:07:20,133 --> 00:07:23,233
+each process is an actor living in its own independent
+
+204
+00:07:23,233 --> 00:07:24,600
+isolated little world
+
+205
+00:07:24,833 --> 00:07:27,433
+it doesn't share anything with other processes
+
+206
+00:07:27,466 --> 00:07:29,600
+the only way processes can communicate
+
+207
+00:07:29,600 --> 00:07:31,833
+is by sending and receiving messages
+
+208
+00:07:32,433 --> 00:07:34,033
+let's give this a whirl in iex
+
+209
+00:07:34,033 --> 00:07:36,666
+we want to spawn a process and have it send a result
+
+210
+00:07:36,666 --> 00:07:38,233
+back to the parent process
+
+211
+00:07:38,433 --> 00:07:39,900
+so who's the parent process
+
+212
+00:07:40,100 --> 00:07:40,233
+well
+
+213
+00:07:40,233 --> 00:07:42,733
+we're going to do the spawning from this iex session
+
+214
+00:07:42,733 --> 00:07:44,700
+so it's the parent process you remember
+
+215
+00:07:44,700 --> 00:07:46,766
+you can get the pit of the current process by calling
+
+216
+00:07:46,800 --> 00:07:50,333
+self so the iex session process is pied to 48
+
+217
+00:07:50,800 --> 00:07:51,866
+and I'm going to sign that
+
+218
+00:07:51,866 --> 00:07:53,600
+pid to a variable call to parent
+
+219
+00:07:53,600 --> 00:07:55,866
+and I'll explain why in a minute now
+
+220
+00:07:55,866 --> 00:07:58,466
+we can spawn a process and use that pid
+
+221
+00:07:58,466 --> 00:08:01,466
+to send a message back to the iex process
+
+222
+00:08:05,800 --> 00:08:07,766
+and to do that we use the send function
+
+223
+00:08:07,933 --> 00:08:09,566
+we want to send it back to the parent
+
+224
+00:08:10,033 --> 00:08:11,333
+so we give it the parents pid
+
+225
+00:08:11,433 --> 00:08:12,633
+and then we give it the message
+
+226
+00:08:12,900 --> 00:08:14,733
+in this case our message is going to be a toople
+
+227
+00:08:14,733 --> 00:08:17,133
+but as the coal said you can use any elixir term
+
+228
+00:08:17,200 --> 00:08:18,066
+so we're going to use a toople
+
+229
+00:08:18,066 --> 00:08:19,533
+we're going to tag it with result
+
+230
+00:08:19,866 --> 00:08:22,333
+again that's just arbitrary you could use any tag there
+
+231
+00:08:22,633 --> 00:08:24,266
+and then we want to put in our actual file name
+
+232
+00:08:24,266 --> 00:08:27,366
+so I'm going to use one snapshot jpeg
+
+233
+00:08:29,966 --> 00:08:32,200
+in spawn returns immediately and gives us the pid
+
+234
+00:08:32,200 --> 00:08:35,300
+so the spawn process is pid two seventy eight
+
+235
+00:08:35,600 --> 00:08:37,200
+but that's all the output that we get
+
+236
+00:08:37,600 --> 00:08:39,266
+but we know that calling sind
+
+237
+00:08:39,300 --> 00:08:40,900
+is going to put this message
+
+238
+00:08:41,233 --> 00:08:44,233
+in the mailbox of the parent which is this pid
+
+239
+00:08:44,900 --> 00:08:47,200
+so let's just take a peaky peak at that mailbox
+
+240
+00:08:47,366 --> 00:08:50,300
+and we can do that by calling the process modules
+
+241
+00:08:50,366 --> 00:08:51,400
+info function
+
+242
+00:08:51,733 --> 00:08:53,100
+and this just lets us query
+
+243
+00:08:53,100 --> 00:08:54,833
+different attributes of a process
+
+244
+00:08:54,833 --> 00:08:56,766
+so we want to look at the parent process
+
+245
+00:08:56,933 --> 00:08:59,533
+and we want to see what messages are in your mailbox
+
+246
+00:09:00,266 --> 00:09:02,433
+and we see that there's one message it's right here
+
+247
+00:09:02,766 --> 00:09:04,900
+now you notice it converted into a keyword list
+
+248
+00:09:04,900 --> 00:09:07,300
+we used a two pole right like that
+
+249
+00:09:07,700 --> 00:09:10,366
+but it just displayed it as a keyword list
+
+250
+00:09:10,666 --> 00:09:12,766
+in any event the mailbox has one message
+
+251
+00:09:13,266 --> 00:09:14,966
+now when you use process info this way
+
+252
+00:09:14,966 --> 00:09:16,600
+it just shows us what's in the mailbox
+
+253
+00:09:16,600 --> 00:09:19,133
+it doesn't actually take out any of the messages
+
+254
+00:09:19,533 --> 00:09:22,233
+at this point the spawn process is long gone
+
+255
+00:09:22,233 --> 00:09:25,733
+its only job was to send a message back to the parent
+
+256
+00:09:25,766 --> 00:09:26,900
+then it exited
+
+257
+00:09:27,366 --> 00:09:29,600
+and we can let the message sit in the mailbox
+
+258
+00:09:29,600 --> 00:09:30,866
+until we're ready to do something
+
+259
+00:09:30,866 --> 00:09:33,633
+with it messages will remain in the mailbox
+
+260
+00:09:33,633 --> 00:09:35,700
+until they're explicitly received
+
+261
+00:09:35,733 --> 00:09:38,700
+or the process the parent in this case terminates
+
+262
+00:09:39,066 --> 00:09:41,166
+now let's say we're ready to receive the message
+
+263
+00:09:41,600 --> 00:09:44,000
+and to do that we call receive and we give it a block
+
+264
+00:09:44,033 --> 00:09:46,200
+and I'm just going to have multiple lines here in iux
+
+265
+00:09:46,200 --> 00:09:47,200
+I'm just going to hit return
+
+266
+00:09:47,900 --> 00:09:49,066
+and then inside of that block
+
+267
+00:09:49,066 --> 00:09:50,166
+we need a pattern that
+
+268
+00:09:50,166 --> 00:09:51,666
+matches the message in the mailbox
+
+269
+00:09:51,666 --> 00:09:52,466
+so it's a tuple
+
+270
+00:09:52,600 --> 00:09:53,833
+has the atom result
+
+271
+00:09:54,300 --> 00:09:56,400
+then it has a file name and we want to bind that
+
+272
+00:09:56,433 --> 00:09:57,033
+to a variable
+
+273
+00:09:57,033 --> 00:09:58,233
+I'm going to call it file name
+
+274
+00:09:58,933 --> 00:10:00,866
+and when the message matches that pattern
+
+275
+00:10:00,900 --> 00:10:03,200
+we want to return the extracted file name
+
+276
+00:10:03,933 --> 00:10:04,733
+so we just do that
+
+277
+00:10:05,433 --> 00:10:06,733
+and then we'll just in the block
+
+278
+00:10:07,666 --> 00:10:10,633
+and we see the result is one snapshot jpeg
+
+279
+00:10:10,933 --> 00:10:12,200
+so when we call receive it
+
+280
+00:10:12,200 --> 00:10:13,800
+examine the message in the mailbox
+
+281
+00:10:13,800 --> 00:10:15,400
+it match this pattern
+
+282
+00:10:15,800 --> 00:10:19,100
+so this becomes the result of the receive function here
+
+283
+00:10:19,733 --> 00:10:23,800
+and that's why we see the value one snapshot jpeg in ix
+
+284
+00:10:24,200 --> 00:10:25,366
+once we've received the message
+
+285
+00:10:25,366 --> 00:10:26,700
+it's removed from the mailbox
+
+286
+00:10:26,700 --> 00:10:28,200
+so if we try this again
+
+287
+00:10:28,566 --> 00:10:30,666
+the mailbox should be empty and sure enough it is
+
+288
+00:10:31,366 --> 00:10:33,533
+let's in another message with a different file name
+
+289
+00:10:34,400 --> 00:10:36,100
+I'm going to call it two snapshot
+
+290
+00:10:36,600 --> 00:10:38,733
+and then I'm going to receive it on one line
+
+291
+00:10:39,066 --> 00:10:40,700
+so the pattern is result
+
+292
+00:10:42,433 --> 00:10:43,566
+capture the file name
+
+293
+00:10:44,233 --> 00:10:46,333
+return the file name end
+
+294
+00:10:47,200 --> 00:10:49,433
+and it match that message to snapshot
+
+295
+00:10:50,233 --> 00:10:51,766
+and now the mailbox is empty again
+
+296
+00:10:52,400 --> 00:10:54,766
+so what would happen if we call receive
+
+297
+00:10:55,033 --> 00:10:57,933
+before a message actually arrives in the mailbox
+
+298
+00:10:58,033 --> 00:10:58,833
+well to set that up
+
+299
+00:10:58,833 --> 00:11:01,666
+we'll have this bond process sleep for 15 seconds
+
+300
+00:11:01,700 --> 00:11:03,133
+before sending the result
+
+301
+00:11:03,366 --> 00:11:05,600
+so I'll change this to three snapshot just to make it
+
+302
+00:11:05,600 --> 00:11:06,233
+different
+
+303
+00:11:06,233 --> 00:11:08,766
+and then before we do the sin I'm going to use timer
+
+304
+00:11:09,300 --> 00:11:11,566
+sleep 15 seconds
+
+305
+00:11:12,533 --> 00:11:13,600
+and just put us in my colon
+
+306
+00:11:13,600 --> 00:11:15,266
+so we have two expressions there
+
+307
+00:11:15,266 --> 00:11:15,966
+we're going to sleep
+
+308
+00:11:15,966 --> 00:11:17,166
+and then we're going to do the send
+
+309
+00:11:18,133 --> 00:11:20,133
+now let's immediately peek in the mailbox
+
+310
+00:11:20,333 --> 00:11:23,000
+well it's still empty and now let's call receive
+
+311
+00:11:24,500 --> 00:11:26,333
+well it looks like it's just hanging there
+
+312
+00:11:26,733 --> 00:11:29,833
+and it's hanging because receive is a blocking call
+
+313
+00:11:30,200 --> 00:11:33,166
+it's waiting for a message to arrive in the mailbox
+
+314
+00:11:33,600 --> 00:11:34,700
+if you call receive
+
+315
+00:11:34,700 --> 00:11:37,633
+and the mailbox doesn't contain any matching messages
+
+316
+00:11:37,633 --> 00:11:40,500
+then the current process which is ix in this case
+
+317
+00:11:40,533 --> 00:11:43,300
+suspends until a matching message arrives
+
+318
+00:11:43,433 --> 00:11:46,433
+and then finally after 15 seconds we get the message
+
+319
+00:11:47,000 --> 00:11:48,333
+receive is patient though
+
+320
+00:11:48,433 --> 00:11:50,133
+it would have waited indefinitely
+
+321
+00:11:50,566 --> 00:11:53,233
+now what happens if we spawn three processes that each
+
+322
+00:11:53,233 --> 00:11:55,300
+send a message to the parent's mailbox
+
+323
+00:11:55,700 --> 00:11:57,100
+first we'll send snapshot two
+
+324
+00:11:57,866 --> 00:11:59,433
+then we'll send snapshot one
+
+325
+00:11:59,733 --> 00:12:01,133
+then we'll send snapshot three
+
+326
+00:12:01,966 --> 00:12:03,533
+and then we'll have a look in the mailbox
+
+327
+00:12:03,866 --> 00:12:06,433
+well now we have a list of messages in the mailbox
+
+328
+00:12:06,566 --> 00:12:07,566
+and they're ordered in the same
+
+329
+00:12:07,566 --> 00:12:08,833
+order in which we sent them
+
+330
+00:12:08,833 --> 00:12:10,766
+we sent snapshot two first
+
+331
+00:12:11,133 --> 00:12:13,000
+then snapshot one then snapshot three
+
+332
+00:12:14,100 --> 00:12:15,466
+so that gives us a snapshot two
+
+333
+00:12:15,466 --> 00:12:17,166
+and it's removed from their mailbox
+
+334
+00:12:17,500 --> 00:12:20,066
+snapshot one and then snapshot three
+
+335
+00:12:20,400 --> 00:12:23,266
+now notice the messages are received in the same
+
+336
+00:12:23,266 --> 00:12:25,566
+order they arrived in the mailbox
+
+337
+00:12:25,633 --> 00:12:28,166
+in other words it's first in first out
+
+338
+00:12:28,400 --> 00:12:30,766
+or first in first received
+
+339
+00:12:31,466 --> 00:12:33,100
+in the mailboxes once again empty
+
+340
+00:12:33,700 --> 00:12:34,766
+okay so when we started
+
+341
+00:12:34,766 --> 00:12:37,500
+why did we assign the parents pid to a variable
+
+342
+00:12:39,000 --> 00:12:41,366
+and then we sent a message to that parent
+
+343
+00:12:41,666 --> 00:12:44,533
+so why can we have just use self right here
+
+344
+00:12:45,900 --> 00:12:47,866
+we see that it spawns a process
+
+345
+00:12:48,066 --> 00:12:50,033
+so if parent and self are the same thing
+
+346
+00:12:50,033 --> 00:12:52,533
+then the message should be in the parent's mailbox
+
+347
+00:12:54,400 --> 00:12:56,733
+hmm but the parent's mailbox is empty
+
+348
+00:12:57,233 --> 00:12:59,766
+well it turns out this is a really common mistake
+
+349
+00:12:59,833 --> 00:13:00,433
+remember that
+
+350
+00:13:00,433 --> 00:13:03,733
+self returns the pid of the current process
+
+351
+00:13:03,800 --> 00:13:05,533
+so when we call self up here
+
+352
+00:13:05,633 --> 00:13:09,000
+the current process is this iexcession process
+
+353
+00:13:09,033 --> 00:13:11,233
+and it returns the pid of that process
+
+354
+00:13:11,433 --> 00:13:13,466
+but calling self inside of
+
+355
+00:13:13,466 --> 00:13:15,400
+this spawn function right here
+
+356
+00:13:15,666 --> 00:13:17,533
+is going to return the pid
+
+357
+00:13:17,833 --> 00:13:19,733
+of that spawn process
+
+358
+00:13:19,866 --> 00:13:22,600
+so parent and self aren't the same thing
+
+359
+00:13:22,600 --> 00:13:24,566
+when this spawn process runs
+
+360
+00:13:24,700 --> 00:13:27,133
+it's important to keep in mind that the pid return by
+
+361
+00:13:27,133 --> 00:13:30,133
+self changes depending on where it's called
+
+362
+00:13:30,733 --> 00:13:31,700
+when it's called here
+
+363
+00:13:31,733 --> 00:13:33,666
+it's going to be the iexcession process
+
+364
+00:13:33,666 --> 00:13:34,600
+when it's called here
+
+365
+00:13:34,900 --> 00:13:37,766
+it's going to be the process that's being spawned
+
+366
+00:13:38,000 --> 00:13:40,333
+that's why we had to save the value of self
+
+367
+00:13:40,433 --> 00:13:42,100
+before spawning the process
+
+368
+00:13:42,333 --> 00:13:43,933
+because self's going to change
+
+369
+00:13:44,366 --> 00:13:47,000
+but parent won't change because we've saved it off
+
+370
+00:13:47,266 --> 00:13:48,566
+if we send to self
+
+371
+00:13:48,566 --> 00:13:51,166
+then the message is put in the mailbox of the spawn
+
+372
+00:13:51,166 --> 00:13:53,866
+process but then that mailbox gets destroyed
+
+373
+00:13:53,866 --> 00:13:55,800
+when the spawn process exits
+
+374
+00:13:56,100 --> 00:13:57,866
+so unless you really want to send a message
+
+375
+00:13:57,900 --> 00:13:58,933
+back to yourself
+
+376
+00:13:59,100 --> 00:14:00,500
+you typically won't call
+
+377
+00:14:00,533 --> 00:14:02,833
+self inside of a spawn function
+
+378
+00:14:02,833 --> 00:14:03,933
+to send a message
+
+379
+00:14:04,033 --> 00:14:06,733
+instead you'll have a variable something like a parent
+
+380
+00:14:06,833 --> 00:14:09,000
+that you're going to send the message back to
+
+381
+00:14:12,000 --> 00:14:14,200
+now we know how to solve our original problem
+
+382
+00:14:14,866 --> 00:14:17,100
+yeah when we spawn this process
+
+383
+00:14:17,100 --> 00:14:18,633
+we need to send a message
+
+384
+00:14:18,833 --> 00:14:21,266
+back to the parent process
+
+385
+00:14:21,266 --> 00:14:22,600
+which is the process
+
+386
+00:14:22,600 --> 00:14:24,700
+that called this route function in the first place
+
+387
+00:14:24,866 --> 00:14:27,900
+and that message is going to include the result of
+
+388
+00:14:28,100 --> 00:14:29,600
+calling get snapshot
+
+389
+00:14:29,833 --> 00:14:31,966
+now let's just focus on the first api request
+
+390
+00:14:31,966 --> 00:14:34,700
+so we can actually comment out these other two cameras
+
+391
+00:14:35,333 --> 00:14:37,000
+and we want to send a message back to
+
+392
+00:14:37,000 --> 00:14:39,133
+the parent process so the first thing we need to do
+
+393
+00:14:39,400 --> 00:14:41,166
+is save off that parent process
+
+394
+00:14:41,166 --> 00:14:43,266
+we'll save the parent equals self
+
+395
+00:14:43,633 --> 00:14:46,066
+and in this context this is the
+
+396
+00:14:46,100 --> 00:14:47,666
+request handling process
+
+397
+00:14:49,766 --> 00:14:52,900
+that's the process we spawn in http server
+
+398
+00:14:52,966 --> 00:14:54,466
+that runs the route function
+
+399
+00:14:54,866 --> 00:14:57,433
+now you might see this referred to as the caller
+
+400
+00:14:57,433 --> 00:14:58,433
+since it's the pid
+
+401
+00:14:58,433 --> 00:15:00,666
+of the process that called this function
+
+402
+00:15:00,933 --> 00:15:03,766
+but to stay consistent we'll keep the name parent
+
+403
+00:15:04,566 --> 00:15:06,166
+then when we spawn this process
+
+404
+00:15:06,166 --> 00:15:07,700
+we want to send a message back to that
+
+405
+00:15:07,700 --> 00:15:08,533
+so we will send
+
+406
+00:15:08,833 --> 00:15:09,633
+to the parent
+
+407
+00:15:09,900 --> 00:15:12,566
+the result of calling this function
+
+408
+00:15:12,633 --> 00:15:13,900
+but we're going to wrap it into tuple
+
+409
+00:15:13,900 --> 00:15:15,000
+so it's going to be result
+
+410
+00:15:15,633 --> 00:15:16,433
+and then the second
+
+411
+00:15:16,466 --> 00:15:18,000
+element in that tuple is going to be
+
+412
+00:15:18,000 --> 00:15:19,733
+the result of calling gets napshot
+
+413
+00:15:20,133 --> 00:15:21,100
+and we don't need this pid
+
+414
+00:15:21,100 --> 00:15:22,700
+so I'm just going to get rid of this on the front
+
+415
+00:15:23,300 --> 00:15:25,033
+then once we spawn that process
+
+416
+00:15:25,066 --> 00:15:26,800
+we'll immediately call receive
+
+417
+00:15:27,033 --> 00:15:28,600
+and wait for the message to arrive
+
+418
+00:15:29,300 --> 00:15:30,633
+so we'll say snapshot one
+
+419
+00:15:31,900 --> 00:15:32,966
+equals receive
+
+420
+00:15:34,633 --> 00:15:35,766
+we'll put in that pattern
+
+421
+00:15:38,666 --> 00:15:40,100
+return the extracted file name
+
+422
+00:15:40,666 --> 00:15:41,700
+just like we did before
+
+423
+00:15:42,600 --> 00:15:44,366
+now it's important to note that this receive
+
+424
+00:15:44,366 --> 00:15:46,666
+is getting called in the parent process
+
+425
+00:15:46,666 --> 00:15:48,200
+because in the parent we want to wait
+
+426
+00:15:48,200 --> 00:15:49,500
+for the message to arrive
+
+427
+00:15:49,866 --> 00:15:51,466
+from that spawned process
+
+428
+00:15:51,733 --> 00:15:53,900
+and because we only expect one kind of message
+
+429
+00:15:53,966 --> 00:15:56,266
+we just need to pattern match on that message
+
+430
+00:15:56,633 --> 00:15:59,433
+now processes can send and receive multiple
+
+431
+00:15:59,466 --> 00:16:01,000
+different kinds of messages
+
+432
+00:16:01,133 --> 00:16:01,733
+as such
+
+433
+00:16:01,733 --> 00:16:05,266
+receive can match messages against multiple patterns
+
+434
+00:16:05,266 --> 00:16:07,066
+similar to how a case expression works
+
+435
+00:16:07,066 --> 00:16:08,466
+with multiple clauses
+
+436
+00:16:08,766 --> 00:16:10,000
+we'll actually see an example of that
+
+437
+00:16:10,000 --> 00:16:11,233
+in the later section
+
+438
+00:16:11,466 --> 00:16:13,900
+for now though we just need one pattern
+
+439
+00:16:14,333 --> 00:16:16,500
+then once we get that final even snapshot one
+
+440
+00:16:16,500 --> 00:16:18,100
+we just need to remember to return
+
+441
+00:16:18,166 --> 00:16:19,200
+snapshot one here
+
+442
+00:16:19,200 --> 00:16:21,433
+because we don't yet have a list of snapshots
+
+443
+00:16:21,433 --> 00:16:22,300
+we just have one
+
+444
+00:16:22,700 --> 00:16:23,833
+so if we save that away
+
+445
+00:16:24,100 --> 00:16:25,600
+now we're going to need to restart our server
+
+446
+00:16:25,600 --> 00:16:27,333
+so I'm just going to restart ix
+
+447
+00:16:30,400 --> 00:16:31,566
+then we'll spawn our server
+
+448
+00:16:32,566 --> 00:16:34,566
+then we'll send a request for snapshots
+
+449
+00:16:34,666 --> 00:16:36,100
+and it should return a file name
+
+450
+00:16:36,466 --> 00:16:37,533
+and indeed it does
+
+451
+00:16:37,666 --> 00:16:38,633
+and that's pretty cool
+
+452
+00:16:39,133 --> 00:16:40,266
+this is a great start
+
+453
+00:16:40,433 --> 00:16:41,933
+now we just need to do the same
+
+454
+00:16:41,933 --> 00:16:43,666
+thing for the other two cameras
+
+455
+00:16:43,933 --> 00:16:46,533
+so let's go ahead and duplicate the code
+
+456
+00:16:46,533 --> 00:16:48,500
+because it demonstrates something interesting
+
+457
+00:16:48,700 --> 00:16:50,833
+now don't worry we'll clean this up later
+
+458
+00:16:51,100 --> 00:16:52,700
+I'm just going to copy these two lines
+
+459
+00:16:52,700 --> 00:16:54,600
+we'll get rid of this comment here
+
+460
+00:16:55,566 --> 00:16:57,466
+I'm just going to paste in what I copied
+
+461
+00:16:58,133 --> 00:16:59,800
+so this is going to be for cam two
+
+462
+00:17:00,700 --> 00:17:02,400
+and then we'll get snapshot two
+
+463
+00:17:02,766 --> 00:17:03,866
+I'll paste it again
+
+464
+00:17:05,100 --> 00:17:06,300
+this is going to be for cam three
+
+465
+00:17:07,633 --> 00:17:08,766
+and we'll get snapshot three
+
+466
+00:17:10,500 --> 00:17:12,500
+then we can uncomment this list
+
+467
+00:17:15,200 --> 00:17:16,300
+so we put snapshot one
+
+468
+00:17:16,300 --> 00:17:17,133
+two and three in a list
+
+469
+00:17:17,133 --> 00:17:18,633
+and then we just need to return
+
+470
+00:17:18,933 --> 00:17:21,466
+that list so we'll call inspect on
+
+471
+00:17:21,533 --> 00:17:22,633
+snapshots now
+
+472
+00:17:23,166 --> 00:17:24,133
+so save that away
+
+473
+00:17:25,366 --> 00:17:26,733
+we'll restart our server again
+
+474
+00:17:30,033 --> 00:17:30,866
+and what could go wrong
+
+475
+00:17:30,866 --> 00:17:32,266
+let's go ahead and send the request
+
+476
+00:17:35,533 --> 00:17:38,733
+whoa it still takes 3 seconds
+
+477
+00:17:38,800 --> 00:17:43,200
+why well because remember that receive blocks
+
+478
+00:17:43,600 --> 00:17:45,400
+right we send one request
+
+479
+00:17:45,800 --> 00:17:48,133
+and then wait for the result calling receive
+
+480
+00:17:48,433 --> 00:17:50,200
+before sending the next request
+
+481
+00:17:50,433 --> 00:17:51,566
+so even though each
+
+482
+00:17:51,600 --> 00:17:53,400
+process runs concurrently
+
+483
+00:17:53,400 --> 00:17:55,566
+our code is effectively serialized
+
+484
+00:17:55,700 --> 00:17:58,300
+now this is fairly obvious because of the duplication
+
+485
+00:17:58,466 --> 00:18:01,166
+but it serves as a warning to be mindful of blocking
+
+486
+00:18:01,166 --> 00:18:04,500
+calls that become synchronization points in your code
+
+487
+00:18:04,666 --> 00:18:07,166
+and receive is one of those blocking calls
+
+488
+00:18:07,666 --> 00:18:08,633
+to fix this problem
+
+489
+00:18:08,666 --> 00:18:10,600
+all we need to do is rearrange the code
+
+490
+00:18:10,600 --> 00:18:12,533
+so that we spawn the process as first
+
+491
+00:18:12,933 --> 00:18:14,566
+then receive all the messages
+
+492
+00:18:15,566 --> 00:18:17,733
+so I'll take this bond and move it up here
+
+493
+00:18:19,066 --> 00:18:20,100
+same with this bond
+
+494
+00:18:21,266 --> 00:18:23,366
+and then we'll do all the receives after that
+
+495
+00:18:24,200 --> 00:18:24,533
+so now
+
+496
+00:18:24,533 --> 00:18:26,800
+all the processes are going to get spawned at once
+
+497
+00:18:26,800 --> 00:18:28,366
+this is going to happen really fast
+
+498
+00:18:28,900 --> 00:18:31,333
+and then we wait for the three messages
+
+499
+00:18:31,633 --> 00:18:33,033
+the fastest api request
+
+500
+00:18:33,033 --> 00:18:34,400
+is going to send a message first
+
+501
+00:18:34,733 --> 00:18:36,633
+so it's going to be the first one in the mailbox
+
+502
+00:18:36,800 --> 00:18:38,000
+and then the next fastest
+
+503
+00:18:38,266 --> 00:18:39,633
+and then finally the slowest one
+
+504
+00:18:40,033 --> 00:18:40,866
+but overall
+
+505
+00:18:40,866 --> 00:18:43,133
+since the processes are running concurrently
+
+506
+00:18:43,266 --> 00:18:44,633
+we only have to wait as long
+
+507
+00:18:44,633 --> 00:18:46,233
+as the slowest api request
+
+508
+00:18:46,333 --> 00:18:48,233
+which in our case is just one second
+
+509
+00:18:48,966 --> 00:18:50,133
+so now if we save this away
+
+510
+00:18:51,000 --> 00:18:52,200
+restart the server again
+
+511
+00:18:54,333 --> 00:18:56,533
+and now let's try that request one final time
+
+512
+00:18:57,033 --> 00:18:59,666
+and we get all three snapshots in just one second
+
+513
+00:18:59,900 --> 00:19:02,500
+each of the processes are running in parallel
+
+514
+00:19:02,500 --> 00:19:04,066
+which is really sweet
+
+515
+00:19:04,466 --> 00:19:06,433
+to coordinate a synchronous work
+
+516
+00:19:06,600 --> 00:19:08,566
+all we had to do was spawn
+
+517
+00:19:09,333 --> 00:19:11,000
+sand and receive
+
+518
+00:19:11,366 --> 00:19:13,100
+now it's worth recognizing that this
+
+519
+00:19:13,233 --> 00:19:16,266
+only works because the individual api requests
+
+520
+00:19:16,333 --> 00:19:17,766
+don't depend on each other
+
+521
+00:19:17,766 --> 00:19:20,033
+and when you have independent chunks of work like this
+
+522
+00:19:20,033 --> 00:19:21,433
+that you can run in parallel
+
+523
+00:19:21,466 --> 00:19:22,600
+will buy all means
+
+524
+00:19:22,600 --> 00:19:24,266
+take full advantage of the power
+
+525
+00:19:24,266 --> 00:19:26,033
+of elixir's concurrency model
+
+526
+00:19:26,300 --> 00:19:27,133
+in the next section
+
+527
+00:19:27,133 --> 00:19:29,200
+we'll remove the duplication we see here
+
+528
+00:19:29,200 --> 00:19:31,633
+and discover an abstraction for running
+
+529
+00:19:31,733 --> 00:19:33,666
+any task asynchronously
+

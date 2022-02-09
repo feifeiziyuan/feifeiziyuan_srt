@@ -1,0 +1,1220 @@
+1
+00:00:00,300 --> 00:00:02,866
+next up we want to dynamically generate content
+
+2
+00:00:02,866 --> 00:00:04,666
+by rendering some template files
+
+3
+00:00:04,933 --> 00:00:07,900
+our templates will be a mix of html and electric code
+
+4
+00:00:08,066 --> 00:00:09,866
+similar to templates you may have used with
+
+5
+00:00:09,866 --> 00:00:11,133
+other web frameworks
+
+6
+00:00:11,233 --> 00:00:12,800
+and we'll use a comprehension
+
+7
+00:00:12,933 --> 00:00:15,300
+to keep the template code nice and succinct
+
+8
+00:00:16,000 --> 00:00:19,866
+right now we're generating html inside the controller
+
+9
+00:00:20,066 --> 00:00:21,233
+but let's change it up
+
+10
+00:00:21,233 --> 00:00:23,433
+to make a template that does this for us
+
+11
+00:00:23,966 --> 00:00:25,666
+yeah we'll make a new directory for templates
+
+12
+00:00:25,666 --> 00:00:27,233
+we've got this pages directory
+
+13
+00:00:27,233 --> 00:00:28,866
+but that's for our static file
+
+14
+00:00:28,866 --> 00:00:31,433
+so let's create a new directory under survey
+
+15
+00:00:32,933 --> 00:00:34,200
+and we'll call it templates
+
+16
+00:00:35,833 --> 00:00:36,366
+and then we'll start
+
+17
+00:00:36,400 --> 00:00:37,966
+with the template for our index action
+
+18
+00:00:38,000 --> 00:00:40,200
+so I'm going to call that index
+
+19
+00:00:40,266 --> 00:00:42,433
+and by convention that's going to have the extension
+
+20
+00:00:42,433 --> 00:00:45,166
+ex which stands for embedded elixir
+
+21
+00:00:46,233 --> 00:00:48,533
+and I already have an outline for our template teat up
+
+22
+00:00:48,933 --> 00:00:50,666
+so we want a ul with allies
+
+23
+00:00:50,833 --> 00:00:53,233
+and we want the name to get interpolated right here
+
+24
+00:00:53,233 --> 00:00:55,866
+and then we'll also interpolate the type of bear
+
+25
+00:00:56,733 --> 00:00:59,133
+in the same way let's have a show template
+
+26
+00:01:00,466 --> 00:01:03,400
+show ex and I've got an outline of it as well
+
+27
+00:01:03,666 --> 00:01:05,733
+we're just going to use an h one saying show bear
+
+28
+00:01:06,066 --> 00:01:07,666
+is the bear whatever their name is
+
+29
+00:01:07,666 --> 00:01:10,100
+hibernating and we're going to display true or false
+
+30
+00:01:10,733 --> 00:01:12,800
+so we need to read these template files
+
+31
+00:01:12,800 --> 00:01:14,966
+and then dynamically fill in the values
+
+32
+00:01:14,966 --> 00:01:17,200
+and it turns out elixir has a module
+
+33
+00:01:17,200 --> 00:01:18,666
+that makes quick work of this
+
+34
+00:01:19,266 --> 00:01:21,566
+no surprises the ex module
+
+35
+00:01:22,566 --> 00:01:25,133
+now we're interested in the evil file function
+
+36
+00:01:25,566 --> 00:01:28,066
+the first argument is the name of the template file
+
+37
+00:01:28,066 --> 00:01:29,200
+in this case they have sample
+
+38
+00:01:29,200 --> 00:01:32,333
+sex and the second argument is a keyword list of
+
+39
+00:01:32,333 --> 00:01:34,566
+bindings names and values
+
+40
+00:01:34,566 --> 00:01:36,533
+that can be referenced inside of the template
+
+41
+00:01:36,966 --> 00:01:39,300
+so if we have sample ex
+
+42
+00:01:39,500 --> 00:01:42,566
+then food is just some static text in there
+
+43
+00:01:42,666 --> 00:01:44,766
+and then we use less than % equals
+
+44
+00:01:44,833 --> 00:01:47,900
+in bar and % greater than like that
+
+45
+00:01:48,133 --> 00:01:50,700
+well this whole thing is going to get replaced
+
+46
+00:01:50,700 --> 00:01:52,233
+by the value of bar
+
+47
+00:01:52,233 --> 00:01:53,466
+which is bass
+
+48
+00:01:53,466 --> 00:01:55,733
+so the output of this is food bass
+
+49
+00:01:56,233 --> 00:01:57,700
+now if you're a rails programmer
+
+50
+00:01:57,700 --> 00:01:59,766
+this syntax will actually look quite familiar
+
+51
+00:02:00,300 --> 00:02:02,300
+yeah it's similar to ruby's erb
+
+52
+00:02:03,066 --> 00:02:04,200
+so to start things off
+
+53
+00:02:04,366 --> 00:02:05,800
+in the bare controller
+
+54
+00:02:05,800 --> 00:02:09,100
+we need to get the absolute path to the template file
+
+55
+00:02:09,133 --> 00:02:10,200
+and we actually
+
+56
+00:02:10,266 --> 00:02:11,700
+already know how to do that
+
+57
+00:02:11,866 --> 00:02:13,433
+we did it over and handler
+
+58
+00:02:13,933 --> 00:02:14,800
+yeah it's up here at the top
+
+59
+00:02:14,800 --> 00:02:17,566
+we have our pages path so I'm just going to copy it
+
+60
+00:02:17,933 --> 00:02:20,066
+go over to bare controller up here
+
+61
+00:02:20,800 --> 00:02:23,600
+paste it in and change this to templates path
+
+62
+00:02:26,166 --> 00:02:27,066
+and templates
+
+63
+00:02:27,800 --> 00:02:29,733
+now we need to change this pipeline down here a little
+
+64
+00:02:29,733 --> 00:02:31,366
+bit we want to see all the bears
+
+65
+00:02:31,366 --> 00:02:33,900
+so I'm going to remove the filter for is grizzly
+
+66
+00:02:34,300 --> 00:02:36,800
+we also don't need to transform these struck
+
+67
+00:02:36,800 --> 00:02:38,100
+into bear items anymore
+
+68
+00:02:38,100 --> 00:02:38,633
+because
+
+69
+00:02:38,633 --> 00:02:40,633
+the ul and the alli is going to get generated in the
+
+70
+00:02:40,633 --> 00:02:42,233
+template so I can remove that
+
+71
+00:02:42,466 --> 00:02:43,700
+and while I'm at it I'll remove this
+
+72
+00:02:43,700 --> 00:02:44,933
+function because we're not going to need it
+
+73
+00:02:44,933 --> 00:02:45,733
+anymore either
+
+74
+00:02:46,100 --> 00:02:48,066
+and then we can also remove this join
+
+75
+00:02:48,100 --> 00:02:49,966
+because we don't need to join the list
+
+76
+00:02:49,966 --> 00:02:51,066
+into a string anymore
+
+77
+00:02:51,533 --> 00:02:53,166
+this is going to return a list of bears
+
+78
+00:02:53,166 --> 00:02:54,366
+we're just going to sort those
+
+79
+00:02:54,666 --> 00:02:57,566
+so now we're back to having a list of bear struck
+
+80
+00:02:57,900 --> 00:02:59,900
+and then for the response body what we want
+
+81
+00:03:00,000 --> 00:03:02,733
+is the content of that evaluated template
+
+82
+00:03:02,766 --> 00:03:04,466
+so this is just going to be content
+
+83
+00:03:04,466 --> 00:03:06,233
+we're going to create that content right here
+
+84
+00:03:06,900 --> 00:03:07,966
+content equal
+
+85
+00:03:08,566 --> 00:03:10,466
+we're going to take our templates path
+
+86
+00:03:11,533 --> 00:03:14,266
+we're going to pipe it into path join
+
+87
+00:03:15,533 --> 00:03:17,000
+index ex
+
+88
+00:03:17,000 --> 00:03:18,966
+that's going to give us an absolute path to that
+
+89
+00:03:18,966 --> 00:03:19,866
+template file
+
+90
+00:03:20,500 --> 00:03:21,933
+then we're going to pipe that into
+
+91
+00:03:22,266 --> 00:03:25,566
+ex evil file that's the function we just looked at
+
+92
+00:03:25,700 --> 00:03:27,466
+it takes a file name as the first argument
+
+93
+00:03:27,466 --> 00:03:29,066
+which is going to be piped in from the left
+
+94
+00:03:29,366 --> 00:03:30,966
+and then we can give it our bindings
+
+95
+00:03:31,166 --> 00:03:32,100
+so we want the name
+
+96
+00:03:32,133 --> 00:03:34,066
+bears in our template to refer
+
+97
+00:03:34,066 --> 00:03:36,300
+to the value that's in our bears list
+
+98
+00:03:36,300 --> 00:03:37,700
+this thing set right up here
+
+99
+00:03:38,266 --> 00:03:40,000
+now because this keyword list is the
+
+100
+00:03:40,000 --> 00:03:41,400
+last argument to the function
+
+101
+00:03:41,400 --> 00:03:43,366
+we can actually drop the square brackets
+
+102
+00:03:43,766 --> 00:03:45,800
+so in the index template
+
+103
+00:03:45,900 --> 00:03:49,400
+let's start by inspecting the list of bears
+
+104
+00:03:50,066 --> 00:03:53,433
+yeah I'll just put it below our static text right here
+
+105
+00:03:53,733 --> 00:03:54,633
+we use less than %
+
+106
+00:03:54,633 --> 00:03:55,066
+equals
+
+107
+00:03:55,066 --> 00:03:57,066
+that's how we interpolate values into a template
+
+108
+00:03:57,066 --> 00:03:59,133
+and then % greater than like that
+
+109
+00:03:59,333 --> 00:04:00,566
+I'm going to use the inspect function
+
+110
+00:04:00,566 --> 00:04:01,733
+just so we see the raw
+
+111
+00:04:01,733 --> 00:04:03,633
+form of bears
+
+112
+00:04:04,033 --> 00:04:04,833
+save that away
+
+113
+00:04:08,633 --> 00:04:10,233
+if we look at the response
+
+114
+00:04:11,033 --> 00:04:13,600
+what we see we have a list of bear struck
+
+115
+00:04:14,066 --> 00:04:16,200
+so all we need to do is just loop
+
+116
+00:04:16,233 --> 00:04:17,766
+over this list of bears
+
+117
+00:04:17,766 --> 00:04:21,000
+and generate an html line item or an ally
+
+118
+00:04:21,000 --> 00:04:22,700
+for each element in the list
+
+119
+00:04:23,066 --> 00:04:24,866
+so let's go ahead and fill out this template
+
+120
+00:04:25,100 --> 00:04:27,466
+inside of the ul we want to generate allies
+
+121
+00:04:28,000 --> 00:04:29,500
+so I'm going to start just here
+
+122
+00:04:29,500 --> 00:04:31,066
+we'll use less than % equal
+
+123
+00:04:31,200 --> 00:04:34,366
+let's say we have a bear variable and its name
+
+124
+00:04:34,466 --> 00:04:35,966
+we'll interpolate that right there
+
+125
+00:04:36,200 --> 00:04:37,500
+in the same way we'll have
+
+126
+00:04:38,033 --> 00:04:39,866
+bear type like that
+
+127
+00:04:41,466 --> 00:04:43,800
+okay but we need to generate one of these
+
+128
+00:04:44,266 --> 00:04:47,233
+for every element that's in the bears list
+
+129
+00:04:47,533 --> 00:04:50,033
+and one way to do that would be to use em map
+
+130
+00:04:50,033 --> 00:04:50,400
+now
+
+131
+00:04:50,400 --> 00:04:52,600
+don't follow along because this isn't going to survive
+
+132
+00:04:52,666 --> 00:04:53,500
+for very long
+
+133
+00:04:53,600 --> 00:04:54,633
+but we could do this
+
+134
+00:04:55,633 --> 00:04:56,733
+me dot map
+
+135
+00:04:57,833 --> 00:04:59,966
+bears for every one of those
+
+136
+00:05:02,233 --> 00:05:03,666
+we generate a list item
+
+137
+00:05:03,833 --> 00:05:06,166
+and then we need to make sure to close this off
+
+138
+00:05:06,166 --> 00:05:08,933
+down here less than % and
+
+139
+00:05:09,266 --> 00:05:11,533
+god remember to do that parentheses right there
+
+140
+00:05:12,266 --> 00:05:14,266
+like that save that away
+
+141
+00:05:14,966 --> 00:05:15,766
+reload
+
+142
+00:05:16,433 --> 00:05:17,700
+and it looks like it worked
+
+143
+00:05:18,466 --> 00:05:20,666
+we have all of our bears in a ul
+
+144
+00:05:21,200 --> 00:05:24,133
+and they're neatly tucked away inside of a list item
+
+145
+00:05:25,333 --> 00:05:28,733
+okay so using emu map certainly works
+
+146
+00:05:28,766 --> 00:05:30,800
+but the syntax is an ideal
+
+147
+00:05:30,833 --> 00:05:32,666
+especially with this anonymous function
+
+148
+00:05:32,700 --> 00:05:34,733
+it was actually really difficult to type in
+
+149
+00:05:35,266 --> 00:05:38,266
+yeah simple looping construct here sure would be nice
+
+150
+00:05:38,666 --> 00:05:42,066
+and hey this gives us a chance to use a comprehension
+
+151
+00:05:42,766 --> 00:05:44,533
+you may not have seen a comprehension before
+
+152
+00:05:44,533 --> 00:05:46,300
+so let's start with this simple example
+
+153
+00:05:46,366 --> 00:05:48,966
+remember when we used map on a list 1 2 3
+
+154
+00:05:49,266 --> 00:05:50,966
+and gave it an anonymous function
+
+155
+00:05:51,533 --> 00:05:53,033
+and that tripled all the numbers
+
+156
+00:05:53,166 --> 00:05:54,266
+well here's the way to do the same
+
+157
+00:05:54,300 --> 00:05:55,466
+thing with a comprehension
+
+158
+00:05:55,500 --> 00:05:56,300
+we use four
+
+159
+00:05:57,000 --> 00:05:59,033
+x a left pointing arrow
+
+160
+00:05:59,533 --> 00:06:02,233
+then we give it a list 1 2 3 in this case
+
+161
+00:06:02,400 --> 00:06:04,933
+a comma and then do and we can give it a block
+
+162
+00:06:04,933 --> 00:06:07,033
+this is a single line comprehension so I'll use
+
+163
+00:06:07,366 --> 00:06:08,900
+comma do colon
+
+164
+00:06:09,400 --> 00:06:11,733
+and then we triple the numbers x times three
+
+165
+00:06:12,066 --> 00:06:12,866
+just like that
+
+166
+00:06:13,100 --> 00:06:14,633
+so that's pretty cool this
+
+167
+00:06:15,100 --> 00:06:18,266
+x left arrow and then this 1 2 3 right here
+
+168
+00:06:18,300 --> 00:06:20,333
+this whole thing is called the generator
+
+169
+00:06:20,333 --> 00:06:22,733
+it generates the numbers one through three
+
+170
+00:06:23,200 --> 00:06:24,333
+so what happens is
+
+171
+00:06:24,566 --> 00:06:26,233
+it iterates through the list
+
+172
+00:06:26,266 --> 00:06:29,866
+and then it runs this do expression for each element
+
+173
+00:06:30,000 --> 00:06:30,933
+so the first time
+
+174
+00:06:31,233 --> 00:06:33,233
+x is going to get set to a value of one
+
+175
+00:06:33,533 --> 00:06:35,400
+and do is going to return three
+
+176
+00:06:35,966 --> 00:06:38,133
+and then 2nd time x is going to be set to two
+
+177
+00:06:38,500 --> 00:06:40,966
+and this is going to return six and so on
+
+178
+00:06:41,300 --> 00:06:43,566
+and you notice that it returns a list
+
+179
+00:06:43,566 --> 00:06:46,866
+containing the results of that due expression
+
+180
+00:06:46,966 --> 00:06:48,233
+so we gave it a list here
+
+181
+00:06:48,566 --> 00:06:50,600
+and even though this says x times three
+
+182
+00:06:50,600 --> 00:06:52,033
+it puts the result of that
+
+183
+00:06:52,200 --> 00:06:53,333
+inside of a list
+
+184
+00:06:53,700 --> 00:06:55,800
+so just comparing these two right here
+
+185
+00:06:56,100 --> 00:06:59,633
+using a comprehension is just a more succinct way
+
+186
+00:07:00,000 --> 00:07:02,500
+to map one list of values into another list
+
+187
+00:07:02,966 --> 00:07:05,200
+we'll use a simple comprehension like this
+
+188
+00:07:05,200 --> 00:07:06,233
+for our template
+
+189
+00:07:06,300 --> 00:07:08,300
+but it's worth noting before we move on
+
+190
+00:07:08,366 --> 00:07:09,500
+that you can do all
+
+191
+00:07:09,533 --> 00:07:11,866
+sorts of cool stuff with comprehensions
+
+192
+00:07:12,300 --> 00:07:14,333
+for example suppose we have t
+
+193
+00:07:14,333 --> 00:07:15,766
+shirt sizes and colors
+
+194
+00:07:15,766 --> 00:07:17,766
+and we want to generate the combination
+
+195
+00:07:17,766 --> 00:07:20,333
+we want small for red and blue
+
+196
+00:07:20,433 --> 00:07:22,533
+medium for red and blue and whatnot
+
+197
+00:07:22,900 --> 00:07:25,400
+to do that we can give the comprehension two generators
+
+198
+00:07:25,400 --> 00:07:27,366
+so here's a generator for the size
+
+199
+00:07:27,400 --> 00:07:28,466
+then there's a comma
+
+200
+00:07:28,533 --> 00:07:30,466
+and here's the generator for the color
+
+201
+00:07:30,700 --> 00:07:33,333
+and then the due expression just puts size and color
+
+202
+00:07:33,666 --> 00:07:34,700
+inside of a tuple
+
+203
+00:07:35,200 --> 00:07:38,033
+so if we run that as nicole said we get small red
+
+204
+00:07:38,133 --> 00:07:41,300
+small blue medium red medium blue large red large blue
+
+205
+00:07:41,333 --> 00:07:42,200
+and you get the point
+
+206
+00:07:42,600 --> 00:07:44,233
+using multiple generators like this
+
+207
+00:07:44,266 --> 00:07:46,066
+is like having a nested loop
+
+208
+00:07:46,800 --> 00:07:48,666
+so back in our template instead of using map
+
+209
+00:07:48,666 --> 00:07:50,000
+we can use our comprehension
+
+210
+00:07:50,000 --> 00:07:51,266
+we'll say four bear
+
+211
+00:07:52,600 --> 00:07:53,666
+and then the list is
+
+212
+00:07:53,666 --> 00:07:56,033
+actually the list of bears that were set in our
+
+213
+00:07:56,033 --> 00:07:56,900
+controller action
+
+214
+00:07:57,066 --> 00:07:59,066
+then just remember to put a do right there
+
+215
+00:07:59,133 --> 00:08:01,433
+and we can drop this prints right down here
+
+216
+00:08:01,933 --> 00:08:02,733
+save that away
+
+217
+00:08:05,300 --> 00:08:06,566
+oh there's nothing to recompile
+
+218
+00:08:06,600 --> 00:08:08,033
+because I just changed the template
+
+219
+00:08:10,500 --> 00:08:12,233
+and you see we've got our bears in our list
+
+220
+00:08:12,266 --> 00:08:13,066
+same as before
+
+221
+00:08:13,733 --> 00:08:15,266
+this just feels a lot
+
+222
+00:08:15,266 --> 00:08:17,833
+nicer than the version we had that used map
+
+223
+00:08:18,033 --> 00:08:18,200
+now
+
+224
+00:08:18,200 --> 00:08:20,366
+it's worth noting that you can use comprehensions in
+
+225
+00:08:20,366 --> 00:08:21,400
+any electric code
+
+226
+00:08:21,400 --> 00:08:22,533
+not just templates
+
+227
+00:08:22,600 --> 00:08:25,233
+in some cases in in particular templates
+
+228
+00:08:25,233 --> 00:08:26,866
+I think they're easier to read
+
+229
+00:08:26,866 --> 00:08:28,500
+than using e new functions
+
+230
+00:08:29,100 --> 00:08:31,366
+we still have the show template we haven't used
+
+231
+00:08:31,366 --> 00:08:34,033
+so we need to dynamically generate content for it
+
+232
+00:08:34,500 --> 00:08:34,666
+yeah
+
+233
+00:08:34,666 --> 00:08:37,233
+so what we need to do is evaluate the show template
+
+234
+00:08:37,233 --> 00:08:38,566
+inside of the show action
+
+235
+00:08:38,933 --> 00:08:40,700
+so to get started I'm going to copy this
+
+236
+00:08:40,700 --> 00:08:42,400
+we're going to end up with a little bit of duplication
+
+237
+00:08:42,400 --> 00:08:43,200
+but that's okay
+
+238
+00:08:43,633 --> 00:08:47,233
+the name of the template is going to be show ex
+
+239
+00:08:47,566 --> 00:08:49,033
+and then in terms of our bindings
+
+240
+00:08:49,033 --> 00:08:49,900
+we're just going to bind
+
+241
+00:08:49,900 --> 00:08:52,300
+the name bear to the value bear
+
+242
+00:08:52,466 --> 00:08:54,100
+that's the thing we have set right here
+
+243
+00:08:54,733 --> 00:08:56,133
+then for our response body
+
+244
+00:08:56,133 --> 00:08:57,433
+we can get rid of this string
+
+245
+00:08:58,200 --> 00:09:00,500
+because this is just going to be the template content
+
+246
+00:09:01,000 --> 00:09:03,366
+then say that away we'll go to this show template
+
+247
+00:09:03,766 --> 00:09:05,233
+and instead of a hard coded name
+
+248
+00:09:05,233 --> 00:09:07,133
+here we'll use less than % equal
+
+249
+00:09:07,500 --> 00:09:10,100
+bear that's the name of the binding we have
+
+250
+00:09:11,866 --> 00:09:13,400
+and then for truan falls
+
+251
+00:09:14,100 --> 00:09:14,900
+we're going to have
+
+252
+00:09:15,600 --> 00:09:17,600
+their dot hibernating
+
+253
+00:09:19,600 --> 00:09:20,400
+save that away
+
+254
+00:09:21,133 --> 00:09:23,466
+I change the controller so I need to recompile
+
+255
+00:09:24,166 --> 00:09:25,500
+and if I reload the handler
+
+256
+00:09:26,000 --> 00:09:27,933
+check it out shell bears in an age one
+
+257
+00:09:28,166 --> 00:09:30,466
+is teddy hibernating yes he is
+
+258
+00:09:31,833 --> 00:09:32,033
+now
+
+259
+00:09:32,033 --> 00:09:34,500
+we've obviously introduced a bit of duplication here
+
+260
+00:09:34,500 --> 00:09:35,700
+which we can clean up
+
+261
+00:09:35,833 --> 00:09:39,266
+how about we make a new function named render that
+
+262
+00:09:39,266 --> 00:09:41,833
+we can then reuse in both index and show
+
+263
+00:09:42,366 --> 00:09:43,333
+yeah and to get that started
+
+264
+00:09:43,333 --> 00:09:45,833
+I'm just going to copy an instance of one of these
+
+265
+00:09:46,566 --> 00:09:48,333
+and we'll define render up at the top here
+
+266
+00:09:48,333 --> 00:09:49,333
+just so it's handy
+
+267
+00:09:50,033 --> 00:09:51,066
+we'll make it a private function
+
+268
+00:09:51,066 --> 00:09:52,300
+because it's not going to get called
+
+269
+00:09:52,300 --> 00:09:53,566
+outside of this module
+
+270
+00:09:54,266 --> 00:09:56,133
+and I'll paste in what I copied below
+
+271
+00:09:56,800 --> 00:09:57,433
+all right and now
+
+272
+00:09:57,433 --> 00:09:59,133
+let's figure out what arguments it's going to need
+
+273
+00:09:59,133 --> 00:09:59,933
+to take well
+
+274
+00:09:59,933 --> 00:10:01,166
+it needs co and v
+
+275
+00:10:01,200 --> 00:10:03,366
+because we update that as the last line
+
+276
+00:10:03,700 --> 00:10:04,766
+it also needs the template
+
+277
+00:10:04,766 --> 00:10:06,333
+we don't want this hard coated right here
+
+278
+00:10:06,800 --> 00:10:08,133
+so I'll just call this the template
+
+279
+00:10:08,133 --> 00:10:10,133
+we'll make that the second argument
+
+280
+00:10:10,966 --> 00:10:12,266
+and also needs the bindings
+
+281
+00:10:12,266 --> 00:10:12,533
+because those
+
+282
+00:10:12,566 --> 00:10:14,200
+are going to vary depending on the action
+
+283
+00:10:14,600 --> 00:10:17,000
+so let's take this out and we'll just call it bindings
+
+284
+00:10:17,300 --> 00:10:18,600
+that will be the third argument
+
+285
+00:10:19,533 --> 00:10:21,733
+and we can default that to an empty list
+
+286
+00:10:21,866 --> 00:10:24,333
+this is how you set a default parameter an elixir
+
+287
+00:10:24,700 --> 00:10:26,166
+so if we don't supply the bindings
+
+288
+00:10:26,166 --> 00:10:27,566
+it's just going to be an empty list
+
+289
+00:10:28,100 --> 00:10:29,233
+then down in index
+
+290
+00:10:29,233 --> 00:10:31,300
+we can go ahead and call that render function
+
+291
+00:10:33,333 --> 00:10:34,800
+pass co and v it's going to
+
+292
+00:10:34,800 --> 00:10:40,733
+be index ex and our bindings are bears will be bears
+
+293
+00:10:41,500 --> 00:10:42,900
+the same way I'll just copy that
+
+294
+00:10:42,900 --> 00:10:44,666
+and we can paste it down here for show
+
+295
+00:10:45,100 --> 00:10:46,066
+the only difference here
+
+296
+00:10:46,800 --> 00:10:48,233
+is the template is called show
+
+297
+00:10:49,033 --> 00:10:50,266
+and it's just a single bear
+
+298
+00:10:51,033 --> 00:10:51,833
+save that away
+
+299
+00:10:52,966 --> 00:10:53,766
+recompile
+
+300
+00:10:55,233 --> 00:10:57,866
+and it looks like everything's still hunky dory now
+
+301
+00:10:57,866 --> 00:11:00,633
+besides wanting an excuse to look at comprehensions
+
+302
+00:11:00,633 --> 00:11:01,733
+you might be wondering why
+
+303
+00:11:01,733 --> 00:11:04,333
+we went through all the trouble to create a controller
+
+304
+00:11:04,366 --> 00:11:07,200
+the wild things module and these template files
+
+305
+00:11:07,500 --> 00:11:10,533
+we'll stick around because all will be revealed next
+

@@ -1,0 +1,376 @@
+WEBVTT
+
+1
+00:00:00.370 --> 00:00:07.004
+所以半组无处不在，就像，无处不在。
+So semi groups are everywhere, like, everywhere.
+
+2
+00:00:07.004 --> 00:00:11.380
+所以当你定义一个半时你必须考虑的主要事情
+And so the main thing you have to kind of think about when you're defining a semi
+
+3
+00:00:11.380 --> 00:00:15.622
+如果我们让这个运算符像这里的特殊运算符一样，group 会怎样
+group is what if we make this operator this kind of like special operator here
+
+4
+00:00:15.622 --> 00:00:20.000
+我们将用加联合交集、析取来重载它，
+and we're going to overload it with plus union intersection, disjunction,
+
+5
+00:00:20.000 --> 00:00:22.497
+连接和几乎任何运算符。
+conjunction and pretty much any operator.
+
+6
+00:00:22.497 --> 00:00:28.380
+我们可以用同样的方式做 max 和 min，min 大于和小于。
+We can do max and min in the same way with min greater than and less than.
+
+7
+00:00:28.380 --> 00:00:33.520
+所以如果我说一大于三大于七或
+So if I said one greater than three greater than seven or
+
+8
+00:00:33.520 --> 00:00:40.570
+零，无论如何，我们可以关联地做到这一点，并且它已关闭。
+zero, whatever, we can do that associatively and it's closed.
+
+9
+00:00:40.570 --> 00:00:42.910
+所以半群无处不在。
+So semigroups are everywhere.
+
+10
+00:00:42.910 --> 00:00:46.670
+我们将在编程中将它们定义为数据类型。
+And we're going to define them in programming as a datatype.
+
+11
+00:00:46.670 --> 00:00:47.580
+所以让我们做 Sum。
+So let's do Sum.
+
+12
+00:00:47.580 --> 00:00:52.420
+我们将呼叫那个特殊的接线员，我们将有
+And we're going to call that special operator, we're just going to have
+
+13
+00:00:52.420 --> 00:00:54.950
+一个方法，因为我们不想在 JavaScript 中进行运算符重载。
+a method because we don't want to do operator overloading in JavaScript.
+
+14
+00:00:54.950 --> 00:00:58.160
+这是一种痛苦的屁股，提供了技巧之类的价值。
+It's a pain in the butt gives like value of tricks and whatnot.
+
+15
+00:00:58.160 --> 00:01:00.810
+所以我们要继续，就这样做。
+So we're going to go ahead and just do it this way.
+
+16
+00:01:00.810 --> 00:01:04.710
+所以如果我要把一个总和与另一个总和连接起来，
+So if I'm gonna concat a sum with another sum,
+
+17
+00:01:04.710 --> 00:01:09.210
+好吧，让我们从我们要写的内容开始吧
+well let's actually start with what we gonna write so
+
+18
+00:01:09.210 --> 00:01:14.620
+我们会说 5 的 3 个连续和，而我们想要的是 8 的和。
+we'll say 3 concat sum of 5, and what we want is the sum eight.
+
+19
+00:01:15.710 --> 00:01:17.342
+现在这是一件奇怪的事情。
+Now that's a weird thing to do.
+
+20
+00:01:17.342 --> 00:01:21.840
+[笑] 我们要做的是制作一个我们正在编程的接口
+[LAUGH] What we're trying to do is make an interface that we're programming to that
+
+21
+00:01:21.840 --> 00:01:26.100
+捕获了我刚刚与半组讨论的所有示例。
+captures all those examples that I was just talking about with the semi groups.
+
+22
+00:01:26.100 --> 00:01:30.810
+所以我们有这些可以以多种不同方式实现的二元运算符
+So we have these binary operators that can be implemented in many different ways and
+
+23
+00:01:30.810 --> 00:01:32.930
+它们是关联的和封闭的。
+they're associative and closed.
+
+24
+00:01:32.930 --> 00:01:35.870
+我们可以在一个对象上创建一个接口
+We can make an interface on an object and
+
+25
+00:01:35.870 --> 00:01:39.928
+说一个类型，然后说 concat 是那个运算符，对吗？
+say around a type and just say concat is that operator, right?
+
+26
+00:01:39.928 --> 00:01:44.430
+它将左侧的事物与右侧的事物连接起来，并且具有关联性和
+It concats the thing on the left with the right and it's associative and
+
+27
+00:01:44.430 --> 00:01:50.180
+它已关闭，这意味着如果我连接两个总和，我总是会得到一个总和。
+it's closed, meaning I will always get a sum out if I concat two sums.
+
+28
+00:01:50.180 --> 00:01:53.620
+因此，让我们继续执行此操作。
+So let's go ahead and implement this.
+
+29
+00:01:53.620 --> 00:02:01.160
+Sum 我们总是要返回一个和，我们必须在这里公开这个 x。
+Sum we're always going to return a sum and we have to expose this x here.
+
+30
+00:02:01.160 --> 00:02:02.490
+所以我可以从另一个上取下 x。
+So I can get the x off the other.
+
+31
+00:02:02.490 --> 00:02:08.322
+所以我们会说 sum x 加上 other.x，所以每个人都会看到它是如何工作的。
+So we'll say sum x plus other.x, so everybody see how that works.
+
+32
+00:02:08.322 --> 00:02:11.540
+这是一个有点有趣的语法。
+That's a it's a bit of an interesting syntax.
+
+33
+00:02:11.540 --> 00:02:13.570
+你不会经常看到它。
+You don't see it very often.
+
+34
+00:02:13.570 --> 00:02:16.516
+有了这些小工厂函数，我只是，
+With these little factory functions, I just,
+
+35
+00:02:16.516 --> 00:02:21.169
+这是定义这类东西的最简单的方法，我只是坚持使用它。
+it's the slimmest way to define this kind of stuff and I just stick with it.
+
+36
+00:02:21.169 --> 00:02:25.157
+但是有人对此感到困惑吗？
+But is anybody getting hung up on this?
+
+37
+00:02:27.153 --> 00:02:31.761
+好的，所以我们要做的是希望这个
+Okay, so we're going to do is hopefully this
+
+38
+00:02:31.761 --> 00:02:36.384
+会说八的总和，我认为幺半群为零。
+will say sum of eight, I think monoids zero.
+
+39
+00:02:36.384 --> 00:02:40.770
+它并不是真的要说八的总和，但 x 是八，而且它有一个连接。
+It's not really going to say sum of eight, but x is eight, and it's got a concat.
+
+40
+00:02:40.770 --> 00:02:42.690
+这就是我们的总和。
+So that's our sum.
+
+41
+00:02:42.690 --> 00:02:44.150
+我们可以在上面定义一个两个字符串。
+We can define a two string on it.
+
+42
+00:02:45.280 --> 00:02:48.950
+那会很好，但我们不要经历那个。
+That would be nice, but let's not go through that.
+
+43
+00:02:48.950 --> 00:02:50.314
+所以我们可以用产品来做到这一点。
+So we can do this with products.
+
+44
+00:02:50.314 --> 00:02:51.785
+让我们继续用产品来做到这一点。
+Let's go ahead and do this with products.
+
+45
+00:02:55.185 --> 00:02:57.960
+那只是乘法，对吗？
+And that would be just multiplication, right?
+
+46
+00:02:59.110 --> 00:03:01.290
+而不是加号，很酷。
+Instead of plus, cool.
+
+47
+00:03:02.870 --> 00:03:05.420
+因此，让我们将 sum 更改为 product。
+So let's change sum to product.
+
+48
+00:03:05.420 --> 00:03:08.540
+三乘五，我们应该得到产品。
+Three times five and we should get the products.
+
+49
+00:03:11.430 --> 00:03:12.685
+我们走了。
+There we go.
+
+50
+00:03:12.685 --> 00:03:14.150
+哎呀产品。
+Oops products.
+
+51
+00:03:14.150 --> 00:03:14.810
+总和五。
+Sum five.
+
+52
+00:03:14.810 --> 00:03:15.420
+我在这里做了什么？
+What did I do here?
+
+53
+00:03:15.420 --> 00:03:20.065
+我们走了。
+There we go.
+
+54
+00:03:20.065 --> 00:03:20.816
+我们就在那里。
+And there we are.
+
+55
+00:03:20.816 --> 00:03:25.373
+15 我们做点什么吧，
+15 how about let's do any,
+
+56
+00:03:25.373 --> 00:03:30.670
+这是这个或那个的名称。
+which is the name for this or that.
+
+57
+00:03:30.670 --> 00:03:36.290
+所以让我们说 any 是另一个的 x 。
+So let's say any is x for the other one.
+
+58
+00:03:36.290 --> 00:03:42.480
+我可以说任何真正的 concat 任何错误。
+I could say any true concat any false.
+
+59
+00:03:42.480 --> 00:03:47.710
+好的，所以如果这些中的任何一个是真的，我们将得到一个任何真的和
+Okay, and so if either of these are true, we'll get an any true and
+
+60
+00:03:47.710 --> 00:03:50.650
+如果有的话，那么我们就可以跑得那么快。
+if either, so we can just run that real quick.
+
+61
+00:03:52.760 --> 00:03:53.660
+说实话。
+Get true.
+
+62
+00:03:53.660 --> 00:03:55.970
+他们都是假的，我们会得到假的。
+They're both false, we'll get false.
+
+63
+00:03:55.970 --> 00:04:01.840
+这种捕获了遍历数组的想法并
+This kind of captures that idea of running through an array and
+
+64
+00:04:01.840 --> 00:04:03.470
+看看有什么是真的还是假的。
+seeing if anything is true or false.
+
+65
+00:04:03.470 --> 00:04:07.720
+它结合了所有内容，并告诉您答案是真实的还是真实的
+It combines everything and tells you the answer of if you had a true or
+
+66
+00:04:07.720 --> 00:04:11.140
+假，所以我们可以看到我们将看到其中一些在行动。
+false, so we can see we're going to see some of these in action.
+
+67
+00:04:11.140 --> 00:04:13.470
+但我只是想让你感受一下正在发生的事情。
+But I just want you to get a feel for what's happening.
+
+68
+00:04:13.470 --> 00:04:16.540
+我们正在将此操作提升为一种类型
+We're lifting this operation into a type so
+
+69
+00:04:16.540 --> 00:04:19.720
+我们可以编程到名为 concat 的接口。
+we can program to the interface called concat.
+
+70
+00:04:19.720 --> 00:04:21.670
+然后我们可以交换这些类型。
+And then we can swap these types out.
+
+71
+00:04:21.670 --> 00:04:24.640
+但是 concat 的行为方式总是相同的。
+But concat always behaves the same way.
+
+72
+00:04:24.640 --> 00:04:27.816
+也许有趣的最简单的就是字符串。
+Perhaps the interesting the simplest one is just strings.
+
+73
+00:04:27.816 --> 00:04:35.520
+打个招呼 [LAUGH] concat 它已经内置了得到了解释。
+Say hi [LAUGH] concat it's already built in got an explanation.
+
+74
+00:04:35.520 --> 00:04:36.236
+还有砰。
+And bam.
+
+75
+00:04:36.236 --> 00:04:37.010
+我们打个招呼。
+We get hi.

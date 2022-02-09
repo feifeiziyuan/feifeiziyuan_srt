@@ -1,0 +1,810 @@
+1
+00:00:00,433 --> 00:00:02,033
+回归大局
+returning to the big picture
+
+2
+00:00:02,133 --> 00:00:04,500
+如果 kickstarter 或
+what happens if either the kickstarter or
+
+3
+00:00:04,500 --> 00:00:07,133
+提供其进程的服务是崩溃的
+services to provide their process is crash
+
+4
+00:00:07,666 --> 00:00:09,966
+谁来监督主管
+who's going to supervise the supervisors
+
+5
+00:00:10,366 --> 00:00:14,533
+井监督员可以监督生成服务器和
+well supervisors can supervise both gen servers and
+
+6
+00:00:14,633 --> 00:00:15,900
+其他主管
+other supervisors
+
+7
+00:00:15,900 --> 00:00:16,966
+因为主管
+because the supervisor
+
+8
+00:00:16,966 --> 00:00:19,466
+本身就是一种特殊的gen server
+itself is a special type of gen server
+
+9
+00:00:19,900 --> 00:00:22,200
+所以我们将添加一个顶级主管
+so we'll add a top level supervisor
+
+10
+00:00:22,200 --> 00:00:24,266
+简单地命名为主管
+simply named supervisor
+
+11
+00:00:24,500 --> 00:00:26,900
+从而创建一个监督树
+and thereby create a supervision tree
+
+12
+00:00:27,166 --> 00:00:30,166
+分层嵌套主管的结果，如
+an upshot of nesting supervisors hierarchically like
+
+13
+00:00:30,166 --> 00:00:33,166
+这是如果工作进程崩溃
+this is if a worker process crashes
+
+14
+00:00:33,166 --> 00:00:34,300
+它的退出信号
+its exit signal
+
+15
+00:00:34,300 --> 00:00:37,300
+不会传播到其直接主管之外
+doesn't propagate beyond its immediate supervisor
+
+16
+00:00:37,566 --> 00:00:41,833
+记住每个主管都以这种方式捕获退出信号
+remember each supervisor traps exit signals in this way
+
+17
+00:00:41,833 --> 00:00:45,100
+运行时空气被隔离到特定的子树
+runtime airs are isolated to a specific sub tree
+
+18
+00:00:45,200 --> 00:00:48,033
+应用程序的其余部分一直在嗡嗡作响
+and the rest of the application keeps humming along
+
+19
+00:00:48,833 --> 00:00:50,900
+让我们创建顶级主管
+let's create the top level supervisor
+
+20
+00:00:51,733 --> 00:00:54,133
+它只会被称为主管得到yx
+it's just going to be called supervisor got yx
+
+21
+00:00:56,433 --> 00:00:58,266
+和调查主管
+and survey supervisor
+
+22
+00:00:58,400 --> 00:01:00,366
+再一次，这个命名没有什么魔力
+and again there's no magic to this naming
+
+23
+00:01:00,366 --> 00:01:02,233
+这只是我们的顶级主管
+this is just our top level supervisor
+
+24
+00:01:02,233 --> 00:01:03,466
+我们称它为主管
+we call it supervisor
+
+25
+00:01:03,500 --> 00:01:05,133
+你可以称之为顶级主管
+you could call it top level supervisor
+
+26
+00:01:05,133 --> 00:01:06,633
+或任何对你有意义的东西
+or whatever makes sense to you
+
+27
+00:01:06,833 --> 00:01:10,066
+关键是你使用了这种主管行为
+the key thing is that you use this supervisor behavior
+
+28
+00:01:10,466 --> 00:01:12,133
+现在我们需要一个开始链接和一个
+now we're going to need a start link and an
+
+29
+00:01:12,133 --> 00:01:13,233
+nit功能非常
+nit function very
+
+30
+00:01:13,266 --> 00:01:16,366
+类似于我们的服务主管中已有的内容
+similar to what's already in our services supervisor
+
+31
+00:01:16,533 --> 00:01:18,633
+所以我要继续复制那些
+so I'm just going to go ahead and copy those over
+
+32
+00:01:20,333 --> 00:01:21,866
+我们的高层主管又来了
+there's our top level supervisor again
+
+33
+00:01:21,866 --> 00:01:22,933
+我会把它们粘贴进去
+and I'll paste those in
+
+34
+00:01:23,300 --> 00:01:24,166
+然后我们就改变
+and then we'll just change
+
+35
+00:01:24,166 --> 00:01:27,600
+这从启动服务主管到启动
+this from starting the service supervisor to starting
+
+36
+00:01:28,766 --> 00:01:30,133
+主管
+the supervisor
+
+37
+00:01:30,500 --> 00:01:33,466
+然后就孩子而言，这将是
+and then in terms of the children it's going to be
+
+38
+00:01:33,533 --> 00:01:35,500
+服务启动器
+servy kickstarter
+
+39
+00:01:36,200 --> 00:01:37,866
+那是一个 gen 服务器，然后是
+that's a gen server and then the
+
+40
+00:01:37,866 --> 00:01:39,433
+第二个将是
+second one is going to be
+
+41
+00:01:40,133 --> 00:01:42,733
+服务主管
+servy services supervisor
+
+42
+00:01:43,866 --> 00:01:46,000
+这是我们的二级主管
+which is our 2nd level supervisor
+
+43
+00:01:46,333 --> 00:01:47,800
+我们将再次使用它
+and again we're going to use this
+
+44
+00:01:47,833 --> 00:01:50,066
+一对一重启策略
+one for one restart strategy
+
+45
+00:01:50,100 --> 00:01:52,000
+如果你想让它重新启动一切
+if you wanted it to restart everything
+
+46
+00:01:52,033 --> 00:01:55,733
+如果其中一个孩子撞车，您可以使用一个
+if either of the children crash you could use one
+
+47
+00:01:55,966 --> 00:01:56,800
+对所有人
+for all
+
+48
+00:01:58,100 --> 00:01:59,933
+但我们要一对一使用
+but we're going to use one for one
+
+49
+00:02:00,200 --> 00:02:02,500
+请记住，树中的每个主管
+just keep in mind that each supervisor in the tree
+
+50
+00:02:02,500 --> 00:02:04,433
+可以使用不同的重启策略
+can use a different restart strategy
+
+51
+00:02:04,433 --> 00:02:05,800
+视情况而定
+depending on the situation
+
+52
+00:02:06,300 --> 00:02:07,466
+就像我们以前做的那样
+as we did before
+
+53
+00:02:07,633 --> 00:02:08,400
+为了这个工作
+for this to work
+
+54
+00:02:08,400 --> 00:02:09,133
+我们需要做
+we need to make
+
+55
+00:02:09,133 --> 00:02:11,433
+对 kickstarter 和
+minor changes to both kickstarter and
+
+56
+00:02:11,433 --> 00:02:12,966
+服务主管所以
+services supervisors so
+
+57
+00:02:12,966 --> 00:02:14,700
+他们遵守约定
+that they follow the conventions
+
+58
+00:02:15,033 --> 00:02:16,466
+所以我们将从kickstarter开始
+so we'll start with kickstarter
+
+59
+00:02:17,000 --> 00:02:18,933
+我们将从头开始重命名接口函数
+we'll rename the interface function from start
+
+60
+00:02:18,933 --> 00:02:19,966
+开始链接
+to start link
+
+61
+00:02:20,566 --> 00:02:22,700
+当我们启动 gen 服务器时，我们需要调用 start
+and when we start the gen server we need to call start
+
+62
+00:02:22,700 --> 00:02:24,533
+链接以及然后记住
+link as well and then remember
+
+63
+00:02:24,533 --> 00:02:26,200
+主管将通过一个 arg
+the supervisor is going to pass an arg
+
+64
+00:02:26,200 --> 00:02:27,100
+这将忽略
+which will ignore
+
+65
+00:02:27,633 --> 00:02:28,400
+把它存起来
+save that away
+
+66
+00:02:28,400 --> 00:02:30,933
+然后在我们的服务主管那里
+then over in our services supervisor which is the
+
+67
+00:02:30,966 --> 00:02:31,766
+另一个孩子
+other child
+
+68
+00:02:32,066 --> 00:02:34,633
+好吧，我们已经找到了一个惊人的功能
+well we already have a startling function to find
+
+69
+00:02:34,866 --> 00:02:36,933
+但它需要一个将忽略的 arg
+but it needs to take an arg which will ignore
+
+70
+00:02:37,933 --> 00:02:39,000
+做出这些改变
+with those changes made
+
+71
+00:02:39,000 --> 00:02:41,233
+我们准备启动顶级主管
+we're ready to fire up the top level supervisor
+
+72
+00:02:42,766 --> 00:02:46,366
+好吧，它将成为主管 pid
+so okay and it's going to be the supervisor pid
+
+73
+00:02:46,433 --> 00:02:50,700
+我们打电话给调查主管开始链接
+we call survey supervisor start link
+
+74
+00:02:52,233 --> 00:02:54,300
+很棒的启动
+awesome that starts up
+
+75
+00:02:54,766 --> 00:02:55,633
+一切为了我们
+everything for us
+
+76
+00:02:56,266 --> 00:02:58,833
+现在我们知道它是如何开始它的孩子的
+now we know how it started its children
+
+77
+00:02:59,133 --> 00:03:01,300
+是的，因为 kickstarter 是一个 gem 服务器
+yeah since kickstarter is a gem server
+
+78
+00:03:01,300 --> 00:03:03,033
+它有一个子规格功能
+it has a child spec function
+
+79
+00:03:03,033 --> 00:03:04,533
+所以调查kickstarter
+so survey kickstarter
+
+80
+00:03:05,233 --> 00:03:07,100
+它称为子规范函数
+it called the child spec function
+
+81
+00:03:07,100 --> 00:03:08,633
+传递给它一个空列表
+passed it an empty list
+
+82
+00:03:09,900 --> 00:03:11,366
+并返回其子规范
+and that returns its child spec
+
+83
+00:03:11,366 --> 00:03:12,733
+请注意该功能已启动
+notice that the function is start
+
+84
+00:03:12,733 --> 00:03:13,966
+链接并传入
+link and it passes in
+
+85
+00:03:13,966 --> 00:03:17,466
+一个空列表，我们有一个开始链接功能，所以
+a empty list and we've got a start link function so
+
+86
+00:03:17,533 --> 00:03:18,466
+它只是叫它
+it just called it
+
+87
+00:03:18,900 --> 00:03:19,933
+有趣的是
+and interestingly
+
+88
+00:03:19,966 --> 00:03:22,833
+即使服务主管是主管
+even though services supervisor is a supervisor
+
+89
+00:03:22,966 --> 00:03:24,500
+它还有一个子规格
+it also has a child spec
+
+90
+00:03:24,500 --> 00:03:27,233
+所以如果我们看一下服务主管
+so if we look at services supervisor
+
+91
+00:03:27,366 --> 00:03:28,933
+调用它的子规范函数
+call its child spec function
+
+92
+00:03:29,533 --> 00:03:30,300
+看看那个
+well look at that
+
+93
+00:03:30,300 --> 00:03:33,633
+它有一张看起来与kickstarter非常相似的地图
+it's got a map that looks very similar to kickstarter
+
+94
+00:03:33,800 --> 00:03:34,700
+唯一的区别是
+only difference is
+
+95
+00:03:35,000 --> 00:03:36,700
+你知道这是服务主管
+you know it's services supervisor
+
+96
+00:03:36,700 --> 00:03:37,333
+它要开始了
+it's going to start
+
+97
+00:03:37,333 --> 00:03:39,466
+通过调用启动链接服务主管
+services supervisor by calling start link
+
+98
+00:03:39,533 --> 00:03:40,666
+在一个空列表中
+in an empty list
+
+99
+00:03:40,766 --> 00:03:43,133
+你注意到这种情况下的类型是主管
+and you notice the type in this case is supervisor
+
+100
+00:03:43,333 --> 00:03:44,433
+而不是工人
+rather than worker
+
+101
+00:03:44,833 --> 00:03:46,800
+所以当你使用主管行为时
+so when you use the supervisor behavior
+
+102
+00:03:46,800 --> 00:03:47,633
+默认
+a default
+
+103
+00:03:47,633 --> 00:03:50,500
+子规范函数被自动注入
+child spec function is automatically injected
+
+104
+00:03:50,733 --> 00:03:53,833
+进入具有默认主管类型的模块
+into the module which has a default type of supervisor
+
+105
+00:03:54,166 --> 00:03:57,333
+基本上它只是儿童规格
+basically it's just child specs all the way down
+
+106
+00:03:57,866 --> 00:04:00,266
+现在如果我们的网络服务器进程崩溃了
+now if our web server process crashes
+
+107
+00:04:00,266 --> 00:04:01,700
+它应该重新启动
+it should get restarted
+
+108
+00:04:01,733 --> 00:04:03,833
+不影响应用程序的其余部分
+without affecting the rest of the application
+
+109
+00:04:04,500 --> 00:04:05,566
+我们去找吧
+let's go find it
+
+110
+00:04:07,600 --> 00:04:08,733
+每个 itupee 服务器
+each itupee server
+
+111
+00:04:09,333 --> 00:04:11,800
+将它通过管道进入进程出口
+will pipe it into process exit
+
+112
+00:04:12,233 --> 00:04:13,466
+我们会寄给它caboom
+and we'll send it caboom
+
+113
+00:04:15,100 --> 00:04:16,666
+完善 kickstarter
+perfect the kickstarter
+
+114
+00:04:16,666 --> 00:04:19,766
+捕获退出信号并重新启动 Web 服务器
+trapped the exit signal and restarted the web server
+
+115
+00:04:20,400 --> 00:04:23,100
+但其他进程不受影响
+but the other processes weren't impacted
+
+116
+00:04:23,600 --> 00:04:25,766
+让我们尝试让质押服务器崩溃
+let's try crashing the pledge server
+
+117
+00:04:25,800 --> 00:04:28,800
+由二级主管管理
+which is managed by the second level supervisor
+
+118
+00:04:29,866 --> 00:04:32,866
+好的，在这种情况下，二级服务主管
+okay in this case the second level services supervisor
+
+119
+00:04:33,033 --> 00:04:34,800
+困住了退出信号
+trapped the exit signal which
+
+120
+00:04:34,833 --> 00:04:37,266
+触发了子进程的重启
+triggered a restart of the child process
+
+121
+00:04:37,266 --> 00:04:38,266
+我们在这里看到
+we see that right here
+
+122
+00:04:38,566 --> 00:04:39,100
+它
+and it
+
+123
+00:04:39,100 --> 00:04:41,700
+也阻止了退出信号的传播
+also prevented the exit signal from being propagated
+
+124
+00:04:41,700 --> 00:04:42,966
+再往上走
+further up the tree
+
+125
+00:04:43,200 --> 00:04:43,833
+再次如此
+so again
+
+126
+00:04:43,833 --> 00:04:47,433
+箭头被隔离到这个主管子树
+the arrow was isolated to this supervisor sub tree
+
+127
+00:04:48,100 --> 00:04:51,466
+所以现在让我们崩溃服务主管本身
+so now let's crash the services supervisor itself
+
+128
+00:04:51,933 --> 00:04:53,266
+我就这样搞定
+I'm just going to get it this way
+
+129
+00:04:54,600 --> 00:04:55,766
+进程在哪里
+process where is
+
+130
+00:04:56,066 --> 00:04:57,966
+我们用这个名字注册了这个
+and we registered this under the name
+
+131
+00:04:58,000 --> 00:04:59,666
+这是它的模块，所以它的
+which was its module so its
+
+132
+00:05:00,266 --> 00:05:02,233
+服务主管
+services supervisor
+
+133
+00:05:03,333 --> 00:05:04,333
+那是pid
+that's the pid
+
+134
+00:05:04,866 --> 00:05:08,400
+然后我们可以在该pid上调用进程退出
+and then we can call process exit on that pid
+
+135
+00:05:09,066 --> 00:05:11,833
+并使supervisor异常终止
+and to make the supervisor terminate abnormally
+
+136
+00:05:11,833 --> 00:05:13,966
+我们不能只发送 caboom
+we can't just send it caboom
+
+137
+00:05:14,033 --> 00:05:16,366
+我们不能给它发送任何类似的旧理由
+we can't send it any old reason like that
+
+138
+00:05:16,500 --> 00:05:19,200
+主管将捕获退出信号
+the supervisor will trap exit signals
+
+139
+00:05:19,366 --> 00:05:22,300
+但是 kill 是一个无法捕捉的退出信号
+but kill is an untrappable exit signal
+
+140
+00:05:22,300 --> 00:05:23,733
+所以我们会通过它杀死
+so we're gonna pass it kill
+
+141
+00:05:23,933 --> 00:05:25,133
+听起来很残酷
+it sounds pretty brutal
+
+142
+00:05:25,133 --> 00:05:27,533
+但这就是我们需要做的让主管崩溃
+but that's what we need to do to crash a supervisor
+
+143
+00:05:28,300 --> 00:05:29,866
+我们看到它重新启动
+and we see that it gets restarted
+
+144
+00:05:30,200 --> 00:05:31,900
+它也开始了它的孩子
+and it also started its children
+
+145
+00:05:32,933 --> 00:05:34,900
+那么为什么它必须重新启动它的孩子
+so why did it have to restart its children
+
+146
+00:05:35,166 --> 00:05:37,433
+在终止服务主管时
+while terminating the services supervisor
+
+147
+00:05:37,533 --> 00:05:39,800
+导致其所有孩子被终止
+caused all of its children to be terminated
+
+148
+00:05:39,800 --> 00:05:40,766
+因为记得
+because remember
+
+149
+00:05:41,033 --> 00:05:42,666
+链接是定向的
+links are by directional
+
+150
+00:05:42,833 --> 00:05:44,300
+这实际上是一件好事
+this is actually a good thing
+
+151
+00:05:44,433 --> 00:05:46,166
+你可以终止主管
+you can terminate a supervisor
+
+152
+00:05:46,333 --> 00:05:48,800
+不用担心自己的孩子会成为孤儿
+without worrying about its children being orphaned
+
+153
+00:05:48,800 --> 00:05:50,800
+在无人监督的情况下到处乱跑
+and running around unsupervised
+
+154
+00:05:51,333 --> 00:05:53,433
+所以现在你明白长生不老药
+so now you understand how elixir
+
+155
+00:05:53,433 --> 00:05:55,633
+骑在耳朗 vm 上
+riding atop the earlang vm
+
+156
+00:05:55,633 --> 00:05:57,800
+并利用 otp 库
+and leveraging otp libraries
+
+157
+00:05:57,866 --> 00:05:58,500
+很好
+is well
+
+158
+00:05:58,500 --> 00:06:01,466
+适用于需要高可用性的系统和
+suited for systems that require high availability and
+
+159
+00:06:01,466 --> 00:06:02,500
+容错
+fault tolerance
+
+160
+00:06:02,933 --> 00:06:04,866
+这是非常了不起的东西，记住
+it's pretty amazing stuff and remember
+
+161
+00:06:04,866 --> 00:06:06,700
+它经过了多次实战考验
+it's been battle tested through many
+
+162
+00:06:06,700 --> 00:06:08,033
+生产使用年限
+years of production use
+

@@ -1,0 +1,1525 @@
+1
+00:00:00,300 --> 00:00:02,866
+接下来我们要动态生成内容
+next up we want to dynamically generate content
+
+2
+00:00:02,866 --> 00:00:04,666
+通过渲染一些模板文件
+by rendering some template files
+
+3
+00:00:04,933 --> 00:00:07,900
+我们的模板将混合 html 和电子代码
+our templates will be a mix of html and electric code
+
+4
+00:00:08,066 --> 00:00:09,866
+类似于您可能使用过的模板
+similar to templates you may have used with
+
+5
+00:00:09,866 --> 00:00:11,133
+其他网络框架
+other web frameworks
+
+6
+00:00:11,233 --> 00:00:12,800
+我们将使用理解
+and we'll use a comprehension
+
+7
+00:00:12,933 --> 00:00:15,300
+保持模板代码简洁明了
+to keep the template code nice and succinct
+
+8
+00:00:16,000 --> 00:00:19,866
+现在我们在控制器中生成 html
+right now we're generating html inside the controller
+
+9
+00:00:20,066 --> 00:00:21,233
+但是让我们改变一下
+but let's change it up
+
+10
+00:00:21,233 --> 00:00:23,433
+为我们制作一个模板
+to make a template that does this for us
+
+11
+00:00:23,966 --> 00:00:25,666
+是的，我们将为模板创建一个新目录
+yeah we'll make a new directory for templates
+
+12
+00:00:25,666 --> 00:00:27,233
+我们有这个页面目录
+we've got this pages directory
+
+13
+00:00:27,233 --> 00:00:28,866
+但那是我们的静态文件
+but that's for our static file
+
+14
+00:00:28,866 --> 00:00:31,433
+所以让我们在调查下创建一个新目录
+so let's create a new directory under survey
+
+15
+00:00:32,933 --> 00:00:34,200
+我们称之为模板
+and we'll call it templates
+
+16
+00:00:35,833 --> 00:00:36,366
+然后我们开始
+and then we'll start
+
+17
+00:00:36,400 --> 00:00:37,966
+使用我们的索引操作的模板
+with the template for our index action
+
+18
+00:00:38,000 --> 00:00:40,200
+所以我要调用那个索引
+so I'm going to call that index
+
+19
+00:00:40,266 --> 00:00:42,433
+按照惯例，它会有扩展名
+and by convention that's going to have the extension
+
+20
+00:00:42,433 --> 00:00:45,166
+ex 代表嵌入式长生不老药
+ex which stands for embedded elixir
+
+21
+00:00:46,233 --> 00:00:48,533
+我已经有了我们模板奶嘴的大纲
+and I already have an outline for our template teat up
+
+22
+00:00:48,933 --> 00:00:50,666
+所以我们想要一个有盟友的 ul
+so we want a ul with allies
+
+23
+00:00:50,833 --> 00:00:53,233
+我们希望在此处插入名称
+and we want the name to get interpolated right here
+
+24
+00:00:53,233 --> 00:00:55,866
+然后我们还将插入熊的类型
+and then we'll also interpolate the type of bear
+
+25
+00:00:56,733 --> 00:00:59,133
+以同样的方式让我们有一个展示模板
+in the same way let's have a show template
+
+26
+00:01:00,466 --> 00:01:03,400
+显示前，我也有它的轮廓
+show ex and I've got an outline of it as well
+
+27
+00:01:03,666 --> 00:01:05,733
+我们只会用一个 h one 说 show bear
+we're just going to use an h one saying show bear
+
+28
+00:01:06,066 --> 00:01:07,666
+是熊，不管他们叫什么名字
+is the bear whatever their name is
+
+29
+00:01:07,666 --> 00:01:10,100
+休眠，我们将显示 true 或 false
+hibernating and we're going to display true or false
+
+30
+00:01:10,733 --> 00:01:12,800
+所以我们需要阅读这些模板文件
+so we need to read these template files
+
+31
+00:01:12,800 --> 00:01:14,966
+然后动态填写值
+and then dynamically fill in the values
+
+32
+00:01:14,966 --> 00:01:17,200
+事实证明，elixir 有一个模块
+and it turns out elixir has a module
+
+33
+00:01:17,200 --> 00:01:18,666
+这可以快速解决这个问题
+that makes quick work of this
+
+34
+00:01:19,266 --> 00:01:21,566
+ex 模块并不奇怪
+no surprises the ex module
+
+35
+00:01:22,566 --> 00:01:25,133
+现在我们对邪恶文件功能感兴趣
+now we're interested in the evil file function
+
+36
+00:01:25,566 --> 00:01:28,066
+第一个参数是模板文件的名称
+the first argument is the name of the template file
+
+37
+00:01:28,066 --> 00:01:29,200
+在这种情况下，他们有样本
+in this case they have sample
+
+38
+00:01:29,200 --> 00:01:32,333
+性别和第二个参数是关键字列表
+sex and the second argument is a keyword list of
+
+39
+00:01:32,333 --> 00:01:34,566
+绑定名称和值
+bindings names and values
+
+40
+00:01:34,566 --> 00:01:36,533
+可以在模板内部引用
+that can be referenced inside of the template
+
+41
+00:01:36,966 --> 00:01:39,300
+所以如果我们有样品前
+so if we have sample ex
+
+42
+00:01:39,500 --> 00:01:42,566
+那么食物只是那里的一些静态文本
+then food is just some static text in there
+
+43
+00:01:42,666 --> 00:01:44,766
+然后我们使用小于 % 等于
+and then we use less than % equals
+
+44
+00:01:44,833 --> 00:01:47,900
+在 bar 和 % 大于这样
+in bar and % greater than like that
+
+45
+00:01:48,133 --> 00:01:50,700
+好吧，这整件事都会被取代
+well this whole thing is going to get replaced
+
+46
+00:01:50,700 --> 00:01:52,233
+按 bar 的值
+by the value of bar
+
+47
+00:01:52,233 --> 00:01:53,466
+这是低音
+which is bass
+
+48
+00:01:53,466 --> 00:01:55,733
+所以这个输出是food bass
+so the output of this is food bass
+
+49
+00:01:56,233 --> 00:01:57,700
+现在，如果您是 Rails 程序员
+now if you're a rails programmer
+
+50
+00:01:57,700 --> 00:01:59,766
+这种语法实际上看起来很熟悉
+this syntax will actually look quite familiar
+
+51
+00:02:00,300 --> 00:02:02,300
+是的，它类似于 ruby 的 erb
+yeah it's similar to ruby's erb
+
+52
+00:02:03,066 --> 00:02:04,200
+所以开始吧
+so to start things off
+
+53
+00:02:04,366 --> 00:02:05,800
+在裸控制器中
+in the bare controller
+
+54
+00:02:05,800 --> 00:02:09,100
+我们需要获取模板文件的绝对路径
+we need to get the absolute path to the template file
+
+55
+00:02:09,133 --> 00:02:10,200
+我们实际上
+and we actually
+
+56
+00:02:10,266 --> 00:02:11,700
+已经知道该怎么做
+already know how to do that
+
+57
+00:02:11,866 --> 00:02:13,433
+我们完成了它和处理程序
+we did it over and handler
+
+58
+00:02:13,933 --> 00:02:14,800
+是的，它在顶部
+yeah it's up here at the top
+
+59
+00:02:14,800 --> 00:02:17,566
+我们有我们的页面路径，所以我要复制它
+we have our pages path so I'm just going to copy it
+
+60
+00:02:17,933 --> 00:02:20,066
+转到这里的裸控制器
+go over to bare controller up here
+
+61
+00:02:20,800 --> 00:02:23,600
+将其粘贴并将其更改为模板路径
+paste it in and change this to templates path
+
+62
+00:02:26,166 --> 00:02:27,066
+和模板
+and templates
+
+63
+00:02:27,800 --> 00:02:29,733
+现在我们需要稍微改变一下这条管道
+now we need to change this pipeline down here a little
+
+64
+00:02:29,733 --> 00:02:31,366
+我们想看看所有的熊
+bit we want to see all the bears
+
+65
+00:02:31,366 --> 00:02:33,900
+所以我要删除过滤器是灰熊
+so I'm going to remove the filter for is grizzly
+
+66
+00:02:34,300 --> 00:02:36,800
+我们也不需要改造这些打击
+we also don't need to transform these struck
+
+67
+00:02:36,800 --> 00:02:38,100
+不再是熊的物品
+into bear items anymore
+
+68
+00:02:38,100 --> 00:02:38,633
+因为
+because
+
+69
+00:02:38,633 --> 00:02:40,633
+ul 和 alli 将在
+the ul and the alli is going to get generated in the
+
+70
+00:02:40,633 --> 00:02:42,233
+模板，所以我可以删除它
+template so I can remove that
+
+71
+00:02:42,466 --> 00:02:43,700
+当我在它的时候，我会删除这个
+and while I'm at it I'll remove this
+
+72
+00:02:43,700 --> 00:02:44,933
+函数，因为我们不需要它
+function because we're not going to need it
+
+73
+00:02:44,933 --> 00:02:45,733
+也不再
+anymore either
+
+74
+00:02:46,100 --> 00:02:48,066
+然后我们也可以删除这个连接
+and then we can also remove this join
+
+75
+00:02:48,100 --> 00:02:49,966
+因为我们不需要加入列表
+because we don't need to join the list
+
+76
+00:02:49,966 --> 00:02:51,066
+变成一个字符串了
+into a string anymore
+
+77
+00:02:51,533 --> 00:02:53,166
+这将返回一个熊的列表
+this is going to return a list of bears
+
+78
+00:02:53,166 --> 00:02:54,366
+我们只是要对那些进行排序
+we're just going to sort those
+
+79
+00:02:54,666 --> 00:02:57,566
+所以现在我们又回到了熊市名单
+so now we're back to having a list of bear struck
+
+80
+00:02:57,900 --> 00:02:59,900
+然后是我们想要的响应体
+and then for the response body what we want
+
+81
+00:03:00,000 --> 00:03:02,733
+是评估模板的内容
+is the content of that evaluated template
+
+82
+00:03:02,766 --> 00:03:04,466
+所以这只是满足
+so this is just going to be content
+
+83
+00:03:04,466 --> 00:03:06,233
+我们将在此处创建该内容
+we're going to create that content right here
+
+84
+00:03:06,900 --> 00:03:07,966
+内容相等
+content equal
+
+85
+00:03:08,566 --> 00:03:10,466
+我们将采用我们的模板路径
+we're going to take our templates path
+
+86
+00:03:11,533 --> 00:03:14,266
+我们将把它通过管道连接到路径连接中
+we're going to pipe it into path join
+
+87
+00:03:15,533 --> 00:03:17,000
+指数前
+index ex
+
+88
+00:03:17,000 --> 00:03:18,966
+这将为我们提供一条绝对路径
+that's going to give us an absolute path to that
+
+89
+00:03:18,966 --> 00:03:19,866
+模板文件
+template file
+
+90
+00:03:20,500 --> 00:03:21,933
+然后我们将把它输入
+then we're going to pipe that into
+
+91
+00:03:22,266 --> 00:03:25,566
+ex evil 文件就是我们刚刚看到的函数
+ex evil file that's the function we just looked at
+
+92
+00:03:25,700 --> 00:03:27,466
+它以文件名作为第一个参数
+it takes a file name as the first argument
+
+93
+00:03:27,466 --> 00:03:29,066
+将从左侧通过管道输入
+which is going to be piped in from the left
+
+94
+00:03:29,366 --> 00:03:30,966
+然后我们可以给它我们的绑定
+and then we can give it our bindings
+
+95
+00:03:31,166 --> 00:03:32,100
+所以我们想要这个名字
+so we want the name
+
+96
+00:03:32,133 --> 00:03:34,066
+熊在我们的模板中参考
+bears in our template to refer
+
+97
+00:03:34,066 --> 00:03:36,300
+达到我们空头名单中的价值
+to the value that's in our bears list
+
+98
+00:03:36,300 --> 00:03:37,700
+这东西就在这里
+this thing set right up here
+
+99
+00:03:38,266 --> 00:03:40,000
+现在因为这个关键字列表是
+now because this keyword list is the
+
+100
+00:03:40,000 --> 00:03:41,400
+函数的最后一个参数
+last argument to the function
+
+101
+00:03:41,400 --> 00:03:43,366
+我们实际上可以去掉方括号
+we can actually drop the square brackets
+
+102
+00:03:43,766 --> 00:03:45,800
+所以在索引模板中
+so in the index template
+
+103
+00:03:45,900 --> 00:03:49,400
+让我们从检查熊名单开始
+let's start by inspecting the list of bears
+
+104
+00:03:50,066 --> 00:03:53,433
+是的，我会把它放在我们的静态文本下面
+yeah I'll just put it below our static text right here
+
+105
+00:03:53,733 --> 00:03:54,633
+我们使用少于 %
+we use less than %
+
+106
+00:03:54,633 --> 00:03:55,066
+等于
+equals
+
+107
+00:03:55,066 --> 00:03:57,066
+这就是我们将值插入模板的方式
+that's how we interpolate values into a template
+
+108
+00:03:57,066 --> 00:03:59,133
+然后 % 比那样大
+and then % greater than like that
+
+109
+00:03:59,333 --> 00:04:00,566
+我将使用检查功能
+I'm going to use the inspect function
+
+110
+00:04:00,566 --> 00:04:01,733
+就这样我们看到了原始的
+just so we see the raw
+
+111
+00:04:01,733 --> 00:04:03,633
+熊的形式
+form of bears
+
+112
+00:04:04,033 --> 00:04:04,833
+把它存起来
+save that away
+
+113
+00:04:08,633 --> 00:04:10,233
+如果我们查看响应
+if we look at the response
+
+114
+00:04:11,033 --> 00:04:13,600
+我们看到我们有一个熊市名单
+what we see we have a list of bear struck
+
+115
+00:04:14,066 --> 00:04:16,200
+所以我们需要做的只是循环
+so all we need to do is just loop
+
+116
+00:04:16,233 --> 00:04:17,766
+在这个熊的名单上
+over this list of bears
+
+117
+00:04:17,766 --> 00:04:21,000
+并生成一个 html 行项目或盟友
+and generate an html line item or an ally
+
+118
+00:04:21,000 --> 00:04:22,700
+对于列表中的每个元素
+for each element in the list
+
+119
+00:04:23,066 --> 00:04:24,866
+所以让我们继续填写这个模板
+so let's go ahead and fill out this template
+
+120
+00:04:25,100 --> 00:04:27,466
+在我们想要生成盟友的 ul 内部
+inside of the ul we want to generate allies
+
+121
+00:04:28,000 --> 00:04:29,500
+所以我要从这里开始
+so I'm going to start just here
+
+122
+00:04:29,500 --> 00:04:31,066
+我们将使用小于等于
+we'll use less than % equal
+
+123
+00:04:31,200 --> 00:04:34,366
+假设我们有一个熊变量及其名称
+let's say we have a bear variable and its name
+
+124
+00:04:34,466 --> 00:04:35,966
+我们将在那里插入
+we'll interpolate that right there
+
+125
+00:04:36,200 --> 00:04:37,500
+以同样的方式我们将拥有
+in the same way we'll have
+
+126
+00:04:38,033 --> 00:04:39,866
+像这样的熊型
+bear type like that
+
+127
+00:04:41,466 --> 00:04:43,800
+好的，但我们需要生成其中之一
+okay but we need to generate one of these
+
+128
+00:04:44,266 --> 00:04:47,233
+对于熊列表中的每个元素
+for every element that's in the bears list
+
+129
+00:04:47,533 --> 00:04:50,033
+一种方法是使用 em map
+and one way to do that would be to use em map
+
+130
+00:04:50,033 --> 00:04:50,400
+现在
+now
+
+131
+00:04:50,400 --> 00:04:52,600
+不要跟随，因为这将无法生存
+don't follow along because this isn't going to survive
+
+132
+00:04:52,666 --> 00:04:53,500
+很长一段时间
+for very long
+
+133
+00:04:53,600 --> 00:04:54,633
+但我们可以这样做
+but we could do this
+
+134
+00:04:55,633 --> 00:04:56,733
+我点图
+me dot map
+
+135
+00:04:57,833 --> 00:04:59,966
+承担每一个
+bears for every one of those
+
+136
+00:05:02,233 --> 00:05:03,666
+我们生成一个列表项
+we generate a list item
+
+137
+00:05:03,833 --> 00:05:06,166
+然后我们需要确保关闭它
+and then we need to make sure to close this off
+
+138
+00:05:06,166 --> 00:05:08,933
+低于 % 和
+down here less than % and
+
+139
+00:05:09,266 --> 00:05:11,533
+上帝记得在那里做括号
+god remember to do that parentheses right there
+
+140
+00:05:12,266 --> 00:05:14,266
+像那样把它存起来
+like that save that away
+
+141
+00:05:14,966 --> 00:05:15,766
+重新加载
+reload
+
+142
+00:05:16,433 --> 00:05:17,700
+看起来它有效
+and it looks like it worked
+
+143
+00:05:18,466 --> 00:05:20,666
+我们所有的熊都在 ul
+we have all of our bears in a ul
+
+144
+00:05:21,200 --> 00:05:24,133
+它们整齐地隐藏在列表项中
+and they're neatly tucked away inside of a list item
+
+145
+00:05:25,333 --> 00:05:28,733
+好的，所以使用鸸鹋地图肯定有效
+okay so using emu map certainly works
+
+146
+00:05:28,766 --> 00:05:30,800
+但语法是理想的
+but the syntax is an ideal
+
+147
+00:05:30,833 --> 00:05:32,666
+尤其是这个匿名函数
+especially with this anonymous function
+
+148
+00:05:32,700 --> 00:05:34,733
+实际上真的很难输入
+it was actually really difficult to type in
+
+149
+00:05:35,266 --> 00:05:38,266
+是的，这里的简单循环结构肯定会很好
+yeah simple looping construct here sure would be nice
+
+150
+00:05:38,666 --> 00:05:42,066
+嘿，这给了我们一个使用理解的机会
+and hey this gives us a chance to use a comprehension
+
+151
+00:05:42,766 --> 00:05:44,533
+你可能以前没有看过理解
+you may not have seen a comprehension before
+
+152
+00:05:44,533 --> 00:05:46,300
+所以让我们从这个简单的例子开始
+so let's start with this simple example
+
+153
+00:05:46,366 --> 00:05:48,966
+记得我们在列表中使用 map 1 2 3
+remember when we used map on a list 1 2 3
+
+154
+00:05:49,266 --> 00:05:50,966
+并给它一个匿名函数
+and gave it an anonymous function
+
+155
+00:05:51,533 --> 00:05:53,033
+这使所有数字增加了两倍
+and that tripled all the numbers
+
+156
+00:05:53,166 --> 00:05:54,266
+好吧，这是做同样的方法
+well here's the way to do the same
+
+157
+00:05:54,300 --> 00:05:55,466
+有理解的东西
+thing with a comprehension
+
+158
+00:05:55,500 --> 00:05:56,300
+我们使用四个
+we use four
+
+159
+00:05:57,000 --> 00:05:59,033
+xa 左箭头
+x a left pointing arrow
+
+160
+00:05:59,533 --> 00:06:02,233
+然后我们给它一个列表 1 2 3 在这种情况下
+then we give it a list 1 2 3 in this case
+
+161
+00:06:02,400 --> 00:06:04,933
+一个逗号然后做，我们可以给它一个块
+a comma and then do and we can give it a block
+
+162
+00:06:04,933 --> 00:06:07,033
+这是单行理解，所以我将使用
+this is a single line comprehension so I'll use
+
+163
+00:06:07,366 --> 00:06:08,900
+逗号做冒号
+comma do colon
+
+164
+00:06:09,400 --> 00:06:11,733
+然后我们将数字 x 乘以三倍
+and then we triple the numbers x times three
+
+165
+00:06:12,066 --> 00:06:12,866
+就这样
+just like that
+
+166
+00:06:13,100 --> 00:06:14,633
+所以这很酷
+so that's pretty cool this
+
+167
+00:06:15,100 --> 00:06:18,266
+x 向左箭头，然后这个 1 2 3 就在这里
+x left arrow and then this 1 2 3 right here
+
+168
+00:06:18,300 --> 00:06:20,333
+这整件事被称为发电机
+this whole thing is called the generator
+
+169
+00:06:20,333 --> 00:06:22,733
+它生成数字一到三
+it generates the numbers one through three
+
+170
+00:06:23,200 --> 00:06:24,333
+所以会发生什么
+so what happens is
+
+171
+00:06:24,566 --> 00:06:26,233
+它遍历列表
+it iterates through the list
+
+172
+00:06:26,266 --> 00:06:29,866
+然后它为每个元素运行这个 do 表达式
+and then it runs this do expression for each element
+
+173
+00:06:30,000 --> 00:06:30,933
+所以第一次
+so the first time
+
+174
+00:06:31,233 --> 00:06:33,233
+x 将被设置为值 1
+x is going to get set to a value of one
+
+175
+00:06:33,533 --> 00:06:35,400
+并且 do 将返回三个
+and do is going to return three
+
+176
+00:06:35,966 --> 00:06:38,133
+然后第二次将 x 设置为两个
+and then 2nd time x is going to be set to two
+
+177
+00:06:38,500 --> 00:06:40,966
+这将返回六，依此类推
+and this is going to return six and so on
+
+178
+00:06:41,300 --> 00:06:43,566
+你注意到它返回了一个列表
+and you notice that it returns a list
+
+179
+00:06:43,566 --> 00:06:46,866
+包含该应有表达式的结果
+containing the results of that due expression
+
+180
+00:06:46,966 --> 00:06:48,233
+所以我们在这里给了它一个清单
+so we gave it a list here
+
+181
+00:06:48,566 --> 00:06:50,600
+即使这表示 x 乘以 3
+and even though this says x times three
+
+182
+00:06:50,600 --> 00:06:52,033
+它把结果
+it puts the result of that
+
+183
+00:06:52,200 --> 00:06:53,333
+在列表中
+inside of a list
+
+184
+00:06:53,700 --> 00:06:55,800
+所以在这里比较这两个
+so just comparing these two right here
+
+185
+00:06:56,100 --> 00:06:59,633
+使用理解只是一种更简洁的方式
+using a comprehension is just a more succinct way
+
+186
+00:07:00,000 --> 00:07:02,500
+将一个值列表映射到另一个列表
+to map one list of values into another list
+
+187
+00:07:02,966 --> 00:07:05,200
+我们将使用这样的简单理解
+we'll use a simple comprehension like this
+
+188
+00:07:05,200 --> 00:07:06,233
+对于我们的模板
+for our template
+
+189
+00:07:06,300 --> 00:07:08,300
+但在我们继续之前值得注意
+but it's worth noting before we move on
+
+190
+00:07:08,366 --> 00:07:09,500
+你可以做所有
+that you can do all
+
+191
+00:07:09,533 --> 00:07:11,866
+很酷的东西
+sorts of cool stuff with comprehensions
+
+192
+00:07:12,300 --> 00:07:14,333
+例如假设我们有 t
+for example suppose we have t
+
+193
+00:07:14,333 --> 00:07:15,766
+衬衫尺码和颜色
+shirt sizes and colors
+
+194
+00:07:15,766 --> 00:07:17,766
+我们要生成组合
+and we want to generate the combination
+
+195
+00:07:17,766 --> 00:07:20,333
+我们想要红色和蓝色的小
+we want small for red and blue
+
+196
+00:07:20,433 --> 00:07:22,533
+中等红色和蓝色等等
+medium for red and blue and whatnot
+
+197
+00:07:22,900 --> 00:07:25,400
+为此，我们可以给理解两个生成器
+to do that we can give the comprehension two generators
+
+198
+00:07:25,400 --> 00:07:27,366
+所以这是一个大小的生成器
+so here's a generator for the size
+
+199
+00:07:27,400 --> 00:07:28,466
+然后有一个逗号
+then there's a comma
+
+200
+00:07:28,533 --> 00:07:30,466
+这是颜色的生成器
+and here's the generator for the color
+
+201
+00:07:30,700 --> 00:07:33,333
+然后适当的表达只是把大小和颜色
+and then the due expression just puts size and color
+
+202
+00:07:33,666 --> 00:07:34,700
+元组内部
+inside of a tuple
+
+203
+00:07:35,200 --> 00:07:38,033
+所以如果我们像妮可说的那样运行它，我们会得到小红
+so if we run that as nicole said we get small red
+
+204
+00:07:38,133 --> 00:07:41,300
+小蓝 中红 中蓝 大红 大蓝
+small blue medium red medium blue large red large blue
+
+205
+00:07:41,333 --> 00:07:42,200
+你明白了
+and you get the point
+
+206
+00:07:42,600 --> 00:07:44,233
+像这样使用多个生成器
+using multiple generators like this
+
+207
+00:07:44,266 --> 00:07:46,066
+就像有一个嵌套循环
+is like having a nested loop
+
+208
+00:07:46,800 --> 00:07:48,666
+所以回到我们的模板而不是使用地图
+so back in our template instead of using map
+
+209
+00:07:48,666 --> 00:07:50,000
+我们可以用我们的理解
+we can use our comprehension
+
+210
+00:07:50,000 --> 00:07:51,266
+我们会说四只熊
+we'll say four bear
+
+211
+00:07:52,600 --> 00:07:53,666
+然后列表是
+and then the list is
+
+212
+00:07:53,666 --> 00:07:56,033
+实际上是我们设定的熊名单
+actually the list of bears that were set in our
+
+213
+00:07:56,033 --> 00:07:56,900
+控制器动作
+controller action
+
+214
+00:07:57,066 --> 00:07:59,066
+然后只记得在那里做一个
+then just remember to put a do right there
+
+215
+00:07:59,133 --> 00:08:01,433
+我们可以把这些打印件放在这里
+and we can drop this prints right down here
+
+216
+00:08:01,933 --> 00:08:02,733
+把它存起来
+save that away
+
+217
+00:08:05,300 --> 00:08:06,566
+哦，没有什么要重新编译的
+oh there's nothing to recompile
+
+218
+00:08:06,600 --> 00:08:08,033
+因为我刚刚更改了模板
+because I just changed the template
+
+219
+00:08:10,500 --> 00:08:12,233
+你看我们的名单上有我们的熊
+and you see we've got our bears in our list
+
+220
+00:08:12,266 --> 00:08:13,066
+和之前一样
+same as before
+
+221
+00:08:13,733 --> 00:08:15,266
+这只是感觉很多
+this just feels a lot
+
+222
+00:08:15,266 --> 00:08:17,833
+比我们使用地图的版本更好
+nicer than the version we had that used map
+
+223
+00:08:18,033 --> 00:08:18,200
+现在
+now
+
+224
+00:08:18,200 --> 00:08:20,366
+值得注意的是，您可以在
+it's worth noting that you can use comprehensions in
+
+225
+00:08:20,366 --> 00:08:21,400
+任何电码
+any electric code
+
+226
+00:08:21,400 --> 00:08:22,533
+不仅仅是模板
+not just templates
+
+227
+00:08:22,600 --> 00:08:25,233
+在某些情况下，在特定模板中
+in some cases in in particular templates
+
+228
+00:08:25,233 --> 00:08:26,866
+我认为它们更容易阅读
+I think they're easier to read
+
+229
+00:08:26,866 --> 00:08:28,500
+比使用 e 新功能
+than using e new functions
+
+230
+00:08:29,100 --> 00:08:31,366
+我们还有未使用的展示模板
+we still have the show template we haven't used
+
+231
+00:08:31,366 --> 00:08:34,033
+所以我们需要为它动态生成内容
+so we need to dynamically generate content for it
+
+232
+00:08:34,500 --> 00:08:34,666
+是的
+yeah
+
+233
+00:08:34,666 --> 00:08:37,233
+所以我们需要做的是评估展示模板
+so what we need to do is evaluate the show template
+
+234
+00:08:37,233 --> 00:08:38,566
+在表演动作里面
+inside of the show action
+
+235
+00:08:38,933 --> 00:08:40,700
+所以开始我要复制这个
+so to get started I'm going to copy this
+
+236
+00:08:40,700 --> 00:08:42,400
+我们最终会得到一些重复
+we're going to end up with a little bit of duplication
+
+237
+00:08:42,400 --> 00:08:43,200
+但没关系
+but that's okay
+
+238
+00:08:43,633 --> 00:08:47,233
+模板名称将显示为 ex
+the name of the template is going to be show ex
+
+239
+00:08:47,566 --> 00:08:49,033
+然后就我们的绑定而言
+and then in terms of our bindings
+
+240
+00:08:49,033 --> 00:08:49,900
+我们只是要绑定
+we're just going to bind
+
+241
+00:08:49,900 --> 00:08:52,300
+名称承担价值承担
+the name bear to the value bear
+
+242
+00:08:52,466 --> 00:08:54,100
+这就是我们在这里设置的东西
+that's the thing we have set right here
+
+243
+00:08:54,733 --> 00:08:56,133
+然后对于我们的响应体
+then for our response body
+
+244
+00:08:56,133 --> 00:08:57,433
+我们可以摆脱这个字符串
+we can get rid of this string
+
+245
+00:08:58,200 --> 00:09:00,500
+因为这只是模板内容
+because this is just going to be the template content
+
+246
+00:09:01,000 --> 00:09:03,366
+然后说走，我们会去这个节目模板
+then say that away we'll go to this show template
+
+247
+00:09:03,766 --> 00:09:05,233
+而不是硬编码的名称
+and instead of a hard coded name
+
+248
+00:09:05,233 --> 00:09:07,133
+这里我们将使用小于等于
+here we'll use less than % equal
+
+249
+00:09:07,500 --> 00:09:10,100
+承担这是我们绑定的名称
+bear that's the name of the binding we have
+
+250
+00:09:11,866 --> 00:09:13,400
+然后对于 truan 瀑布
+and then for truan falls
+
+251
+00:09:14,100 --> 00:09:14,900
+我们将拥有
+we're going to have
+
+252
+00:09:15,600 --> 00:09:17,600
+他们的点冬眠
+their dot hibernating
+
+253
+00:09:19,600 --> 00:09:20,400
+把它存起来
+save that away
+
+254
+00:09:21,133 --> 00:09:23,466
+我更改了控制器，所以我需要重新编译
+I change the controller so I need to recompile
+
+255
+00:09:24,166 --> 00:09:25,500
+如果我重新加载处理程序
+and if I reload the handler
+
+256
+00:09:26,000 --> 00:09:27,933
+看看一岁的贝壳熊
+check it out shell bears in an age one
+
+257
+00:09:28,166 --> 00:09:30,466
+泰迪在冬眠吗 是的 他是
+is teddy hibernating yes he is
+
+258
+00:09:31,833 --> 00:09:32,033
+现在
+now
+
+259
+00:09:32,033 --> 00:09:34,500
+我们显然在这里引入了一些重复
+we've obviously introduced a bit of duplication here
+
+260
+00:09:34,500 --> 00:09:35,700
+我们可以清理
+which we can clean up
+
+261
+00:09:35,833 --> 00:09:39,266
+我们如何创建一个名为 render 的新函数
+how about we make a new function named render that
+
+262
+00:09:39,266 --> 00:09:41,833
+然后我们可以在 index 和 show 中重用
+we can then reuse in both index and show
+
+263
+00:09:42,366 --> 00:09:43,333
+是的，然后开始
+yeah and to get that started
+
+264
+00:09:43,333 --> 00:09:45,833
+我只是要复制其中一个实例
+I'm just going to copy an instance of one of these
+
+265
+00:09:46,566 --> 00:09:48,333
+我们将在这里的顶部定义渲染
+and we'll define render up at the top here
+
+266
+00:09:48,333 --> 00:09:49,333
+就这样方便
+just so it's handy
+
+267
+00:09:50,033 --> 00:09:51,066
+我们将其设为私有函数
+we'll make it a private function
+
+268
+00:09:51,066 --> 00:09:52,300
+因为它不会被调用
+because it's not going to get called
+
+269
+00:09:52,300 --> 00:09:53,566
+在这个模块之外
+outside of this module
+
+270
+00:09:54,266 --> 00:09:56,133
+我将粘贴我在下面复制的内容
+and I'll paste in what I copied below
+
+271
+00:09:56,800 --> 00:09:57,433
+好的，现在
+all right and now
+
+272
+00:09:57,433 --> 00:09:59,133
+让我们弄清楚它需要什么参数
+let's figure out what arguments it's going to need
+
+273
+00:09:59,133 --> 00:09:59,933
+好好把握
+to take well
+
+274
+00:09:59,933 --> 00:10:01,166
+它需要 co 和 v
+it needs co and v
+
+275
+00:10:01,200 --> 00:10:03,366
+因为我们将其更新为最后一行
+because we update that as the last line
+
+276
+00:10:03,700 --> 00:10:04,766
+它还需要模板
+it also needs the template
+
+277
+00:10:04,766 --> 00:10:06,333
+我们不想要这个硬涂层在这里
+we don't want this hard coated right here
+
+278
+00:10:06,800 --> 00:10:08,133
+所以我就称它为模板
+so I'll just call this the template
+
+279
+00:10:08,133 --> 00:10:10,133
+我们将把它作为第二个论点
+we'll make that the second argument
+
+280
+00:10:10,966 --> 00:10:12,266
+并且还需要绑定
+and also needs the bindings
+
+281
+00:10:12,266 --> 00:10:12,533
+因为那些
+because those
+
+282
+00:10:12,566 --> 00:10:14,200
+会因动作而异
+are going to vary depending on the action
+
+283
+00:10:14,600 --> 00:10:17,000
+所以让我们把它拿出来，我们就叫它绑定
+so let's take this out and we'll just call it bindings
+
+284
+00:10:17,300 --> 00:10:18,600
+这将是第三个论点
+that will be the third argument
+
+285
+00:10:19,533 --> 00:10:21,733
+我们可以将其默认为一个空列表
+and we can default that to an empty list
+
+286
+00:10:21,866 --> 00:10:24,333
+这就是您将默认参数设置为长生不老药的方式
+this is how you set a default parameter an elixir
+
+287
+00:10:24,700 --> 00:10:26,166
+所以如果我们不提供绑定
+so if we don't supply the bindings
+
+288
+00:10:26,166 --> 00:10:27,566
+它只是一个空列表
+it's just going to be an empty list
+
+289
+00:10:28,100 --> 00:10:29,233
+然后指数下降
+then down in index
+
+290
+00:10:29,233 --> 00:10:31,300
+我们可以继续调用该渲染函数
+we can go ahead and call that render function
+
+291
+00:10:33,333 --> 00:10:34,800
+通过 co 和 v 它会
+pass co and v it's going to
+
+292
+00:10:34,800 --> 00:10:40,733
+成为索引前，我们的绑定是熊将是熊
+be index ex and our bindings are bears will be bears
+
+293
+00:10:41,500 --> 00:10:42,900
+以同样的方式，我将复制它
+the same way I'll just copy that
+
+294
+00:10:42,900 --> 00:10:44,666
+我们可以把它贴在这里展示
+and we can paste it down here for show
+
+295
+00:10:45,100 --> 00:10:46,066
+这里唯一的区别
+the only difference here
+
+296
+00:10:46,800 --> 00:10:48,233
+是不是模板叫show
+is the template is called show
+
+297
+00:10:49,033 --> 00:10:50,266
+它只是一只熊
+and it's just a single bear
+
+298
+00:10:51,033 --> 00:10:51,833
+把它存起来
+save that away
+
+299
+00:10:52,966 --> 00:10:53,766
+重新编译
+recompile
+
+300
+00:10:55,233 --> 00:10:57,866
+现在看起来一切都还很笨拙
+and it looks like everything's still hunky dory now
+
+301
+00:10:57,866 --> 00:11:00,633
+除了想找个借口看理解
+besides wanting an excuse to look at comprehensions
+
+302
+00:11:00,633 --> 00:11:01,733
+你可能想知道为什么
+you might be wondering why
+
+303
+00:11:01,733 --> 00:11:04,333
+我们经历了所有的麻烦来创建一个控制器
+we went through all the trouble to create a controller
+
+304
+00:11:04,366 --> 00:11:07,200
+野生事物模块和这些模板文件
+the wild things module and these template files
+
+305
+00:11:07,500 --> 00:11:10,533
+我们会坚持下去，因为接下来一切都会揭晓
+we'll stick around because all will be revealed next
+

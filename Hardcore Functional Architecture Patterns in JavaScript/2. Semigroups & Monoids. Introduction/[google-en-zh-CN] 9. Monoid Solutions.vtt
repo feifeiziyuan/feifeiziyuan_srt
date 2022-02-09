@@ -1,0 +1,1101 @@
+WEBVTT
+
+1
+00:00:00.500 --> 00:00:03.550
+好的，让我们一起解决这些问题。
+Okay, let's get through these together.
+
+2
+00:00:03.550 --> 00:00:06.518
+我们在一起，你们都在一起。
+We're in this together y'all.
+
+3
+00:00:06.518 --> 00:00:11.078
+所以，一旦我把你带到黑暗的一面，我们都必须知道如何
+So, once I bring you all over to the dark side, we all have to know how
+
+4
+00:00:11.078 --> 00:00:16.000
+一起做这件事，这样我们才能说服别人这是好的。
+to do this together so we can convince others that it's good.
+
+5
+00:00:16.000 --> 00:00:18.030
+所以有这个。
+So there's this.
+
+6
+00:00:18.030 --> 00:00:23.520
+我想从没有 foldMap 的不可变 Js 中调出列表。
+I wanted to call out lists from immutable Js it does not have foldMap.
+
+7
+00:00:23.520 --> 00:00:26.650
+所以我们使用的是不可变的扩展，这只是我使用了一个可变的和
+So we're using immutable extensions, which is just I took a mutable and
+
+8
+00:00:26.650 --> 00:00:28.150
+添加 foldMap 到它。
+added foldMap to it.
+
+9
+00:00:28.150 --> 00:00:33.180
+但是有 50 个不同的库以完全相同的方式实现它。
+But there's like 50 different libraries that implement it exactly the same way.
+
+10
+00:00:33.180 --> 00:00:37.189
+所以我们只是用这个来演示它，但是你看到了，
+So we're just using this one just to demonstrate it, but you saw,
+
+11
+00:00:37.189 --> 00:00:40.064
+它只是减少，您只需传入类型。
+it's just reduce and you just pass in the type.
+
+12
+00:00:40.064 --> 00:00:45.100
+好的，所以它说重新实现一些使用折叠映射和求和幺半群。
+Okay, so it says to re implement some using fold map and the sum monoid.
+
+13
+00:00:45.100 --> 00:00:47.790
+好的，让我们在这里使用 foldMap 。
+Okay, let's use foldMap here.
+
+14
+00:00:47.790 --> 00:00:53.140
+所以我们有 x 的列表，我们将点击而不是调用这个累加器
+So we have list of x's and we're going to hit instead of calling this accumulator
+
+15
+00:00:53.140 --> 00:00:59.280
+和 x 0，我们将从 Sum(0) 开始，或者只是 Sum.empty 怎么样？
+and the x 0, we'll start with the Sum(0), or how about just Sum.empty?
+
+16
+00:00:59.280 --> 00:01:02.740
+并传入 Sum 和 foldMap。
+And Pass in Sum and foldMap.
+
+17
+00:01:02.740 --> 00:01:08.270
+所以我们要拿这个 xs 列表，把它们变成和，从空开始。
+So we're gonna take this list of xs, turn them into sums, starting with empty.
+
+18
+00:01:08.270 --> 00:01:14.040
+现在，因为 xs，实际上那里有东西，如果我不这样做，它就不会破裂。
+Now, since xs, there's actually stuff there, it's not gonna break if I don't.
+
+19
+00:01:14.040 --> 00:01:16.359
+不，我想它会坏的，好吧，没关系。
+No, I guess it is gonna break, all right, that's fine.
+
+20
+00:01:16.359 --> 00:01:19.450
+[笑] 我已经更新了库，所以它的工作方式更像是 reduce。
+[LAUGH] I've updated the library so it works more like reduce.
+
+21
+00:01:19.450 --> 00:01:24.692
+如果它不存在，它不会破坏，但它应该在那里，所以处理它。
+It doesn't break if it's not there, but It should be there, so deal with it.
+
+22
+00:01:24.692 --> 00:01:28.220
+但是 foldMap 可以在半群上工作，这只是一个不安全的操作。
+But foldMap can work on semigroups, it's just an unsafe operation.
+
+23
+00:01:30.470 --> 00:01:34.000
+所以有那个，有任何问题吗？
+So there's that one, any questions on that?
+
+24
+00:01:34.000 --> 00:01:36.440
+有人挣扎过吗？
+Did anybody have any struggles?
+
+25
+00:01:36.440 --> 00:01:38.630
+也许这有点太模棱两可了。
+And maybe this was a little too ambiguous.
+
+26
+00:01:40.508 --> 00:01:44.480
+&gt;&gt; [笑] 好的，很好的问题。
+&gt;&gt; [LAUGH] All right, great question.
+
+27
+00:01:44.480 --> 00:01:46.600
+这究竟是如何工作的？
+How does this work, exactly?
+
+28
+00:01:46.600 --> 00:01:49.830
+那么发生的事情是，我们有这个 123，对吗？
+So what's happening is, we have this 123, right?
+
+29
+00:01:49.830 --> 00:01:53.830
+foldMap 实际上是怎么回事。
+What's going on with foldMap actually is.
+
+30
+00:01:53.830 --> 00:01:56.096
+让我们继续以不同的方式编写 foldMap 。
+Let's let's go ahead and write foldMap in a different way.
+
+31
+00:01:56.096 --> 00:02:01.650
+FoldMap 需要一个类型，对吧？
+FoldMap takes a type, right?
+
+32
+00:02:01.650 --> 00:02:06.220
+让我们称之为 t 这样我们就不会像您的关键字 air 那样奇怪
+Let's call that t so we don't have some weird like your keyword air and
+
+33
+00:02:06.220 --> 00:02:08.176
+一堆x。
+a bunch of x's.
+
+34
+00:02:08.176 --> 00:02:13.690
+我们会说 xs reduce 会带你累加器和每个 x，
+We'll say xs reduce will take you accumulator and each x,
+
+35
+00:02:13.690 --> 00:02:17.930
+我们要说的是这实际上需要三个参数。
+and we're gonna put was this it takes actually three arguments.
+
+36
+00:02:17.930 --> 00:02:20.420
+第一个，我们要推过去，对吧？
+This first one, we're gonna push over here, right?
+
+37
+00:02:20.420 --> 00:02:25.420
+所以它不是空的，好吧，还有x。
+So it's t then of empty, all right, and the x's.
+
+38
+00:02:26.550 --> 00:02:29.140
+所以我们可以从空开始
+So we can start with empty here
+
+39
+00:02:30.250 --> 00:02:35.220
+因为我们的初始累加器只会执行 aq concat x。
+as our initial accumulator will just do aq concat x.
+
+40
+00:02:35.220 --> 00:02:40.770
+所以这就是 foldMap 在幕后实现的方式，它只是一个减少。
+So this is how foldMap is implemented under the hood, it's just a reduce.
+
+41
+00:02:41.770 --> 00:02:45.940
+所以这里发生的事情是，如果我们继续调用 foldMap，
+So what's happening here is if we go ahead and stead and call foldMap,
+
+42
+00:02:45.940 --> 00:02:51.100
+一些空的和我们希望仍然通过的 xs。
+some some of the empty and our xs that should hopefully still pass.
+
+43
+00:02:52.130 --> 00:02:54.820
+我们得到一个楠，楠。
+We get a Nan, Nan.
+
+44
+00:02:54.820 --> 00:02:56.170
+怎么看？
+How's that looking?
+
+45
+00:02:56.170 --> 00:03:01.690
+我们得到了一些这种类型，这是我没有把它放在 t 中。
+We got this type some, which is t I didn't put it in the t.
+
+46
+00:03:01.690 --> 00:03:06.980
+这就是这个权利的症结所在，现在它已经过去了
+That's the that's kind of the crux of this right is that and now it's passing
+
+47
+00:03:06.980 --> 00:03:11.810
+是当我们说 foldMap 时，我们是说我们要将这个列表向下折叠 123。
+is that when we say foldMap, we're saying we want to fold this list down 123.
+
+48
+00:03:11.810 --> 00:03:16.730
+但首先我们要把它映射到子类型，就是这个映射，比例，
+But first we want to map it into the subtype, that's this map, proportion,
+
+49
+00:03:16.730 --> 00:03:17.690
+这里的一部分。
+a portion here.
+
+50
+00:03:17.690 --> 00:03:20.020
+所以我们也可以不把 t 放在这里，
+So we could alternatively instead of putting the t here,
+
+51
+00:03:20.020 --> 00:03:24.050
+我们实际上可以说，第一张地图，把它放在类型里，
+we could actually say, first map, put it in the type,
+
+52
+00:03:24.050 --> 00:03:29.100
+然后通过对所有内容调用 concat 来减少它，我们仍然通过。
+then reduce it down just by calling concat on everything, and we still pass.
+
+53
+00:03:29.100 --> 00:03:32.570
+所以这就是它在引擎盖下的工作方式。
+So this is kind of how it works under the hood.
+
+54
+00:03:32.570 --> 00:03:36.200
+如果我们回到刚刚得到 xs 列表的另一种语法，
+If we go back to the other syntax where we've just got a list of xs and
+
+55
+00:03:36.200 --> 00:03:38.200
+我们将把它折叠成一个总和。
+we're going to foldMap that into a sum.
+
+56
+00:03:39.280 --> 00:03:43.350
+我们可以通过说我们已经得到每个 x 来扩展它，我们会
+We can expand this by saying we've got each x and we're gonna
+
+57
+00:03:43.350 --> 00:03:47.850
+把它放在 sum 类型中，然后它就知道如何将它们组合起来。
+put that in the sum type and then it just knows how to combine them all.
+
+58
+00:03:49.300 --> 00:03:53.700
+所以还有另一个功能它没有提到它只是完整的。
+So there is another function that it didn't mention which is just full.
+
+59
+00:03:55.330 --> 00:03:58.850
+因此，假设我有，并且它是空的。
+So let's say I have and it ticks an empty.
+
+60
+00:03:58.850 --> 00:04:02.970
+假设我有一个列表，我们对其进行映射，然后将其放入总和中
+Let's say I have a list and we map over it and we put that into a sum and
+
+61
+00:04:02.970 --> 00:04:05.045
+我们只是折叠那个列表。
+we just fold down that list.
+
+62
+00:04:05.045 --> 00:04:08.110
+FoldMap 只是先映射它然后折叠它，
+FoldMap is just first map it then fold it,
+
+63
+00:04:08.110 --> 00:04:10.820
+fold 是这部分，我们只是连接所有内容。
+fold being this this part where we just concat everything.
+
+64
+00:04:12.110 --> 00:04:14.880
+所以，这就是名称折叠地图的来源。
+So, that's where the name fold map comes from.
+
+65
+00:04:14.880 --> 00:04:17.700
+折叠只是将所有内容连接到我的列表中
+Fold is just concat everything into my list
+
+66
+00:04:19.050 --> 00:04:21.470
+因为我列表中的所有内容都有一个 concat 方法。
+because everything in my list has a concat method.
+
+67
+00:04:21.470 --> 00:04:26.530
+我们只会得到一件事，我们将结构折叠成一个值。
+And we would just end up with one thing, we fold the structure down into one value.
+
+68
+00:04:26.530 --> 00:04:31.700
+而且fold和map都不是专门列出来的。
+And fold and map are not specialized to list.
+
+69
+00:04:31.700 --> 00:04:34.580
+我们可以在树上这样做，我们可以在事件流上这样做，
+We can do this on trees, we can do this on events stream,
+
+70
+00:04:34.580 --> 00:04:40.310
+我们可以在许多不同的数据结构上做到这一点，这些数据结构甚至可以保存集合
+we can do this on many different data structures that hold collections even
+
+71
+00:04:40.310 --> 00:04:43.529
+要么你可以把它折叠出来，对吧？
+either you would be able to fold map it out of the either, right?
+
+72
+00:04:44.910 --> 00:04:48.350
+所以foldMap非常有用，fold非常有用。
+So foldMap is very useful, fold is very useful.
+
+73
+00:04:48.350 --> 00:04:52.340
+它来自一个名为 foldable 的界面和
+Its from an interface called foldable and
+
+74
+00:04:52.340 --> 00:04:56.620
+如果我们有幺半群和半群可供我们使用，
+if we have monoids and semi groups at our disposal,
+
+75
+00:04:56.620 --> 00:05:00.970
+它是函数式编程中最有用的方法之一。
+its one of the most useful methods in functional programming.
+
+76
+00:05:03.040 --> 00:05:04.220
+好的，让我们继续。
+Okay, let's move on.
+
+77
+00:05:04.220 --> 00:05:07.690
+我希望回答了你的问题，多做一点，好吧。
+I hope that answered your question, did it a little bit more, okay.
+
+78
+00:05:07.690 --> 00:05:12.552
+&gt;&gt; 这可能是列表的实现问题，
+&gt;&gt; This may be an implementation issue with lists,
+
+79
+00:05:12.552 --> 00:05:17.810
+但是我在尝试将 xs 传递给 list.of 时挂断了电话。
+but I got hung up trying to pass xs to list.of.
+
+80
+00:05:17.810 --> 00:05:20.700
+&gt;&gt; 是的，太好了。
+&gt;&gt; Yes, so that's great.
+
+81
+00:05:20.700 --> 00:05:24.900
+所以 Mutable JS 确实创建了指针函数。
+So Mutable JS does create pointers functions.
+
+82
+00:05:24.900 --> 00:05:30.980
+我可以说一个包含两个的列表，这会将我放入一个列表中。
+And I could say a list of two, and that would put me in a list.
+
+83
+00:05:30.980 --> 00:05:35.230
+但是如果我说的是两个数组的列表，
+But if I said list of an array of two,
+
+84
+00:05:35.230 --> 00:05:39.290
+那将列出一个包含两个列表的列表。
+that would put a list of a list of two.
+
+85
+00:05:39.290 --> 00:05:40.560
+我们把它搬进去。
+We're lifting that in.
+
+86
+00:05:40.560 --> 00:05:45.770
+如果我只调用两个列表，就像，嘿，你不是一个数组，所以，
+And if I just call a list of two, it's like, hey, you're not an array so,
+
+87
+00:05:45.770 --> 00:05:49.390
+这适用于这种情况，这适用于这种情况。
+this would work for that case, this would work for this case.
+
+88
+00:05:49.390 --> 00:05:52.110
+所以这个强迫它的善良
+So this one's coercing it's kind
+
+89
+00:05:52.110 --> 00:05:55.170
+一堆可能是正确的方法。
+of a bunch of is kind of probably the the proper way.
+
+90
+00:05:55.170 --> 00:05:57.700
+它就在下面，我有一个清单，正在传递给它。
+It's just down here, I have a list, passing into it.
+
+91
+00:05:57.700 --> 00:05:59.540
+非常酷。
+So cool.
+
+92
+00:06:00.940 --> 00:06:04.470
+任何小于零或任何小于零。
+Anything less than zero or any less than zero.
+
+93
+00:06:04.470 --> 00:06:07.530
+所以这说，好吧，我们正在尝试对 foldMap 进行编程，然后
+So this says, okay, we're trying to program the foldMap and
+
+94
+00:06:07.530 --> 00:06:12.270
+我们试图看到，它的一些效用是这样的。
+we're trying to see, some of its utility here like this.
+
+95
+00:06:12.270 --> 00:06:16.635
+这些示例有点像玩具示例，了解如何调用的人体工程学
+These examples are kinda toy examples, getting the ergonomics around how to call
+
+96
+00:06:16.635 --> 00:06:19.180
+foldMap 并将东西放入类型并取出。
+foldMap and put things into types and take them out.
+
+97
+00:06:19.180 --> 00:06:22.450
+但是当你开始做一些建筑方面的事情时
+But when you start to do some of the architectural stuff, and
+
+98
+00:06:22.450 --> 00:06:27.510
+我们将在此之后看到一些示例并构建一个小库，这里会发生什么
+we'll see some examples following this and build a little library, what happens here
+
+99
+00:06:27.510 --> 00:06:33.100
+那是类型级联，对吗？
+is that the types cascade, right?
+
+100
+00:06:33.100 --> 00:06:37.350
+所以你实际上是在结合效果和值并做出分支决策和
+So you're actually combining effects and values and making branching decisions and
+
+101
+00:06:37.350 --> 00:06:42.990
+使用完整的 foldMap 进行所有这些非常密集的计算，并且
+doing all this really intense computation with a full foldMap and
+
+102
+00:06:42.990 --> 00:06:44.100
+它直观地捕捉它。
+it's capturing it intuitively.
+
+103
+00:06:44.100 --> 00:06:48.990
+所以这些都是非常小的、简单的例子，但你可以想象这就像我
+So these are really small, easy examples, but you can imagine this is like I've
+
+104
+00:06:48.990 --> 00:06:53.940
+得到一个异步、错误、填充的列表，
+got a list of Async, error, filled,
+
+105
+00:06:53.940 --> 00:06:59.580
+就像任何决策价值观一样，然后我们就走上了正确的道路。
+like whatever decision making values and then we kinda go down the right path.
+
+106
+00:07:00.960 --> 00:07:03.620
+所以让我们继续在这里写 foldMap 。
+So let's go ahead and write foldMap here.
+
+107
+00:07:03.620 --> 00:07:08.432
+就像以前一样，我们只是要做 foldMap any，
+And just like before, we're just gonna do foldMap any,
+
+108
+00:07:08.432 --> 00:07:11.350
+和any.empty，这行得通吗？
+and any.empty, does that work?
+
+109
+00:07:12.646 --> 00:07:13.460
+它确实有效。
+It does work.
+
+110
+00:07:13.460 --> 00:07:15.910
+那里发生什么了？
+What happened there?
+
+111
+00:07:15.910 --> 00:07:18.550
+你得到负二。
+You get negative two.
+
+112
+00:07:18.550 --> 00:07:19.910
+那是什么？
+What is that?
+
+113
+00:07:19.910 --> 00:07:22.680
+这小于零，对不起我的错。
+This is less than zero, sorry my bad.
+
+114
+00:07:22.680 --> 00:07:25.190
+它说重新实现了使用任何单声道 ID。
+It says re-implemented that using the any mono-id.
+
+115
+00:07:25.190 --> 00:07:26.540
+好吧，没关系。
+Okay, that's fine.
+
+116
+00:07:26.540 --> 00:07:27.400
+我们很好。
+We're fine.
+
+117
+00:07:27.400 --> 00:07:32.560
+所以一个折叠 Map 如果它小于零，我们将返回 true，好吧。
+So a fold Map and if this is less than zero, we're gonna return true, all right.
+
+118
+00:07:32.560 --> 00:07:34.300
+任何真的。
+Any true.
+
+119
+00:07:34.300 --> 00:07:35.270
+我们走了。
+There we go.
+
+120
+00:07:35.270 --> 00:07:43.230
+否则任何错误，我们将从任何空开始。
+Otherwise any false and we'll start with any empty.
+
+121
+00:07:44.250 --> 00:07:44.820
+怎么样？
+How does that go?
+
+122
+00:07:44.820 --> 00:07:48.080
+好的，现在它过去了，你看看它是如何工作的。
+All right now it's passing you see how that works.
+
+123
+00:07:48.080 --> 00:07:51.600
+我很困惑，因为我只是不假思索地遵循我的模板。
+I got confused because I was just following my template without thinking.
+
+124
+00:07:51.600 --> 00:07:54.900
+但这个想法是 any 不带零它需要一个数字。
+But the idea is that any doesn't take a zero It takes a number.
+
+125
+00:07:54.900 --> 00:07:58.390
+它需要一个布尔值，所以我们可以做我们的布尔值，然后返回任何。
+It takes a Boolean so we can do our Boolean, then return the any.
+
+126
+00:07:58.390 --> 00:08:00.490
+然后我将把它们全部结合起来。
+And then I'll just combine all of them.
+
+127
+00:08:00.490 --> 00:08:05.290
+&gt;&gt; 只是为了确保我没有在自己的代码中进行幼稚的技术转换。
+&gt;&gt; Just to make sure that I'm not making a naive technical switch in my own code.
+
+128
+00:08:05.290 --> 00:08:09.720
+我放入了一个 lambda 函数，然后传入任何
+I put a lambda function in and then passed in any
+
+129
+00:08:09.720 --> 00:08:14.710
+x 小于零，这也通过。
+with x less than zero and that also comes through.
+
+130
+00:08:14.710 --> 00:08:17.980
+这只是从架构上检查。
+That checks but architecturally.
+
+131
+00:08:17.980 --> 00:08:18.800
+&gt;&gt; 任何东西。
+&gt;&gt; Anything.
+
+132
+00:08:18.800 --> 00:08:21.640
+&gt;&gt; 我做了一个里面的比较。
+&gt;&gt; I did the comparison inside of one any.
+
+133
+00:08:21.640 --> 00:08:22.140
+&gt;&gt; 那样？
+&gt;&gt; Like that?
+
+134
+00:08:23.240 --> 00:08:26.230
+&gt;&gt; 到达那里，但您只是使用了 x 而不是累加器。
+&gt;&gt; Getting there but you just used the x not the accumulator.
+
+135
+00:08:27.240 --> 00:08:28.730
+&gt;&gt; 刚刚使用。
+&gt;&gt; Just using.
+
+136
+00:08:28.730 --> 00:08:33.260
+&gt;&gt; 是的，如果你取出累加器，把 x 小于 0。
+&gt;&gt; Yeah, if you take out the accumulator, put x less than 0.
+
+137
+00:08:33.260 --> 00:08:36.320
+然后把问号后面的东西拿出来，
+And then take out anything after the question mark,
+
+138
+00:08:36.320 --> 00:08:38.958
+因为那是隐含在该操作中的。
+because that's implicit in that operation.
+
+139
+00:08:38.958 --> 00:08:45.840
+那是，那正在过去，但我改变了什么吗？
+Is that, that is passing, but am I changing anything?
+
+140
+00:08:45.840 --> 00:08:48.870
+我想你必须拿出一个ACC谢谢你。
+I think you've got to take out an ACC thank you.
+
+141
+00:08:49.980 --> 00:08:50.880
+那就对了。
+That's right.
+
+142
+00:08:50.880 --> 00:08:52.008
+谢谢你。
+Thank you.
+
+143
+00:08:52.008 --> 00:08:54.480
+没错， foldMap 不接受。
+That's right, foldMap doesn't take in.
+
+144
+00:08:54.480 --> 00:08:57.090
+抱歉，我错了，foldMap 不带累加器，对吗？
+Sorry, I had this wrong, foldMap doesn't take an accumulator, right?
+
+145
+00:08:57.090 --> 00:08:59.970
+蓄能器现在不见了。
+The accumulator is now gone.
+
+146
+00:08:59.970 --> 00:09:03.360
+所以它只会在后台保存那个累加器。
+So it's just going to hold that accumulator in the background.
+
+147
+00:09:03.360 --> 00:09:05.920
+你在这里关心的只是保留一个。
+All you're concerned about here is just keeping one.
+
+148
+00:09:05.920 --> 00:09:08.300
+所以这实际上是编写相同内容的更简单的方法，谢谢。
+So this is actually a much simpler way to write the same thing, thank you.
+
+149
+00:09:08.300 --> 00:09:09.070
+&gt;&gt; 好的，谢谢。
+&gt;&gt; Okay, thank you.
+
+150
+00:09:09.070 --> 00:09:11.180
+&gt;&gt; 所以我们正在做的是说。
+&gt;&gt; So what we're doing is saying.
+
+151
+00:09:11.180 --> 00:09:16.220
+我需要获取一个数字列表并将它们转换为一个实体列表，然后
+I need to take a list of numbers and turn them into a list of entities and
+
+152
+00:09:16.220 --> 00:09:19.140
+把它们变成一个列表，我得到了一个函数和
+to turn them into a list I'm given a function and
+
+153
+00:09:19.140 --> 00:09:21.730
+现在我有一个实体列表，任何小于零的东西，很酷。
+now I have a list of entities, anything less than zero, cool.
+
+154
+00:09:21.730 --> 00:09:23.860
+&gt;&gt; 我的做法也有点不同，
+&gt;&gt; I did it a little bit differently too,
+
+155
+00:09:23.860 --> 00:09:28.760
+我先打电话给 map 把数字变成玻利维亚酷，然后
+I called map first to turn the numbers into Bolivians Cool, and then
+
+156
+00:09:28.760 --> 00:09:32.430
+称为折叠地图将布尔值放入 &gt;&gt; 是的，听起来不错。
+called fold map to put the Booleans in &gt;&gt; Yeah, sounds great.
+
+157
+00:09:32.430 --> 00:09:36.800
+所以像这样你映射每个 x，并说 x 小于零。
+So something like this where you map each x, and say x less than zero.
+
+158
+00:09:36.800 --> 00:09:39.280
+所以另一个真假，在这里给你任何。
+So another trues and falses, and give you any here.
+
+159
+00:09:40.540 --> 00:09:41.630
+是的，这很好。
+Yeah, that's nice.
+
+160
+00:09:41.630 --> 00:09:44.140
+这样做的好方法。
+It's good way to do that.
+
+161
+00:09:44.140 --> 00:09:50.079
+你也可以在这里做任何事情，然后把它折叠起来。
+You could also do any here and then just fold it down.
+
+162
+00:09:50.079 --> 00:09:56.230
+所以 foldMap 只是结合了文件夹和
+And so foldMap just combines the folder and
+
+163
+00:09:56.230 --> 00:10:00.745
+当地图几乎无关紧要时，为了提高效率，将地图整合为一件事。
+the map into one thing for efficiency when it almost never matters.
+
+164
+00:10:00.745 --> 00:10:04.450
+[笑]对不起，我永远不会停止说[笑]。
+[LAUGH] Sorry I'm never gonna stop saying that [LAUGH].
+
+165
+00:10:04.450 --> 00:10:06.740
+好的，让我们这样做。
+Okay, so let's do this.
+
+166
+00:10:08.110 --> 00:10:09.760
+我们有最大的。
+We have the max.
+
+167
+00:10:09.760 --> 00:10:18.120
+所以这里还有两个我们将通过这些，max 是非常可爱的幺半群。
+So there's two more left here we'll get through these, max is pretty sweet monoid.
+
+168
+00:10:18.120 --> 00:10:21.230
+我们实际上可以看看这个，但我们从负无穷开始。
+We can actually look at this one yet, but we start with negative infinity.
+
+169
+00:10:21.230 --> 00:10:25.080
+我最喜欢的值，我们说，好吧，好吧，
+My favorite value and we say, all right, well,
+
+170
+00:10:25.080 --> 00:10:27.070
+是否大于 x 的累加器。
+the accumulator greater than x or not.
+
+171
+00:10:27.070 --> 00:10:29.370
+所以它说用最大幺半群重写它。
+So it says rewrite it with a max monoid.
+
+172
+00:10:29.370 --> 00:10:34.250
+它说它说实际上使用上面的这些模板制作一个最大幺半群。
+And it says it says to actually make a max monoid using these templates above.
+
+173
+00:10:34.250 --> 00:10:39.070
+我只是要复制这个，把它放到这个部分。
+I'm just going to copy this, bring it down here into this part.
+
+174
+00:10:39.070 --> 00:10:40.190
+有人收到这个吗？
+Did anybody get this one?
+
+175
+00:10:40.190 --> 00:10:41.330
+这个有点棘手。
+This one's a little bit tricky.
+
+176
+00:10:41.330 --> 00:10:44.300
+并没有真正觉得他们卡在捷径上。
+Didn't really feel like they got stuck on the shortcut.
+
+177
+00:10:46.330 --> 00:10:51.950
+这实际上只是将这个运算符替换为 max 运算符的问题。
+It’s really just a matter of swapping out this operator with the max operator.
+
+178
+00:10:51.950 --> 00:10:59.100
+我们不需要，我想我们可以做最大 x 负无穷大，对吧？
+We don’t need the, I guess we can do the max x negative infinity, right?
+
+179
+00:10:59.100 --> 00:11:02.980
+所以这是与第二个参数对应的空值。
+So that’s the empty value over here corresponding with the second argument.
+
+180
+00:11:02.980 --> 00:11:06.040
+这对应于我们所说的第一个参数是否更大
+This is corresponding to the first argument where we're saying is it greater
+
+181
+00:11:06.040 --> 00:11:10.540
+比 x 或者实际上看起来这就是我们需要做的。
+than x or actually looks like this is what we need to do.
+
+182
+00:11:10.540 --> 00:11:12.410
+我们只能抢了。
+We can just grab in.
+
+183
+00:11:12.410 --> 00:11:15.670
+我们会说，A，x 是否大于 ox？
+We'd say, A, is x greater than o x?
+
+184
+00:11:15.670 --> 00:11:16.990
+好吧，那我们就保留x。
+Well, then we'll keep x.
+
+185
+00:11:16.990 --> 00:11:19.110
+否则我们将保留 o x。
+Otherwise we'll keep o x.
+
+186
+00:11:19.110 --> 00:11:22.110
+意思是我们试图比较的其他 Mac。
+Meaning the other other Mac's that we're trying to compare to.
+
+187
+00:11:22.110 --> 00:11:27.107
+然后我们将继续将其重写为
+And then we'll go ahead and rewrite this as
+
+188
+00:11:27.107 --> 00:11:31.910
+一个 foldMmap 与 Max 和
+a foldMmap with Max and
+
+189
+00:11:31.910 --> 00:11:36.560
+马克斯，空传。
+Max, empty passing.
+
+190
+00:11:36.560 --> 00:11:39.873
+是的，我们要过去了。
+Yeah, we're passing.
+
+191
+00:11:39.873 --> 00:11:41.740
+那么，关于这个问题？
+So, questions on this one?
+
+192
+00:11:41.740 --> 00:11:45.500
+这个有点你知道，你正在制作一个幺半群
+This one's a little bit you know, you're making a monoid
+
+193
+00:11:45.500 --> 00:11:49.440
+有点遵循上面的模式，但这有点不同，对吧？
+kind of following the pattern above but this was a little different, right?
+
+194
+00:11:49.440 --> 00:11:52.800
+我最初的想法是，让我们换掉操作员，但这不是它的工作原理。
+I was initially like, let's swap out the operator but that's not how it works.
+
+195
+00:11:52.800 --> 00:11:54.720
+您在这里做出选择，您必须选择其中之一。
+You're making a choice here you have to choose one or the other.
+
+196
+00:11:56.470 --> 00:11:59.860
+所以大于或小于只是给我一个布尔值，等等
+So the greater than or less than just give me a Boolean, and so
+
+197
+00:11:59.860 --> 00:12:01.920
+我会有问题。
+I would have had a problem.
+
+198
+00:12:03.980 --> 00:12:09.085
+最后，我们将在这里为 tuple 或 tuple 编写 concat，但是，你说出来。
+Finally, we're gonna write concat here for tuple or tuple however, you say it.
+
+199
+00:12:10.715 --> 00:12:13.135
+而这个有点酷。
+And this one's kinda cool.
+
+200
+00:12:13.135 --> 00:12:17.695
+就像我们说的函子和其他一样，实际上，
+Just like we said functors and other, actually,
+
+201
+00:12:17.695 --> 00:12:21.625
+如果我们在上面写地图，这是一个函子，点击选择一个来映射。
+this is a functor if we write map on it, which tap to pick one to map over.
+
+202
+00:12:21.625 --> 00:12:23.525
+如果您想同时映射两者，则它是双函子。
+It's bi-functor if you want to map over both.
+
+203
+00:12:23.525 --> 00:12:28.315
+但关键是，我们要把元组作为一个类型变成
+But the point is, we want to make tuple as a type into
+
+204
+00:12:28.315 --> 00:12:33.670
+一个幺半群或半群通过给它一个 concat 方法。
+a monoid or semi-group by giving it a concat method.
+
+205
+00:12:33.670 --> 00:12:38.712
+所以如果我有另一个元组。
+So if I have another tuple.
+
+206
+00:12:38.712 --> 00:12:43.769
+我可以说一个 concat 好 concat
+I could say one concat well concat
+
+207
+00:12:43.769 --> 00:12:47.760
+我的 0.1 对吗？
+my one with 0.1 right?
+
+208
+00:12:47.760 --> 00:12:49.420
+我们会把它放在桌子上。
+We'll keep it in the table.
+
+209
+00:12:49.420 --> 00:12:51.230
+它总是关闭的，对吧？
+It's always closed, right?
+
+210
+00:12:51.230 --> 00:12:55.190
+然后我们让我看看它与其他的连接起来。
+And then we have my to look at it concat it with the other ones.
+
+211
+00:12:55.190 --> 00:13:00.250
+两个还好，我没事。
+Two and fine, I'm okay.
+
+212
+00:13:00.250 --> 00:13:02.637
+代码笔你不用警告我，明白了。
+Code pen you don't have to warn me, got it.
+
+213
+00:13:02.637 --> 00:13:08.850
+[笑] 我觉得自己像个脾气暴躁的少年，而 Code pen 是我的父母。
+[LAUGH] I feel ike a surly teenager and Code pen is my parent.
+
+214
+00:13:08.850 --> 00:13:15.390
+所以这就是它的工作原理，我们是说，我持有两个值。
+So this is how that works, we're saying, I'm holding two values.
+
+215
+00:13:15.390 --> 00:13:20.350
+如果我可以连接我持有的所有东西，那么我，我自己就可以连接。
+And if I can concat everything I'm holding, then I, myself can be concated.
+
+216
+00:13:20.350 --> 00:13:25.350
+这只是在等待，所以我有一个完全由
+And that just awaits holds, so I have a type that's entirely built of
+
+217
+00:13:25.350 --> 00:13:30.255
+可合并的东西，我可以合并我持有的所有东西，我们就在那里。
+concatable things, I can just concat all the stuff I'm holding and there we are.
+
+218
+00:13:30.255 --> 00:13:33.345
+所以现在我可以将任何东西放入元组或元组中。
+So now I can put anything into a tuple or a tuple.
+
+219
+00:13:33.345 --> 00:13:35.575
+我还没有确定我要说的方式。
+I haven't fixed which way I'm gonna say it yet.
+
+220
+00:13:35.575 --> 00:13:39.095
+所以两者 [笑] 这很讽刺，因为它包含两件事。
+So both [LAUGH] which is ironic because it holds two things.

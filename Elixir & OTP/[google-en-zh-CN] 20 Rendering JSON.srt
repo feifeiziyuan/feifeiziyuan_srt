@@ -1,0 +1,875 @@
+1
+00:00:00,500 --> 00:00:04,133
+到目前为止，我们所有的响应都返回 html
+up to this point all of our responses are returned html
+
+2
+00:00:04,133 --> 00:00:06,133
+但是假设我们要返回 json
+but let's say we want to return json
+
+3
+00:00:06,133 --> 00:00:07,500
+对于 api 请求
+for an api request
+
+4
+00:00:07,800 --> 00:00:08,400
+很好地做到这一点
+well to do that
+
+5
+00:00:08,400 --> 00:00:10,833
+我们将使用一个外部 json 库，它不是
+we'll use an external json library that's not
+
+6
+00:00:10,833 --> 00:00:12,033
+内置在长生不老药中
+built into elixir
+
+7
+00:00:12,466 --> 00:00:14,666
+现在让我们这次开始有点不同
+now let's start a little differently this time
+
+8
+00:00:14,833 --> 00:00:17,266
+这是一个表达我们想要的测试
+here's a test that expresses what we want to have
+
+9
+00:00:17,266 --> 00:00:22,500
+当我们收到对 api 熊的请求时发生
+happen when we get a request for api bears
+
+10
+00:00:22,733 --> 00:00:26,600
+我们想用内容类型的应用程序来响应
+we want to respond with a content type of application
+
+11
+00:00:27,033 --> 00:00:28,800
+json 然后
+json and then the
+
+12
+00:00:28,800 --> 00:00:32,500
+body 是一个 json 对象的列表，表示
+body is a list of json objects representing
+
+13
+00:00:32,500 --> 00:00:33,500
+所有的熊
+all the bears
+
+14
+00:00:34,233 --> 00:00:35,733
+再次不用担心输入这个
+again don't worry about typing this in
+
+15
+00:00:35,733 --> 00:00:37,600
+你会在笔记中找到这个测试
+you'll find this test in the notes
+
+16
+00:00:37,900 --> 00:00:39,166
+现在让测试通过
+now to make the test pass
+
+17
+00:00:39,166 --> 00:00:42,133
+我们需要一种方法来编码被击中的熊的列表
+we'll need a way to encode the list of bear struck
+
+18
+00:00:42,166 --> 00:00:43,200
+作为json
+as json
+
+19
+00:00:43,433 --> 00:00:45,533
+并且 elixir 没有执行此操作的模块
+and elixir doesn't have a module that does this
+
+20
+00:00:45,766 --> 00:00:48,333
+所以我们需要使用一个外部的 json 库
+so we'll need to use an external json library
+
+21
+00:00:48,733 --> 00:00:52,100
+elixir 的包管理器叫做 hex，它是在 hex
+elixir's package manager is called hex and it's at hex
+
+22
+00:00:52,166 --> 00:00:55,433
+pm 然后我们搜索encode json
+pm and then we'll search for encode json
+
+23
+00:00:56,233 --> 00:00:57,000
+和他们的第一个结果
+and their first result
+
+24
+00:00:57,000 --> 00:00:58,666
+这是一个名为毒药的图书馆
+here is a library called poison
+
+25
+00:00:58,666 --> 00:00:59,966
+我们将继续使用它
+and we're going to go ahead and use that
+
+26
+00:00:59,966 --> 00:01:01,200
+因为它很受欢迎
+because it's very popular
+
+27
+00:01:01,333 --> 00:01:01,700
+和
+and
+
+28
+00:01:01,700 --> 00:01:04,566
+Phoenix 也默认使用它进行 j 声音编码
+also Phoenix uses it by default for j sound encoding
+
+29
+00:01:05,033 --> 00:01:05,933
+你注意到这里
+you notice over here
+
+30
+00:01:05,933 --> 00:01:06,500
+它实际上
+it actually
+
+31
+00:01:06,500 --> 00:01:08,733
+为我们提供了需要放入混音的代码
+gives us the code we need to put in our mix
+
+32
+00:01:08,900 --> 00:01:11,066
+ex 文件，所以让我们继续复制它
+ex file so let's go ahead and copy that
+
+33
+00:01:11,866 --> 00:01:13,133
+然后回到我们的项目
+and then back over on our project
+
+34
+00:01:13,133 --> 00:01:15,733
+我们会打开 mix ex 你会记得的
+we'll open up mix ex and you'll remember
+
+35
+00:01:15,733 --> 00:01:17,400
+这是我们可以确定我们的项目的地方
+this is where we can figure our project
+
+36
+00:01:17,400 --> 00:01:18,933
+在其任何依赖项中
+in any of its dependencies
+
+37
+00:01:19,333 --> 00:01:21,333
+所以我们将在此处添加该代码
+so we'll add in that code down here
+
+38
+00:01:21,333 --> 00:01:23,233
+在深处，这是我们列出的地方
+under depths this is where we list
+
+39
+00:01:23,366 --> 00:01:24,266
+依赖项
+the dependencies
+
+40
+00:01:24,566 --> 00:01:25,400
+所以在这个里面
+so inside of this
+
+41
+00:01:25,400 --> 00:01:27,466
+列表我们将粘贴我们复制的代码
+list we'll just paste that code that we copied
+
+42
+00:01:28,000 --> 00:01:29,566
+如果您有其他项目依赖项
+if you have other project dependencies
+
+43
+00:01:29,566 --> 00:01:30,766
+您只需在此处列出它们
+you would just list them here
+
+44
+00:01:30,766 --> 00:01:31,700
+你注意到每个
+and you notice that each
+
+45
+00:01:31,700 --> 00:01:33,400
+列表的元素是一个元组
+element of the list is a tuple
+
+46
+00:01:33,400 --> 00:01:34,200
+第一个在哪里
+where the first
+
+47
+00:01:34,400 --> 00:01:36,566
+元组的值是库的名称
+value of the tuple is the name of the library
+
+48
+00:01:36,600 --> 00:01:39,166
+元组的第二个值是版本
+and the second value of the tuple is the version
+
+49
+00:01:39,400 --> 00:01:41,900
+所以这表明我们想要毒包
+so this indicates that we want the poison package
+
+50
+00:01:41,933 --> 00:01:43,500
+主要版本为三个
+with a major version of three
+
+51
+00:01:43,866 --> 00:01:46,466
+和一个或更高版本的次要版本
+and a minor version of one or greater
+
+52
+00:01:46,933 --> 00:01:47,666
+如果我们保存它
+and if we save that
+
+53
+00:01:47,666 --> 00:01:49,500
+离开并回到命令行
+away and come back over to a command line
+
+54
+00:01:50,000 --> 00:01:52,533
+我们可以运行混合深度来列出依赖项
+we can run mixed depths to list the dependencies
+
+55
+00:01:52,933 --> 00:01:54,900
+它说好的你依赖毒药
+it says okay you've got a dependency on poison
+
+56
+00:01:54,900 --> 00:01:56,200
+但它还不可用
+but it's not yet available
+
+57
+00:01:56,266 --> 00:01:57,633
+运行混合深度得到
+run mixed depths get
+
+58
+00:01:58,000 --> 00:01:58,933
+所以让我们继续做吧
+so let's go ahead and do that
+
+59
+00:02:00,100 --> 00:02:02,700
+你注意到它变成了 hex rep 并且
+you notice it goes off to the hex rep and
+
+60
+00:02:02,800 --> 00:02:05,566
+下载毒药 3 1 0
+downloads poison 3 1 0
+
+61
+00:02:06,000 --> 00:02:07,566
+现在如果我们再次运行混合深度
+now if we run mixed depths again
+
+62
+00:02:08,366 --> 00:02:10,766
+它说好的它被锁定在 3 1 0
+it says okay it's locked at 3 1 0
+
+63
+00:02:11,133 --> 00:02:13,333
+但它已经过时了，你需要编译它
+but it's outdated and you need to compile it
+
+64
+00:02:13,333 --> 00:02:15,066
+好吧，它将自动编译
+well it's going to get automatically compiled
+
+65
+00:02:15,066 --> 00:02:16,333
+当我们运行应用程序时
+when we run the application
+
+66
+00:02:16,333 --> 00:02:17,566
+所以我们有我们需要的一切
+so we've got everything we need
+
+67
+00:02:17,800 --> 00:02:19,566
+事实上，如果我们查看这个目录
+in fact if we look in this directory
+
+68
+00:02:19,700 --> 00:02:21,766
+有一个混合锁
+there is a mix lock
+
+69
+00:02:21,766 --> 00:02:23,833
+这就是它记住哪个版本的地方
+and that's where it remembers which version
+
+70
+00:02:23,833 --> 00:02:26,700
+所以它基本上锁定了那些版本依赖
+so it basically locks down those version dependencies
+
+71
+00:02:27,100 --> 00:02:28,766
+我们还看到我们有这个目录叫做
+we also see that we have this directory called
+
+72
+00:02:28,766 --> 00:02:31,033
+深度，我将在这里使用树实用程序
+depths and I'm going to use the tree utility here
+
+73
+00:02:31,033 --> 00:02:31,600
+只是想看看是什么
+just to see what's
+
+74
+00:02:31,600 --> 00:02:34,066
+在里面，你注意到在深处
+inside of it and you notice inside of depths
+
+75
+00:02:34,066 --> 00:02:36,233
+我们有一个名为毒物的目录，它是库
+we have a directory called poison that's the library
+
+76
+00:02:36,433 --> 00:02:38,466
+它有一个 lib 目录毒物
+it has a lib directory poison
+
+77
+00:02:38,466 --> 00:02:41,233
+然后我们得到了那个库的长生不老药代码
+and then we've got the elixir code for that library
+
+78
+00:02:41,533 --> 00:02:43,500
+所以这只是一个长生不老药应用
+so this is just an elixir application
+
+79
+00:02:43,933 --> 00:02:45,666
+让我们快速旋转一下毒药库
+let's give the poison library a quick spin
+
+80
+00:02:45,666 --> 00:02:47,533
+并混合看它是如何工作的
+and mix to see how it works
+
+81
+00:02:50,066 --> 00:02:51,333
+你注意到我什么时候开火了
+and you notice when I fired that up
+
+82
+00:02:51,333 --> 00:02:52,800
+它继续编译
+it went ahead and compiled
+
+83
+00:02:52,833 --> 00:02:53,766
+毒药文件
+the poison file
+
+84
+00:02:53,766 --> 00:02:54,566
+所以我们有了
+so we've got that
+
+85
+00:02:55,233 --> 00:02:56,533
+现在让我们来点熊
+now let's get some bears
+
+86
+00:03:00,933 --> 00:03:04,300
+好吧，这是我们熊市的名单
+all right that's a list of our bears as bear struck
+
+87
+00:03:04,700 --> 00:03:07,866
+然后将它们转换为 json 我们使用毒药
+and then to convert those into json we use poison
+
+88
+00:03:07,933 --> 00:03:09,066
+这是模块的名称
+that's the name of the module
+
+89
+00:03:09,100 --> 00:03:10,466
+代码中调用了一个函数
+there's a function called in code
+
+90
+00:03:10,466 --> 00:03:12,166
+结尾有一个感叹号
+and it has an exclamation market the end
+
+91
+00:03:12,166 --> 00:03:14,400
+这意味着如果出现错误，它会引发异常
+which means it raises an exception if there's an error
+
+92
+00:03:14,500 --> 00:03:16,900
+然后我们将它传递到我们的打击列表中
+and then we just pass it in our list of struck
+
+93
+00:03:17,700 --> 00:03:19,833
+我们得到的是一个列表
+what we get back is a list of
+
+94
+00:03:20,200 --> 00:03:22,166
+json 对象就像我们想要的一样
+json objects just like we want
+
+95
+00:03:22,400 --> 00:03:23,566
+所以这是完美的
+so this is perfect
+
+96
+00:03:24,300 --> 00:03:27,000
+现在我们知道如何将熊编码为 json
+now that we know how to encode the bears as json
+
+97
+00:03:27,000 --> 00:03:30,100
+我们的 api 只需要一行和一个控制器
+we simply need a row and a controller for our api
+
+98
+00:03:30,700 --> 00:03:32,866
+并且因为通常的做法是有一个单独的
+and since it's common practice to have a separate
+
+99
+00:03:32,866 --> 00:03:34,666
+api请求控制器
+controller for api requests
+
+100
+00:03:34,666 --> 00:03:38,166
+我们将在 api 目录中创建一个新控制器
+we'll create a new controller in an api directory
+
+101
+00:03:38,500 --> 00:03:41,600
+在这里创建目录不值得的api
+create the directory here undeserving api
+
+102
+00:03:42,033 --> 00:03:43,566
+这只是表明你可以
+and this just demonstrates that you can
+
+103
+00:03:43,566 --> 00:03:44,633
+组织代码
+organize code in
+
+104
+00:03:44,633 --> 00:03:45,700
+任意目录
+arbitrary directories
+
+105
+00:03:45,700 --> 00:03:47,666
+它就在 lib 调查 api 下
+it's just under lib survey api
+
+106
+00:03:47,766 --> 00:03:49,633
+你可以在这里有其他目录
+and you can have other directories under here
+
+107
+00:03:49,833 --> 00:03:51,700
+然后在 api 目录中
+and then inside of the api directory
+
+108
+00:03:51,766 --> 00:03:53,600
+我们想要一个名为 Bear 的文件
+we want a file called bear
+
+109
+00:03:53,966 --> 00:03:55,300
+控制器前
+controller ex
+
+110
+00:03:56,466 --> 00:03:58,400
+所以我们在 api 下有一个裸控制器
+so we've got a bare controller under api
+
+111
+00:03:58,400 --> 00:04:01,266
+我们还有一个裸控制器正在调查中
+we also have a bare controller just under survey
+
+112
+00:04:01,466 --> 00:04:02,600
+但他们会有所不同
+but they're going to be different
+
+113
+00:04:02,600 --> 00:04:05,066
+因为该模块将被称为服务
+because the module is going to be called serve
+
+114
+00:04:05,266 --> 00:04:08,066
+api 裸控制器，所以这反映了
+api bare controller so this reflects
+
+115
+00:04:08,133 --> 00:04:09,666
+这里的目录结构
+the directory structure over here
+
+116
+00:04:10,366 --> 00:04:12,200
+然后我们需要在这里定义一个动作
+and then we need to define an action in here
+
+117
+00:04:12,200 --> 00:04:13,733
+我们将使用索引
+and we're going to use index
+
+118
+00:04:15,733 --> 00:04:16,966
+这需要 co 和 v
+it's going to take co and v
+
+119
+00:04:16,966 --> 00:04:19,600
+就像我们常规的熊控制器中的索引一样
+just like the index in our regular bear controller
+
+120
+00:04:20,066 --> 00:04:21,600
+然后我们想生成一些 jason
+and then we want to generate some jason
+
+121
+00:04:21,600 --> 00:04:23,133
+我们要说 json 等于
+we're going to say json equals
+
+122
+00:04:23,400 --> 00:04:25,466
+我们将使用服务狂野的东西
+we're going to use serve wild things
+
+123
+00:04:26,300 --> 00:04:28,166
+列出熊来获取我们所有的熊
+list bears to get all of our bears
+
+124
+00:04:28,600 --> 00:04:31,733
+然后我们只是要把它变成毒药
+and then we're just going to pipe that into poison
+
+125
+00:04:32,166 --> 00:04:32,966
+编码
+encode
+
+126
+00:04:33,566 --> 00:04:34,966
+这将给我们返回 json
+and that'll give us back json
+
+127
+00:04:34,966 --> 00:04:37,966
+然后我们需要返回一个更新的 co 和 v 地图
+and then we need to return an updated co and v map
+
+128
+00:04:38,833 --> 00:04:40,333
+状态为 200
+with a status of 200
+
+129
+00:04:41,333 --> 00:04:42,900
+然后是我们的响应体
+and then our response body
+
+130
+00:04:44,333 --> 00:04:45,900
+将是杰森
+will be jason
+
+131
+00:04:46,633 --> 00:04:48,566
+我们需要的第二件事是路线
+the second thing we need is a route
+
+132
+00:04:48,600 --> 00:04:50,200
+所以如果我们去处理程序
+so if we go to handler
+
+133
+00:04:51,266 --> 00:04:54,733
+我们可以复制斜线熊的路线
+we can just copy the route we have for slash bears
+
+134
+00:04:55,000 --> 00:04:56,200
+然后修改它
+and then modify it
+
+135
+00:04:56,600 --> 00:04:58,033
+是的，我们想匹配
+yeah we wanted to match
+
+136
+00:04:58,533 --> 00:05:00,233
+api 斜线熊
+api slash bears
+
+137
+00:05:00,466 --> 00:05:02,733
+然后而不是调用熊控制器索引
+and then instead of calling the bear controller index
+
+138
+00:05:02,733 --> 00:05:03,533
+我们要打电话
+we're going to call
+
+139
+00:05:03,766 --> 00:05:06,466
+调查api熊控制器索引
+survey api bear controller index
+
+140
+00:05:06,766 --> 00:05:07,666
+你可以把它存起来
+you can save that away
+
+141
+00:05:08,166 --> 00:05:10,033
+所以现在如果我们运行我们的测试会发生什么
+so now what happens if we run our tests
+
+142
+00:05:11,666 --> 00:05:14,500
+如果我们在这里向上滚动，我们会遇到一次失败
+what we've got one failure if we scroll up here
+
+143
+00:05:15,500 --> 00:05:17,100
+我们看到的红色
+what we see in red that
+
+144
+00:05:17,466 --> 00:05:19,666
+我们正在返回文本 html
+we're returning text html
+
+145
+00:05:19,900 --> 00:05:21,966
+但我们期待申请
+but we're expecting application
+
+146
+00:05:22,266 --> 00:05:26,266
+json 所以内容类型不适合 api
+json so the content type isn't right for api
+
+147
+00:05:26,266 --> 00:05:27,100
+要求我们应该
+requests we should
+
+148
+00:05:27,100 --> 00:05:30,400
+始终将内容类型设置为应用程序 json
+always be setting the content type to application json
+
+149
+00:05:30,766 --> 00:05:32,666
+好吧，这很容易解决
+well this is easy enough to fix
+
+150
+00:05:32,666 --> 00:05:35,333
+我们只需设置内容类型
+we'll just set the content type
+
+151
+00:05:35,333 --> 00:05:37,166
+在 co 和 v 结构中
+in the co and v structure
+
+152
+00:05:37,333 --> 00:05:41,733
+我们将添加一个新的响应内容类型字段
+we'll add a new response content type field
+
+153
+00:05:43,066 --> 00:05:46,133
+并将其默认为文本 html
+and default it to text html
+
+154
+00:05:46,700 --> 00:05:47,700
+作为练习
+as an exercise
+
+155
+00:05:47,700 --> 00:05:49,733
+你可以命名这个响应头
+you could name this response headers
+
+156
+00:05:49,866 --> 00:05:53,100
+并在地图中保留任意响应标头
+and keep arbitrary response headers in a map
+
+157
+00:05:53,100 --> 00:05:55,066
+但我们将通过使用使其保持简单
+but we'll just keep it simple by using
+
+158
+00:05:55,100 --> 00:05:57,700
+响应内容类型和此处的字符串
+response content type and a string here
+
+159
+00:05:58,233 --> 00:05:59,366
+所以现在我们有了
+so now that we have that
+
+160
+00:05:59,366 --> 00:06:02,166
+我们需要回到我们的处理程序模块
+we need to come back over to our handler module
+
+161
+00:06:02,166 --> 00:06:03,200
+我们需要改变
+and we need to change
+
+162
+00:06:03,366 --> 00:06:07,000
+格式响应而不是硬编码文本 html
+format response instead of hard coding text html
+
+163
+00:06:07,100 --> 00:06:08,400
+我们需要插值
+we need to interpolate
+
+164
+00:06:08,766 --> 00:06:09,566
+合作和诉
+co and v
+
+165
+00:06:10,366 --> 00:06:11,766
+响应内容类型
+response content type
+
+166
+00:06:12,266 --> 00:06:15,900
+我们将保存它，cnv 也需要保存它
+we'll save this and cnv need to save that off too
+
+167
+00:06:16,000 --> 00:06:18,766
+然后我们将转到我们的 api 裸控制器
+and then we'll head over to our api bare controller
+
+168
+00:06:18,900 --> 00:06:20,733
+然后在这里我们将覆盖
+and then here we'll just override
+
+169
+00:06:20,900 --> 00:06:25,466
+响应内容类型为应用程序 json
+response content type to be application json
+
+170
+00:06:26,200 --> 00:06:28,633
+因此所有其他操作都将默认为
+so all the other actions will take the default of
+
+171
+00:06:28,833 --> 00:06:31,866
+text html，但这个会覆盖它，因为
+text html but this one's going to override it because
+
+172
+00:06:31,900 --> 00:06:33,100
+它正在返回 json
+it's returning json
+
+173
+00:06:33,433 --> 00:06:35,966
+如果我们把它保存起来，测试现在应该通过了
+and if we save that away the test should now pass
+
+174
+00:06:37,566 --> 00:06:38,533
+他们确实做到了
+and indeed they do
+
+175
+00:06:39,233 --> 00:06:42,366
+这就是使用外部库的全部内容
+and that's all there is to using an external library
+

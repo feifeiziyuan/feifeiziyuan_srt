@@ -1,0 +1,446 @@
+WEBVTT
+
+1
+00:00:00.140 --> 00:00:01.610
+这是一个用户类。
+Here's a user class.
+
+2
+00:00:01.610 --> 00:00:05.420
+我们有一个构造函数，我们有名字，
+We have a constructor, and we've got first name,
+
+3
+00:00:05.420 --> 00:00:08.900
+姓氏，在那里写一个全名，很酷。
+last name, makes a full name down there, cool.
+
+4
+00:00:08.900 --> 00:00:09.700
+做得好。
+Job well done.
+
+5
+00:00:09.700 --> 00:00:13.397
+我们有一个用户，它可以工作。
+We have a user and it works.
+
+6
+00:00:13.397 --> 00:00:15.060
+我们尝试了不同的方式。
+We tried a different way.
+
+7
+00:00:15.060 --> 00:00:17.050
+我们有一个用户数据类型。
+We have a user data type.
+
+8
+00:00:17.050 --> 00:00:18.530
+我们有全名。
+And we have full name.
+
+9
+00:00:18.530 --> 00:00:21.406
+这次我们使用连接，同样的事情。
+This time we're using joins, same thing.
+
+10
+00:00:21.406 --> 00:00:25.240
+但在那里，工作方式与之前完全相同。
+But down there, works exactly the same as it did before.
+
+11
+00:00:26.320 --> 00:00:32.530
+这里有区别，我们实际上可以重命名
+There's a difference here, we can actually rename
+
+12
+00:00:32.530 --> 00:00:39.120
+这个全名在这里我们加入第一个和最后一个加入空间吧？
+this full name here where we join the first and last to join with space, right?
+
+13
+00:00:39.120 --> 00:00:43.630
+现在，让我们尝试用空格连接 firstName 和 lastName。
+Now, let's try to join the firstName and the lastName with a space.
+
+14
+00:00:43.630 --> 00:00:47.640
+突然之间，出现了这些属性。
+And all of the sudden, emerges these properties.
+
+15
+00:00:47.640 --> 00:00:51.794
+如果我们开始概括，如果我们开始尝试使用
+If we start to generalize, if we start to try to work with
+
+16
+00:00:53.575 --> 00:00:58.595
+这些属性，我们最终注意到 joinWithSpace 在那里是关联的。
+these properties, we end up noticing that joinWithSpace is associative down there.
+
+17
+00:00:58.595 --> 00:01:01.425
+我如何分组它们并不重要。
+It doesn't matter how I group them.
+
+18
+00:01:01.425 --> 00:01:05.600
+因此，我可以随心所欲地加入，最终得到这些
+Therefore, I can join as many as I want, and I end up with these
+
+19
+00:01:05.600 --> 00:01:10.300
+组成的角色，这很好，我没有全名。
+roles of composition, which is nice I didn't have that with for full name.
+
+20
+00:01:10.300 --> 00:01:16.696
+事实上，在 joinWitSpaces 中，可重用的实用程序现在没有被埋没和
+In fact in joinWitSpaces, reusable utility now that's not buried and
+
+21
+00:01:16.696 --> 00:01:22.036
+卡住并绑定到一个要一次又一次重写的对象。
+stuck and tied to an object to be rewritten again and again.
+
+22
+00:01:22.036 --> 00:01:25.179
+或者你可以更进一步说 joinWithSpaces，
+Or you can take it a step further and say joinWithSpaces,
+
+23
+00:01:25.179 --> 00:01:27.155
+我们将采取任何joinable。
+we're going to take any joinable.
+
+24
+00:01:27.155 --> 00:01:29.300
+所以我们要编程到可连接的界面。
+So we're going to program to the interface joinable.
+
+25
+00:01:29.300 --> 00:01:32.330
+然后我们将传入一个数组，它是可连接的。
+And then we'll pass in an array, which is joinable.
+
+26
+00:01:32.330 --> 00:01:35.590
+但它可能是其他东西，可能是一棵树，
+But it could be other things, could be a tree,
+
+27
+00:01:35.590 --> 00:01:38.362
+可以是具有键和值的对象。
+could be objects with keys and values.
+
+28
+00:01:38.362 --> 00:01:42.720
+所以我们将传入一个joinable，然后我们再次得到joinWithSpaces。
+So we'll pass in a joinable and there we get joinWithSpaces again.
+
+29
+00:01:44.320 --> 00:01:48.500
+这与封装是一回事。
+And this is the same thing as encapsulation.
+
+30
+00:01:48.500 --> 00:01:53.168
+所以joinWithSpaces 唯一能做的就是join。
+So the only thing joinWithSpaces can do is called join.
+
+31
+00:01:53.168 --> 00:01:55.655
+它什么都不知道。
+It knows nothing else.
+
+32
+00:01:55.655 --> 00:02:00.434
+它得到了一个连接，它无法决定查看对象。
+It gets a joinable it can't decide to look at the object.
+
+33
+00:02:00.434 --> 00:02:05.552
+如果你回想起我们之前的那个用户类，让我回到这里，
+And if you think back to that user class where we had, let me go back up here,
+
+34
+00:02:05.552 --> 00:02:10.220
+我们拥有整个用户以及所有其他方法。
+we have the entire user at our disposal and all the other methods.
+
+35
+00:02:10.220 --> 00:02:12.070
+我们这里有这个。
+We have this in here.
+
+36
+00:02:12.070 --> 00:02:15.449
+所以我们可以做很多事情。
+So we can do a lot of stuff.
+
+37
+00:02:15.449 --> 00:02:20.310
+但是在这里，实际上我们可以做一件事，我们可以调用 join。
+But over here, there's literally one thing we can do, we can call join.
+
+38
+00:02:20.310 --> 00:02:21.115
+就是这样。
+And that's it.
+
+39
+00:02:21.115 --> 00:02:25.260
+所以这真的只是让这个特别的论点。
+So it's really just the argument that makes this special.
+
+40
+00:02:25.260 --> 00:02:30.230
+更进一步，如果我们有恒等函数，它需要一些 a 和
+To take it a step further, if we have the identity function, it takes some a and
+
+41
+00:02:30.230 --> 00:02:33.170
+将其退回。
+returns it back.
+
+42
+00:02:33.170 --> 00:02:35.267
+它无法使用该值做任何事情。
+There's nothing it can do with that value.
+
+43
+00:02:35.267 --> 00:02:36.600
+它对此一无所知。
+It knows nothing about it.
+
+44
+00:02:36.600 --> 00:02:37.815
+它不能调用任何方法。
+It can't call any methods.
+
+45
+00:02:37.815 --> 00:02:40.184
+它对它无能为力。
+It can't do anything to it.
+
+46
+00:02:40.184 --> 00:02:44.115
+这就是我们如何通过函数式编程获得封装。
+And so this is how we get encapsulation with functional programming.
+
+47
+00:02:44.115 --> 00:02:45.383
+有人对此有任何疑问吗？
+Does anybody have any questions on that one?
+
+48
+00:02:45.383 --> 00:02:47.110
+因为这是一个奇怪的概念。
+Cuz it's a weird concept.
+
+49
+00:02:47.110 --> 00:02:49.337
+封装是抽象和
+The encapsulation is the dual of abstraction and
+
+50
+00:02:49.337 --> 00:02:53.151
+这是它的抽象方面，你对它一无所知。
+this is kind of the abstraction side of it is that you don't know anything about it.
+
+51
+00:02:53.151 --> 00:02:54.897
+所以我实际上无法触摸它。
+So I can't actually touch it.
+
+52
+00:02:54.897 --> 00:02:57.065
+因此，我得到了有关它的信息。
+So therefore I get information on it.
+
+53
+00:02:57.065 --> 00:02:59.083
+&gt;&gt; 该函数的价值是什么？
+&gt;&gt; What's the value of that function?
+
+54
+00:02:59.083 --> 00:03:04.990
+&gt;&gt; 如果我们进入 Run dev。
+&gt;&gt; If we jump into Run dev.
+
+55
+00:03:04.990 --> 00:03:09.975
+所以，让我们看看我是否有
+So, let's see if I have
+
+56
+00:03:09.975 --> 00:03:13.971
+= 要求（&#39;类型&#39;）。
+= require('types').
+
+57
+00:03:13.971 --> 00:03:18.597
+酷，让我们先说Either.of(2).fold。
+Cool, let's first say Either.of(2).fold.
+
+58
+00:03:18.597 --> 00:03:23.129
+让我们继续制作身份。
+Let's go ahead and make identity.
+
+59
+00:03:23.129 --> 00:03:26.430
+它需要一个 a，返回一个 a。
+And it takes an a, returns an a.
+
+60
+00:03:26.430 --> 00:03:30.298
+我实际上可以通过说我有
+I can actually fold out the value by saying I have
+
+61
+00:03:30.298 --> 00:03:35.243
+一个函数，它获取该值并将其吐回给您。
+a function that takes that value and spits it back out at you.
+
+62
+00:03:35.243 --> 00:03:39.095
+而不是必须编写一个接受数字二和的处理程序
+Instead of having to write a handler that takes the number two and
+
+63
+00:03:39.095 --> 00:03:43.290
+然后返回第二个，这和这个一样，对吧？
+then returns the number two, that's the same as this, right?
+
+64
+00:03:43.290 --> 00:03:46.877
+我只能称之为身份。
+I can just call identity.
+
+65
+00:03:46.877 --> 00:03:48.969
+这样会更派上用场
+That will come in handy more and
+
+66
+00:03:48.969 --> 00:03:52.994
+在你的函数式编程生涯中更多，但是
+more throughout your functional programming career, but
+
+67
+00:03:52.994 --> 00:03:58.643
+看到蝙蝠有点奇怪，但最终它是一个很好的实用程序。
+it's it's a little weird to see off the bat but eventually it it's a good utility.
+
+68
+00:03:58.643 --> 00:03:59.570
+是啊，怎么了？
+Yeah, what's up?
+
+69
+00:03:59.570 --> 00:04:04.791
+&gt;&gt; 公平地说，函数式编程中的很多东西都依赖于
+&gt;&gt; Would it be fair to say that a lot of things in functional programming rely
+
+70
+00:04:04.791 --> 00:04:09.756
+在身份模式上，但我们作为程序员不会把
+on the identity mode, but we're as programmers not gonna be putting
+
+71
+00:04:09.756 --> 00:04:14.568
+它的使用频率与我们使用的结构所使用的频率一样高？
+it to use as frequently as it's used by the structures that we use?
+
+72
+00:04:14.568 --> 00:04:16.085
+&gt;&gt; 可以这么说。
+&gt;&gt; That's fair to say.
+
+73
+00:04:16.085 --> 00:04:20.055
+我们实际上会看到在提供身份的单声道变压器中
+We'll actually see that in mono transformers supplying the identity
+
+74
+00:04:20.055 --> 00:04:23.745
+恢复原始类型的转换器的函子。
+functor to a transformer which recovers the original type.
+
+75
+00:04:23.745 --> 00:04:29.164
+这是一个很好的实用工具，它是从理论上建立起来的。
+It's a great utility to have and it's founded in theory.
+
+76
+00:04:29.164 --> 00:04:36.440
+我们有包含 f 和 g 的组合，并且我们有一个恒等式。
+We have composition which takes f and g, and we have an identity.
+
+77
+00:04:36.440 --> 00:04:40.410
+事实上，事实证明这是你需要定义的两件事
+And actually, it turns out that those are the two things that you need to define
+
+78
+00:04:40.410 --> 00:04:42.930
+一个范畴，范畴论，它们是无孔不入的。
+a category, and category theory and they're pervasive.
+
+79
+00:04:42.930 --> 00:04:47.700
+当我们谈论幺半群时，我们马上就会看到其中的一些内容。
+And we'll see some of that in a minute here when we talk about monoids.
+
+80
+00:04:47.700 --> 00:04:51.982
+功能上的标识只需要进行价值转移。
+Identity on functions just takes a value transfer.
+
+81
+00:04:51.982 --> 00:04:58.260
+让我们继续，好吧，所以我们想要高度泛化的函数。
+Let's go to, okay, so we want highly generalized functions.
+
+82
+00:04:58.260 --> 00:05:01.870
+这不是硬性规定。
+That's not a hard rule.
+
+83
+00:05:01.870 --> 00:05:06.570
+这只是一个很好的指导原则。
+It's just a good guiding principle.
+
+84
+00:05:06.570 --> 00:05:11.030
+说我将继续抽象直到我编程到最
+To say I'm just going to keep abstracting away until I'm programming to the most
+
+85
+00:05:11.030 --> 00:05:12.800
+最小的界面。
+minimal interface.
+
+86
+00:05:12.800 --> 00:05:16.990
+然后我得到了最大的重用，我得到了信息隐藏。
+Then I get the maximum reuse, and I get information hiding.
+
+87
+00:05:16.990 --> 00:05:20.920
+如果我在这里改变我的程序，它不会产生涟漪。
+And if I change my program here there, it's not gonna ripple.
+
+88
+00:05:20.920 --> 00:05:24.660
+所以我们继续研究这些更高的高度泛化的函数
+So we keep working on these higher highly generalized functions
+
+89
+00:05:24.660 --> 00:05:26.370
+直到我们达到一个很好的平衡。
+until we hit a nice balance.

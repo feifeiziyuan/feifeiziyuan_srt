@@ -1,0 +1,121 @@
+WEBVTT
+
+1
+00:00:00.025 --> 00:00:03.298
+最后，形状。
+Lastly, shapes.
+
+2
+00:00:03.298 --> 00:00:04.560
+有人能说出形状吗？
+Can anybody name the shape?
+
+3
+00:00:04.560 --> 00:00:06.135
+只是在开玩笑。
+Just kidding.
+
+4
+00:00:06.135 --> 00:00:09.221
+&gt;&gt; [笑] &gt;&gt; [笑] 我用这个来代表
+&gt;&gt; [LAUGH] &gt;&gt; [LAUGH] I'm using this to represent
+
+5
+00:00:09.221 --> 00:00:12.200
+一堆不同的效果类型。
+a bunch of different effect types.
+
+6
+00:00:12.200 --> 00:00:16.090
+所以你有你的异步和错误处理，以及你的事件流，
+So you have your async and your error handling, and your event streams,
+
+7
+00:00:16.090 --> 00:00:20.000
+我们倾向于用类似函子的类型来对它们进行建模。
+and we tend to model these with types like the functors.
+
+8
+00:00:20.000 --> 00:00:24.090
+所以你有你的任务和你的任一个，还有你的这个或那个。
+So you have your task and your either, and your this or that.
+
+9
+00:00:24.090 --> 00:00:29.520
+归根结底，这些东西不会组合，monads 不会组合。
+And at the end of the day, these things don't compose, monads don't compose.
+
+10
+00:00:29.520 --> 00:00:34.250
+所以会发生什么，函子组合，单声道组合，我们会看到这一点。
+And so what happens is, functors compose, mono is compose, and we'll see that.
+
+11
+00:00:34.250 --> 00:00:36.790
+但是如果你必须在你的应用程序中使用 monad，
+But if you have to use a monad in your application,
+
+12
+00:00:36.790 --> 00:00:40.990
+通常情况下，这些东西实际上并不构成。
+which is typically the case, these things don't actually compose.
+
+13
+00:00:40.990 --> 00:00:43.932
+所以，我们专注于标准化形状，
+So, we focus on normalizing the shape,
+
+14
+00:00:43.932 --> 00:00:49.131
+有点像把它们捣碎成一个东西，比如一个 gobstopper 的内部。
+kind of mashing them into the one thing like the inside of a gobstopper.
+
+15
+00:00:49.131 --> 00:00:51.241
+&gt;&gt; [笑] &gt;&gt; 然后你可以把它们结合起来，
+&gt;&gt; [LAUGH] &gt;&gt; And then you can combine them,
+
+16
+00:00:51.241 --> 00:00:53.085
+一切都很开心，对吧？
+and it's all happy, right?
+
+17
+00:00:53.085 --> 00:00:56.440
+所以标准化效果类型
+So normalizing the effect types
+
+18
+00:00:56.440 --> 00:00:59.980
+整个应用程序是您可能想要做的事情。
+throughout the app is something that you probably want to do.
+
+19
+00:01:01.290 --> 00:01:09.230
+我不认为它总是必要的，但必须是必要的。
+I don't think it's necessarily necessary all the time but, necessarily necessary.
+
+20
+00:01:09.230 --> 00:01:13.601
+拥有标准化的效果形状只是一个很好的指导原则，所以
+It's just good guiding principle to have a normalized shape of your effects so
+
+21
+00:01:13.601 --> 00:01:17.900
+你最终可能会制作一个应用程序 monad，一切都落入其中。
+you end up making maybe an app monad, and everything falls into that.
+
+22
+00:01:17.900 --> 00:01:19.560
+所以一切都很好。
+And so everything kind of composes.
+
+23
+00:01:19.560 --> 00:01:21.020
+我们将看到不同的策略，
+And there's different strategies as we'll see,
+
+24
+00:01:21.020 --> 00:01:23.200
+我们会看到自由的单子，自由的幺半群，那些东西。
+we'll see free monads, free monoids, that stuff.

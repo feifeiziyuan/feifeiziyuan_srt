@@ -1,0 +1,1228 @@
+1
+00:00:00,233 --> 00:00:02,533
+now as you'll recall our request string has
+
+2
+00:00:02,533 --> 00:00:05,833
+multiple lines and we need to parse that first line
+
+3
+00:00:05,833 --> 00:00:07,200
+so we know how to respond
+
+4
+00:00:07,433 --> 00:00:07,866
+that's right
+
+5
+00:00:07,900 --> 00:00:10,533
+we need to parse the request string to create a map
+
+6
+00:00:10,566 --> 00:00:11,533
+that looks like this
+
+7
+00:00:12,033 --> 00:00:14,100
+now an elixir map starts with this %
+
+8
+00:00:14,100 --> 00:00:15,433
+and then we have a curly brace here
+
+9
+00:00:15,433 --> 00:00:16,666
+and a curly brace at the end
+
+10
+00:00:16,933 --> 00:00:19,666
+and then inside of here we have key value pairs
+
+11
+00:00:19,733 --> 00:00:21,100
+where the keys in this case are
+
+12
+00:00:21,100 --> 00:00:23,600
+elixir atoms which are like ruby symbols
+
+13
+00:00:23,866 --> 00:00:25,900
+again it's a constant whose name is its value
+
+14
+00:00:25,900 --> 00:00:27,266
+so we've got the key method
+
+15
+00:00:27,566 --> 00:00:30,333
+and the values get path is wild things
+
+16
+00:00:30,866 --> 00:00:32,633
+and obviously we want to
+
+17
+00:00:32,666 --> 00:00:35,033
+replace these hard coded values here and here
+
+18
+00:00:35,366 --> 00:00:37,766
+with whatever is in this request string
+
+19
+00:00:38,066 --> 00:00:40,400
+so let's fire up sex and let's play
+
+20
+00:00:40,400 --> 00:00:42,633
+around with how to parse the request string
+
+21
+00:00:43,000 --> 00:00:44,233
+alright sex
+
+22
+00:00:45,066 --> 00:00:46,666
+and then I'm going to paste in our request string
+
+23
+00:00:46,666 --> 00:00:47,600
+which is a here dock
+
+24
+00:00:47,633 --> 00:00:48,833
+just so we have that available
+
+25
+00:00:49,200 --> 00:00:50,833
+so to parse this string we're going to use a
+
+26
+00:00:50,833 --> 00:00:51,733
+string function
+
+27
+00:00:51,733 --> 00:00:53,300
+and you can use the handy h
+
+28
+00:00:53,300 --> 00:00:55,233
+function inside of ix to get some help
+
+29
+00:00:55,500 --> 00:00:57,900
+we can say string dot that's the name of the module
+
+30
+00:00:57,933 --> 00:00:59,233
+then if you just hit tab
+
+31
+00:00:59,566 --> 00:01:02,100
+it uses auto completion to show us all the functions
+
+32
+00:01:02,100 --> 00:01:02,866
+we can call
+
+33
+00:01:02,866 --> 00:01:05,433
+and notice that there are three split functions
+
+34
+00:01:05,433 --> 00:01:09,200
+split one split split two and split split three
+
+35
+00:01:09,600 --> 00:01:11,400
+the number here indicates how many
+
+36
+00:01:11,400 --> 00:01:13,400
+arguments the function expects
+
+37
+00:01:13,400 --> 00:01:16,266
+it's often referred to as the functions airily
+
+38
+00:01:16,666 --> 00:01:17,966
+so a module can define
+
+39
+00:01:17,966 --> 00:01:19,666
+multiple functions with the same name
+
+40
+00:01:19,733 --> 00:01:21,200
+and a different ability
+
+41
+00:01:21,200 --> 00:01:22,800
+and then the function is uniquely
+
+42
+00:01:22,800 --> 00:01:24,633
+identified by its containing module
+
+43
+00:01:24,633 --> 00:01:26,100
+in this case the string module
+
+44
+00:01:26,166 --> 00:01:27,800
+its name and iterate
+
+45
+00:01:27,833 --> 00:01:30,200
+in this case we're going to use split two
+
+46
+00:01:30,666 --> 00:01:31,800
+so then if I just complete
+
+47
+00:01:31,800 --> 00:01:34,566
+this with split and hit return well
+
+48
+00:01:34,566 --> 00:01:35,633
+it gives us a little bit of help
+
+49
+00:01:35,633 --> 00:01:37,633
+about how to call split with some examples there
+
+50
+00:01:38,233 --> 00:01:39,566
+so split returns a list
+
+51
+00:01:39,566 --> 00:01:41,633
+which I'm going to capture in a variable called lines
+
+52
+00:01:41,633 --> 00:01:43,233
+we're going to call string split
+
+53
+00:01:43,833 --> 00:01:44,966
+I have the request
+
+54
+00:01:45,166 --> 00:01:46,333
+that's the first argument to it
+
+55
+00:01:46,333 --> 00:01:47,366
+and then we're going to split it
+
+56
+00:01:47,600 --> 00:01:48,800
+on a new line
+
+57
+00:01:49,300 --> 00:01:49,533
+because
+
+58
+00:01:49,533 --> 00:01:51,733
+remember a request of multiple lines that we want each
+
+59
+00:01:51,733 --> 00:01:53,200
+line to be an element in that list
+
+60
+00:01:53,200 --> 00:01:54,900
+that will just split it on new lines that way
+
+61
+00:01:55,333 --> 00:01:57,466
+and that gives us back a list of all the lines
+
+62
+00:01:57,766 --> 00:02:00,133
+then if we wanted the first line we could use
+
+63
+00:02:00,633 --> 00:02:03,266
+the list module has a function called first
+
+64
+00:02:03,500 --> 00:02:05,333
+and pass it in a list
+
+65
+00:02:05,500 --> 00:02:06,966
+and that will just give us the first line
+
+66
+00:02:06,966 --> 00:02:08,766
+it's the request line that we're interested in
+
+67
+00:02:09,266 --> 00:02:11,833
+so another way to do this will be using a pipe
+
+68
+00:02:11,966 --> 00:02:13,966
+so we stay first line equals request
+
+69
+00:02:14,733 --> 00:02:17,900
+pipe that into string split
+
+70
+00:02:18,733 --> 00:02:20,400
+now the first argument to that is the request
+
+71
+00:02:20,400 --> 00:02:22,633
+the second argument is what to split on
+
+72
+00:02:22,633 --> 00:02:24,533
+well the first argument is going to be piped in
+
+73
+00:02:24,533 --> 00:02:25,233
+from the left
+
+74
+00:02:25,233 --> 00:02:26,700
+so we just have to specify the
+
+75
+00:02:26,933 --> 00:02:27,900
+second argument
+
+76
+00:02:28,233 --> 00:02:29,900
+that's going to return a list
+
+77
+00:02:29,900 --> 00:02:31,833
+and so we can pipe that further
+
+78
+00:02:32,000 --> 00:02:32,800
+into
+
+79
+00:02:33,333 --> 00:02:34,200
+list first
+
+80
+00:02:34,833 --> 00:02:35,633
+we get the same thing
+
+81
+00:02:36,200 --> 00:02:38,000
+so let's just go ahead and copy this line at well
+
+82
+00:02:38,000 --> 00:02:39,700
+paste it into our parse function
+
+83
+00:02:40,500 --> 00:02:43,166
+and I'll just paste it to replace our to do there
+
+84
+00:02:43,500 --> 00:02:45,033
+so now that we have the first
+
+85
+00:02:45,166 --> 00:02:47,366
+line we now need to split it
+
+86
+00:02:47,833 --> 00:02:49,266
+into its own parts
+
+87
+00:02:49,666 --> 00:02:50,700
+I'm just going to clean this up
+
+88
+00:02:50,800 --> 00:02:51,966
+and we have our first line
+
+89
+00:02:51,966 --> 00:02:53,700
+remember that's already been stored
+
+90
+00:02:54,000 --> 00:02:55,933
+and now we just want to split this first line
+
+91
+00:02:55,966 --> 00:02:57,366
+into these three different parts
+
+92
+00:02:57,366 --> 00:03:01,066
+so we're going to say parts equals string split
+
+93
+00:03:01,600 --> 00:03:02,733
+we'll take the first line
+
+94
+00:03:02,966 --> 00:03:05,766
+in this case we'll split it based on a space
+
+95
+00:03:06,133 --> 00:03:08,000
+and we get back a list of three elements with
+
+96
+00:03:08,000 --> 00:03:09,100
+each of those parts
+
+97
+00:03:09,266 --> 00:03:11,333
+but we're only interested in the method in the path
+
+98
+00:03:11,333 --> 00:03:12,533
+not really the protocol
+
+99
+00:03:12,533 --> 00:03:14,600
+so one way to get at these would be to use the e new
+
+100
+00:03:14,600 --> 00:03:16,333
+module that's built into elixir
+
+101
+00:03:16,500 --> 00:03:17,800
+and there's an app function
+
+102
+00:03:17,966 --> 00:03:20,166
+you give it a list in this case parts and then
+
+103
+00:03:20,166 --> 00:03:21,533
+the index of the thing you want
+
+104
+00:03:21,533 --> 00:03:24,566
+so index zero would give us the method which is get
+
+105
+00:03:24,566 --> 00:03:25,600
+and index one
+
+106
+00:03:25,600 --> 00:03:26,900
+would give us the path
+
+107
+00:03:27,800 --> 00:03:30,066
+now that works but it's not idiomatic
+
+108
+00:03:30,066 --> 00:03:32,566
+elixir code pattern matching gives us a more
+
+109
+00:03:32,566 --> 00:03:35,500
+elegant and powerful way to do the same thing
+
+110
+00:03:35,800 --> 00:03:38,366
+and pattern matching is a huge influence on how you
+
+111
+00:03:38,366 --> 00:03:39,533
+design elixir code
+
+112
+00:03:39,766 --> 00:03:40,666
+it's also an important
+
+113
+00:03:40,666 --> 00:03:43,066
+difference if you're transitioning from oo
+
+114
+00:03:43,066 --> 00:03:44,500
+to functional programming
+
+115
+00:03:44,600 --> 00:03:45,433
+so let's look at
+
+116
+00:03:45,433 --> 00:03:48,100
+some examples of pattern matching in sex
+
+117
+00:03:48,700 --> 00:03:51,166
+so here's something familiar let's say a equals one
+
+118
+00:03:51,766 --> 00:03:53,566
+what this does is that binds the value
+
+119
+00:03:53,566 --> 00:03:54,633
+on the right hand side
+
+120
+00:03:54,633 --> 00:03:55,666
+one in this case
+
+121
+00:03:55,733 --> 00:03:57,666
+to the variable a that's on the left hand side
+
+122
+00:03:58,033 --> 00:04:00,433
+and we would recognize that as just assignment
+
+123
+00:04:00,700 --> 00:04:02,433
+so now the value of a is one
+
+124
+00:04:02,833 --> 00:04:04,566
+but the interesting thing is the equal operator
+
+125
+00:04:04,566 --> 00:04:05,866
+an elixir isn't assignment
+
+126
+00:04:05,866 --> 00:04:07,300
+like we're used to in other languages
+
+127
+00:04:07,300 --> 00:04:09,700
+it's actually called the mash operator
+
+128
+00:04:10,033 --> 00:04:10,900
+so check this out
+
+129
+00:04:11,166 --> 00:04:14,166
+one equals a well that returns the value one
+
+130
+00:04:14,666 --> 00:04:15,566
+so what's happening here is
+
+131
+00:04:15,566 --> 00:04:17,700
+elixir always tries to make the left hand side
+
+132
+00:04:17,766 --> 00:04:19,633
+this same as the right hand side
+
+133
+00:04:19,900 --> 00:04:21,033
+if the mat succeeds
+
+134
+00:04:21,033 --> 00:04:23,133
+it returns the result of the match expression
+
+135
+00:04:23,300 --> 00:04:25,533
+and that's exactly what happened here we got back one
+
+136
+00:04:25,900 --> 00:04:28,366
+this match is because both the left and right hand side
+
+137
+00:04:28,366 --> 00:04:29,233
+are equal to one
+
+138
+00:04:29,733 --> 00:04:31,300
+but what happens if the left and the right
+
+139
+00:04:31,333 --> 00:04:33,066
+don't match so two equals a
+
+140
+00:04:33,166 --> 00:04:34,600
+well we get back a match air
+
+141
+00:04:34,833 --> 00:04:36,200
+because the value of a is one
+
+142
+00:04:36,300 --> 00:04:38,300
+and two equal one is a match air
+
+143
+00:04:38,700 --> 00:04:40,133
+now if there's a variable on the left
+
+144
+00:04:40,133 --> 00:04:41,366
+and a value on the right
+
+145
+00:04:41,366 --> 00:04:42,900
+then the variable gets bound
+
+146
+00:04:42,900 --> 00:04:44,933
+to the value to make the match succeed
+
+147
+00:04:44,933 --> 00:04:46,833
+so if we say a equals two
+
+148
+00:04:47,200 --> 00:04:48,666
+well we've got a variable on the left
+
+149
+00:04:48,666 --> 00:04:49,866
+and a value on the right
+
+150
+00:04:50,400 --> 00:04:53,166
+so it's going to bind two to the variable a
+
+151
+00:04:53,466 --> 00:04:55,533
+and it's a match so we get back two
+
+152
+00:04:55,566 --> 00:04:57,133
+as the result of that expression
+
+153
+00:04:57,466 --> 00:05:00,666
+this effectively rebinds a to the value of two
+
+154
+00:05:01,033 --> 00:05:02,366
+it started off with the value of one
+
+155
+00:05:02,366 --> 00:05:04,133
+but we rebound it to a value of two
+
+156
+00:05:04,533 --> 00:05:06,133
+so now if we say two equals a
+
+157
+00:05:06,333 --> 00:05:08,066
+will those match and we get back two again
+
+158
+00:05:08,500 --> 00:05:11,166
+now sometimes you don't want to rebind the variable
+
+159
+00:05:11,166 --> 00:05:12,400
+instead you want a
+
+160
+00:05:12,400 --> 00:05:15,666
+pattern match against the variables existing value
+
+161
+00:05:15,866 --> 00:05:17,800
+in that case you need to use the pin operator
+
+162
+00:05:17,800 --> 00:05:18,700
+it looks like that
+
+163
+00:05:18,966 --> 00:05:20,700
+if we say a equals three
+
+164
+00:05:21,166 --> 00:05:22,766
+well it's a match error
+
+165
+00:05:23,033 --> 00:05:25,566
+notice it didn't try to bind the value three
+
+166
+00:05:25,700 --> 00:05:26,766
+to the variable a
+
+167
+00:05:27,100 --> 00:05:29,466
+instead it looked at the existing value of a
+
+168
+00:05:29,466 --> 00:05:31,700
+which is two in this case and that doesn't equal three
+
+169
+00:05:32,366 --> 00:05:34,333
+so how is this useful in practice
+
+170
+00:05:34,533 --> 00:05:37,100
+well actually pattern matching is used all
+
+171
+00:05:37,300 --> 00:05:39,133
+over the place in elixir programs
+
+172
+00:05:39,133 --> 00:05:41,633
+and we'll see many examples throughout this course
+
+173
+00:05:42,133 --> 00:05:42,766
+and one of the most
+
+174
+00:05:42,766 --> 00:05:45,533
+powerful ways to use pattern matching is to destruct
+
+175
+00:05:45,533 --> 00:05:46,933
+complex data types
+
+176
+00:05:46,933 --> 00:05:47,900
+such as lists
+
+177
+00:05:48,100 --> 00:05:49,500
+so let's just start at the top again
+
+178
+00:05:49,566 --> 00:05:51,733
+let's say I've got a list one two and three
+
+179
+00:05:52,400 --> 00:05:54,500
+we can say equal one
+
+180
+00:05:55,033 --> 00:05:56,300
+two and three so
+
+181
+00:05:56,300 --> 00:05:57,533
+the right and the left are the same
+
+182
+00:05:57,566 --> 00:05:58,600
+and we have a match
+
+183
+00:05:58,933 --> 00:06:00,933
+but we'd like to restructure this list
+
+184
+00:06:00,933 --> 00:06:02,533
+that's on the right hand side
+
+185
+00:06:02,900 --> 00:06:04,033
+and to do that we can put
+
+186
+00:06:04,033 --> 00:06:05,766
+variables on the left hand side
+
+187
+00:06:05,766 --> 00:06:08,100
+so here in this position I'll just say 1st
+
+188
+00:06:08,900 --> 00:06:11,500
+if we hit return there well it's a match 1 2 3
+
+189
+00:06:11,700 --> 00:06:13,866
+so that variable first on the left hand side
+
+190
+00:06:14,166 --> 00:06:16,700
+got bound to the value one
+
+191
+00:06:16,966 --> 00:06:18,000
+because that's in the position
+
+192
+00:06:18,000 --> 00:06:19,600
+of the list on the right hand side
+
+193
+00:06:19,800 --> 00:06:21,733
+to make this whole match succeed
+
+194
+00:06:22,400 --> 00:06:23,833
+so now if we look at the variable first
+
+195
+00:06:23,933 --> 00:06:25,100
+well it has the value one
+
+196
+00:06:25,600 --> 00:06:27,600
+now it's important to note that elixir will only change
+
+197
+00:06:27,600 --> 00:06:30,066
+the value of a variable that's on the left hand side
+
+198
+00:06:30,066 --> 00:06:31,400
+so if we had a variable over here
+
+199
+00:06:31,533 --> 00:06:33,166
+it wouldn't try to bind it to anything
+
+200
+00:06:33,700 --> 00:06:35,200
+so now if we wanted to restructure our list
+
+201
+00:06:35,200 --> 00:06:35,900
+a little bit further
+
+202
+00:06:35,900 --> 00:06:38,000
+we can use multiple variables on the
+
+203
+00:06:38,000 --> 00:06:38,733
+right hand side
+
+204
+00:06:38,733 --> 00:06:39,833
+so this might be first
+
+205
+00:06:40,033 --> 00:06:41,833
+we'll leave the two in there in the middle
+
+206
+00:06:41,900 --> 00:06:43,266
+and if we use last here
+
+207
+00:06:43,600 --> 00:06:46,733
+what we've got first being one and last being three
+
+208
+00:06:47,333 --> 00:06:48,900
+so you can think of the left side
+
+209
+00:06:48,933 --> 00:06:51,233
+as a pattern you're trying to successfully
+
+210
+00:06:51,233 --> 00:06:53,633
+match with the term on the right hand side
+
+211
+00:06:54,300 --> 00:06:55,500
+in this case the right and the left
+
+212
+00:06:55,500 --> 00:06:56,566
+have the same structure
+
+213
+00:06:56,566 --> 00:06:58,333
+there are three element lists
+
+214
+00:06:58,566 --> 00:07:00,800
+the literal two on the right hand side
+
+215
+00:07:01,133 --> 00:07:02,366
+matches the literal two
+
+216
+00:07:02,366 --> 00:07:04,266
+in the same position on the left hand side
+
+217
+00:07:04,433 --> 00:07:06,900
+and then to make the match the value one is bound
+
+218
+00:07:07,033 --> 00:07:09,900
+to the variable first and the value three is bound
+
+219
+00:07:10,100 --> 00:07:11,000
+to the variable last
+
+220
+00:07:11,566 --> 00:07:14,400
+so one of a specific value doesn't match
+
+221
+00:07:14,400 --> 00:07:17,066
+like let's change two to seven
+
+222
+00:07:19,100 --> 00:07:19,633
+well in that case
+
+223
+00:07:19,633 --> 00:07:21,233
+the two literals don't match in the middle
+
+224
+00:07:21,233 --> 00:07:22,466
+so we get a match here
+
+225
+00:07:22,966 --> 00:07:24,066
+now that's not surprising
+
+226
+00:07:24,066 --> 00:07:26,266
+but it demonstrates that we can use pattern matching
+
+227
+00:07:26,266 --> 00:07:27,166
+to both check
+
+228
+00:07:27,266 --> 00:07:28,300
+literal values
+
+229
+00:07:28,466 --> 00:07:29,966
+and extract values
+
+230
+00:07:30,433 --> 00:07:32,466
+now what if the structures are different sizes
+
+231
+00:07:32,466 --> 00:07:34,366
+like let's remove this seven all together
+
+232
+00:07:35,166 --> 00:07:37,300
+yeah we'll just have a two element list over here
+
+233
+00:07:38,100 --> 00:07:39,500
+well that's a match error as well
+
+234
+00:07:40,133 --> 00:07:41,533
+so now we know how to apply
+
+235
+00:07:41,566 --> 00:07:44,233
+pattern matching to parse our string
+
+236
+00:07:44,700 --> 00:07:46,600
+yeah we've got our first line in there
+
+237
+00:07:46,600 --> 00:07:48,466
+remember that's in the first line variable
+
+238
+00:07:48,966 --> 00:07:51,266
+so we can split it string split
+
+239
+00:07:52,133 --> 00:07:53,633
+1st line split it
+
+240
+00:07:54,000 --> 00:07:58,200
+on spaces and we know that's going to return a list
+
+241
+00:07:58,833 --> 00:08:00,733
+like that so let's make it match
+
+242
+00:08:00,733 --> 00:08:03,033
+this is going to be the method we want to capture that
+
+243
+00:08:03,033 --> 00:08:04,733
+in a method variable
+
+244
+00:08:04,800 --> 00:08:05,900
+this is going to be the path
+
+245
+00:08:05,900 --> 00:08:07,100
+and that's going to be the version
+
+246
+00:08:07,700 --> 00:08:09,900
+and that's a match method is get
+
+247
+00:08:10,833 --> 00:08:11,866
+path is wild things
+
+248
+00:08:12,600 --> 00:08:14,700
+and the version is http one rot one
+
+249
+00:08:15,300 --> 00:08:17,766
+now we're not really interested in the http version
+
+250
+00:08:17,766 --> 00:08:19,300
+so another thing you can do is
+
+251
+00:08:19,400 --> 00:08:20,966
+just use an underscore right here
+
+252
+00:08:21,133 --> 00:08:21,966
+which will match
+
+253
+00:08:22,033 --> 00:08:23,266
+anything on the right hand side
+
+254
+00:08:23,366 --> 00:08:24,866
+it's basically a wild card
+
+255
+00:08:25,633 --> 00:08:27,566
+so now we can go ahead and copy this out of here
+
+256
+00:08:28,200 --> 00:08:29,900
+paste it back in our parse function
+
+257
+00:08:30,733 --> 00:08:31,533
+so this line
+
+258
+00:08:31,600 --> 00:08:34,166
+assigns the first line so we can just paste in here
+
+259
+00:08:34,400 --> 00:08:36,233
+the thing that splits that first line
+
+260
+00:08:36,266 --> 00:08:37,733
+and gives us the method path
+
+261
+00:08:37,733 --> 00:08:39,966
+and we ignore the http protocol
+
+262
+00:08:40,300 --> 00:08:41,966
+and now we can change our map to use
+
+263
+00:08:41,966 --> 00:08:44,533
+the parsed values rather than these hardcoded value
+
+264
+00:08:44,533 --> 00:08:45,633
+so this is going to be method
+
+265
+00:08:45,666 --> 00:08:47,433
+and the value of path is going to be
+
+266
+00:08:47,800 --> 00:08:49,466
+what's ever in the path variable
+
+267
+00:08:49,733 --> 00:08:52,466
+and we can remove this co n variable because
+
+268
+00:08:52,500 --> 00:08:54,200
+this is the last expression of the function
+
+269
+00:08:54,200 --> 00:08:56,733
+so this is what's going to be implicitly returned
+
+270
+00:08:56,900 --> 00:08:58,800
+so parts is going to return a map which is
+
+271
+00:08:58,800 --> 00:08:59,900
+exactly what we want
+
+272
+00:09:00,533 --> 00:09:01,600
+so this will work
+
+273
+00:09:01,800 --> 00:09:04,433
+but we can make it more concise using pipes
+
+274
+00:09:04,766 --> 00:09:06,133
+so let's rearrange this a bit
+
+275
+00:09:06,500 --> 00:09:08,866
+we'll get rid of this temporary variable first line
+
+276
+00:09:09,200 --> 00:09:11,700
+so we take our request which is a multi line string
+
+277
+00:09:11,700 --> 00:09:14,533
+we want to split it into a list of lines
+
+278
+00:09:14,700 --> 00:09:16,333
+then we want to get the first line
+
+279
+00:09:16,700 --> 00:09:18,366
+then we want to split that first
+
+280
+00:09:18,366 --> 00:09:19,766
+line into its three parts
+
+281
+00:09:19,766 --> 00:09:21,133
+so I'm just going to take this out
+
+282
+00:09:21,133 --> 00:09:24,066
+cut it out here into my copy paste buffer
+
+283
+00:09:24,233 --> 00:09:26,100
+what we really want to do is pipe
+
+284
+00:09:26,100 --> 00:09:27,733
+the result of this expression
+
+285
+00:09:27,733 --> 00:09:29,500
+which is going to be a string
+
+286
+00:09:30,366 --> 00:09:31,966
+into this function
+
+287
+00:09:32,266 --> 00:09:33,900
+and the pipe will do that it will supply
+
+288
+00:09:33,900 --> 00:09:35,733
+first line is the first argument there
+
+289
+00:09:35,766 --> 00:09:37,866
+so the pipe will supply that argument
+
+290
+00:09:38,300 --> 00:09:40,033
+and then all this is going to return
+
+291
+00:09:40,766 --> 00:09:41,566
+this again
+
+292
+00:09:43,666 --> 00:09:45,700
+so you can kind of think of this as a hierarchy
+
+293
+00:09:45,700 --> 00:09:46,500
+of pipelines
+
+294
+00:09:46,500 --> 00:09:48,766
+we've got our high level pipeline here request
+
+295
+00:09:49,000 --> 00:09:51,000
+transforming all the way into response
+
+296
+00:09:51,066 --> 00:09:53,366
+and then in this particular step of the pipeline
+
+297
+00:09:53,466 --> 00:09:55,000
+we get into this pipeline here
+
+298
+00:09:55,266 --> 00:09:58,200
+which does sort of sub related to that
+
+299
+00:09:58,533 --> 00:10:00,366
+you can almost think of these pipelines as being
+
+300
+00:10:00,500 --> 00:10:02,100
+fractal we could have one of these
+
+301
+00:10:02,533 --> 00:10:05,166
+call a function that then does a whole another pipeline
+
+302
+00:10:05,266 --> 00:10:07,033
+so it's kind of like pipelines all the way down
+
+303
+00:10:07,633 --> 00:10:08,600
+we're going to see a lot
+
+304
+00:10:08,600 --> 00:10:10,900
+more examples of pattern matching going forward
+
+305
+00:10:11,033 --> 00:10:11,866
+for now though
+
+306
+00:10:11,966 --> 00:10:13,500
+this transformation is complete
+
+307
+00:10:14,000 --> 00:10:16,900
+and we're ready to update the response body next
+

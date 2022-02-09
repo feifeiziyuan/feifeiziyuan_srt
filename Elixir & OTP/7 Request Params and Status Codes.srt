@@ -1,0 +1,976 @@
+1
+00:00:00,300 --> 00:00:00,733
+so we left
+
+2
+00:00:00,733 --> 00:00:02,700
+you with a bit of a cliff hanger at the end of
+
+3
+00:00:02,700 --> 00:00:03,833
+the last module
+
+4
+00:00:03,866 --> 00:00:07,233
+has bigfoot been spotted at our wildlife refuge or not
+
+5
+00:00:07,500 --> 00:00:09,866
+well unfortunately no it hasn't been
+
+6
+00:00:12,333 --> 00:00:13,900
+in either case
+
+7
+00:00:13,900 --> 00:00:17,033
+what happens when a route doesn't match in our server
+
+8
+00:00:17,233 --> 00:00:17,400
+well
+
+9
+00:00:17,400 --> 00:00:20,266
+we should also handle requests that take parameters
+
+10
+00:00:20,500 --> 00:00:21,966
+one of the reasons we decided to build a web
+
+11
+00:00:21,966 --> 00:00:22,800
+server in this course
+
+12
+00:00:22,866 --> 00:00:25,366
+is it presents different scenarios to learn
+
+13
+00:00:25,500 --> 00:00:26,766
+different features of elixir
+
+14
+00:00:26,966 --> 00:00:29,433
+so let's look at some more pattern matching techniques
+
+15
+00:00:29,433 --> 00:00:31,800
+as they're central to building elixir apps
+
+16
+00:00:32,466 --> 00:00:34,566
+so here are the two routes we have defined so far
+
+17
+00:00:34,566 --> 00:00:35,500
+one for wild things
+
+18
+00:00:35,533 --> 00:00:37,366
+1 4 bears and these
+
+19
+00:00:37,366 --> 00:00:39,800
+are the two resources that our application knows about
+
+20
+00:00:40,033 --> 00:00:41,266
+but for everything else
+
+21
+00:00:41,266 --> 00:00:42,966
+for any other requests that we get
+
+22
+00:00:43,066 --> 00:00:44,900
+we want to send a four row four response
+
+23
+00:00:44,900 --> 00:00:46,466
+saying that the resource can be found
+
+24
+00:00:46,566 --> 00:00:49,100
+and to do that we'll define a catch all route
+
+25
+00:00:49,233 --> 00:00:50,466
+I'm just going to do it right up here
+
+26
+00:00:51,900 --> 00:00:54,200
+so be route it's going to take our conversation map
+
+27
+00:00:54,333 --> 00:00:56,900
+and then instead of using a literal string like get
+
+28
+00:00:56,900 --> 00:00:58,333
+I'm just going to use method
+
+29
+00:00:58,500 --> 00:00:59,866
+that's a variable that will get
+
+30
+00:00:59,866 --> 00:01:02,133
+matched to whatever argument is passed in
+
+31
+00:01:02,300 --> 00:01:03,533
+as the second argument there
+
+32
+00:01:03,833 --> 00:01:06,066
+and then in the same way we want to match any path
+
+33
+00:01:06,066 --> 00:01:07,900
+so I'm just going to use a variable path there
+
+34
+00:01:07,900 --> 00:01:09,566
+which will match anything
+
+35
+00:01:10,100 --> 00:01:11,166
+and then inside of here
+
+36
+00:01:11,966 --> 00:01:13,000
+well we just return
+
+37
+00:01:13,000 --> 00:01:15,900
+a updated conversation map so co and v
+
+38
+00:01:16,066 --> 00:01:18,600
+our vertical bar and then our response body
+
+39
+00:01:18,866 --> 00:01:20,166
+in this case is going to say
+
+40
+00:01:20,466 --> 00:01:21,266
+no
+
+41
+00:01:21,700 --> 00:01:22,900
+path here
+
+42
+00:01:23,533 --> 00:01:25,766
+so whatever the third argument is that gets past
+
+43
+00:01:25,766 --> 00:01:27,166
+this function is going to get bound
+
+44
+00:01:27,366 --> 00:01:29,233
+to the variable path which we can use
+
+45
+00:01:29,266 --> 00:01:30,700
+inside of the function body
+
+46
+00:01:30,866 --> 00:01:32,100
+and if we run this right now
+
+47
+00:01:32,100 --> 00:01:34,766
+we'll get a warning saying that method wasn't used
+
+48
+00:01:34,800 --> 00:01:36,066
+inside of the function body
+
+49
+00:01:36,066 --> 00:01:37,866
+so we can just ignore that warning
+
+50
+00:01:37,933 --> 00:01:39,333
+by putting an underscore
+
+51
+00:01:39,766 --> 00:01:40,833
+before that variable
+
+52
+00:01:41,400 --> 00:01:43,166
+if we save that away and run it
+
+53
+00:01:43,366 --> 00:01:46,000
+well we see no bigfoot here at the bottom but
+
+54
+00:01:46,233 --> 00:01:47,166
+no bears here
+
+55
+00:01:47,266 --> 00:01:48,400
+no wild things here
+
+56
+00:01:49,000 --> 00:01:50,200
+everything is matching this
+
+57
+00:01:50,466 --> 00:01:52,866
+route that's returning know whatever here
+
+58
+00:01:53,000 --> 00:01:55,033
+if we go to the top we see we get this warning
+
+59
+00:01:55,133 --> 00:01:57,166
+this function claws cannot match
+
+60
+00:01:57,166 --> 00:01:58,500
+because of previous claws online
+
+61
+00:01:58,500 --> 00:02:00,100
+26 always matches
+
+62
+00:02:00,566 --> 00:02:01,166
+and that's because
+
+63
+00:02:01,166 --> 00:02:03,733
+elixir tries to match function clauses from
+
+64
+00:02:03,733 --> 00:02:04,966
+top to bottom
+
+65
+00:02:05,033 --> 00:02:07,533
+in the order they're specified in the file
+
+66
+00:02:07,933 --> 00:02:10,333
+that's right and we have our catch all route to find
+
+67
+00:02:10,366 --> 00:02:13,433
+above our other routes and we used variables here
+
+68
+00:02:13,700 --> 00:02:16,900
+so whatever value is passed in is the second argument
+
+69
+00:02:16,966 --> 00:02:18,600
+it's going to match automatically
+
+70
+00:02:18,600 --> 00:02:19,933
+to that variable method
+
+71
+00:02:19,933 --> 00:02:21,333
+or it's going to bind that value
+
+72
+00:02:21,366 --> 00:02:21,966
+the same way
+
+73
+00:02:21,966 --> 00:02:24,966
+the third argument value is going to be bound to path
+
+74
+00:02:25,133 --> 00:02:28,266
+so this is going to match any method and path
+
+75
+00:02:28,433 --> 00:02:30,966
+and because it matches all requests it's going to
+
+76
+00:02:30,966 --> 00:02:33,800
+get called for every request that we try to handle
+
+77
+00:02:33,966 --> 00:02:35,400
+so any routes to find
+
+78
+00:02:35,400 --> 00:02:37,200
+below this are never going to be considered
+
+79
+00:02:37,600 --> 00:02:39,933
+so we only want this function to be called
+
+80
+00:02:39,933 --> 00:02:41,600
+if no other clauses match
+
+81
+00:02:41,600 --> 00:02:44,733
+in other words it's the default function clause
+
+82
+00:02:44,733 --> 00:02:46,500
+so we need to define it last
+
+83
+00:02:47,033 --> 00:02:48,566
+yeah we'll just take it off the top here
+
+84
+00:02:48,633 --> 00:02:50,600
+put it down below our other routes
+
+85
+00:02:51,133 --> 00:02:52,666
+and if we save that away and run it
+
+86
+00:02:52,900 --> 00:02:55,200
+well we get no bigfoot here that's what we expected
+
+87
+00:02:55,433 --> 00:02:56,233
+but all of our
+
+88
+00:02:56,233 --> 00:02:58,933
+other requests are getting handled as we would expect
+
+89
+00:02:59,800 --> 00:03:01,433
+one other thing we should mention
+
+90
+00:03:01,566 --> 00:03:04,600
+not only is it helpful to group the function clauses
+
+91
+00:03:04,600 --> 00:03:06,900
+together so you can easily see the order
+
+92
+00:03:07,200 --> 00:03:10,400
+but if you move the catch all route out of the group
+
+93
+00:03:10,400 --> 00:03:13,200
+say we move it below format response
+
+94
+00:03:13,333 --> 00:03:15,200
+and then we run it well
+
+95
+00:03:15,200 --> 00:03:15,966
+if we scroll up
+
+96
+00:03:15,966 --> 00:03:17,066
+we'll see a warning
+
+97
+00:03:17,066 --> 00:03:18,900
+that says they need to be grouped together
+
+98
+00:03:19,766 --> 00:03:21,933
+so before moving on we'll just undo that
+
+99
+00:03:23,133 --> 00:03:25,400
+so our response body is being updated
+
+100
+00:03:25,566 --> 00:03:28,533
+but the 200 ok is our status
+
+101
+00:03:28,533 --> 00:03:30,133
+well that really isn't correct
+
+102
+00:03:30,133 --> 00:03:32,266
+it really should be a four or four
+
+103
+00:03:32,766 --> 00:03:36,866
+but right now it's hard coated in our response string
+
+104
+00:03:37,300 --> 00:03:38,666
+so to make this more dynamic
+
+105
+00:03:38,666 --> 00:03:40,100
+we need to be able to pull out
+
+106
+00:03:40,133 --> 00:03:42,600
+the status code from our conversation map
+
+107
+00:03:42,766 --> 00:03:44,800
+and then we can just interpolate that down here
+
+108
+00:03:45,433 --> 00:03:47,366
+so we need to add a status field to the
+
+109
+00:03:47,366 --> 00:03:49,933
+conversation map and that's just up here at the top
+
+110
+00:03:50,233 --> 00:03:51,400
+I'm going to split these out
+
+111
+00:03:51,533 --> 00:03:52,433
+into multiple line
+
+112
+00:03:52,433 --> 00:03:54,100
+just to make it a little bit easier to read
+
+113
+00:03:56,133 --> 00:03:56,966
+and we'll just have a feel
+
+114
+00:03:56,966 --> 00:03:59,566
+called status and we'll set it to nil initially
+
+115
+00:04:00,066 --> 00:04:02,766
+then down in our catch all route which is at the bottom
+
+116
+00:04:02,766 --> 00:04:05,933
+here we can set the status to four or four
+
+117
+00:04:06,166 --> 00:04:07,066
+and this just demonstrates
+
+118
+00:04:07,100 --> 00:04:07,900
+you can update
+
+119
+00:04:07,900 --> 00:04:10,700
+multiple fields in a map using the syntax
+
+120
+00:04:10,700 --> 00:04:12,233
+and just remember you're going to get back a
+
+121
+00:04:12,333 --> 00:04:13,566
+new copy of this map
+
+122
+00:04:14,133 --> 00:04:16,600
+and then we also need to set a status here
+
+123
+00:04:16,666 --> 00:04:19,166
+this is going to be status 200 that was successful
+
+124
+00:04:19,333 --> 00:04:21,766
+as well this is going to be status 200
+
+125
+00:04:22,433 --> 00:04:23,133
+and then finally
+
+126
+00:04:23,133 --> 00:04:25,966
+we can interpolate that instead of a hard coded 200
+
+127
+00:04:25,966 --> 00:04:27,333
+here we'll just use
+
+128
+00:04:27,766 --> 00:04:29,433
+com status
+
+129
+00:04:30,000 --> 00:04:33,033
+now status codes have a corresponding reason phrase
+
+130
+00:04:33,033 --> 00:04:35,433
+for example 200 is okay
+
+131
+00:04:35,500 --> 00:04:37,466
+but four or four is not found
+
+132
+00:04:37,900 --> 00:04:38,666
+so to do that
+
+133
+00:04:38,666 --> 00:04:40,966
+we need a mapping of the status codes to their
+
+134
+00:04:40,966 --> 00:04:42,200
+corresponding reason
+
+135
+00:04:42,466 --> 00:04:43,966
+and to make quick work of this
+
+136
+00:04:43,966 --> 00:04:45,400
+I have a function here
+
+137
+00:04:45,400 --> 00:04:47,366
+that we can just paste in to do this
+
+138
+00:04:47,833 --> 00:04:49,166
+now sometimes you want to define
+
+139
+00:04:49,166 --> 00:04:50,533
+private functions that can
+
+140
+00:04:50,533 --> 00:04:52,600
+only be called within the module
+
+141
+00:04:52,600 --> 00:04:53,733
+that they're defined in
+
+142
+00:04:53,933 --> 00:04:56,600
+and to do that you use def instead of def
+
+143
+00:04:56,800 --> 00:04:58,233
+so just to demonstrate that
+
+144
+00:04:58,400 --> 00:05:00,066
+we've set this status reason
+
+145
+00:05:00,200 --> 00:05:03,233
+to be a private function and as such it can't
+
+146
+00:05:03,233 --> 00:05:05,033
+be called outside the module
+
+147
+00:05:05,466 --> 00:05:07,833
+and it takes a single argument the code
+
+148
+00:05:07,833 --> 00:05:09,366
+and then inside of the function body
+
+149
+00:05:09,366 --> 00:05:10,700
+we have a map
+
+150
+00:05:10,966 --> 00:05:12,333
+in this particular case
+
+151
+00:05:12,333 --> 00:05:15,133
+we're trying to map status codes to their reasons
+
+152
+00:05:15,166 --> 00:05:17,600
+and so the keys in this map are numbers
+
+153
+00:05:17,600 --> 00:05:18,733
+they're not atoms
+
+154
+00:05:18,833 --> 00:05:22,266
+then as such we need to use this a to
+
+155
+00:05:22,533 --> 00:05:24,433
+tie the key to the value
+
+156
+00:05:24,566 --> 00:05:25,666
+and this will be familiar
+
+157
+00:05:25,666 --> 00:05:27,566
+if you are a ruby programmer because you use
+
+158
+00:05:27,600 --> 00:05:30,300
+similar arrow syntax in ruby hashes
+
+159
+00:05:30,600 --> 00:05:31,700
+so given a code
+
+160
+00:05:31,800 --> 00:05:33,900
+we can use a square bracket syntax
+
+161
+00:05:33,933 --> 00:05:36,600
+to access the value that's associated with that code
+
+162
+00:05:37,100 --> 00:05:39,800
+given this function then we can interpolate
+
+163
+00:05:39,933 --> 00:05:42,266
+the status reason instead of the hardcoded
+
+164
+00:05:42,266 --> 00:05:44,133
+okay we just interpolate
+
+165
+00:05:44,700 --> 00:05:45,600
+status reason
+
+166
+00:05:46,333 --> 00:05:49,733
+and pass it in the status which is cv status
+
+167
+00:05:50,066 --> 00:05:51,600
+save that away and run it
+
+168
+00:05:51,833 --> 00:05:53,266
+now for no bigfoot
+
+169
+00:05:53,266 --> 00:05:55,366
+here we see it's a four or four not found
+
+170
+00:05:55,666 --> 00:05:58,666
+but for everything else it should be a 200 ok
+
+171
+00:06:00,133 --> 00:06:02,066
+so let's create a new request
+
+172
+00:06:02,366 --> 00:06:05,300
+let's take the request for bears
+
+173
+00:06:05,400 --> 00:06:07,566
+and change it to bears one
+
+174
+00:06:07,966 --> 00:06:10,866
+that way we can get a specific bear by its id
+
+175
+00:06:10,866 --> 00:06:13,200
+bear one bear two bear three whatever
+
+176
+00:06:13,533 --> 00:06:16,200
+now if we save that away and we run it while we get no
+
+177
+00:06:16,200 --> 00:06:17,333
+bears one here
+
+178
+00:06:17,566 --> 00:06:20,133
+and it's getting picked up by our catch all route
+
+179
+00:06:20,566 --> 00:06:21,266
+to handle this
+
+180
+00:06:21,266 --> 00:06:24,233
+we're going to need to define a route function clause
+
+181
+00:06:24,233 --> 00:06:26,000
+that matches the path with
+
+182
+00:06:26,633 --> 00:06:28,800
+bears at the beginning
+
+183
+00:06:29,033 --> 00:06:30,900
+and then any number at the end
+
+184
+00:06:31,233 --> 00:06:33,000
+and there's a really cool way to do this
+
+185
+00:06:33,000 --> 00:06:33,766
+and to set it up
+
+186
+00:06:33,766 --> 00:06:34,833
+I'm going to jump into I
+
+187
+00:06:34,933 --> 00:06:38,266
+x so let's say we have the string bears
+
+188
+00:06:39,333 --> 00:06:40,733
+and we want to concatenate
+
+189
+00:06:40,733 --> 00:06:42,833
+the No.1 to the end of that string
+
+190
+00:06:43,000 --> 00:06:45,133
+well in elixir strings are binaries
+
+191
+00:06:45,133 --> 00:06:46,666
+and to concatenate binaries
+
+192
+00:06:46,666 --> 00:06:49,033
+we use the less than greater than operator
+
+193
+00:06:49,200 --> 00:06:51,066
+and then I just give it the string one
+
+194
+00:06:51,066 --> 00:06:52,833
+we get back slash bears one
+
+195
+00:06:53,333 --> 00:06:55,033
+but what's cool is we can also use
+
+196
+00:06:55,033 --> 00:06:55,633
+the less than
+
+197
+00:06:55,633 --> 00:06:56,566
+greater than operator
+
+198
+00:06:56,566 --> 00:06:59,333
+to match the beginning of a string in a pattern match
+
+199
+00:06:59,800 --> 00:07:01,933
+so let's just replace this one
+
+200
+00:07:02,100 --> 00:07:03,533
+with a variable id
+
+201
+00:07:03,566 --> 00:07:05,366
+and then we'll use the match operator and
+
+202
+00:07:05,366 --> 00:07:06,666
+see if that matches
+
+203
+00:07:07,433 --> 00:07:08,233
+bears
+
+204
+00:07:09,133 --> 00:07:13,266
+one and it does what it did is it bound the value one
+
+205
+00:07:13,766 --> 00:07:16,400
+to the variable id to make
+
+206
+00:07:16,566 --> 00:07:19,066
+this pattern match the right hand side
+
+207
+00:07:19,566 --> 00:07:22,333
+and if we look at the id variable well its value is one
+
+208
+00:07:22,833 --> 00:07:24,500
+so it matched the beginning of the string
+
+209
+00:07:24,500 --> 00:07:26,066
+and then the rest of the string was bound
+
+210
+00:07:26,066 --> 00:07:27,166
+to the variable id
+
+211
+00:07:27,666 --> 00:07:29,500
+so we can use this to define a new
+
+212
+00:07:29,533 --> 00:07:30,833
+route function clause
+
+213
+00:07:32,533 --> 00:07:33,900
+it's going to be a get request
+
+214
+00:07:34,966 --> 00:07:37,200
+and then we want to match a string beginning with
+
+215
+00:07:37,200 --> 00:07:40,333
+bears slash and then having an id after that
+
+216
+00:07:40,600 --> 00:07:42,033
+and then in the function body
+
+217
+00:07:42,166 --> 00:07:44,333
+we'll return an updated conversation map
+
+218
+00:07:44,733 --> 00:07:46,300
+where the status is 200
+
+219
+00:07:47,033 --> 00:07:48,933
+and the response body
+
+220
+00:07:49,700 --> 00:07:51,600
+is bare and then we can use
+
+221
+00:07:51,866 --> 00:07:54,933
+the value that's bound to the variable id like that
+
+222
+00:07:55,333 --> 00:07:58,100
+and this works because pattern matching applies
+
+223
+00:07:58,166 --> 00:08:01,166
+anytime we need to bind values to variables
+
+224
+00:08:01,233 --> 00:08:04,000
+in this case when this function is called
+
+225
+00:08:04,266 --> 00:08:05,833
+the third argument
+
+226
+00:08:05,833 --> 00:08:08,800
+is going to get pattern matched against this pattern
+
+227
+00:08:09,133 --> 00:08:12,100
+so the argument will be like bears one
+
+228
+00:08:12,433 --> 00:08:15,600
+it matches the pattern and because it matches it binds
+
+229
+00:08:15,633 --> 00:08:16,900
+the value one
+
+230
+00:08:17,100 --> 00:08:19,733
+to id so this is different from these
+
+231
+00:08:19,733 --> 00:08:20,666
+other route functions
+
+232
+00:08:20,700 --> 00:08:22,133
+because here we were just matching
+
+233
+00:08:22,300 --> 00:08:23,500
+literal strings
+
+234
+00:08:23,533 --> 00:08:26,300
+here we actually have a variable in the pattern
+
+235
+00:08:26,366 --> 00:08:27,166
+that we match against
+
+236
+00:08:27,166 --> 00:08:27,833
+and then we can use
+
+237
+00:08:27,833 --> 00:08:29,733
+that variable inside of the function body
+
+238
+00:08:30,133 --> 00:08:31,800
+now if we save this away and run it
+
+239
+00:08:32,033 --> 00:08:34,233
+well we get 200 ok for that request
+
+240
+00:08:34,300 --> 00:08:36,033
+and it just says bear one
+
+241
+00:08:37,466 --> 00:08:38,466
+imagine all the
+
+242
+00:08:38,466 --> 00:08:40,733
+people who would visit our wildlife refuge if we had
+
+243
+00:08:40,733 --> 00:08:41,600
+a bigfoot
+
+244
+00:08:41,700 --> 00:08:44,533
+we could charge a fortune for selfies with bigfoot
+

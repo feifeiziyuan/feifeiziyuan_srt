@@ -1,0 +1,1108 @@
+1
+00:00:00,400 --> 00:00:03,666
+in the previous video we used fix is the client process
+
+2
+00:00:03,700 --> 00:00:06,266
+to send messages to the pledge server process
+
+3
+00:00:06,400 --> 00:00:09,300
+we've mimicked what we did in sex by adding some
+
+4
+00:00:09,300 --> 00:00:12,100
+code to the bottom of pledge server ex
+
+5
+00:00:12,200 --> 00:00:14,333
+it's outside of the pledge server module
+
+6
+00:00:14,400 --> 00:00:15,500
+just right down here
+
+7
+00:00:16,266 --> 00:00:18,266
+and in addition to larry moan curly
+
+8
+00:00:18,333 --> 00:00:19,933
+we've added two more pledges
+
+9
+00:00:19,933 --> 00:00:21,833
+for a total of five pledges
+
+10
+00:00:22,066 --> 00:00:24,133
+then we send a message to get the recent pledges
+
+11
+00:00:24,133 --> 00:00:25,766
+and we've got a receive block
+
+12
+00:00:25,866 --> 00:00:26,900
+that picks those up
+
+13
+00:00:27,300 --> 00:00:28,266
+and if we run that
+
+14
+00:00:29,366 --> 00:00:31,633
+well sure enough we have our five pledges
+
+15
+00:00:31,933 --> 00:00:35,033
+so in this context we have two processes communicating
+
+16
+00:00:35,166 --> 00:00:38,833
+all this code outside of the pledge server module
+
+17
+00:00:38,833 --> 00:00:41,633
+right here is going to run in the client process
+
+18
+00:00:41,800 --> 00:00:43,633
+and then the server process is this
+
+19
+00:00:43,633 --> 00:00:45,300
+listen loop that gets spawned
+
+20
+00:00:46,166 --> 00:00:48,166
+okay so now we want to encapsulate
+
+21
+00:00:48,166 --> 00:00:50,733
+creating and getting recent pledges
+
+22
+00:00:50,733 --> 00:00:52,800
+in these commented functions right here
+
+23
+00:00:53,266 --> 00:00:55,333
+so let's just start with this first one crate pledge
+
+24
+00:00:57,100 --> 00:00:57,700
+so right now
+
+25
+00:00:57,700 --> 00:00:59,933
+it's sending the pledge to the external service
+
+26
+00:00:59,933 --> 00:01:01,233
+and then cashing it
+
+27
+00:01:01,366 --> 00:01:03,700
+but that happens up inside of our
+
+28
+00:01:03,733 --> 00:01:06,033
+listen loop which runs in the server process
+
+29
+00:01:06,166 --> 00:01:06,966
+right here
+
+30
+00:01:07,766 --> 00:01:10,366
+so what the create pledge function needs to do
+
+31
+00:01:10,500 --> 00:01:13,400
+is just send a message to our server process
+
+32
+00:01:13,766 --> 00:01:14,733
+send to a pit
+
+33
+00:01:15,033 --> 00:01:16,066
+and the message is
+
+34
+00:01:16,500 --> 00:01:17,466
+create pledge
+
+35
+00:01:18,533 --> 00:01:19,933
+name and amount
+
+36
+00:01:20,600 --> 00:01:21,366
+and for that to work
+
+37
+00:01:21,366 --> 00:01:23,133
+we're going to have to pass in the pid
+
+38
+00:01:23,133 --> 00:01:24,000
+we'll pass it in as the
+
+39
+00:01:24,000 --> 00:01:25,400
+first argument to this function
+
+40
+00:01:25,700 --> 00:01:27,800
+so this is going to run in the client process
+
+41
+00:01:27,933 --> 00:01:28,733
+and then
+
+42
+00:01:28,733 --> 00:01:31,000
+this part is going to run in the server process
+
+43
+00:01:31,366 --> 00:01:33,966
+down here now we can call our crate pledge function
+
+44
+00:01:35,933 --> 00:01:37,133
+so we call pledge server
+
+45
+00:01:38,233 --> 00:01:39,133
+create pledge
+
+46
+00:01:40,500 --> 00:01:42,166
+the first argument needs to be the pid
+
+47
+00:01:42,166 --> 00:01:45,100
+of the server process and that was returned by spawn
+
+48
+00:01:45,100 --> 00:01:47,133
+so we have a pid variable already
+
+49
+00:01:48,700 --> 00:01:49,500
+just like that
+
+50
+00:01:49,700 --> 00:01:50,633
+we save that away
+
+51
+00:01:51,233 --> 00:01:52,766
+well it works just like it did before
+
+52
+00:01:53,600 --> 00:01:55,633
+now let's implement the recent pledges function
+
+53
+00:01:55,633 --> 00:01:56,566
+and I'm going to take
+
+54
+00:01:56,566 --> 00:01:58,033
+this code here with us
+
+55
+00:01:58,300 --> 00:01:59,200
+let's right up here
+
+56
+00:01:59,566 --> 00:02:00,633
+we'll uncommon it
+
+57
+00:02:01,400 --> 00:02:02,900
+and the body of that function
+
+58
+00:02:03,000 --> 00:02:04,266
+we need to do two things
+
+59
+00:02:04,633 --> 00:02:07,100
+we need to send a message to the server process
+
+60
+00:02:07,133 --> 00:02:10,066
+and then immediately wait for a response message back
+
+61
+00:02:10,166 --> 00:02:11,133
+from that server
+
+62
+00:02:11,433 --> 00:02:13,533
+so this function also needs to take a pit
+
+63
+00:02:14,100 --> 00:02:16,266
+we'll send to that pid the message
+
+64
+00:02:16,300 --> 00:02:19,733
+recent pledges telling it a send the reply back to us
+
+65
+00:02:20,166 --> 00:02:20,933
+and then we'll
+
+66
+00:02:20,933 --> 00:02:22,933
+have a receive which picks up the pledges
+
+67
+00:02:22,933 --> 00:02:24,933
+and instead of doing io and spec right here
+
+68
+00:02:25,200 --> 00:02:27,033
+I just want to return the pledges
+
+69
+00:02:27,166 --> 00:02:29,266
+and so because this pattern matches
+
+70
+00:02:29,766 --> 00:02:30,566
+we run this it
+
+71
+00:02:30,566 --> 00:02:32,966
+gives us the pledges and that's implicitly going to be
+
+72
+00:02:32,966 --> 00:02:35,000
+the return value of the function
+
+73
+00:02:35,466 --> 00:02:36,400
+recent pledges
+
+74
+00:02:36,966 --> 00:02:39,766
+now something to keep in mind here is although the sin
+
+75
+00:02:39,766 --> 00:02:41,200
+is a synchronous sending
+
+76
+00:02:41,200 --> 00:02:43,233
+a message is always a synchronous
+
+77
+00:02:43,433 --> 00:02:45,500
+receive is a blocking call
+
+78
+00:02:45,500 --> 00:02:47,800
+it's going to wait for a response from the server
+
+79
+00:02:47,966 --> 00:02:49,800
+so this function as a whole
+
+80
+00:02:50,100 --> 00:02:52,000
+is going to be synchronous
+
+81
+00:02:52,500 --> 00:02:55,833
+so now down here we can replace all this with
+
+82
+00:02:56,300 --> 00:02:57,300
+pledge server
+
+83
+00:02:58,233 --> 00:02:59,400
+recent pledges
+
+84
+00:03:00,600 --> 00:03:01,566
+passing that pid
+
+85
+00:03:01,566 --> 00:03:03,466
+and that's going to return to us the pledges
+
+86
+00:03:03,466 --> 00:03:05,000
+and I'm just going to use io
+
+87
+00:03:05,166 --> 00:03:07,433
+inspect to inspect the returned list
+
+88
+00:03:07,800 --> 00:03:08,600
+save that away
+
+89
+00:03:08,833 --> 00:03:11,766
+run it again and we still see all five pledges
+
+90
+00:03:12,233 --> 00:03:14,466
+but we only want to get recent pledges
+
+91
+00:03:14,466 --> 00:03:16,033
+which we'll say is the last
+
+92
+00:03:16,033 --> 00:03:17,400
+three pledges or
+
+93
+00:03:17,566 --> 00:03:19,566
+the first three pledges in the list
+
+94
+00:03:20,466 --> 00:03:22,000
+we'll fix that up here
+
+95
+00:03:22,466 --> 00:03:24,600
+when we get a new pledge we want to take
+
+96
+00:03:24,600 --> 00:03:26,566
+the two most recent pledges
+
+97
+00:03:26,566 --> 00:03:29,666
+and add the new pledge to the head of the list
+
+98
+00:03:29,700 --> 00:03:32,166
+so that the new state has three pledges
+
+99
+00:03:32,266 --> 00:03:34,233
+so to do that we'll add a line here
+
+100
+00:03:34,300 --> 00:03:36,033
+let's say most recent pledges
+
+101
+00:03:37,366 --> 00:03:40,166
+and the menu module has a take function
+
+102
+00:03:40,266 --> 00:03:43,100
+we want to take from the state that's a list
+
+103
+00:03:43,300 --> 00:03:45,133
+the two most recent pledges
+
+104
+00:03:45,400 --> 00:03:48,066
+so that's going to give us a list that has at most
+
+105
+00:03:48,333 --> 00:03:49,700
+two elements inside of it
+
+106
+00:03:49,800 --> 00:03:50,800
+and then we want to put
+
+107
+00:03:50,800 --> 00:03:52,800
+the new pledge at the head of that list
+
+108
+00:03:52,800 --> 00:03:54,500
+so here's the new pledge that we're adding
+
+109
+00:03:54,700 --> 00:03:56,733
+we're going to add it to this list
+
+110
+00:03:56,800 --> 00:03:58,466
+and that's going to give us at most
+
+111
+00:03:58,666 --> 00:03:59,933
+three elements in the list
+
+112
+00:04:00,366 --> 00:04:01,166
+save that away
+
+113
+00:04:01,633 --> 00:04:02,433
+run it again
+
+114
+00:04:02,566 --> 00:04:05,500
+and sure enough we've got grace daisy and curly
+
+115
+00:04:06,366 --> 00:04:08,266
+so now that we have this running and we feel really
+
+116
+00:04:08,266 --> 00:04:09,333
+comfortable with it
+
+117
+00:04:09,333 --> 00:04:11,833
+we can remove the debug statements
+
+118
+00:04:11,833 --> 00:04:14,600
+or the put as statements that print out to the screen
+
+119
+00:04:16,133 --> 00:04:18,900
+there and also will remove waiting for message
+
+120
+00:04:19,400 --> 00:04:21,233
+but that does leave us wondering
+
+121
+00:04:21,433 --> 00:04:24,433
+what if sending to the external service fails
+
+122
+00:04:24,433 --> 00:04:26,800
+how will the client know if the pledge was successfully
+
+123
+00:04:26,800 --> 00:04:27,666
+created or not
+
+124
+00:04:27,866 --> 00:04:30,266
+the client process would like to know about that
+
+125
+00:04:30,833 --> 00:04:32,766
+so we need to send a message
+
+126
+00:04:32,766 --> 00:04:33,066
+back
+
+127
+00:04:33,066 --> 00:04:36,433
+to the client process indicating a success or failure
+
+128
+00:04:36,666 --> 00:04:38,400
+and we actually know how to do that
+
+129
+00:04:38,966 --> 00:04:41,466
+yeah we just need to include the client's pid
+
+130
+00:04:41,500 --> 00:04:42,800
+in the message
+
+131
+00:04:43,200 --> 00:04:44,533
+so this will be the sender
+
+132
+00:04:44,866 --> 00:04:47,666
+and then we need to reply back to that sender
+
+133
+00:04:47,900 --> 00:04:49,766
+so once we have the new state figured out
+
+134
+00:04:49,900 --> 00:04:50,833
+we'll say send
+
+135
+00:04:51,300 --> 00:04:52,233
+to the sender
+
+136
+00:04:53,133 --> 00:04:55,266
+we'll give it a message tag response
+
+137
+00:04:55,833 --> 00:04:58,566
+and then we're going to send back this id variable
+
+138
+00:04:59,133 --> 00:04:59,666
+again that's just
+
+139
+00:04:59,666 --> 00:05:02,166
+some unique identifier for the pledge that was created
+
+140
+00:05:02,633 --> 00:05:03,566
+then we need to change
+
+141
+00:05:03,566 --> 00:05:05,433
+this create pledge function right here
+
+142
+00:05:05,900 --> 00:05:08,066
+so it needs to send self as the first
+
+143
+00:05:08,100 --> 00:05:09,866
+element of this message tuple
+
+144
+00:05:10,166 --> 00:05:11,300
+and then just like
+
+145
+00:05:11,400 --> 00:05:12,666
+recent pledges
+
+146
+00:05:12,700 --> 00:05:14,133
+it needs to wait for a response
+
+147
+00:05:14,133 --> 00:05:16,333
+so I'll just copy that receive block right there
+
+148
+00:05:16,800 --> 00:05:18,066
+instead of pledges
+
+149
+00:05:18,100 --> 00:05:19,233
+this is actually going to be
+
+150
+00:05:19,233 --> 00:05:20,666
+we'll just call it this status
+
+151
+00:05:23,100 --> 00:05:25,366
+and now both functions are synchronous
+
+152
+00:05:25,966 --> 00:05:27,566
+then down at the bottom because
+
+153
+00:05:27,700 --> 00:05:29,900
+these now return a status
+
+154
+00:05:30,266 --> 00:05:31,600
+well I'll just add an io
+
+155
+00:05:31,600 --> 00:05:33,566
+inspect to the front of all those lines
+
+156
+00:05:35,666 --> 00:05:36,666
+and now if we run it
+
+157
+00:05:36,866 --> 00:05:39,266
+what we see we actually get pledge 4 6 9
+
+158
+00:05:39,366 --> 00:05:41,800
+and different unique ids for different pledges
+
+159
+00:05:41,800 --> 00:05:43,866
+so we get an indication that they were created
+
+160
+00:05:43,966 --> 00:05:46,000
+and then the end we see our recent pledges
+
+161
+00:05:47,333 --> 00:05:48,633
+while we're making functions
+
+162
+00:05:48,666 --> 00:05:50,533
+let's wrap or encapsulate
+
+163
+00:05:50,566 --> 00:05:52,766
+the spawn in a function named start
+
+164
+00:05:53,466 --> 00:05:55,333
+I like to put it at the top of the module here
+
+165
+00:05:56,533 --> 00:05:57,466
+we'll call it start
+
+166
+00:05:58,266 --> 00:05:59,700
+now there's paste in what we have
+
+167
+00:06:00,000 --> 00:06:01,966
+but before that I'm going to print out put us
+
+168
+00:06:03,000 --> 00:06:04,233
+starting the pled server
+
+169
+00:06:06,300 --> 00:06:08,033
+all right then we want to spawn the pledge server
+
+170
+00:06:08,033 --> 00:06:09,133
+I need to use serve
+
+171
+00:06:09,133 --> 00:06:10,833
+pledge server there to listen loop
+
+172
+00:06:10,866 --> 00:06:12,066
+just the same as before
+
+173
+00:06:12,966 --> 00:06:14,333
+and then down in the client
+
+174
+00:06:14,400 --> 00:06:15,433
+we can just do this
+
+175
+00:06:17,233 --> 00:06:18,733
+blood server start
+
+176
+00:06:19,500 --> 00:06:20,633
+and that works just as well
+
+177
+00:06:21,633 --> 00:06:23,600
+now that works but here's a neat trick
+
+178
+00:06:23,600 --> 00:06:26,466
+if at some point down the road we decide to change
+
+179
+00:06:26,700 --> 00:06:29,566
+the name of the module which we use right here
+
+180
+00:06:30,166 --> 00:06:33,033
+then we'll need to remember to change this spawn line
+
+181
+00:06:33,300 --> 00:06:34,733
+to make this more flexible
+
+182
+00:06:34,766 --> 00:06:37,466
+we can use underscore underscore module
+
+183
+00:06:37,500 --> 00:06:38,666
+underscore underscore
+
+184
+00:06:38,833 --> 00:06:42,566
+and at compile time this will get replaced or expanded
+
+185
+00:06:42,700 --> 00:06:44,600
+with the name of the current module
+
+186
+00:06:44,800 --> 00:06:47,133
+which is see dot plug server in this case
+
+187
+00:06:48,100 --> 00:06:49,233
+and that still works
+
+188
+00:06:49,733 --> 00:06:52,333
+so now if we take a look at the client code down here
+
+189
+00:06:52,866 --> 00:06:53,500
+well we see that
+
+190
+00:06:53,500 --> 00:06:55,900
+it's easier to play the role of a client
+
+191
+00:06:55,933 --> 00:06:57,000
+it doesn't require
+
+192
+00:06:57,000 --> 00:06:59,366
+any knowledge of how messages are structured
+
+193
+00:06:59,366 --> 00:07:00,700
+or sent back and forth
+
+194
+00:07:00,700 --> 00:07:02,766
+between the client and server processes
+
+195
+00:07:03,033 --> 00:07:04,566
+and that means we can change
+
+196
+00:07:04,566 --> 00:07:07,133
+the internal details of the server process
+
+197
+00:07:07,333 --> 00:07:08,900
+without affecting the client code
+
+198
+00:07:09,400 --> 00:07:10,166
+one thing you probably
+
+199
+00:07:10,166 --> 00:07:11,900
+noticed about this client code though
+
+200
+00:07:11,900 --> 00:07:13,433
+is that we have to pass the pid
+
+201
+00:07:13,433 --> 00:07:14,900
+to each of the functions
+
+202
+00:07:15,033 --> 00:07:16,900
+and since we only plan to have one
+
+203
+00:07:16,900 --> 00:07:19,466
+pledge server process running at any given time
+
+204
+00:07:19,833 --> 00:07:22,400
+passing the pit around kind of feels redundant
+
+205
+00:07:22,833 --> 00:07:24,366
+yeah the client interface would be a lot
+
+206
+00:07:24,400 --> 00:07:25,833
+simpler if we could remove
+
+207
+00:07:25,833 --> 00:07:27,300
+all references to the pid
+
+208
+00:07:27,533 --> 00:07:28,833
+so we'd like to get rid of those
+
+209
+00:07:29,466 --> 00:07:31,366
+and also right here for recent pledges
+
+210
+00:07:31,666 --> 00:07:34,100
+but then the question is how would the client functions
+
+211
+00:07:34,200 --> 00:07:35,933
+know where to send their messages
+
+212
+00:07:36,033 --> 00:07:36,833
+well it turns out
+
+213
+00:07:36,833 --> 00:07:39,866
+it's easy to register our server processes pid
+
+214
+00:07:40,300 --> 00:07:41,533
+under an arbitrary name
+
+215
+00:07:41,900 --> 00:07:43,200
+and then use that name
+
+216
+00:07:43,300 --> 00:07:45,100
+when sending messages to the server
+
+217
+00:07:45,433 --> 00:07:47,333
+and we'll do that up in our start function
+
+218
+00:07:48,200 --> 00:07:49,800
+on the process module
+
+219
+00:07:49,800 --> 00:07:51,466
+there's a function called register
+
+220
+00:07:52,200 --> 00:07:53,333
+it takes a pid
+
+221
+00:07:53,600 --> 00:07:56,700
+and then it takes a name and the name must be an atom
+
+222
+00:07:56,700 --> 00:07:58,066
+I'm going to use pledge
+
+223
+00:07:58,100 --> 00:08:00,400
+underscore server but this is totally arbitrary
+
+224
+00:08:00,600 --> 00:08:02,966
+and yes an error will be raised if another
+
+225
+00:08:02,966 --> 00:08:05,533
+process has already registered with the same name
+
+226
+00:08:06,033 --> 00:08:07,833
+and then we'll also return the pid
+
+227
+00:08:07,833 --> 00:08:09,900
+just in case the caller wants it so
+
+228
+00:08:09,900 --> 00:08:12,033
+now that we have our server process registered
+
+229
+00:08:12,033 --> 00:08:12,733
+under this name
+
+230
+00:08:12,733 --> 00:08:14,066
+here plug server
+
+231
+00:08:14,300 --> 00:08:16,466
+down in these functions like create pledge
+
+232
+00:08:16,466 --> 00:08:18,633
+we can remove the pid as an argument
+
+233
+00:08:19,000 --> 00:08:19,833
+and then when we call
+
+234
+00:08:19,833 --> 00:08:21,433
+send instead of sending to the pid
+
+235
+00:08:21,600 --> 00:08:23,700
+we can send to the name of the server
+
+236
+00:08:24,533 --> 00:08:27,433
+in the same way we can remove pid from recent pledges
+
+237
+00:08:28,800 --> 00:08:30,533
+and then we just send to that name
+
+238
+00:08:32,033 --> 00:08:33,400
+cool that still works
+
+239
+00:08:34,266 --> 00:08:36,566
+now one downside of this is if you decide to change
+
+240
+00:08:36,566 --> 00:08:37,766
+the name down the road
+
+241
+00:08:37,800 --> 00:08:39,600
+it's easy to forget to change
+
+242
+00:08:39,600 --> 00:08:40,266
+one occurrence
+
+243
+00:08:40,266 --> 00:08:41,966
+so you might remember to change this one
+
+244
+00:08:42,000 --> 00:08:43,166
+but then not this one
+
+245
+00:08:43,533 --> 00:08:44,866
+so here's another trick
+
+246
+00:08:44,900 --> 00:08:46,800
+we can use a module attribute
+
+247
+00:08:46,800 --> 00:08:48,466
+so that the registered name is
+
+248
+00:08:48,533 --> 00:08:49,433
+only in one place
+
+249
+00:08:49,900 --> 00:08:52,133
+now I'll use the module attribute at name
+
+250
+00:08:52,166 --> 00:08:53,333
+that's just something I made up
+
+251
+00:08:53,333 --> 00:08:55,433
+it's fairly conventional but you could call this
+
+252
+00:08:55,433 --> 00:08:56,700
+process name if you wanted
+
+253
+00:08:56,700 --> 00:08:58,400
+it's just an arbitrary name
+
+254
+00:08:58,733 --> 00:09:00,233
+and then we'll associate with that
+
+255
+00:09:00,533 --> 00:09:02,033
+the atom pledge server
+
+256
+00:09:02,633 --> 00:09:04,533
+so basically we just have a concept now
+
+257
+00:09:04,933 --> 00:09:06,700
+and then we can use at name
+
+258
+00:09:07,300 --> 00:09:08,833
+to reference the registered name
+
+259
+00:09:08,833 --> 00:09:10,466
+so we're going to register our pid
+
+260
+00:09:10,933 --> 00:09:12,233
+under the name pled server
+
+261
+00:09:12,833 --> 00:09:15,000
+and then we have to make sure to also change these
+
+262
+00:09:15,166 --> 00:09:16,433
+this is going to be at name
+
+263
+00:09:16,800 --> 00:09:18,133
+and so will this one
+
+264
+00:09:19,333 --> 00:09:21,433
+but the beauty of this is you don't have to change
+
+265
+00:09:21,433 --> 00:09:23,566
+these down the road if you want to change the name of
+
+266
+00:09:23,566 --> 00:09:24,133
+your process
+
+267
+00:09:24,133 --> 00:09:26,333
+you just change it on this one line right here
+
+268
+00:09:26,433 --> 00:09:27,633
+and everything flows through
+
+269
+00:09:28,266 --> 00:09:30,000
+so save that away it should work
+
+270
+00:09:30,166 --> 00:09:31,433
+and sure enough it does
+
+271
+00:09:32,433 --> 00:09:33,433
+now before moving on
+
+272
+00:09:33,433 --> 00:09:33,966
+we'll comment
+
+273
+00:09:33,966 --> 00:09:36,266
+the code at the bottom of the pledge server module
+
+274
+00:09:36,266 --> 00:09:36,900
+since we're just
+
+275
+00:09:36,900 --> 00:09:39,466
+using it to kick the tires of the pledge server
+
+276
+00:09:39,533 --> 00:09:41,400
+and we also don't want this code to run
+
+277
+00:09:41,666 --> 00:09:44,266
+when we fire up in in the next section
+
